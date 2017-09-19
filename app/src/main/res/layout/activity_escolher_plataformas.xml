@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtExemplo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:text="Escolha suas plataformas preferidas"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cvXbox360"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="onImageClick"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/ivXbox360"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:src="@drawable/xbox_360_cinza" />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cvXboxOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="onImageClick"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/ivXboxOne"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:src="@drawable/xbox_one_cinza" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cvPs3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="onImageClick"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/ivPs3"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:src="@drawable/playstation_3_cinza" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cvPs4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="onImageClick"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <ImageView
+                android:id="@+id/ivPs4"
+                android:layout_width="250dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:src="@drawable/playstation_4_cinza" />
+
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnContinuar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Continuar"
+            android:textColor="@android:color/white"
+            app:backgroundTint="@color/colorPrimary" />
+    </LinearLayout>
+</ScrollView>
+

@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">gamer-guide</string>
+    <string name="app_name" translatable="false">GamerGuide</string>
+    <string name="title_activity_tela_principal">Gamer Guide</string>
+    <string name="title_home">Jogos</string>
+    <string name="title_dashboard">Feed</string>
+    <string name="title_notifications">Listas</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
