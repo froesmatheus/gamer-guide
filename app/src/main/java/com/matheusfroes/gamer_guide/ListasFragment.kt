@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.toolbar.*
 
 /**
  * Created by matheus_froes on 19/09/2017.
@@ -12,6 +13,8 @@ import android.view.ViewGroup
 class ListasFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        activity.tabLayout.visibility = View.GONE
+
         return inflater.inflate(R.layout.fragment_listas, container, false)
     }
 }
