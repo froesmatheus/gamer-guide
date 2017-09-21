@@ -15,6 +15,7 @@ import com.matheusfroes.gamer_guide.models.Noticia
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
 import com.pkmmte.pkrss.PkRSS
+import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.fragment_feed.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -24,7 +25,6 @@ import kotlinx.android.synthetic.main.toolbar.*
  */
 class FeedFragment : Fragment(), Callback {
     private var adapter: NoticiasAdapter? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_feed, container, false)
         activity.tabLayout.visibility = View.GONE
@@ -44,6 +44,10 @@ class FeedFragment : Fragment(), Callback {
                 customTabsIntent.launchUrl(activity, Uri.parse(noticia.url))
             }
         })
+
+        view.swipeRefreshLayout.setOnRefreshListener {
+            PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(this).async()
+        }
         return view
     }
 
@@ -51,6 +55,7 @@ class FeedFragment : Fragment(), Callback {
     }
 
     override fun onPreload() {
+        swipeRefreshLayout.isRefreshing = true
     }
 
     override fun onLoaded(newArticles: MutableList<Article>) {
@@ -64,6 +69,7 @@ class FeedFragment : Fragment(), Callback {
             Noticia(article.title, imagemNoticia!!, article.source.toString())
         }
         adapter?.preencherNoticias(noticias)
+        swipeRefreshLayout.isRefreshing = false
     }
 
 }

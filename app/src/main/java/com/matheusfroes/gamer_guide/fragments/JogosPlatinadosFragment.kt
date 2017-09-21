@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import com.matheusfroes.gamer_guide.R
 
 /**
- * Created by matheusfroes on 20/09/2017.
+ * Created by matheus_froes on 21/09/2017.
  */
-class JogosZeradosFragment : Fragment() {
+class JogosPlatinadosFragment : Fragment() {
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_jogos_zerados, container, false)
+        return inflater.inflate(R.layout.fragment_jogos_platinados, container, false)
     }
 }

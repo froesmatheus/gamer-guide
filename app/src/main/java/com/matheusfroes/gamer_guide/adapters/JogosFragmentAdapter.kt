@@ -2,21 +2,23 @@ package com.matheusfroes.gamer_guide.adapters
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import com.matheusfroes.gamer_guide.fragments.JogosNaoTerminadosFragment
+import com.matheusfroes.gamer_guide.fragments.JogosPlatinadosFragment
 import com.matheusfroes.gamer_guide.fragments.JogosZeradosFragment
 
 /**
  * Created by matheusfroes on 20/09/2017.
  */
-class JogosFragmentAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class JogosFragmentAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
     private val jogosZerados = JogosZeradosFragment()
-    private val jogosNaoZerados = JogosNaoTerminadosFragment()
+    private val jogosNaoTerminados = JogosNaoTerminadosFragment()
+    private val jogosPlatinados = JogosPlatinadosFragment()
 
     override fun getItem(position: Int): Fragment = when (position) {
-        0 -> jogosNaoZerados
+        0 -> jogosNaoTerminados
         1 -> jogosZerados
-        2 -> jogosNaoZerados
+        2 -> jogosPlatinados
         else -> jogosZerados
     }
 

@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.matheusfroes.gamer_guide.R
 import com.matheusfroes.gamer_guide.fragments.FeedFragment
 import com.matheusfroes.gamer_guide.fragments.ListasFragment
 import com.matheusfroes.gamer_guide.fragments.MeusJogosFragment
-import com.matheusfroes.gamer_guide.R
 import kotlinx.android.synthetic.main.activity_tela_principal.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -20,21 +20,21 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
 
         bottomNavigation.setOnNavigationItemSelectedListener(this)
 
-        bottomNavigation.selectedItemId = R.id.navigation_home
+        bottomNavigation.selectedItemId = R.id.navMeusJogos
     }
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.navigation_home -> {
+            R.id.navMeusJogos -> {
                 mudarTela(0)
                 return true
             }
-            R.id.navigation_dashboard -> {
+            R.id.navFeed -> {
                 mudarTela(1)
                 return true
             }
-            R.id.navigation_notifications -> {
+            R.id.navListas -> {
                 mudarTela(2)
                 return true
             }
@@ -51,7 +51,6 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
             2 -> ListasFragment()
             else -> MeusJogosFragment()
         }
-
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment).commit()
     }
 
