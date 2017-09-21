@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamer_guide.adapters.MeusJogosAdapter
+import com.matheusfroes.gamer_guide.adapters.JogosFragmentAdapter
 import com.matheusfroes.gamer_guide.R
 import kotlinx.android.synthetic.main.fragment_meus_jogos.view.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -18,7 +18,7 @@ class MeusJogosFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_meus_jogos, container, false)
 
-        val adapter = MeusJogosAdapter(activity.supportFragmentManager)
+        val adapter = JogosFragmentAdapter(activity.supportFragmentManager)
         view.viewPager.adapter = adapter
 
         activity.tabLayout.visibility = View.VISIBLE

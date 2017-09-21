@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.matheusfroes.gamer_guide.R
 import com.matheusfroes.gamer_guide.models.Noticia
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.layout_noticia.view.*
+import kotlinx.android.synthetic.main.view_noticia.view.*
 
 /**
  * Created by matheus_froes on 20/09/2017.
@@ -18,7 +18,7 @@ class NoticiasAdapter(private val context: Context) : RecyclerView.Adapter<Notic
     var noticias: List<Noticia> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = View.inflate(context, R.layout.layout_noticia, null)
+        val view = View.inflate(context, R.layout.view_noticia, null)
         return ViewHolder(view)
     }
 

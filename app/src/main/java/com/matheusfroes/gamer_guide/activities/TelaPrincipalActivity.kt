@@ -18,9 +18,9 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
         setContentView(R.layout.activity_tela_principal)
         setSupportActionBar(toolbar)
 
-        navigation.setOnNavigationItemSelectedListener(this)
+        bottomNavigation.setOnNavigationItemSelectedListener(this)
 
-        navigation.selectedItemId = R.id.navigation_home
+        bottomNavigation.selectedItemId = R.id.navigation_home
     }
 
 
