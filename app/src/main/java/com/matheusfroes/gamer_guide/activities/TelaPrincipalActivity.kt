@@ -1,9 +1,13 @@
-package com.matheusfroes.gamer_guide
+package com.matheusfroes.gamer_guide.activities
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.matheusfroes.gamer_guide.fragments.FeedFragment
+import com.matheusfroes.gamer_guide.fragments.ListasFragment
+import com.matheusfroes.gamer_guide.fragments.MeusJogosFragment
+import com.matheusfroes.gamer_guide.R
 import kotlinx.android.synthetic.main.activity_tela_principal.*
 import kotlinx.android.synthetic.main.toolbar.*
 

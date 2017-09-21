@@ -1,9 +1,10 @@
-package com.matheusfroes.gamer_guide
+package com.matheusfroes.gamer_guide.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.matheusfroes.gamer_guide.R
 import kotlinx.android.synthetic.main.activity_escolher_plataformas.*
 
 class EscolherPlataformasActivity : AppCompatActivity() {
