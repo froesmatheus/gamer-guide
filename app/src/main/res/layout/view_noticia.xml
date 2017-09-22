@@ -11,20 +11,45 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:padding="16dp"
-            android:text="Título da notícia"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:text="Título da notícia"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:paddingLeft="16dp"
+                android:text="tecmundo • "
+                android:textColor="@android:color/darker_gray" />
+
+            <com.github.curioustechizen.ago.RelativeTimeTextView
+                android:id="@+id/tvHorarioNoticia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:textColor="@android:color/darker_gray"
+                app:relative_time_prefix=""
+                app:relative_time_suffix="" />
+        </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"

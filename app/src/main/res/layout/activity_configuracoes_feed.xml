@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.matheusfroes.gamer_guide.activities.ConfiguracoesFeed">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Você pode selecionar de quais sites você quer receber as notícias"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/lvFonteNoticias"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

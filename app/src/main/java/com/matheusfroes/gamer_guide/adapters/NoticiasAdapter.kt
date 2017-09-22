@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.view_noticia.view.*
  */
 
 class NoticiasAdapter(private val context: Context) : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>() {
-    var listener: OnNewsClickListener? = null
-    var noticias: List<Noticia> = mutableListOf()
+    private var listener: OnNewsClickListener? = null
+    private var noticias: List<Noticia> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = View.inflate(context, R.layout.view_noticia, null)
@@ -31,6 +31,7 @@ class NoticiasAdapter(private val context: Context) : RecyclerView.Adapter<Notic
         val noticia = noticias[position]
 
         holder.itemView.tvTitulo.text = noticia.titulo
+        holder.itemView.tvHorarioNoticia.setReferenceTime(noticia.dataPublicacao)
 
         holder.itemView.setOnClickListener {
             listener?.onClick(noticia)

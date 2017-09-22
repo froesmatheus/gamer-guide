@@ -25,7 +25,7 @@ class ListasFragment : Fragment() {
 
         view.fab.setOnClickListener { dialogAdicionarLista() }
 
-        val adapter = ListasAdapter(context, listOf(Lista("Lista de Compras", 0), Lista("Melhores jogos 2017", 0), Lista("Piores jogos 2017", 0)))
+        val adapter = ListasAdapter(context, listOf(Lista("Lista de Desejos", 0), Lista("Melhores jogos 2017", 0), Lista("Piores jogos 2017", 0)))
 
         view.rvListas.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.rvListas.adapter = adapter
