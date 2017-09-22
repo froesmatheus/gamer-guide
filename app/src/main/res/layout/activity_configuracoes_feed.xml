@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Você pode selecionar de quais sites você quer receber as notícias"
+        android:text="@string/mensagem_config_feed"
         android:textColor="@android:color/darker_gray"
         android:textSize="15sp"
         android:textStyle="bold" />

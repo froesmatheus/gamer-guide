@@ -12,6 +12,6 @@
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nome da lista" />
+            android:hint="@string/nome_da_lista" />
     </android.support.design.widget.TextInputLayout>
 </LinearLayout>

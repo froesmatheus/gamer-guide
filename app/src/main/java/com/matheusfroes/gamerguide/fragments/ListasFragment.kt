@@ -37,10 +37,10 @@ class ListasFragment : Fragment() {
     private fun dialogAdicionarLista() {
         val dialog = AlertDialog.Builder(activity)
                 .setView(R.layout.dialog_adicionar_lista)
-                .setPositiveButton("Adicionar") { _, _ ->
+                .setPositiveButton(getString(R.string.adicionar)) { _, _ ->
 
                 }
-                .setNegativeButton("Cancelar") { _, _ ->
+                .setNegativeButton(getString(R.string.cancelar)) { _, _ ->
 
                 }
                 .create()

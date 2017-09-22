@@ -10,4 +10,13 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="titulo_noticia">Título da notícia</string>
+    <string name="nome_da_lista">Nome da lista</string>
+    <string name="quantidade_de_jogos">Quantidade de jogos</string>
+    <string name="nome_do_jogo">Nome do Jogo</string>
+    <string name="produtora">Produtora</string>
+    <string name="continuar">Continuar</string>
+    <string name="mensagem_config_feed">Você pode selecionar de quais sites você quer receber as notícias</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>
