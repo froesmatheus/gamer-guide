@@ -2,6 +2,7 @@ package com.matheusfroes.gamer_guide.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import com.matheusfroes.gamer_guide.R
 import com.matheusfroes.gamer_guide.adapters.FonteNoticiasAdapter
 import com.matheusfroes.gamer_guide.models.FonteNoticia
@@ -22,6 +23,8 @@ class ConfiguracoesFeed : AppCompatActivity() {
 
         val adapter = FonteNoticiasAdapter(this, fontesNoticias)
 
-        lvFonteNoticias.adapter = adapter
+        rvFonteNoticias.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvFonteNoticias.adapter = adapter
+        rvFonteNoticias.setHasFixedSize(true)
     }
 }

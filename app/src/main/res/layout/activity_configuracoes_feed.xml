@@ -16,8 +16,10 @@
         android:textSize="15sp"
         android:textStyle="bold" />
 
-    <ListView
-        android:id="@+id/lvFonteNoticias"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvFonteNoticias"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        tools:listitem="@layout/view_fonte_noticia" />
 </LinearLayout>
