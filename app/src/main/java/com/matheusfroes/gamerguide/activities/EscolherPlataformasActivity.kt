@@ -1,13 +1,12 @@
-package com.matheusfroes.gamer_guide.activities
+package com.matheusfroes.gamerguide.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.matheusfroes.gamer_guide.R
+import com.matheusfroes.gamerguide.R
 import kotlinx.android.synthetic.main.activity_escolher_plataformas.*
 
-class EscolherPlataformasActivity : AppCompatActivity() {
+class EscolherPlataformasActivity : BaseActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

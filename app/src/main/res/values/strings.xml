@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name" translatable="false">GamerGuide</string>
-    <string name="title_activity_tela_principal">Gamer Guide</string>
     <string name="titulo_jogos">Meus Jogos</string>
     <string name="titulo_feed">Feed</string>
     <string name="titulo_listas">Listas</string>

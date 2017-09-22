@@ -1,11 +1,11 @@
-package com.matheusfroes.gamer_guide.adapters
+package com.matheusfroes.gamerguide.adapters
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.matheusfroes.gamer_guide.fragments.JogosNaoTerminadosFragment
-import com.matheusfroes.gamer_guide.fragments.JogosPlatinadosFragment
-import com.matheusfroes.gamer_guide.fragments.JogosZeradosFragment
+import com.matheusfroes.gamerguide.fragments.JogosNaoTerminadosFragment
+import com.matheusfroes.gamerguide.fragments.JogosPlatinadosFragment
+import com.matheusfroes.gamerguide.fragments.JogosZeradosFragment
 
 /**
  * Created by matheusfroes on 20/09/2017.

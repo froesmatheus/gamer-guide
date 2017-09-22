@@ -1,11 +1,11 @@
-package com.matheusfroes.gamer_guide.adapters
+package com.matheusfroes.gamerguide.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamer_guide.R
-import com.matheusfroes.gamer_guide.models.FonteNoticia
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.models.FonteNoticia
 import kotlinx.android.synthetic.main.view_fonte_noticia.view.*
 
 /**

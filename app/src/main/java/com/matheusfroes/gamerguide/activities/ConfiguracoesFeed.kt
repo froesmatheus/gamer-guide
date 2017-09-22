@@ -1,14 +1,13 @@
-package com.matheusfroes.gamer_guide.activities
+package com.matheusfroes.gamerguide.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import com.matheusfroes.gamer_guide.R
-import com.matheusfroes.gamer_guide.adapters.FonteNoticiasAdapter
-import com.matheusfroes.gamer_guide.models.FonteNoticia
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.adapters.FonteNoticiasAdapter
+import com.matheusfroes.gamerguide.models.FonteNoticia
 import kotlinx.android.synthetic.main.activity_configuracoes_feed.*
 
-class ConfiguracoesFeed : AppCompatActivity() {
+class ConfiguracoesFeed : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

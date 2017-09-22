@@ -1,10 +1,10 @@
-package com.matheusfroes.gamer_guide.adapters
+package com.matheusfroes.gamerguide.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamer_guide.R
+import com.matheusfroes.gamerguide.R
 
 /**
  * Created by matheusfroes on 21/09/2017.

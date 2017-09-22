@@ -1,4 +1,4 @@
-package com.matheusfroes.gamer_guide.fragments
+package com.matheusfroes.gamerguide.fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -8,10 +8,11 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
-import com.matheusfroes.gamer_guide.R
-import com.matheusfroes.gamer_guide.activities.ConfiguracoesFeed
-import com.matheusfroes.gamer_guide.adapters.NoticiasAdapter
-import com.matheusfroes.gamer_guide.models.Noticia
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.VerticalSpaceItemDecoration
+import com.matheusfroes.gamerguide.activities.ConfiguracoesFeed
+import com.matheusfroes.gamerguide.adapters.NoticiasAdapter
+import com.matheusfroes.gamerguide.models.Noticia
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
 import com.pkmmte.pkrss.PkRSS
@@ -40,6 +41,7 @@ class FeedFragment : Fragment(), Callback {
         PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(this).async()
 
         view.rvNoticias.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        view.rvNoticias.addItemDecoration(VerticalSpaceItemDecoration(50))
 
         view.rvNoticias.adapter = adapter
 
@@ -62,7 +64,7 @@ class FeedFragment : Fragment(), Callback {
     }
 
     override fun onPreload() {
-        swipeRefreshLayout.isRefreshing = true
+        swipeRefreshLayout?.isRefreshing = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -90,7 +92,7 @@ class FeedFragment : Fragment(), Callback {
             Noticia(article.title, imagemNoticia!!, article.source.toString(), article.date)
         }
         adapter?.preencherNoticias(noticias)
-        swipeRefreshLayout.isRefreshing = false
+        swipeRefreshLayout?.isRefreshing = false
     }
 
 }

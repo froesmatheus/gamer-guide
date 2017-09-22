@@ -1,4 +1,4 @@
-package com.matheusfroes.gamer_guide.fragments
+package com.matheusfroes.gamerguide.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,9 +7,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamer_guide.R
-import com.matheusfroes.gamer_guide.adapters.ListasAdapter
-import com.matheusfroes.gamer_guide.models.Lista
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.adapters.ListasAdapter
+import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.fab.view.*
 import kotlinx.android.synthetic.main.fragment_listas.view.*
 import kotlinx.android.synthetic.main.toolbar.*

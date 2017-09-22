@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.matheusfroes.gamer_guide">
+    package="com.matheusfroes.gamerguide">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.EscolherPlataformasActivity" />
+        <activity android:name="com.matheusfroes.gamerguide.activities.EscolherPlataformasActivity" />
         <activity
-            android:name=".activities.TelaPrincipalActivity"
-            android:label="@string/title_activity_tela_principal"
+            android:name="com.matheusfroes.gamerguide.activities.TelaPrincipalActivity"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +23,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ConfiguracoesFeed"
+            android:name="com.matheusfroes.gamerguide.activities.ConfiguracoesFeed"
             android:label="Configurações do Feed"
-            android:parentActivityName=".activities.TelaPrincipalActivity" />
+            android:parentActivityName="com.matheusfroes.gamerguide.activities.TelaPrincipalActivity" />
     </application>
 
 </manifest>

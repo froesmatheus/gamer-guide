@@ -1,4 +1,4 @@
-package com.matheusfroes.gamer_guide.models
+package com.matheusfroes.gamerguide.models
 
 /**
  * Created by matheus_froes on 20/09/2017.
