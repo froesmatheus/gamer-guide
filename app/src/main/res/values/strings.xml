@@ -19,4 +19,5 @@
     <string name="mensagem_config_feed">Você pode selecionar de quais sites você quer receber as notícias</string>
     <string name="adicionar">Adicionar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="plataformas">Plataformas</string>
 </resources>
