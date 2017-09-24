@@ -18,6 +18,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CollapsedAppBarText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 
     <style name="AppTheme.OLED" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>

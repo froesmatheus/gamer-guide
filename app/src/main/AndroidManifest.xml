@@ -30,6 +30,15 @@
             android:name=".activities.AdicionarJogosActivity"
             android:label="Adicionar Jogos"
             android:parentActivityName=".activities.TelaPrincipalActivity" />
+        <activity
+            android:name=".activities.DetalhesJogoActivity"
+            android:label="@string/title_activity_detalhes_jogo"
+            android:parentActivityName=".activities.TelaPrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.matheusfroes.gamerguide.activities.TelaPrincipalActivity" />
+        </activity>
     </application>
 
 </manifest>
