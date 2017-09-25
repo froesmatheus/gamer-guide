@@ -25,7 +25,7 @@
                 android:background="@color/cardview_dark_background" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvNomeJogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -38,10 +38,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tvNomeProdutura"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/tvNomeJogo"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/imageView"
@@ -49,10 +49,10 @@
                 android:text="Nome da Produtora" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvNomePublicadora"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView3"
+                android:layout_below="@+id/tvNomeProdutura"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_toEndOf="@+id/imageView"
@@ -60,21 +60,21 @@
                 android:text="Nome da Publicadora" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvGenero"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView4"
-                android:layout_alignStart="@+id/textView4"
-                android:layout_below="@+id/textView4"
+                android:layout_alignLeft="@+id/tvNomePublicadora"
+                android:layout_alignStart="@+id/tvNomePublicadora"
+                android:layout_below="@+id/tvNomePublicadora"
                 android:layout_marginBottom="5dp"
                 android:text="Gênero do jogo" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView5"
-                android:layout_alignStart="@+id/textView5"
-                android:layout_below="@+id/textView5"
+                android:layout_alignLeft="@+id/tvGenero"
+                android:layout_alignStart="@+id/tvGenero"
+                android:layout_below="@+id/tvGenero"
                 android:text="Data de lançamento" />
         </RelativeLayout>
 
