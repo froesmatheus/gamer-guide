@@ -37,7 +37,7 @@ class NoticiasAdapter(private val context: Context) : RecyclerView.Adapter<Notic
             listener?.onClick(noticia)
         }
 
-        Picasso.with(context).load(noticia.imagem).fit().into(holder.itemView.ivImage)
+        Picasso.with(context).load(noticia.imagem).fit().centerCrop().into(holder.itemView.ivImage)
     }
 
     fun setOnClickListener(listener: OnNewsClickListener) {
