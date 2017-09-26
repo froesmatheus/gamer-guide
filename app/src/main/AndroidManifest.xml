@@ -15,21 +15,21 @@
         <activity
             android:name=".activities.TelaPrincipalActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.OLED">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.ConfiguracoesFeed"
-            android:label="Configurações do Feed"
+            android:label="@string/configuracoes_feed"
             android:parentActivityName=".activities.TelaPrincipalActivity" />
         <activity
             android:name=".activities.AdicionarJogosActivity"
-            android:label="Adicionar Jogos"
-            android:parentActivityName=".activities.TelaPrincipalActivity" />
+            android:label="@string/adicionar_jogos"
+            android:parentActivityName=".activities.TelaPrincipalActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activities.DetalhesJogoActivity"
             android:label="@string/title_activity_detalhes_jogo"
