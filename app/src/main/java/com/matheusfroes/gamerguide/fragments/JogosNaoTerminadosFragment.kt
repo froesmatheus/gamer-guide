@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.adapters.JogosNaoTerminadosAdapter
+import com.matheusfroes.gamerguide.adapters.MeusJogosAdapter
 import kotlinx.android.synthetic.main.activity_tela_principal.*
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 
@@ -21,7 +21,7 @@ class JogosNaoTerminadosFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_jogos_nao_terminados, container, false)
 
-        val adapter = JogosNaoTerminadosAdapter(activity)
+        val adapter = MeusJogosAdapter(activity)
 
         view.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.rvJogosNaoTerminados.adapter = adapter

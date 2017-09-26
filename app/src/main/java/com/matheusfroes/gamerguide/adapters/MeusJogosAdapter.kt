@@ -17,7 +17,7 @@ import java.util.*
 /**
  * Created by matheusfroes on 21/09/2017.
  */
-class JogosNaoTerminadosAdapter(private val context: Context) : RecyclerView.Adapter<JogosNaoTerminadosAdapter.ViewHolder>() {
+class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<MeusJogosAdapter.ViewHolder>() {
     private val jogos = listOf("A", "B", "C", "D", "E", "F", "G", "C", "D", "E", "C", "D", "E", "C", "D", "E")
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
