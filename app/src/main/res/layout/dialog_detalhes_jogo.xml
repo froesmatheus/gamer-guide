@@ -1,74 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/ivCapaJogo"
-            android:layout_width="90dp"
-            android:layout_height="130dp"
-            android:background="@color/cardview_dark_background" />
-
-        <TextView
-            android:id="@+id/tvNomeJogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_toEndOf="@+id/ivCapaJogo"
-            android:layout_toRightOf="@+id/ivCapaJogo"
-            android:text="Nome do Jogo"
-            android:textSize="19sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvNomeProdutura"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvNomeJogo"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/ivCapaJogo"
-            android:layout_toRightOf="@+id/ivCapaJogo"
-            android:text="Nome da Produtora" />
-
-        <TextView
-            android:id="@+id/tvNomePublicadora"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvNomeProdutura"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/ivCapaJogo"
-            android:layout_toRightOf="@+id/ivCapaJogo"
-            android:text="Nome da Publicadora" />
-
-        <TextView
-            android:id="@+id/tvGenero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvNomePublicadora"
-            android:layout_alignStart="@+id/tvNomePublicadora"
-            android:layout_below="@+id/tvNomePublicadora"
-            android:layout_marginBottom="5dp"
-            android:text="Gênero do jogo" />
-
-        <TextView
-            android:id="@+id/tvDataLancamento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvGenero"
-            android:layout_alignStart="@+id/tvGenero"
-            android:layout_below="@+id/tvGenero"
-            android:text="Data de lançamento" />
-    </RelativeLayout>
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,10 +9,94 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+
+        <ImageView
+            android:id="@+id/ivCapaJogo"
+            android:layout_width="90dp"
+            android:layout_height="130dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@color/cardview_dark_background" />
+
         <TextView
-            android:id="@+id/tvDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="Call of Duty World Warfare II"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvNomeProdutura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descrição do jogo blablablabla felipe é otário blablabla jogo fulero hypado mas n vale merda" />
+            android:text="Desenvolvedores" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Sledgehammer Games"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvNomePublicadora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Publicadoras" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Activision"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvGenero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gêneros" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Tiro em primeira pessoa"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data de lançamento" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="3 de novembro de 2017"
+            android:textStyle="bold" />
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<Button-->
+                <!--style="?android:attr/buttonBarButtonStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Detalhes" />-->
+
+            <!--<Button-->
+                <!--style="?android:attr/buttonBarButtonStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Adicionar" />-->
+        <!--</LinearLayout>-->
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
