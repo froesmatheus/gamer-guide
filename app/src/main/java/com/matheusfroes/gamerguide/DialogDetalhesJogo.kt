@@ -24,7 +24,7 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
         view.tvNomeProdutura.text = jogo.produtora
         view.tvNomePublicadora.text = jogo.publicadora
         view.tvDescricao.text = jogo.descricao
-        view.tvGenero.text = jogo.genero
+        view.tvGenero.text = jogo.generos
         view.tvDataLancamento.text = jogo.dataLancamento.toString()
     }
 }

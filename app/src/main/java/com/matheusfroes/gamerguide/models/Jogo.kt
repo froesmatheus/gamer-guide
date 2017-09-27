@@ -10,6 +10,7 @@ data class Jogo(
         val descricao: String,
         val publicadora: String,
         val produtora: String,
-        val genero: String,
-        val dataLancamento: Date
+        val generos: String,
+        val dataLancamento: Date,
+        val plataformas: List<Plataforma>
 )
