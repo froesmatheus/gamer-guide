@@ -6,25 +6,44 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by matheusfroes on 26/09/2017.
  */
-data class Game(
+data class GameResponse(
         val id: Long,
         val name: String,
         val summary: String,
-        val developers: List<Developer>,
-        val publishers: List<Publisher>,
-        val genres: List<Genre>,
+        var developers: List<Developer>? = null,
+        var publishers: List<Publisher>? = null,
+        val genres: List<Genre>? = null,
         @SerializedName("first_release_date")
         val firstReleaseDate: Long,
         @SerializedName("release_dates")
         val releaseDates: List<ReleaseDate>,
-        val cover: Cover)
+        val cover: Cover?)
 
-data class Genre(val id: Int, val name: String)
+data class Genre(val id: Int, val name: String) {
+    override fun toString() = name
+}
 
-data class Developer(val id: Int, val name: String)
+data class Developer(val id: Int, val name: String) {
+    override fun toString() = name
+}
 
-class ReleaseDate(val platform: Long, val date: Long)
+class ReleaseDate(val platform: Long, val date: Long) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
 
-class Publisher(val id: Int, val name: String)
+        other as ReleaseDate
 
-data class Cover(val url: String)
+        if (platform != other.platform) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int = platform.hashCode()
+}
+
+class Publisher(val id: Int, val name: String) {
+    override fun toString() = name
+}
+
+data class Cover(val url: String?)

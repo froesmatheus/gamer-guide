@@ -8,9 +8,10 @@ import java.util.*
 data class Jogo(
         val nome: String,
         val descricao: String,
-        val publicadora: String,
+        val desenvolvedora: String,
         val produtora: String,
         val generos: String,
         val dataLancamento: Date,
-        val plataformas: List<Plataforma>
+        val plataformas: List<Plataforma>,
+        val imageCapa: String
 )

@@ -1,6 +1,6 @@
 package com.matheusfroes.gamerguide.api
 
-import com.matheusfroes.gamerguide.models.Game
+import com.matheusfroes.gamerguide.models.GameResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -21,5 +21,5 @@ interface IGDBService {
             @Query("fields") fields: String = "name,id,summary,cover.url,time_to_beat,developers,publishers,first_release_date,genres,release_dates.date,release_dates.platform",
             @Query("order") popularity: String = "popularity:desc",
             @Query("expand") expands: String = "publishers,developers,genres",
-            @Query("filter[release_dates.platform][any]") filters: String = "48,49,6"): Call<List<Game>>
+            @Query("filter[release_dates.platform][any]") filters: String = "48,49,6,12,9"): Call<List<GameResponse>>
 }

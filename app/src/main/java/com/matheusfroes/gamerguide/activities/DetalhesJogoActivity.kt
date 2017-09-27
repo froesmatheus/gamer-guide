@@ -5,6 +5,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
+import com.matheusfroes.gamerguide.adicionarSchemaUrl
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
 
@@ -27,9 +28,7 @@ class DetalhesJogoActivity : AppCompatActivity() {
 
         var cover = "//images.igdb.com/igdb/image/upload/t_720p/e7vzqpimo6pwovewqqli.jpg"
 
-        if (!cover.startsWith("http", ignoreCase = true)) {
-            cover = "http:" + cover
-        }
+        cover = adicionarSchemaUrl(cover)
 
         Picasso
                 .with(this)

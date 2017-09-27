@@ -22,7 +22,7 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
     private fun carregarJogo(view: View) {
 //        view.tvNomeJogo.text = jogo.nome
 //        view.tvNomeProdutura.text = jogo.produtora
-//        view.tvNomePublicadora.text = jogo.publicadora
+//        view.tvNomePublicadora.text = jogo.desenvolvedora
 //        view.tvGenero.text = jogo.generos
 //        view.tvDataLancamento.text = jogo.dataLancamento.toString()
     }

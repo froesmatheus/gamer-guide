@@ -10,6 +10,8 @@ import com.matheusfroes.gamerguide.api.IGDBService
 import com.matheusfroes.gamerguide.fragments.FeedFragment
 import com.matheusfroes.gamerguide.fragments.ListasFragment
 import com.matheusfroes.gamerguide.fragments.MeusJogosFragment
+import com.matheusfroes.gamerguide.models.GameResponse
+import com.matheusfroes.gamerguide.normalizarDadosJogo
 import kotlinx.android.synthetic.main.activity_tela_principal.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.doAsync
@@ -34,13 +36,23 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
 
         val service = retrofit.create(IGDBService::class.java)
 
-        val call = service.pesquisarJogos(query = "Destiny 2")
+        val call = service.pesquisarJogos(query = "D")
 
         doAsync {
             val response = call.execute()
 
-            Log.d("GAMERGUIDE", response.body().toString())
+            if (response.isSuccessful) {
+                guardarListaJogos(response.body())
+            }
         }
+    }
+
+    private fun guardarListaJogos(jogos: List<GameResponse>?) {
+        val listaJogos = jogos?.map {
+            normalizarDadosJogo(it)
+        }
+
+        Log.d("GAMERGUIDE", listaJogos.toString())
     }
 
 

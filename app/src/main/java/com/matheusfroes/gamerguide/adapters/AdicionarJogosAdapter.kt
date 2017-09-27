@@ -25,7 +25,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val jogo = Jogo("FIFA 18", "FIFA é uma merda todo ano, o ÚNICO bom foi o 14 que tinha Mandzukic robado de cabeça",
-                "EA (Pior empresa dos EUA)", "EA (Pior empresa dos EUA)", "Esporte", Calendar.getInstance().time, mutableListOf())
+                "EA (Pior empresa dos EUA)", "EA (Pior empresa dos EUA)", "Esporte", Calendar.getInstance().time, mutableListOf(), "")
         holder.itemView.setOnClickListener {
             dialogDetalhesJogo(jogo)
         }
