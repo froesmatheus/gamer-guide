@@ -35,7 +35,7 @@
             android:name=".activities.DetalhesJogoActivity"
             android:label="@string/title_activity_detalhes_jogo"
             android:parentActivityName=".activities.TelaPrincipalActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.DetalhesJogo">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.matheusfroes.gamerguide.activities.TelaPrincipalActivity" />

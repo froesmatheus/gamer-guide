@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.matheusfroes.gamerguide.activities.DetalhesJogoActivity"
-    tools:showIn="@layout/activity_detalhes_jogo">
+    tools:context="com.matheusfroes.gamerguide.activities.DetalhesJogoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,69 +13,101 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <RelativeLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Call of Duty World Warfare II"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="10dp">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="90dp"
-                android:layout_height="130dp"
-                android:background="@color/cardview_dark_background" />
-
-            <TextView
-                android:id="@+id/tvNomeJogo"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/imageView"
-                android:layout_toRightOf="@+id/imageView"
-                android:text="Nome do Jogo"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvNomeProdutura"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvNomeJogo"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/imageView"
-                android:layout_toRightOf="@+id/imageView"
-                android:text="Nome da Produtora" />
+                <!--<TextView-->
+                <!--android:id="@+id/tvNomeJogo"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Nome do Jogo" />-->
 
-            <TextView
-                android:id="@+id/tvNomePublicadora"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvNomeProdutura"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/imageView"
-                android:layout_toRightOf="@+id/imageView"
-                android:text="Nome da Publicadora" />
+                <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:text="Call of Duty World Warfare II"-->
+                <!--android:textSize="17sp"-->
+                <!--android:textStyle="bold" />-->
 
-            <TextView
-                android:id="@+id/tvGenero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvNomePublicadora"
-                android:layout_alignStart="@+id/tvNomePublicadora"
-                android:layout_below="@+id/tvNomePublicadora"
-                android:layout_marginBottom="5dp"
-                android:text="Gênero do jogo" />
+                <TextView
+                    android:id="@+id/tvNomeProdutura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Desenvolvedores" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvGenero"
-                android:layout_alignStart="@+id/tvGenero"
-                android:layout_below="@+id/tvGenero"
-                android:text="Data de lançamento" />
-        </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Sledgehammer Games"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvNomePublicadora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Publicadoras" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Activision"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvGenero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gêneros" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Tiro em primeira pessoa"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Data de lançamento" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="3 de novembro de 2017"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -97,6 +128,12 @@
                     android:text="Descrição"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDescricao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Call of Duty: WWII creates the definitive World War II next generation experience across three different game modes: Campaign, Multiplayer, and Co-Operative. Featuring stunning visuals, the Campaign transports players to the European theater as they engage in an all-new Call of Duty story set in iconic World War II battles. Multiplayer marks a return to original, boots-on-the ground Call of Duty gameplay. Authentic weapons and traditional run-and-gun action immerse you in a vast array of World War II-themed locations. The Co-Operative mode unleashes a new and original story in a standalone game experience full of unexpected, adrenaline-pumping moments." />
             </LinearLayout>
 
         </android.support.v7.widget.CardView>

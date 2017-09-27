@@ -1,10 +1,13 @@
 package com.matheusfroes.gamerguide.activities
 
 import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
+
 
 class DetalhesJogoActivity : AppCompatActivity() {
 
@@ -19,5 +22,34 @@ class DetalhesJogoActivity : AppCompatActivity() {
 
         viewPager.adapter = DetalhesJogosFragmentAdapter(supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
+
+        supportActionBar?.title = ""
+
+        var cover = "//images.igdb.com/igdb/image/upload/t_720p/e7vzqpimo6pwovewqqli.jpg"
+
+        if (!cover.startsWith("http", ignoreCase = true)) {
+            cover = "http:" + cover
+        }
+
+        Picasso
+                .with(this)
+                .load(cover)
+                .into(ivCapaJogo)
+
+        //lockAppBarClosed()
+    }
+
+    fun lockAppBarClosed() {
+        appBar.setExpanded(false, false)
+        appBar.isActivated = false
+        val lp = appBar.layoutParams as CoordinatorLayout.LayoutParams
+        lp.height = resources.getDimension(R.dimen.toolar_hight).toInt()
+    }
+
+    fun unlockAppBarOpen() {
+        appBar.setExpanded(true, false)
+        appBar.isActivated = true
+        val lp = appBar.layoutParams as CoordinatorLayout.LayoutParams
+        lp.height = resources.getDimension(R.dimen.toolar_hight).toInt()
     }
 }

@@ -6,11 +6,6 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by matheusfroes on 26/09/2017.
  */
-data class PesquisarJogosResponse(
-        val jogos: List<Game>
-)
-
-
 data class Game(
         val id: Long,
         val name: String,

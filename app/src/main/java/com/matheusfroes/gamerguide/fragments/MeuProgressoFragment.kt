@@ -10,7 +10,7 @@ import com.matheusfroes.gamerguide.R
 /**
  * Created by matheus_froes on 26/09/2017.
  */
-class MinhaJogatinaFragment : Fragment() {
+class MeuProgressoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.content_detalhes_jogo, container, false)
