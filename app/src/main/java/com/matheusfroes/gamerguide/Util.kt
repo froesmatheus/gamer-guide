@@ -31,8 +31,8 @@ fun extrairPlataformas(releaseDates: List<ReleaseDate>): List<Plataforma> {
         when (it.platform) {
             Plataforma.ID_XBOX_360 -> Plataforma(Plataforma.ID_XBOX_360, "Xbox 360")
             Plataforma.ID_XBOX_ONE -> Plataforma(Plataforma.ID_XBOX_ONE, "Xbox One")
-            Plataforma.ID_PS3 -> Plataforma(Plataforma.ID_PS3, "Playstation 3")
-            Plataforma.ID_PS4 -> Plataforma(Plataforma.ID_PS4, "Playstation 4")
+            Plataforma.ID_PS3 -> Plataforma(Plataforma.ID_PS3, "PS3")
+            Plataforma.ID_PS4 -> Plataforma(Plataforma.ID_PS4, "PS4")
             Plataforma.ID_PC -> Plataforma(Plataforma.ID_PC, "PC")
             else -> Plataforma(0, "")
         }

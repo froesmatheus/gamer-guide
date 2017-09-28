@@ -19,6 +19,7 @@
             android:background="@color/cardview_dark_background" />
 
         <TextView
+            android:id="@+id/tvNomeJogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -28,12 +29,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvNomeProdutura"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Desenvolvedores" />
 
         <TextView
+            android:id="@+id/tvDesenvolvedores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -41,12 +42,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvNomePublicadora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Publicadoras" />
 
         <TextView
+            android:id="@+id/tvPublicadora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -54,12 +55,12 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvGenero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gêneros" />
 
         <TextView
+            android:id="@+id/tvGenero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -72,6 +73,7 @@
             android:text="Data de lançamento" />
 
         <TextView
+            android:id="@+id/tvDataLancamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -79,24 +81,24 @@
             android:textStyle="bold" />
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:gravity="center"-->
-            <!--android:orientation="horizontal">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
 
-            <!--<Button-->
-                <!--style="?android:attr/buttonBarButtonStyle"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Detalhes" />-->
+        <!--<Button-->
+        <!--style="?android:attr/buttonBarButtonStyle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Detalhes" />-->
 
-            <!--<Button-->
-                <!--style="?android:attr/buttonBarButtonStyle"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Adicionar" />-->
+        <!--<Button-->
+        <!--style="?android:attr/buttonBarButtonStyle"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Adicionar" />-->
         <!--</LinearLayout>-->
     </LinearLayout>
 </ScrollView>

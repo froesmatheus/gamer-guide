@@ -1,8 +1,10 @@
 package com.matheusfroes.gamerguide.activities
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.inputmethod.InputMethodManager
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.AdicionarJogosAdapter
 import com.matheusfroes.gamerguide.api.IGDBService
@@ -32,6 +34,7 @@ class AdicionarJogosActivity : AppCompatActivity() {
         rvJogos.adapter = adapter
 
         etNomeJogo.setOnEditorActionListener { textView, actionId, keyEvent ->
+            esconderTeclado()
             pesquisarJogos()
             true
         }
@@ -55,5 +58,13 @@ class AdicionarJogosActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun esconderTeclado() {
+        val view = this.currentFocus
+        if (view != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
     }
 }

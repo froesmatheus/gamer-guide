@@ -4,6 +4,10 @@ import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.matheusfroes.gamerguide.models.Jogo
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.dialog_detalhes_jogo.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -19,10 +23,17 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
     }
 
     private fun carregarJogo(view: View) {
-//        view.tvNomeJogo.text = jogo.nome
-//        view.tvNomeProdutura.text = jogo.produtora
-//        view.tvNomePublicadora.text = jogo.desenvolvedora
-//        view.tvGenero.text = jogo.generos
-//        view.tvDataLancamento.text = jogo.dataLancamento.toString()
+        view.tvNomeJogo.text = jogo.nome
+        view.tvDesenvolvedores.text = jogo.desenvolvedora
+        view.tvPublicadora.text = jogo.produtora
+        view.tvGenero.text = jogo.generos
+
+        val dataLancamento = SimpleDateFormat("dd 'de' MMMM 'de' yyyy", Locale("pt", "BR")).format(jogo.dataLancamento)
+
+
+        view.tvDataLancamento.text = dataLancamento
+
+        Picasso.with(context).load(jogo.imageCapa.replace("t_thumb", "t_cover_big")).fit()
+                .into(view.ivCapaJogo)
     }
 }

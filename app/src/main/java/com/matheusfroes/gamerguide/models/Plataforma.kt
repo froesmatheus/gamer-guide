@@ -12,4 +12,6 @@ data class Plataforma(val id: Long, val nome: String) {
         val ID_PC = 6L
     }
 
+    override fun toString() = nome
+
 }

@@ -43,9 +43,15 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
 
         holder.itemView.tvDataLancamento.text = dataLancamento
 
+        holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
+
         if (jogo.imageCapa.isEmpty()) {
-            holder.itemView.ivCapaJogo.visibility = View.GONE
+            holder.capaVisivel = false
+            holder.itemView.ivCapaJogo.visibility = if (holder.capaVisivel) View.VISIBLE else View.GONE
         } else {
+            holder.capaVisivel = true
+            holder.itemView.ivCapaJogo.visibility = if (holder.capaVisivel) View.VISIBLE else View.GONE
+
             Picasso
                     .with(context)
                     .load(jogo.imageCapa.replace("t_thumb", "t_cover_big"))
@@ -75,5 +81,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
 
     override fun getItemCount() = jogos.size
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+        var capaVisivel = true
+    }
 }
