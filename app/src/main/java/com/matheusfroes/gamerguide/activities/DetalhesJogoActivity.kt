@@ -17,7 +17,7 @@ class DetalhesJogoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detalhes_jogo)
         setSupportActionBar(toolbar)
 
-        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedAppBarText)
+        //collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedAppBarText)
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 

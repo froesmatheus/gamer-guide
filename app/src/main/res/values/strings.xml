@@ -21,6 +21,8 @@
     <string name="cancelar">Cancelar</string>
     <string name="plataformas">Plataformas</string>
     <string name="title_activity_detalhes_jogo">DetalhesJogoActivity</string>
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 

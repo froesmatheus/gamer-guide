@@ -10,13 +10,21 @@ import com.matheusfroes.gamerguide.DialogDetalhesJogo
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoActivity
 import com.matheusfroes.gamerguide.models.Jogo
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.view_jogo_pesquisa.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
  * Created by matheusfroes on 21/09/2017.
  */
 class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter<AdicionarJogosAdapter.ViewHolder>() {
-    private val jogos = listOf("A", "B", "C", "D", "E", "F", "G", "C", "D", "E", "C", "D", "E", "C", "D", "E")
+    private var jogos: MutableList<Jogo> = mutableListOf()
+
+    fun preencherLista(jogos: List<Jogo>) {
+        this.jogos = jogos.toMutableList()
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = View.inflate(context, R.layout.view_jogo_pesquisa, null)
@@ -24,15 +32,26 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val jogo = Jogo("FIFA 18", "FIFA é uma merda todo ano, o ÚNICO bom foi o 14 que tinha Mandzukic robado de cabeça",
-                "EA (Pior empresa dos EUA)", "EA (Pior empresa dos EUA)", "Esporte", Calendar.getInstance().time, mutableListOf(), "")
+        val jogo = jogos[position]
+
         holder.itemView.setOnClickListener {
             dialogDetalhesJogo(jogo)
         }
 
-//        holder.itemView.ivOverflowMenu.setOnClickListener {
-//            showPopup(holder.itemView.ivOverflowMenu)
-//        }
+        holder.itemView.tvNomeJogo.text = jogo.nome
+        val dataLancamento = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(jogo.dataLancamento)
+
+        holder.itemView.tvDataLancamento.text = dataLancamento
+
+        if (jogo.imageCapa.isEmpty()) {
+            holder.itemView.ivCapaJogo.visibility = View.GONE
+        } else {
+            Picasso
+                    .with(context)
+                    .load(jogo.imageCapa.replace("t_thumb", "t_cover_big"))
+                    .fit()
+                    .into(holder.itemView.ivCapaJogo)
+        }
     }
 
     private fun showPopup(v: View) {
@@ -45,7 +64,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
     private fun dialogDetalhesJogo(jogo: Jogo) {
         val dialog = DialogDetalhesJogo(context, jogo)
                 .setPositiveButton("Adicionar", null)
-                .setNegativeButton("Detalhes") { dialogInterface, i ->
+                .setNegativeButton("Detalhes") { _, _ ->
                     context.startActivity(Intent(context, DetalhesJogoActivity::class.java))
                 }
                 .create()

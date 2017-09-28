@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.matheusfroes.gamerguide.R
 
 /**
  * Created by matheus_froes on 22/09/2017.
@@ -16,7 +15,7 @@ open class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val theme = preferences.getInt("APP_THEME", R.style.AppTheme)
-        setTheme(theme)
+//        val theme = preferences.getInt("APP_THEME", R.style.AppTheme)
+//        setTheme(theme)
     }
 }

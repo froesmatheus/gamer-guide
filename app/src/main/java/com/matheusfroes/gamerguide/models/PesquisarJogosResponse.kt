@@ -8,15 +8,15 @@ import com.google.gson.annotations.SerializedName
  */
 data class GameResponse(
         val id: Long,
-        val name: String,
-        val summary: String,
+        val name: String? = null,
+        val summary: String? = null,
         var developers: List<Developer>? = null,
         var publishers: List<Publisher>? = null,
         val genres: List<Genre>? = null,
         @SerializedName("first_release_date")
         val firstReleaseDate: Long,
         @SerializedName("release_dates")
-        val releaseDates: List<ReleaseDate>,
+        val releaseDates: List<ReleaseDate>? = null,
         val cover: Cover?)
 
 data class Genre(val id: Int, val name: String) {

@@ -4,7 +4,6 @@ import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.matheusfroes.gamerguide.models.Jogo
-import kotlinx.android.synthetic.main.dialog_detalhes_jogo.view.*
 
 
 /**

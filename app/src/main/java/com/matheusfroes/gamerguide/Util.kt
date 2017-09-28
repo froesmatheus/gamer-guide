@@ -17,13 +17,13 @@ fun adicionarSchemaUrl(url: String?): String {
 
 fun normalizarDadosJogo(game: GameResponse): Jogo =
         Jogo(
-                game.name,
-                game.summary,
+                game.name ?: "",
+                game.summary ?: "",
                 game.publishers?.joinToString() ?: "",
                 game.developers?.joinToString() ?: "",
                 game.genres?.joinToString() ?: "",
                 Date(game.firstReleaseDate),
-                extrairPlataformas(game.releaseDates),
+                extrairPlataformas(game.releaseDates ?: mutableListOf()),
                 adicionarSchemaUrl(game.cover?.url))
 
 fun extrairPlataformas(releaseDates: List<ReleaseDate>): List<Plataforma> {
