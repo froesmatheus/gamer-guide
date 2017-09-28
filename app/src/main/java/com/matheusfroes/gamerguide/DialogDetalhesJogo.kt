@@ -24,8 +24,8 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
 
     private fun carregarJogo(view: View) {
         view.tvNomeJogo.text = jogo.nome
-        view.tvDesenvolvedores.text = jogo.desenvolvedora
-        view.tvPublicadora.text = jogo.produtora
+        view.tvDesenvolvedores.text = jogo.desenvolvedoras
+        view.tvPublicadora.text = jogo.publicadoras
         view.tvGenero.text = jogo.generos
 
         val dataLancamento = SimpleDateFormat("dd 'de' MMMM 'de' yyyy", Locale("pt", "BR")).format(jogo.dataLancamento)

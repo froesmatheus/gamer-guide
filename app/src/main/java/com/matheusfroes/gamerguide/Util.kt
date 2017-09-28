@@ -17,6 +17,7 @@ fun adicionarSchemaUrl(url: String?): String {
 
 fun normalizarDadosJogo(game: GameResponse): Jogo =
         Jogo(
+                game.id,
                 game.name ?: "",
                 game.summary ?: "",
                 game.publishers?.joinToString() ?: "",
