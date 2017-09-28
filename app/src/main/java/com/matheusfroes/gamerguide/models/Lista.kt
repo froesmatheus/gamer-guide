@@ -5,4 +5,5 @@ package com.matheusfroes.gamerguide.models
  */
 data class Lista(
         val nome: String,
-        val quantidadeJogos: Int)
+        val quantidadeJogos: Int,
+        val jogos: List<Jogo> = listOf())
