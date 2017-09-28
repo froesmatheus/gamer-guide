@@ -21,8 +21,8 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
         bottomNavigation.setOnNavigationItemSelectedListener(this)
 
         bottomNavigation.selectedItemId = R.id.navMeusJogos
-    }
 
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

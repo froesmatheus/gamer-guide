@@ -14,8 +14,8 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val DB_NAME = "GamerGuide"
         val DB_VERSION = 1
 
+        // Tabela de Jogos
         val TABELA_JOGOS = "jogos"
-
         val JOGOS_ID = "_id"
         val JOGOS_NOME = "nome"
         val JOGOS_DESCRICAO = "descricao"
@@ -25,10 +25,18 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val JOGOS_DATA_LANCAMENTO = "data_lascamento"
         val JOGOS_IMAGEM_CAPA = "imagem_capa"
 
-        val TABELA_PLATAFORMAS = "plataformas"
 
+        // Tabela de Plataformas
+        val TABELA_PLATAFORMAS = "plataformas"
         val PLATAFORMAS_ID = "_id"
         val PLATAFORMAS_NOME = "nome"
+
+
+        // Tabela ligação Jogos/Plataformas
+        val TABELA_JOGOS_PLATAFORMAS = "jogos_plataformas"
+        val JOGOS_PLATAFORMAS_ID = "_id"
+        val JOGOS_PLATAFORMAS_ID_JOGO = "id_jogo"
+        val JOGOS_PLATAFORMAS_ID_PLATAFORMA = "id_plataforma"
 
         val CREATE_TABLE_JOGOS = """
              CREATE TABLE $TABELA_JOGOS(
@@ -45,12 +53,21 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
             CREATE TABLE $TABELA_PLATAFORMAS(
                 $PLATAFORMAS_ID INTEGER PRIMARY KEY,
                 $PLATAFORMAS_NOME TEXT);"""
+
+        val CREATE_TABLE_JOGOS_PLATAFORMAS = """
+            CREATE TABLE $TABELA_JOGOS_PLATAFORMAS(
+                $JOGOS_PLATAFORMAS_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                $JOGOS_PLATAFORMAS_ID_JOGO INTEGER NOT NULL,
+                $JOGOS_PLATAFORMAS_ID_PLATAFORMA INTEGER NOT NULL,
+                FOREIGN KEY($JOGOS_PLATAFORMAS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID),
+                FOREIGN KEY($JOGOS_PLATAFORMAS_ID_PLATAFORMA) REFERENCES $TABELA_PLATAFORMAS($PLATAFORMAS_ID));"""
     }
 
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_TABLE_JOGOS)
         db.execSQL(CREATE_TABLE_PLATAFORMAS)
+        db.execSQL(CREATE_TABLE_JOGOS_PLATAFORMAS)
 
         inserirPlataformas(db)
     }
@@ -69,7 +86,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
             plataformas.forEach { plataforma ->
                 cv.put(PLATAFORMAS_ID, plataforma.id)
-                cv.put(PLATAFORMAS_NOME, plataforma.nome)
+                cv.put(PLATAFORMAS_NOME, plataforma.nome.trim())
 
                 db.insert(TABELA_PLATAFORMAS, null, cv)
             }

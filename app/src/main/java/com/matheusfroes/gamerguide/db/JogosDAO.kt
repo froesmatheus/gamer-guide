@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.models.Jogo
+import com.matheusfroes.gamerguide.models.Plataforma
 import java.util.*
 
 /**
@@ -24,6 +25,14 @@ class JogosDAO(context: Context) {
         cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.imageCapa)
         cv.put(Helper.JOGOS_GENEROS, jogo.generos)
 
+        val cvPlataformas = ContentValues()
+        jogo.plataformas.forEach { plataforma ->
+            cvPlataformas.put(Helper.JOGOS_PLATAFORMAS_ID_JOGO, jogo.id)
+            cvPlataformas.put(Helper.JOGOS_PLATAFORMAS_ID_PLATAFORMA, plataforma.id)
+
+            db.insert(Helper.TABELA_JOGOS_PLATAFORMAS, null, cvPlataformas)
+        }
+
         db.insert(Helper.TABELA_JOGOS, null, cv)
     }
 
@@ -43,7 +52,7 @@ class JogosDAO(context: Context) {
                     publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
                     generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
                     nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                    plataformas = mutableListOf(),
+                    plataformas = obterPlataformasPorJogo(id),
                     dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
             )
         }
@@ -51,5 +60,31 @@ class JogosDAO(context: Context) {
         cursor.close()
 
         return jogo
+    }
+
+    private fun obterPlataformasPorJogo(id: Int): List<Plataforma> {
+        val cursor = db.rawQuery("""
+            SELECT P.${Helper.PLATAFORMAS_ID}, P.${Helper.PLATAFORMAS_NOME}
+            FROM ${Helper.TABELA_PLATAFORMAS} P
+            INNER JOIN ${Helper.TABELA_JOGOS_PLATAFORMAS} JP ON P._id = JP.id_plataforma
+            WHERE JP.id_jogo = ?""", arrayOf(id.toString()))
+
+        val plataformas = mutableListOf<Plataforma>()
+        if (cursor.count > 0) {
+            cursor.moveToFirst()
+
+            do {
+                val plataforma = Plataforma(
+                        id = cursor.getLong(cursor.getColumnIndex(Helper.PLATAFORMAS_ID)),
+                        nome = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME)))
+
+                plataformas.add(plataforma)
+            } while (cursor.moveToNext())
+
+        }
+
+        cursor.close()
+
+        return plataformas
     }
 }
