@@ -36,6 +36,11 @@ class JogosDAO(context: Context) {
         db.insert(Helper.TABELA_JOGOS, null, cv)
     }
 
+    fun remover(jogoId: Int) {
+        db.delete(Helper.TABELA_JOGOS_PLATAFORMAS, "id_jogo = ?", arrayOf(jogoId.toString()))
+        db.delete(Helper.TABELA_JOGOS, "_id = ?", arrayOf(jogoId.toString()))
+    }
+
     fun obterJogo(id: Int): Jogo? {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_ID} = ?", arrayOf(id.toString()))
 
@@ -62,7 +67,7 @@ class JogosDAO(context: Context) {
         return jogo
     }
 
-    private fun obterPlataformasPorJogo(id: Int): List<Plataforma> {
+    fun obterPlataformasPorJogo(id: Int): List<Plataforma> {
         val cursor = db.rawQuery("""
             SELECT P.${Helper.PLATAFORMAS_ID}, P.${Helper.PLATAFORMAS_NOME}
             FROM ${Helper.TABELA_PLATAFORMAS} P

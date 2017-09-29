@@ -18,6 +18,7 @@ import java.util.*
  */
 class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<MeusJogosAdapter.ViewHolder>() {
     private val jogos = listOf("A", "B", "C", "D", "E", "F", "G", "C", "D", "E", "C", "D", "E", "C", "D", "E")
+    private var listener: android.widget.PopupMenu.OnMenuItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = View.inflate(context, R.layout.view_jogo, null)
@@ -41,6 +42,14 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
         val inflater = popup.menuInflater
         inflater.inflate(R.menu.popup_jogos, popup.menu)
         popup.show()
+
+        popup.setOnMenuItemClickListener {
+            listener?.onMenuItemClick(it)!!
+        }
+    }
+
+    fun setOnMenuItemClickListener(listener: android.widget.PopupMenu.OnMenuItemClickListener) {
+        this.listener = listener
     }
 
     override fun getItemCount() = jogos.size

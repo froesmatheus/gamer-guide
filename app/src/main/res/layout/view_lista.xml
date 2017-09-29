@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tvNome"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/nome_da_lista"
         android:textSize="18sp"
@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/tvQuantidadeJogos"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/quantidade_de_jogos" />
 </LinearLayout>
