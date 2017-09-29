@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.extra
 
 /**
  * Created by matheusfroes on 29/09/2017.

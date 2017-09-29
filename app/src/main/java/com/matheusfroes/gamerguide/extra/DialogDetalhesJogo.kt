@@ -1,8 +1,10 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.extra
 
 import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.dataPorExtenso
 import com.matheusfroes.gamerguide.models.Jogo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.dialog_detalhes_jogo.view.*

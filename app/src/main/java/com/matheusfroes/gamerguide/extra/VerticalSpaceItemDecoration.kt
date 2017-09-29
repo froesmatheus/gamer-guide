@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.extra
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.matheusfroes.gamerguide.CustomRecyclerView
+    <com.matheusfroes.gamerguide.extra.CustomRecyclerView
         android:id="@+id/rvListas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

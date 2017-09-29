@@ -22,7 +22,7 @@ class JogosFragmentAdapter(fragmentManager: FragmentManager) : FragmentStatePage
         else -> jogosZerados
     }
 
-    override fun getCount() = 3
+    override fun getCount() = 2
 
     override fun getPageTitle(position: Int): String = when (position) {
         0 -> "Não Terminados"

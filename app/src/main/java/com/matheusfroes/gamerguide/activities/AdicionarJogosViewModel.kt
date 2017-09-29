@@ -2,7 +2,7 @@ package com.matheusfroes.gamerguide.activities
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.matheusfroes.gamerguide.AppRepository
+import com.matheusfroes.gamerguide.extra.AppRepository
 import com.matheusfroes.gamerguide.models.Jogo
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread

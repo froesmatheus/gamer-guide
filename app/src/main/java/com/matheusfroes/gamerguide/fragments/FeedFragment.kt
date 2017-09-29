@@ -10,7 +10,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.VerticalSpaceItemDecoration
+import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
 import com.matheusfroes.gamerguide.activities.ConfiguracoesFeed
 import com.matheusfroes.gamerguide.adapters.FeedAdapter
 import com.matheusfroes.gamerguide.models.Noticia

@@ -1,7 +1,8 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.extra
 
 import com.matheusfroes.gamerguide.api.IGDBService
 import com.matheusfroes.gamerguide.models.Jogo
+import com.matheusfroes.gamerguide.normalizarDadosJogo
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
