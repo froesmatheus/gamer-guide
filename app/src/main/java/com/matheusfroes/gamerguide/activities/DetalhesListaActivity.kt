@@ -1,17 +1,18 @@
 package com.matheusfroes.gamerguide.activities
 
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.JogosListaAdapter
-import com.matheusfroes.gamerguide.db.ListasDAO
 import kotlinx.android.synthetic.main.activity_detalhes_lista.*
 
 
 class DetalhesListaActivity : AppCompatActivity() {
-    private val dao: ListasDAO by lazy {
-        ListasDAO(this)
+    private val viewModel: DetalhesListaViewModel by lazy {
+        ViewModelProviders.of(this).get(DetalhesListaViewModel::class.java)
     }
     private val adapter: JogosListaAdapter by lazy {
         JogosListaAdapter(this)
@@ -23,7 +24,13 @@ class DetalhesListaActivity : AppCompatActivity() {
 
         intent ?: return
 
-        val lista = dao.obterLista(intent.getIntExtra("lista_id", 0))!!
+        val listaId = intent.getIntExtra("lista_id", 0)
+
+        val intent = Intent()
+        intent.putExtra("id", 10L)
+
+        val lista = viewModel.getLista(listaId)!!
+
         rvJogosLista.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvJogosLista.adapter = adapter
 

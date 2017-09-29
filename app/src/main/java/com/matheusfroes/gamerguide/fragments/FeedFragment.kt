@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.matheusfroes.gamerguide.R
@@ -16,7 +17,6 @@ import com.matheusfroes.gamerguide.models.Noticia
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
 import com.pkmmte.pkrss.PkRSS
-import kotlinx.android.synthetic.main.fragment_feed.*
 import kotlinx.android.synthetic.main.fragment_feed.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  */
 class FeedFragment : Fragment(), Callback {
     private var adapter: FeedAdapter? = null
+    var swipeRefreshLayout: SwipeRefreshLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +55,16 @@ class FeedFragment : Fragment(), Callback {
             }
         })
 
+        swipeRefreshLayout = view.swipeRefreshLayout
+
         view.swipeRefreshLayout.setOnRefreshListener {
-            PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(this).async()
+            atualizarFeed()
         }
         return view
+    }
+
+    private fun atualizarFeed() {
+        PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(this).async()
     }
 
     override fun onLoadFailed() {
@@ -75,6 +82,10 @@ class FeedFragment : Fragment(), Callback {
         when (item.itemId) {
             R.id.navConfiguracaoFeed -> {
                 startActivity(Intent(context, ConfiguracoesFeed::class.java))
+                return true
+            }
+            R.id.navAtualizarFeed -> {
+                atualizarFeed()
                 return true
             }
         }
