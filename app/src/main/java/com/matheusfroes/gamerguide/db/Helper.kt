@@ -19,7 +19,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val JOGOS_ID = "_id"
         val JOGOS_NOME = "nome"
         val JOGOS_DESCRICAO = "descricao"
-        val JOGOS_DESENVOLVEDORAS = "desenvolvedoras"
+        val JOGOS_DESENVOLVEDORAS = "desenvolvedores"
         val JOGOS_PUBLICADORAS = "publicadoras"
         val JOGOS_GENEROS = "generos"
         val JOGOS_DATA_LANCAMENTO = "data_lascamento"

@@ -19,10 +19,10 @@ import java.util.*
  * Created by matheusfroes on 21/09/2017.
  */
 class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter<AdicionarJogosAdapter.ViewHolder>() {
-    private var jogos: MutableList<Jogo> = mutableListOf()
+    private var jogos: List<Jogo> = listOf()
 
     fun preencherLista(jogos: List<Jogo>) {
-        this.jogos = jogos.toMutableList()
+        this.jogos = jogos
         notifyDataSetChanged()
     }
 
@@ -71,7 +71,9 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         val dialog = DialogDetalhesJogo(context, jogo)
                 .setPositiveButton("Adicionar", null)
                 .setNegativeButton("Detalhes") { _, _ ->
-                    context.startActivity(Intent(context, DetalhesJogoActivity::class.java))
+                    val intent = Intent(context, DetalhesJogoActivity::class.java)
+                    intent.putExtra("jogo", jogo)
+                    context.startActivity(intent)
                 }
                 .create()
 

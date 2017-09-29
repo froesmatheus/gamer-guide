@@ -1,5 +1,8 @@
 package com.matheusfroes.gamerguide
 
+import android.app.Activity
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import com.matheusfroes.gamerguide.models.GameResponse
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.models.Plataforma
@@ -20,8 +23,8 @@ fun normalizarDadosJogo(game: GameResponse): Jogo =
                 game.id,
                 game.name ?: "",
                 game.summary ?: "",
-                game.publishers?.joinToString() ?: "",
                 game.developers?.joinToString() ?: "",
+                game.publishers?.joinToString() ?: "",
                 game.genres?.joinToString() ?: "",
                 Date(game.firstReleaseDate),
                 extrairPlataformas(game.releaseDates ?: mutableListOf()),
@@ -38,4 +41,21 @@ fun extrairPlataformas(releaseDates: List<ReleaseDate>): List<Plataforma> {
             else -> Plataforma(0, "")
         }
     }.distinct().filter { it.id != 0.toLong() }
+}
+
+fun obterImagemJogoCapa(urlImagem: String): String {
+    val inicio = urlImagem.indexOf("t_")
+    val fim = urlImagem.indexOf("/", inicio)
+
+    val tamanhoImagem = urlImagem.substring(inicio, fim)
+
+    return urlImagem.replace(tamanhoImagem, "t_screenshot_big")
+}
+
+fun esconderTeclado(activity: Activity) {
+    val view = activity.currentFocus
+    if (view != null) {
+        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 }

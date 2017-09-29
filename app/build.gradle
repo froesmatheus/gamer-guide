@@ -41,6 +41,8 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile "android.arch.lifecycle:extensions:1.0.0-beta1"
 }
 repositories {
     mavenCentral()

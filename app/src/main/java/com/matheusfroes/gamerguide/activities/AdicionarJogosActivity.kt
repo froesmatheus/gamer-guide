@@ -1,30 +1,23 @@
 package com.matheusfroes.gamerguide.activities
 
-import android.content.Context
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.inputmethod.InputMethodManager
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.AdicionarJogosAdapter
-import com.matheusfroes.gamerguide.api.IGDBService
-import com.matheusfroes.gamerguide.normalizarDadosJogo
+import com.matheusfroes.gamerguide.esconderTeclado
 import kotlinx.android.synthetic.main.activity_adicionar_jogos.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class AdicionarJogosActivity : AppCompatActivity() {
-    private val retrofit: Retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(IGDBService.URL_BASE)
-            .build()
     val adapter: AdicionarJogosAdapter by lazy {
         AdicionarJogosAdapter(this)
     }
-
+    private val viewModel: AdicionarJogosViewModel by lazy {
+        ViewModelProviders.of(this).get(AdicionarJogosViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,38 +26,18 @@ class AdicionarJogosActivity : AppCompatActivity() {
         rvJogos.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvJogos.adapter = adapter
 
-        etNomeJogo.setOnEditorActionListener { textView, actionId, keyEvent ->
-            esconderTeclado()
-            pesquisarJogos()
+        viewModel.listaPesquisas.observe(this, Observer { listaJogos ->
+            adapter.preencherLista(listaJogos!!)
+            rvJogos.smoothScrollToPosition(0)
+        })
+
+        // Obter jogos mais populares do momento
+        viewModel.pesquisarJogos("")
+
+        etNomeJogo.setOnEditorActionListener { _, _, _ ->
+            esconderTeclado(this)
+            viewModel.pesquisarJogos(query = etNomeJogo.text.toString())
             true
-        }
-    }
-
-    private fun pesquisarJogos() {
-        val service = retrofit.create(IGDBService::class.java)
-
-        val call = service.pesquisarJogos(query = etNomeJogo.text.toString())
-
-        doAsync {
-            val response = call.execute()
-
-            if (response.isSuccessful) {
-                val listaJogos = response.body()?.map { normalizarDadosJogo(it) }
-
-                uiThread {
-                    adapter.preencherLista(listaJogos!!)
-                }
-
-            }
-        }
-
-    }
-
-    private fun esconderTeclado() {
-        val view = this.currentFocus
-        if (view != null) {
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 }

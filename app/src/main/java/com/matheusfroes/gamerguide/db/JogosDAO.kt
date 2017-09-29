@@ -19,7 +19,7 @@ class JogosDAO(context: Context) {
         cv.put(Helper.JOGOS_ID, jogo.id)
         cv.put(Helper.JOGOS_NOME, jogo.nome)
         cv.put(Helper.JOGOS_DATA_LANCAMENTO, jogo.dataLancamento.time)
-        cv.put(Helper.JOGOS_DESENVOLVEDORAS, jogo.desenvolvedoras)
+        cv.put(Helper.JOGOS_DESENVOLVEDORAS, jogo.desenvolvedores)
         cv.put(Helper.JOGOS_PUBLICADORAS, jogo.publicadoras)
         cv.put(Helper.JOGOS_DESCRICAO, jogo.descricao)
         cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.imageCapa)
@@ -52,7 +52,7 @@ class JogosDAO(context: Context) {
             jogo = Jogo(
                     id = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID)),
                     descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
-                    desenvolvedoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
+                    desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
                     imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
                     publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
                     generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),

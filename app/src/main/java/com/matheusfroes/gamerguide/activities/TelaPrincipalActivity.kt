@@ -1,5 +1,7 @@
 package com.matheusfroes.gamerguide.activities
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +14,9 @@ import kotlinx.android.synthetic.main.activity_tela_principal.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+    private val viewModel: TelaPrincipalViewModel by lazy {
+        ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,26 +25,27 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
 
         bottomNavigation.setOnNavigationItemSelectedListener(this)
 
-        bottomNavigation.selectedItemId = R.id.navMeusJogos
+        viewModel.fragmentAtual.observe(this, Observer { position ->
+            mudarTela(position!!)
+        })
+
+        bottomNavigation.selectedItemId = viewModel.fragmentAtual.value!!
 
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navMeusJogos -> {
-                mudarTela(0)
-                return true
+                viewModel.fragmentAtual.value = 0
             }
             R.id.navFeed -> {
-                mudarTela(1)
-                return true
+                viewModel.fragmentAtual.value = 1
             }
             R.id.navListas -> {
-                mudarTela(2)
-                return true
+                viewModel.fragmentAtual.value = 2
             }
         }
-        return false
+        return true
     }
 
 
@@ -53,5 +59,4 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
         }
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment).commit()
     }
-
 }

@@ -11,7 +11,7 @@ import android.view.*
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.VerticalSpaceItemDecoration
 import com.matheusfroes.gamerguide.activities.ConfiguracoesFeed
-import com.matheusfroes.gamerguide.adapters.NoticiasAdapter
+import com.matheusfroes.gamerguide.adapters.FeedAdapter
 import com.matheusfroes.gamerguide.models.Noticia
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.toolbar.*
  * Created by matheus_froes on 19/09/2017.
  */
 class FeedFragment : Fragment(), Callback {
-    private var adapter: NoticiasAdapter? = null
+    private var adapter: FeedAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +36,7 @@ class FeedFragment : Fragment(), Callback {
         val view = inflater.inflate(R.layout.fragment_feed, container, false)
         activity.tabLayout.visibility = View.GONE
 
-        adapter = NoticiasAdapter(activity)
+        adapter = FeedAdapter(activity)
 
         PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(this).async()
 
@@ -45,7 +45,7 @@ class FeedFragment : Fragment(), Callback {
 
         view.rvNoticias.adapter = adapter
 
-        adapter?.setOnClickListener(object : NoticiasAdapter.OnNewsClickListener {
+        adapter?.setOnClickListener(object : FeedAdapter.OnNewsClickListener {
             override fun onClick(noticia: Noticia) {
                 val customTabsIntent = CustomTabsIntent.Builder()
                         .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))

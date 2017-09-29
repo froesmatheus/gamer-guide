@@ -26,6 +26,8 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="Call of Duty World Warfare II"
+            android:textColor="@android:color/black"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -38,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="Sledgehammer Games"
             android:textStyle="bold" />
 
@@ -64,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="Tiro em primeira pessoa"
             android:textStyle="bold" />
 

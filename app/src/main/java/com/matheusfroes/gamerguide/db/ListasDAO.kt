@@ -93,7 +93,7 @@ class ListasDAO(val context: Context) {
                 val jogo = Jogo(
                         id = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID)),
                         descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
-                        desenvolvedoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
+                        desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
                         imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
                         publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
                         generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),

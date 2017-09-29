@@ -1,5 +1,6 @@
 package com.matheusfroes.gamerguide.models
 
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -9,10 +10,9 @@ data class Jogo(
         val id: Long,
         val nome: String,
         val descricao: String,
-        val desenvolvedoras: String,
+        val desenvolvedores: String,
         val publicadoras: String,
         val generos: String,
         val dataLancamento: Date,
         val plataformas: List<Plataforma>,
-        val imageCapa: String
-)
+        val imageCapa: String) : Serializable

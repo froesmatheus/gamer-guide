@@ -29,7 +29,9 @@
             android:layout_alignStart="@+id/tvDataLancamento"
             android:text="@string/nome_do_jogo"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_alignRight="@+id/tvPlataformas"
+            android:layout_alignEnd="@+id/tvPlataformas" />
 
         <TextView
             android:id="@+id/tvDataLancamento"
@@ -49,7 +51,9 @@
             android:text="Plataformas"
             android:layout_below="@+id/tvDataLancamento"
             android:layout_alignLeft="@+id/tvDataLancamento"
-            android:layout_alignStart="@+id/tvDataLancamento" />
+            android:layout_alignStart="@+id/tvDataLancamento"
+            android:layout_toLeftOf="@+id/imageView"
+            android:layout_toStartOf="@+id/imageView" />
 
         <ImageView
             android:layout_width="wrap_content"

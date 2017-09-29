@@ -2,6 +2,7 @@ package com.matheusfroes.gamerguide.adapters
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
@@ -13,12 +14,12 @@ import kotlinx.android.synthetic.main.view_noticia.view.*
  * Created by matheus_froes on 20/09/2017.
  */
 
-class NoticiasAdapter(private val context: Context) : RecyclerView.Adapter<NoticiasAdapter.ViewHolder>() {
+class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
     private var listener: OnNewsClickListener? = null
     private var noticias: List<Noticia> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = View.inflate(context, R.layout.view_noticia, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.view_noticia, parent, false)
         return ViewHolder(view)
     }
 

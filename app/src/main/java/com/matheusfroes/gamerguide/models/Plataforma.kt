@@ -1,9 +1,11 @@
 package com.matheusfroes.gamerguide.models
 
+import java.io.Serializable
+
 /**
  * Created by matheusfroes on 26/09/2017.
  */
-data class Plataforma(val id: Long, val nome: String) {
+data class Plataforma(val id: Long, val nome: String) : Serializable {
     companion object {
         val ID_XBOX_360 = 12L
         val ID_XBOX_ONE = 49L
