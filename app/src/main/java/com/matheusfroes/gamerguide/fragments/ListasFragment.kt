@@ -59,6 +59,11 @@ class ListasFragment : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter.preencherLista(dao.obterListas())
+    }
+
     private fun dialogAdicionarLista() {
         val view = View.inflate(context, R.layout.dialog_adicionar_lista, null)
 

@@ -9,6 +9,7 @@ import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.JogosListaAdapter
 import kotlinx.android.synthetic.main.activity_detalhes_lista.*
+import org.jetbrains.anko.toast
 
 
 class DetalhesListaActivity : AppCompatActivity() {
@@ -48,6 +49,7 @@ class DetalhesListaActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navExcluirLista -> {
                 viewModel.excluirLista(listaId)
+                toast("Lista excluída")
                 finish()
             }
         }

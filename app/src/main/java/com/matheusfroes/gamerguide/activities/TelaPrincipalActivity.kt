@@ -28,8 +28,6 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
         viewModel.fragmentAtual.observe(this, Observer { position ->
             mudarTela(position!!)
         })
-
-        bottomNavigation.selectedItemId = R.id.navFeed
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -54,6 +52,7 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
             0 -> MeusJogosFragment()
             1 -> FeedFragment()
             2 -> ListasFragment()
+
             else -> MeusJogosFragment()
         }
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment).commit()
