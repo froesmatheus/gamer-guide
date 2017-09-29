@@ -1,6 +1,5 @@
 package com.matheusfroes.gamerguide.activities
 
-import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -25,21 +24,24 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
 
         bottomNavigation.setOnNavigationItemSelectedListener(this)
 
-        viewModel.fragmentAtual.observe(this, Observer { position ->
-            mudarTela(position!!)
-        })
+        bottomNavigation.selectedItemId = when (viewModel.fragmentAtual.value) {
+            0 -> R.id.navMeusJogos
+            1 -> R.id.navFeed
+            2 -> R.id.navListas
+            else -> R.id.navFeed
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navMeusJogos -> {
-                viewModel.fragmentAtual.value = 0
+                mudarTela(0)
             }
             R.id.navFeed -> {
-                viewModel.fragmentAtual.value = 1
+                mudarTela(1)
             }
             R.id.navListas -> {
-                viewModel.fragmentAtual.value = 2
+                mudarTela(2)
             }
         }
         return true
@@ -47,6 +49,7 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
 
 
     private fun mudarTela(position: Int) {
+        viewModel.fragmentAtual.value = position
 
         val fragment = when (position) {
             0 -> MeusJogosFragment()
