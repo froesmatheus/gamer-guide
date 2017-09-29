@@ -41,6 +41,9 @@ class ListasFragment : Fragment() {
         view.fab.setOnClickListener { dialogAdicionarLista() }
 
         view.rvListas.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        view.rvListas.emptyView = view.layoutEmpty
+
+
         view.rvListas.adapter = adapter
 
         adapter.preencherLista(dao.obterListas())

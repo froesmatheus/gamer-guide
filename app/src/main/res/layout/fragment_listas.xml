@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
+    <com.matheusfroes.gamerguide.CustomRecyclerView
         android:id="@+id/rvListas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/view_lista" />
+
+    <LinearLayout
+        android:id="@+id/layoutEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:tint="@android:color/darker_gray"
+            app:srcCompat="@drawable/ic_list" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nenhuma lista cadastrada\nClique no botão adicionar para criar novas listas" />
+    </LinearLayout>
+
 
     <include layout="@layout/fab" />
 </FrameLayout>

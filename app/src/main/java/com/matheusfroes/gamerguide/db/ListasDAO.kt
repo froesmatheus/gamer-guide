@@ -30,6 +30,11 @@ class ListasDAO(val context: Context) {
         }
     }
 
+    fun excluirLista(listaId: Int) {
+        db.delete(Helper.TABELA_LISTAS_JOGOS, "id_lista = ?", arrayOf(listaId.toString()))
+        db.delete(Helper.TABELA_LISTAS, "_id = ?", arrayOf(listaId.toString()))
+    }
+
     fun obterLista(id: Int): Lista? {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_LISTAS} WHERE ${Helper.LISTAS_ID} = ?", arrayOf(id.toString()))
 

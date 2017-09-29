@@ -1,10 +1,11 @@
 package com.matheusfroes.gamerguide.activities
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.JogosListaAdapter
 import kotlinx.android.synthetic.main.activity_detalhes_lista.*
@@ -18,16 +19,16 @@ class DetalhesListaActivity : AppCompatActivity() {
         JogosListaAdapter(this)
     }
 
+    private var listaId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_lista)
 
         intent ?: return
 
-        val listaId = intent.getIntExtra("lista_id", 0)
 
-        val intent = Intent()
-        intent.putExtra("id", 10L)
+        listaId = intent.getIntExtra("lista_id", 0)
 
         val lista = viewModel.getLista(listaId)!!
 
@@ -36,5 +37,21 @@ class DetalhesListaActivity : AppCompatActivity() {
 
         adapter.preencherLista(lista.jogos)
         title = lista.nome
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_lista, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.navExcluirLista -> {
+                viewModel.excluirLista(listaId)
+                finish()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

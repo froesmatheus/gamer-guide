@@ -29,8 +29,7 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
             mudarTela(position!!)
         })
 
-        bottomNavigation.selectedItemId = viewModel.fragmentAtual.value!!
-
+        bottomNavigation.selectedItemId = R.id.navFeed
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

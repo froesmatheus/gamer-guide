@@ -17,4 +17,8 @@ class DetalhesListaViewModel(application: Application) : AndroidViewModel(applic
     private var lista = MutableLiveData<Lista>()
 
     fun getLista(listaId: Int): Lista? = dao.obterLista(listaId)
+
+    fun excluirLista(listaId: Int) {
+        dao.excluirLista(listaId)
+    }
 }
