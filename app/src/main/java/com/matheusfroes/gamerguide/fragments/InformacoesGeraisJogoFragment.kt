@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoViewModel
-import com.matheusfroes.gamerguide.dataPorExtenso
+import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
 import kotlinx.android.synthetic.main.fragment_informacoes_gerais.view.*
 
@@ -36,7 +36,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
         view.tvNomeDesenvolvedores.text = jogo?.desenvolvedores
         view.tvNomePublicadora.text = jogo?.publicadoras
         view.tvGenero.text = jogo?.generos
-        view.tvDataLancamento.text = jogo?.dataLancamento?.dataPorExtenso()
+        view.tvDataLancamento.text = jogo?.dataLancamento?.formatarData("dd 'de' MMMM 'de' yyyy")
         view.tvDescricao.text = jogo?.descricao
     }
 }

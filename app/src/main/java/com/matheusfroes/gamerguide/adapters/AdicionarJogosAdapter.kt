@@ -2,18 +2,16 @@ package com.matheusfroes.gamerguide.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.extra.DialogDetalhesJogo
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoActivity
+import com.matheusfroes.gamerguide.extra.DialogDetalhesJogo
+import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_pesquisa.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Created by matheusfroes on 21/09/2017.
@@ -34,16 +32,13 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val jogo = jogos[position]
 
-        holder.itemView.setOnClickListener {
-            dialogDetalhesJogo(jogo)
-        }
+        holder.itemView.setOnClickListener { dialogDetalhesJogo(jogo) }
 
         holder.itemView.tvNomeJogo.text = jogo.nome
-        val dataLancamento = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(jogo.dataLancamento)
-
-        holder.itemView.tvDataLancamento.text = dataLancamento
-
+        holder.itemView.tvDataLancamento.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
+
+        holder.setIsRecyclable(false)
 
         if (jogo.imageCapa.isEmpty()) {
             holder.capaVisivel = false
@@ -60,13 +55,6 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         }
     }
 
-    private fun showPopup(v: View) {
-        val popup = PopupMenu(context, v)
-        val inflater = popup.menuInflater
-        inflater.inflate(R.menu.popup_jogos, popup.menu)
-        popup.show()
-    }
-
     private fun dialogDetalhesJogo(jogo: Jogo) {
         val dialog = DialogDetalhesJogo(context, jogo)
                 .setPositiveButton("Adicionar", null)
@@ -80,10 +68,9 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         dialog.show()
     }
 
-
     override fun getItemCount() = jogos.size
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var capaVisivel = true
     }
 }

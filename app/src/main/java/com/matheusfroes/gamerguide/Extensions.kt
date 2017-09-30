@@ -6,5 +6,5 @@ import java.util.*
 /**
  * Created by matheusfroes on 29/09/2017.
  */
-fun Date.dataPorExtenso(): String =
-        SimpleDateFormat("dd 'de' MMMM 'de' yyyy", Locale("pt", "BR")).format(this)
+fun Date.formatarData(formato: String): String =
+        SimpleDateFormat(formato, Locale("pt", "BR")).format(this)

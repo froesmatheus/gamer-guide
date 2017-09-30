@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.dataPorExtenso
+import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.dialog_detalhes_jogo.view.*
@@ -28,7 +28,7 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
         view.tvPublicadora.text = jogo.publicadoras
         view.tvGenero.text = jogo.generos
 
-        val dataLancamento = jogo.dataLancamento.dataPorExtenso()
+        val dataLancamento = jogo.dataLancamento.formatarData("dd 'de' MMMM 'de' yyyy")
 
         view.tvDataLancamento.text = dataLancamento
 
