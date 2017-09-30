@@ -18,7 +18,7 @@ interface IGDBService {
     @GET("games/")
     fun pesquisarJogos(
             @Query("search") query: String,
-            @Query("fields") fields: String = "name,id,summary,cover.url,time_to_beat,developers,publishers,first_release_date,genres,release_dates.date,release_dates.platform",
+            @Query("fields") fields: String = "name,id,summary,cover.url,time_to_beat,developers,publishers,videos,first_release_date,genres,release_dates.date,release_dates.platform",
             @Query("expand") expands: String = "publishers,developers,genres",
 //            @Query("filter[release_dates.platform][eq]") filters: Array<String> = arrayOf("48", "49", "6", "12", "9"),
             @Query("order") popularity: String = "popularity:desc"): Call<List<GameResponse>>

@@ -12,6 +12,9 @@ import java.util.*
  */
 class JogosDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
+    private val videosDAO: VideosDAO by lazy {
+        VideosDAO(context)
+    }
 
     fun inserir(jogo: Jogo) {
         val cv = ContentValues()
@@ -49,8 +52,10 @@ class JogosDAO(context: Context) {
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
+            val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
             jogo = Jogo(
-                    id = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID)),
+                    id = jogoId,
                     descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
                     desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
                     imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
@@ -58,6 +63,7 @@ class JogosDAO(context: Context) {
                     generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
                     nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
                     plataformas = obterPlataformasPorJogo(id),
+                    videos = videosDAO.getVideosPorJogo(jogoId),
                     dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
             )
         }

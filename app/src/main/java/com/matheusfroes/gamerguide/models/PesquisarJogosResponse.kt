@@ -1,6 +1,7 @@
 package com.matheusfroes.gamerguide.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
 /**
@@ -17,11 +18,18 @@ data class GameResponse(
         val firstReleaseDate: Long,
         @SerializedName("release_dates")
         val releaseDates: List<ReleaseDate>? = null,
+        val videos: List<Video>? = null,
         val cover: Cover?)
 
 data class Genre(val id: Int, val name: String) {
     override fun toString() = name
 }
+
+data class Video(
+        @SerializedName("name")
+        val nome: String,
+        @SerializedName("video_id")
+        val videoId: String) : Serializable
 
 data class Developer(val id: Int, val name: String) {
     override fun toString() = name

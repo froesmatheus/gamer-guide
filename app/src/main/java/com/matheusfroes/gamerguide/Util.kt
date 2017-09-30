@@ -28,6 +28,7 @@ fun normalizarDadosJogo(game: GameResponse): Jogo =
                 game.genres?.joinToString() ?: "",
                 Date(game.firstReleaseDate),
                 extrairPlataformas(game.releaseDates ?: mutableListOf()),
+                game.videos ?: mutableListOf(),
                 adicionarSchemaUrl(game.cover?.url))
 
 fun extrairPlataformas(releaseDates: List<ReleaseDate>): List<Plataforma> {

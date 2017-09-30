@@ -49,6 +49,14 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val LISTAS_JOGOS_ID_LISTA = "id_lista"
         val LISTAS_JOGOS_ID_JOGO = "id_jogo"
 
+        // Tabela de Vídeos
+        val TABELA_VIDEOS = "videos"
+        val VIDEOS_ID = "_id"
+        val VIDEOS_ID_JOGO = "id_jogo"
+        val VIDEOS_NOME = "nome"
+        val VIDEOS_VIDEOID = "video_id"
+
+
         val CREATE_TABLE_JOGOS = """
              CREATE TABLE $TABELA_JOGOS(
                 $JOGOS_ID INTEGER PRIMARY KEY,
@@ -85,6 +93,14 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 $LISTAS_JOGOS_ID_LISTA INTEGER NOT NULL,
                 FOREIGN KEY($LISTAS_JOGOS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID),
                 FOREIGN KEY($LISTAS_JOGOS_ID_LISTA) REFERENCES $TABELA_LISTAS($LISTAS_ID));"""
+
+        val CREATE_TABLE_VIDEOS = """
+            CREATE TABLE $TABELA_VIDEOS(
+                $VIDEOS_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                $VIDEOS_ID_JOGO INTEGER NOT NULL,
+                $VIDEOS_NOME TEXT NOT NULL,
+                $VIDEOS_VIDEOID TEXT NOT NULL,
+                FOREIGN KEY($VIDEOS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID));"""
     }
 
 
@@ -94,6 +110,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         db.execSQL(CREATE_TABLE_JOGOS_PLATAFORMAS)
         db.execSQL(CREATE_TABLE_LISTAS)
         db.execSQL(CREATE_TABLE_LISTAS_JOGOS)
+        db.execSQL(CREATE_TABLE_VIDEOS)
 
         inserirPlataformas(db)
     }
@@ -101,6 +118,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE $TABELA_JOGOS_PLATAFORMAS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_LISTAS_JOGOS IF EXISTS;")
+        db.execSQL("DROP TABLE $TABELA_VIDEOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_LISTAS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_JOGOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_PLATAFORMAS IF EXISTS;")

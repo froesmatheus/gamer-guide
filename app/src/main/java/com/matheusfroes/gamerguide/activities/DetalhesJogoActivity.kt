@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
 
 
 class DetalhesJogoActivity : AppCompatActivity() {
-    val viewModel: DetalhesJogoViewModel by lazy {
+    private val viewModel: DetalhesJogoViewModel by lazy {
         ViewModelProviders.of(this).get(DetalhesJogoViewModel::class.java)
     }
 

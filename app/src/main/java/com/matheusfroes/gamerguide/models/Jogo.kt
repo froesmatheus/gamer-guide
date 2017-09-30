@@ -15,4 +15,5 @@ data class Jogo(
         val generos: String,
         val dataLancamento: Date,
         val plataformas: List<Plataforma>,
+        val videos: List<Video>,
         val imageCapa: String) : Serializable
