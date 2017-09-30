@@ -31,6 +31,7 @@ class JogosNaoTerminadosFragment : Fragment() {
 
 
         view.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        view.rvJogosNaoTerminados.emptyView = view.layoutEmpty
         view.rvJogosNaoTerminados.adapter = adapter
 
         view.rvJogosNaoTerminados.addOnScrollListener(object : RecyclerView.OnScrollListener() {

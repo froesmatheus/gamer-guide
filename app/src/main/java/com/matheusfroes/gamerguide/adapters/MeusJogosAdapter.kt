@@ -10,14 +10,13 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoActivity
 import com.matheusfroes.gamerguide.models.Jogo
 import kotlinx.android.synthetic.main.view_jogo.view.*
-import java.util.*
 
 
 /**
  * Created by matheusfroes on 21/09/2017.
  */
 class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<MeusJogosAdapter.ViewHolder>() {
-    private val jogos = listOf("A", "B", "C", "D", "E", "F", "G", "C", "D", "E", "C", "D", "E", "C", "D", "E")
+    private val jogos = listOf<Jogo>()
     private var listener: android.widget.PopupMenu.OnMenuItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -26,8 +25,6 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val jogo = Jogo(0, "FIFA 18", "FIFA é uma merda todo ano, o ÚNICO bom foi o 14 que tinha Mandzukic robado de cabeça",
-                "EA (Pior empresa dos EUA)", "EA (Pior empresa dos EUA)", "Esporte", Calendar.getInstance().time, mutableListOf(), "")
         holder.itemView.setOnClickListener {
             context.startActivity(Intent(context, DetalhesJogoActivity::class.java))
         }

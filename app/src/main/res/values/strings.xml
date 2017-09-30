@@ -32,4 +32,7 @@
     </plurals>
 
     <string name="qtd_jogos_0">0 jogos</string>
+    <string name="empty_lista">Nenhuma lista adicionada\nClique no botão adicionar para criar novas listas</string>
+    <string name="empty_jogos">Nenhum jogo adicionado\nClique no botão adicionar para inserir novos jogos</string>
+
 </resources>
