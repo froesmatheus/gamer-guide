@@ -21,14 +21,13 @@ import org.jetbrains.anko.toast
 /**
  * Created by matheusfroes on 20/09/2017.
  */
-class JogosNaoTerminadosFragment : Fragment() {
+class JogosTabFragment : Fragment() {
     val adapter: MeusJogosAdapter by lazy {
         MeusJogosAdapter(activity)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_jogos_nao_terminados, container, false)
-
 
         view.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.rvJogosNaoTerminados.emptyView = view.layoutEmpty
