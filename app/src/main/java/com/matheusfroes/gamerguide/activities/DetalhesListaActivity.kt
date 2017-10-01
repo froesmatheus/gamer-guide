@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import com.matheusfroes.gamerguide.ListaExcluidaEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.JogosListaAdapter
 import kotlinx.android.synthetic.main.activity_detalhes_lista.*
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 
 
@@ -50,6 +52,7 @@ class DetalhesListaActivity : AppCompatActivity() {
             R.id.navExcluirLista -> {
                 viewModel.excluirLista(listaId)
                 toast("Lista excluída")
+                EventBus.getDefault().postSticky(ListaExcluidaEvent())
                 finish()
             }
         }

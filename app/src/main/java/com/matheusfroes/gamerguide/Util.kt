@@ -41,7 +41,7 @@ fun extrairPlataformas(releaseDates: List<ReleaseDate>): List<Plataforma> {
             Plataforma.ID_PC -> Plataforma(Plataforma.ID_PC, "PC")
             else -> Plataforma(0, "")
         }
-    }.distinct().filter { it.id != 0.toLong() }
+    }.distinct().filter { it.id != 0.toLong() }.sortedBy { it.nome }
 }
 
 fun obterImagemJogoCapa(urlImagem: String): String {

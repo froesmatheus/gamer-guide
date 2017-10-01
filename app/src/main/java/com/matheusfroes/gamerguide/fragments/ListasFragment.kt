@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.matheusfroes.gamerguide.ListaExcluidaEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesListaActivity
 import com.matheusfroes.gamerguide.adapters.ListasAdapter
@@ -20,6 +21,9 @@ import kotlinx.android.synthetic.main.dialog_adicionar_lista.view.*
 import kotlinx.android.synthetic.main.fab.view.*
 import kotlinx.android.synthetic.main.fragment_listas.view.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
 
 /**
@@ -59,9 +63,19 @@ class ListasFragment : Fragment() {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    fun onMessageEvent(event: ListaExcluidaEvent) {
         adapter.preencherLista(dao.obterListas())
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
     }
 
     private fun dialogAdicionarLista() {
