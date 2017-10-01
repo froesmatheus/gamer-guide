@@ -3,6 +3,7 @@ package com.matheusfroes.gamerguide
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import com.matheusfroes.gamerguide.db.PlataformasDAO
 import com.matheusfroes.gamerguide.models.GameResponse
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.models.Plataforma
@@ -18,7 +19,7 @@ fun adicionarSchemaUrl(url: String?): String {
     } else url ?: ""
 }
 
-fun normalizarDadosJogo(game: GameResponse): Jogo =
+fun normalizarDadosJogo(game: GameResponse, plataformasDAO: PlataformasDAO): Jogo =
         Jogo(
                 game.id,
                 game.name ?: "",
@@ -27,21 +28,15 @@ fun normalizarDadosJogo(game: GameResponse): Jogo =
                 game.publishers?.joinToString() ?: "",
                 game.genres?.joinToString() ?: "",
                 Date(game.firstReleaseDate),
-                extrairPlataformas(game.releaseDates ?: mutableListOf()),
+                extrairPlataformas(game.releaseDates ?: mutableListOf(), plataformasDAO),
                 game.videos ?: mutableListOf(),
                 adicionarSchemaUrl(game.cover?.url))
 
-fun extrairPlataformas(releaseDates: List<ReleaseDate>): List<Plataforma> {
-    return releaseDates.map {
-        when (it.platform) {
-            Plataforma.ID_XBOX_360 -> Plataforma(Plataforma.ID_XBOX_360, "Xbox 360")
-            Plataforma.ID_XBOX_ONE -> Plataforma(Plataforma.ID_XBOX_ONE, "Xbox One")
-            Plataforma.ID_PS3 -> Plataforma(Plataforma.ID_PS3, "PS3")
-            Plataforma.ID_PS4 -> Plataforma(Plataforma.ID_PS4, "PS4")
-            Plataforma.ID_PC -> Plataforma(Plataforma.ID_PC, "PC")
-            else -> Plataforma(0, "")
-        }
-    }.distinct().filter { it.id != 0.toLong() }.sortedBy { it.nome }
+fun extrairPlataformas(releaseDates: List<ReleaseDate>, plataformasDAO: PlataformasDAO): List<Plataforma> {
+    return releaseDates
+            .map { plataformasDAO.obterPlataforma(it.platform) }
+            .distinct()
+            .sortedBy { it.nome }
 }
 
 fun obterImagemJogoCapa(urlImagem: String): String {

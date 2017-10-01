@@ -10,7 +10,7 @@ import com.matheusfroes.gamerguide.models.Plataforma
 class PlataformasDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
 
-    fun obterPlataforma(id: Int): Plataforma? {
+    fun obterPlataforma(id: Long): Plataforma {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_PLATAFORMAS} WHERE ${Helper.PLATAFORMAS_ID} = ?", arrayOf(id.toString()))
 
         var plataforma: Plataforma? = null
@@ -26,7 +26,7 @@ class PlataformasDAO(context: Context) {
 
         cursor.close()
 
-        return plataforma
+        return plataforma!!
     }
 
     fun obterPlataformas(): List<Plataforma> {

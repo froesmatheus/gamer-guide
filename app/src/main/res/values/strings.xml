@@ -34,5 +34,8 @@
     <string name="qtd_jogos_0">0 jogos</string>
     <string name="empty_lista">Nenhuma lista adicionada\nClique no botão adicionar para criar novas listas</string>
     <string name="empty_jogos">Nenhum jogo adicionado\nClique no botão adicionar para inserir novos jogos</string>
+    <string name="horas_jogadas">Horas Jogadas</string>
 
+    <string name="youtube_url">https://www.youtube.com/watch?v=%s</string>
+    <string name="youtube_thumbnail_url">https://img.youtube.com/vi/%s/mqdefault.jpg</string>
 </resources>

@@ -1,8 +1,7 @@
 package com.matheusfroes.gamerguide.extra
 
 import com.matheusfroes.gamerguide.api.IGDBService
-import com.matheusfroes.gamerguide.models.Jogo
-import com.matheusfroes.gamerguide.normalizarDadosJogo
+import com.matheusfroes.gamerguide.models.GameResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -19,15 +18,15 @@ class AppRepository {
         retrofit.create(IGDBService::class.java)
     }
 
-    fun pesquisarJogos(query: String): MutableList<Jogo> {
-        val listaJogos = mutableListOf<Jogo>()
+    fun pesquisarJogos(query: String): MutableList<GameResponse> {
+        val listaJogos = mutableListOf<GameResponse>()
 
         val call = service.pesquisarJogos(query = query)
 
         val response = call.execute()
 
         if (response.isSuccessful) {
-            val listaResponse = response.body()?.map { normalizarDadosJogo(it) }
+            val listaResponse = response.body()
 
             listaResponse?.let { listaJogos.addAll(it) }
         }

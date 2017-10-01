@@ -39,7 +39,7 @@ class VideosFragment : Fragment() {
 
         adapter.setOnVideoClickListener(object : VideosAdapter.OnVideoClickListener {
             override fun onVideoClick(video: Video) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=${video.videoId}}"))
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.youtube_url, video.videoId)))
                 startActivity(intent)
             }
         })

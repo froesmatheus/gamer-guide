@@ -34,9 +34,10 @@ class VideosAdapter(val context: Context) : RecyclerView.Adapter<VideosAdapter.V
 
         holder.itemView.setOnClickListener { listener?.onVideoClick(video) }
 
+        val thumbnailUrl = context.getString(R.string.youtube_thumbnail_url, video.videoId)
         Picasso
                 .with(context)
-                .load("https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg")
+                .load(thumbnailUrl)
                 .fit()
                 .into(holder.itemView.ivThumbnailVideo)
     }
