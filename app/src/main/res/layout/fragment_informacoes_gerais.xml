@@ -132,51 +132,51 @@
 
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="?android:attr/selectableItemBackground"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="10dp">
+        <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--app:cardPreventCornerOverlap="true"-->
+        <!--app:cardUseCompatPadding="true"-->
+        <!--app:contentPadding="10dp">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Vídeos"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Vídeos"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textStyle="bold" />-->
+        <!--</LinearLayout>-->
 
-        </android.support.v7.widget.CardView>
+        <!--</android.support.v7.widget.CardView>-->
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="?android:attr/selectableItemBackground"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="10dp">
+        <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--app:cardPreventCornerOverlap="true"-->
+        <!--app:cardUseCompatPadding="true"-->
+        <!--app:contentPadding="10dp">-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Streams"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Streams"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textStyle="bold" />-->
+        <!--</LinearLayout>-->
 
-        </android.support.v7.widget.CardView>
+        <!--</android.support.v7.widget.CardView>-->
     </LinearLayout>
 
 
