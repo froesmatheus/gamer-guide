@@ -36,6 +36,7 @@ class DetalhesListaActivity : AppCompatActivity() {
         val lista = viewModel.getLista(listaId)!!
 
         rvJogosLista.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvJogosLista.emptyView = layoutEmpty
         rvJogosLista.adapter = adapter
 
         adapter.preencherLista(lista.jogos)

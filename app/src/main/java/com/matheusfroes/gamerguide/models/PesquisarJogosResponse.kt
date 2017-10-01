@@ -18,6 +18,8 @@ data class GameResponse(
         val firstReleaseDate: Long,
         @SerializedName("release_dates")
         val releaseDates: List<ReleaseDate>? = null,
+        @SerializedName("time_to_beat")
+        val timeToBeat: TimeToBeat? = null,
         val videos: List<Video>? = null,
         val cover: Cover?)
 
@@ -34,6 +36,8 @@ data class Video(
 data class Developer(val id: Int, val name: String) {
     override fun toString() = name
 }
+
+data class TimeToBeat(val hastly: Long, val normally: Long, val completely: Long) : Serializable
 
 class ReleaseDate(val platform: Long, val date: Long) {
     override fun equals(other: Any?): Boolean {

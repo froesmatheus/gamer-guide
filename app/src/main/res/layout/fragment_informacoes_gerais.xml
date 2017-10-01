@@ -51,6 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="Sledgehammer Games"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -110,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:text="3 de novembro de 2017"
                     android:textSize="17sp"
                     android:textStyle="bold" />
@@ -147,28 +149,82 @@
 
         </android.support.v7.widget.CardView>
 
-        <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:background="?android:attr/selectableItemBackground"-->
-        <!--app:cardPreventCornerOverlap="true"-->
-        <!--app:cardUseCompatPadding="true"-->
-        <!--app:contentPadding="10dp">-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvCardTimeToBeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="10dp">
 
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical">-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Vídeos"-->
-        <!--android:textSize="16sp"-->
-        <!--android:textStyle="bold" />-->
-        <!--</LinearLayout>-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tempo para zerar"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-        <!--</android.support.v7.widget.CardView>-->
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0">
+
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/tituloTTBSpeedrun"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Speedrun" />
+
+                        <TextView
+                            android:id="@+id/tvTTBSpeedrun"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="46 horas" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/tituloTTBModoHistoria"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Modo História" />
+
+                        <TextView
+                            android:id="@+id/tvTTBModoHistoria"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="46 horas" />
+                    </TableRow>
+
+                    <TableRow>
+
+                        <TextView
+                            android:id="@+id/tituloTTB100Perc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="100%" />
+
+                        <TextView
+                            android:id="@+id/tvTTB100Perc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="46 horas" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
 
         <!--<android.support.v7.widget.CardView-->
         <!--android:layout_width="match_parent"-->

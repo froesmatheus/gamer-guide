@@ -39,5 +39,25 @@ class InformacoesGeraisJogoFragment : Fragment() {
         view.tvDataLancamento.text = jogo?.dataLancamento?.formatarData("dd 'de' MMMM 'de' yyyy")
         view.tvDescricao.text = jogo?.descricao
         view.tvPlataformas.text = jogo?.plataformas?.joinToString()
+
+        if (jogo?.timeToBeat != null) {
+            if (jogo.timeToBeat.hastly == 0L) {
+                view.tituloTTBSpeedrun.visibility = View.GONE
+                view.tvTTBSpeedrun.visibility = View.GONE
+            }
+            if (jogo.timeToBeat.normally == 0L) {
+                view.tituloTTBModoHistoria.visibility = View.GONE
+                view.tvTTBModoHistoria.visibility = View.GONE
+            }
+            if (jogo.timeToBeat.completely == 0L) {
+                view.tituloTTB100Perc.visibility = View.GONE
+                view.tvTTB100Perc.visibility = View.GONE
+            }
+            view.tvTTBSpeedrun.text = "${(jogo.timeToBeat.hastly.div(3600))} horas"
+            view.tvTTBModoHistoria.text = "${(jogo.timeToBeat.normally.div(3600))} horas"
+            view.tvTTB100Perc.text = "${(jogo.timeToBeat.completely.div(3600))} horas"
+        } else {
+            view.cvCardTimeToBeat.visibility = View.GONE
+        }
     }
 }

@@ -16,4 +16,5 @@ data class Jogo(
         val dataLancamento: Date,
         val plataformas: List<Plataforma>,
         val videos: List<Video>,
+        val timeToBeat: TimeToBeat? = null,
         val imageCapa: String) : Serializable
