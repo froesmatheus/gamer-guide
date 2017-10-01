@@ -13,6 +13,6 @@ import com.matheusfroes.gamerguide.R
 class MeuProgressoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_informacoes_gerais, container, false)
+        return inflater.inflate(R.layout.fragment_meu_progresso, container, false)
     }
 }
