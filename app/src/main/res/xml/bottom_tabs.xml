@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        icon="@drawable/ic_joystick"
+        id="@+id/navMeusJogos"
+        title="Jogos" />
+    <tab
+        icon="@drawable/ic_calendario"
+        id="@+id/navCalendario"
+        title="Calendário" />
+    <tab
+        icon="@drawable/ic_folded_newspaper"
+        id="@+id/navFeed"
+        title="@string/titulo_feed" />
+    <tab
+        icon="@drawable/ic_list"
+        id="@+id/navListas"
+        title="@string/titulo_listas" />
+    <tab
+        icon="@drawable/ic_estatistica"
+        id="@+id/navEstatisticas"
+        title="Estatísticas" />
+</tabs>

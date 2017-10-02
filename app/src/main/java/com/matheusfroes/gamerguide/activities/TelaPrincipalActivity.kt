@@ -22,13 +22,30 @@ class TelaPrincipalActivity : AppCompatActivity(), BottomNavigationView.OnNaviga
         setContentView(R.layout.activity_tela_principal)
         setSupportActionBar(toolbar)
 
-        bottomNavigation.setOnNavigationItemSelectedListener(this)
+//        bottomNavigation.setOnNavigationItemSelectedListener(this)
+//
+//        bottomNavigation.selectedItemId = when (viewModel.fragmentAtual.value) {
+//            0 -> R.id.navMeusJogos
+//            1 -> R.id.navFeed
+//            2 -> R.id.navListas
+//            else -> R.id.navFeed
+//        }
 
-        bottomNavigation.selectedItemId = when (viewModel.fragmentAtual.value) {
-            0 -> R.id.navMeusJogos
-            1 -> R.id.navFeed
-            2 -> R.id.navListas
-            else -> R.id.navFeed
+        bottomNavigation.selectTabAtPosition(viewModel.fragmentAtual.value!!)
+        bottomNavigation.animation = null
+
+        bottomNavigation.setOnTabSelectListener { item ->
+            when (item) {
+                R.id.navMeusJogos -> {
+                    mudarTela(0)
+                }
+                R.id.navFeed -> {
+                    mudarTela(1)
+                }
+                R.id.navListas -> {
+                    mudarTela(2)
+                }
+            }
         }
     }
 
