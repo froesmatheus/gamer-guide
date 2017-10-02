@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
     <tab
-        icon="@drawable/ic_joystick"
+        icon="@drawable/ic_gamepad"
         id="@+id/navMeusJogos"
         title="Jogos" />
     <tab
