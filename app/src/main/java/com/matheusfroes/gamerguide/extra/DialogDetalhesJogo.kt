@@ -37,7 +37,7 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
             view.tituloDesenvolvedores.visibility = View.GONE
         }
 
-        if (jogo.desenvolvedores.isEmpty()) {
+        if (jogo.publicadoras.isEmpty()) {
             view.tvPublicadora.visibility = View.GONE
             view.tituloPublicadoras.visibility = View.GONE
         }
