@@ -47,7 +47,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
             view.tituloDesenvolvedores.visibility = View.GONE
         }
 
-        if (jogo?.desenvolvedores.isNullOrEmpty()) {
+        if (jogo?.publicadoras.isNullOrEmpty()) {
             view.tvNomePublicadora.visibility = View.GONE
             view.tituloPublicadoras.visibility = View.GONE
         }
