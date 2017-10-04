@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoViewModel
 import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
+import kotlinx.android.synthetic.main.fragment_informacoes_gerais.*
 import kotlinx.android.synthetic.main.fragment_informacoes_gerais.view.*
 
 /**
@@ -40,6 +42,18 @@ class InformacoesGeraisJogoFragment : Fragment() {
         view.tvDescricao.text = jogo?.descricao
         view.tvPlataformas.text = jogo?.plataformas?.joinToString()
 
+        if (jogo?.desenvolvedores.isNullOrEmpty()) {
+            view.tvNomeDesenvolvedores.visibility = View.GONE
+            view.tituloDesenvolvedores.visibility = View.GONE
+        }
+
+        if (jogo?.desenvolvedores.isNullOrEmpty()) {
+            view.tvNomePublicadora.visibility = View.GONE
+            view.tituloPublicadoras.visibility = View.GONE
+        }
+
+        cvDescricaoJogo.setOnClickListener { dialogDescricao() }
+
         if (jogo?.timeToBeat != null) {
             if (jogo.timeToBeat.hastly == 0L) {
                 view.tituloTTBSpeedrun.visibility = View.GONE
@@ -59,5 +73,14 @@ class InformacoesGeraisJogoFragment : Fragment() {
         } else {
             view.cvCardTimeToBeat.visibility = View.GONE
         }
+    }
+
+    private fun dialogDescricao() {
+        val dialog = AlertDialog.Builder(activity)
+                .setTitle("Descrição")
+                .setMessage(viewModel.jogo.value?.descricao)
+                .create()
+
+        dialog.show()
     }
 }

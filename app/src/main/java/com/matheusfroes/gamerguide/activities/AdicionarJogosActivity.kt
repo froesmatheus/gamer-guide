@@ -32,7 +32,7 @@ class AdicionarJogosActivity : AppCompatActivity() {
         })
 
         // Obter jogos mais populares do momento
-        viewModel.pesquisarJogos("")
+        viewModel.obterLancamentos()
 
         etNomeJogo.setOnEditorActionListener { _, _, _ ->
             esconderTeclado(this)

@@ -33,8 +33,13 @@ class DetalhesJogoActivity : AppCompatActivity() {
         val jogo = intent.getSerializableExtra("jogo") as Jogo
         viewModel.jogo.value = jogo
 
-        viewPager.adapter = DetalhesJogosFragmentAdapter(supportFragmentManager)
+        val tabAdapter = DetalhesJogosFragmentAdapter(supportFragmentManager)
+        viewPager.adapter = tabAdapter
         tabLayout.setupWithViewPager(viewPager)
+
+        if (viewModel.jogo.value?.videos?.size == 0) {
+            tabAdapter.removeTabPage(1)
+        }
 
         Picasso
                 .with(this)

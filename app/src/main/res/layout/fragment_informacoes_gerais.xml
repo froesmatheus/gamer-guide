@@ -42,6 +42,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tituloDesenvolvedores"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Desenvolvedores" />
@@ -57,6 +58,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tituloPublicadoras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Publicadoras" />
@@ -121,9 +123,12 @@
 
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cvDescricaoJogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
             app:contentPadding="10dp">
@@ -137,14 +142,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Descrição"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvDescricao"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Call of Duty: WWII creates the definitive World War II next generation experience across three different game modes: Campaign, Multiplayer, and Co-Operative. Featuring stunning visuals, the Campaign transports players to the European theater as they engage in an all-new Call of Duty story set in iconic World War II battles. Multiplayer marks a return to original, boots-on-the ground Call of Duty gameplay. Authentic weapons and traditional run-and-gun action immerse you in a vast array of World War II-themed locations. The Co-Operative mode unleashes a new and original story in a standalone game experience full of unexpected, adrenaline-pumping moments." />
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvDescricao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="8"
+                        android:text="Call of Duty: WWII creates the definitive World War II next generation experience across three different game modes: Campaign, Multiplayer, and Co-Operative. Featuring stunning visuals, the Campaign transports players to the European theater as they engage in an all-new Call of Duty story set in iconic World War II battles. Multiplayer marks a return to original, boots-on-the ground Call of Duty gameplay. Authentic weapons and traditional run-and-gun action immerse you in a vast array of World War II-themed locations. The Co-Operative mode unleashes a new and original story in a standalone game experience full of unexpected, adrenaline-pumping moments." />
+
+                    <ImageView
+                        android:id="@+id/ivMaisDetalhesDescricao"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:srcCompat="@drawable/ic_seta" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </android.support.v7.widget.CardView>

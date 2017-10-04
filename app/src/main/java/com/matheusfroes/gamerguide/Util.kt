@@ -37,7 +37,7 @@ fun extrairPlataformas(releaseDates: List<ReleaseDate>, plataformasDAO: Platafor
     return releaseDates
             .map { plataformasDAO.obterPlataforma(it.platform) }
             .distinct()
-            .sortedBy { it.nome }
+            .sortedBy { it.nome.toLowerCase() }
 }
 
 fun obterImagemJogoCapa(urlImagem: String): String {

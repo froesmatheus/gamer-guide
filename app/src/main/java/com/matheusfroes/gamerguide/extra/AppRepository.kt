@@ -34,4 +34,20 @@ class AppRepository {
         return listaJogos
     }
 
+    fun obterLancamentos(): MutableList<GameResponse> {
+        val listaJogos = mutableListOf<GameResponse>()
+
+        val call = service.obterLancamentos(query = "")
+
+        val response = call.execute()
+
+        if (response.isSuccessful) {
+            val listaResponse = response.body()
+
+            listaResponse?.let { listaJogos.addAll(it) }
+        }
+
+        return listaJogos
+    }
+
 }

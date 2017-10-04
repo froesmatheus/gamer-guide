@@ -25,6 +25,15 @@ class AdicionarJogosViewModel(application: Application) : AndroidViewModel(appli
 
             uiThread { listaPesquisas.value = jogos }
         }
+    }
 
+    fun obterLancamentos() {
+        doAsync {
+            val result = repository.obterLancamentos()
+
+            val jogos = result.map { normalizarDadosJogo(it, PlataformasDAO(getApplication())) }
+
+            uiThread { listaPesquisas.value = jogos }
+        }
     }
 }

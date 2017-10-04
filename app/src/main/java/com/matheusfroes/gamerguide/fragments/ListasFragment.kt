@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -26,6 +27,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
 
+
 /**
  * Created by matheus_froes on 19/09/2017.
  */
@@ -44,9 +46,14 @@ class ListasFragment : Fragment() {
 
         view.fab.setOnClickListener { dialogAdicionarLista() }
 
-        view.rvListas.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        view.rvListas.layoutManager = layoutManager
         view.rvListas.emptyView = view.layoutEmpty
-
+        val mDividerItemDecoration = DividerItemDecoration(
+                view.rvListas.context,
+                layoutManager.orientation
+        )
+        view.rvListas.addItemDecoration(mDividerItemDecoration)
 
         view.rvListas.adapter = adapter
 

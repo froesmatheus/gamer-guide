@@ -32,6 +32,16 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
 
         view.tvDataLancamento.text = dataLancamento
 
+        if (jogo.desenvolvedores.isEmpty()) {
+            view.tvDesenvolvedores.visibility = View.GONE
+            view.tituloDesenvolvedores.visibility = View.GONE
+        }
+
+        if (jogo.desenvolvedores.isEmpty()) {
+            view.tvPublicadora.visibility = View.GONE
+            view.tituloPublicadoras.visibility = View.GONE
+        }
+
         Picasso.with(context).load(jogo.imageCapa.replace("t_thumb", "t_cover_big")).fit()
                 .into(view.ivCapaJogo)
     }

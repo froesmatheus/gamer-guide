@@ -10,23 +10,26 @@ import com.matheusfroes.gamerguide.fragments.VideosFragment
  * Created by matheus_froes on 26/09/2017.
  */
 class DetalhesJogosFragmentAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
-    private val informacoesGerais = InformacoesGeraisJogoFragment()
-    private val meuProgresso = MeuProgressoFragment()
-    private val videos = VideosFragment()
+    private val tabItems = mutableListOf(
+            InformacoesGeraisJogoFragment(), VideosFragment(), MeuProgressoFragment()
+    )
+    private val tabTitles = mutableListOf(
+            "Informações Gerais",
+            "Vídeos",
+            "Meu Progresso"
+    )
 
-    override fun getItem(position: Int) = when (position) {
-        0 -> informacoesGerais
-        1 -> videos
-        2 -> meuProgresso
-        else -> informacoesGerais
-    }
+    override fun getItem(position: Int) = tabItems[position]
 
-    override fun getCount() = 3
+    override fun getCount() = tabItems.size
 
-    override fun getPageTitle(position: Int) = when (position) {
-        0 -> "Informações Gerais"
-        1 -> "Vídeos"
-        2 -> "Meu Progresso"
-        else -> ""
+    override fun getPageTitle(position: Int) = tabTitles[position]
+
+    fun removeTabPage(position: Int) {
+        if (!tabItems.isEmpty() && position < tabItems.size) {
+            tabItems.removeAt(position)
+            tabTitles.removeAt(position)
+            notifyDataSetChanged()
+        }
     }
 }
