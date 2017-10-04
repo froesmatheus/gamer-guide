@@ -16,15 +16,15 @@ import kotlinx.android.synthetic.main.view_noticia.view.*
 
 class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
     private var listener: OnNewsClickListener? = null
-    private var noticias: List<Noticia> = mutableListOf()
+    private var noticias: MutableList<Noticia> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.view_noticia, parent, false)
         return ViewHolder(view)
     }
 
-    fun preencherNoticias(noticias: List<Noticia>) {
-        this.noticias = noticias
+    fun preencherNoticias(noticias: MutableList<Noticia>) {
+        this.noticias.addAll(noticias)
         this.notifyDataSetChanged()
     }
 
@@ -33,6 +33,8 @@ class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapt
 
         holder.itemView.tvTitulo.text = noticia.titulo
         holder.itemView.tvHorarioNoticia.setReferenceTime(noticia.dataPublicacao)
+
+        holder.itemView.tvWebsite.text = "${noticia.website} • "
 
         holder.itemView.setOnClickListener {
             listener?.onClick(noticia)

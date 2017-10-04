@@ -24,9 +24,32 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * Created by matheus_froes on 19/09/2017.
  */
-class FeedFragment : Fragment(), Callback {
+class FeedFragment : Fragment() {
     private var adapter: FeedAdapter? = null
     var swipeRefreshLayout: SwipeRefreshLayout? = null
+    val callbackTecmundo = object : Callback {
+        override fun onLoadFailed() {}
+
+        override fun onPreload() {
+            swipeRefreshLayout?.isRefreshing = true
+        }
+
+        override fun onLoaded(newArticles: MutableList<Article>) {
+            preencherNoticias(newArticles)
+        }
+    }
+    val callbackIgn = object : Callback {
+        override fun onLoadFailed() {}
+
+        override fun onPreload() {
+            swipeRefreshLayout?.isRefreshing = true
+        }
+
+        override fun onLoaded(newArticles: MutableList<Article>) {
+            preencherNoticias(newArticles)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +62,9 @@ class FeedFragment : Fragment(), Callback {
 
         adapter = FeedAdapter(activity)
 
-        PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(this).async()
+        PkRSS.with(activity).load("http://br.ign.com/feed.xml").callback(callbackIgn).async()
+        PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(callbackTecmundo).async()
+
 
         view.rvNoticias.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.rvNoticias.addItemDecoration(VerticalSpaceItemDecoration(50))
@@ -64,15 +89,10 @@ class FeedFragment : Fragment(), Callback {
     }
 
     private fun atualizarFeed() {
-        PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(this).async()
+        PkRSS.with(activity).load("http://br.ign.com/feed.xml").callback(callbackTecmundo).async()
+        PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(callbackIgn).async()
     }
 
-    override fun onLoadFailed() {
-    }
-
-    override fun onPreload() {
-        swipeRefreshLayout?.isRefreshing = true
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_feed, menu)
@@ -92,18 +112,20 @@ class FeedFragment : Fragment(), Callback {
         return false
     }
 
-    override fun onLoaded(newArticles: MutableList<Article>) {
+
+    fun preencherNoticias(newArticles: MutableList<Article>) {
         val noticias = newArticles.map { article ->
             val imagemNoticia: String? = if (article.enclosure == null) {
-                null
+                article.image?.toString()
             } else {
                 article.enclosure.url
             }
 
-            Noticia(article.title, imagemNoticia!!, article.source.toString(), article.date)
-        }
+            val website = if (article.source.host.contains("ign", ignoreCase = true)) "IGN" else "Tecmundo"
+
+            Noticia(article.title, imagemNoticia!!, article.source.toString(), article.date, website)
+        }.toMutableList()
         adapter?.preencherNoticias(noticias)
         swipeRefreshLayout?.isRefreshing = false
     }
-
 }
