@@ -48,7 +48,7 @@ class DetalhesJogoActivity : AppCompatActivity() {
                 .into(ivCapaJogo)
 
         fabAdicinarJogo.setOnClickListener {
-            val snackbar = Snackbar.make(coordinatorLayout, "Jogo adicionado", Snackbar.LENGTH_LONG)
+            val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
 
             fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
             snackbar.show()
