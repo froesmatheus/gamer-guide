@@ -52,6 +52,11 @@ class InformacoesGeraisJogoFragment : Fragment() {
             view.tituloPublicadoras.visibility = View.GONE
         }
 
+        if (jogo?.generos.isNullOrEmpty()) {
+            view.tvGenero.visibility = View.GONE
+            view.tvTituloGenero.visibility = View.GONE
+        }
+
         cvDescricaoJogo.setOnClickListener { dialogDescricao() }
 
         if (jogo?.timeToBeat != null) {

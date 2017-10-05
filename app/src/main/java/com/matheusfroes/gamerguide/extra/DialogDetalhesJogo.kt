@@ -42,6 +42,12 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
             view.tituloPublicadoras.visibility = View.GONE
         }
 
+        if (jogo.generos.isEmpty()) {
+            view.tituloGenero.visibility = View.GONE
+            view.tvGenero.visibility = View.GONE
+        }
+
+
         Picasso.with(context).load(jogo.imageCapa.replace("t_thumb", "t_cover_big")).fit()
                 .into(view.ivCapaJogo)
     }
