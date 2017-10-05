@@ -1,5 +1,7 @@
 package com.matheusfroes.gamerguide.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,12 +13,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.ConfiguracoesFeed
+import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.adapters.FeedAdapter
 import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
 import com.matheusfroes.gamerguide.models.Noticia
-import com.pkmmte.pkrss.Article
-import com.pkmmte.pkrss.Callback
-import com.pkmmte.pkrss.PkRSS
 import kotlinx.android.synthetic.main.fragment_feed.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -27,29 +27,9 @@ import kotlinx.android.synthetic.main.toolbar.*
 class FeedFragment : Fragment() {
     private var adapter: FeedAdapter? = null
     var swipeRefreshLayout: SwipeRefreshLayout? = null
-    val callbackTecmundo = object : Callback {
-        override fun onLoadFailed() {}
-
-        override fun onPreload() {
-            swipeRefreshLayout?.isRefreshing = true
-        }
-
-        override fun onLoaded(newArticles: MutableList<Article>) {
-            preencherNoticias(newArticles)
-        }
+    private val viewModel: TelaPrincipalViewModel by lazy {
+        ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
     }
-    val callbackIgn = object : Callback {
-        override fun onLoadFailed() {}
-
-        override fun onPreload() {
-            swipeRefreshLayout?.isRefreshing = true
-        }
-
-        override fun onLoaded(newArticles: MutableList<Article>) {
-            preencherNoticias(newArticles)
-        }
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,9 +42,11 @@ class FeedFragment : Fragment() {
 
         adapter = FeedAdapter(activity)
 
-        PkRSS.with(activity).load("http://br.ign.com/feed.xml").callback(callbackIgn).async()
-        PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(callbackTecmundo).async()
+        viewModel.noticias.observe(this, Observer {
+            adapter?.preencherNoticias(viewModel.noticias.value!!)
+        })
 
+        viewModel.atualizarFeed()
 
         view.rvNoticias.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.rvNoticias.addItemDecoration(VerticalSpaceItemDecoration(50))
@@ -83,16 +65,10 @@ class FeedFragment : Fragment() {
         swipeRefreshLayout = view.swipeRefreshLayout
 
         view.swipeRefreshLayout.setOnRefreshListener {
-            atualizarFeed()
+            viewModel.atualizarFeed()
         }
         return view
     }
-
-    private fun atualizarFeed() {
-        PkRSS.with(activity).load("http://br.ign.com/feed.xml").callback(callbackTecmundo).async()
-        PkRSS.with(activity).load("http://rss.baixakijogos.com.br/feed/").callback(callbackIgn).async()
-    }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_feed, menu)
@@ -105,27 +81,10 @@ class FeedFragment : Fragment() {
                 return true
             }
             R.id.navAtualizarFeed -> {
-                atualizarFeed()
+                viewModel.atualizarFeed()
                 return true
             }
         }
         return false
-    }
-
-
-    fun preencherNoticias(newArticles: MutableList<Article>) {
-        val noticias = newArticles.map { article ->
-            val imagemNoticia: String? = if (article.enclosure == null) {
-                article.image?.toString()
-            } else {
-                article.enclosure.url
-            }
-
-            val website = if (article.source.host.contains("ign", ignoreCase = true)) "IGN" else "Tecmundo"
-
-            Noticia(article.title, imagemNoticia!!, article.source.toString(), article.date, website)
-        }.toMutableList()
-        adapter?.preencherNoticias(noticias)
-        swipeRefreshLayout?.isRefreshing = false
     }
 }

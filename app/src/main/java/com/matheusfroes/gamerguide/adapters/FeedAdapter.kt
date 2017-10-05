@@ -24,7 +24,7 @@ class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapt
     }
 
     fun preencherNoticias(noticias: MutableList<Noticia>) {
-        this.noticias.addAll(noticias)
+        this.noticias = noticias
         this.notifyDataSetChanged()
     }
 
