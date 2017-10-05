@@ -10,4 +10,6 @@
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="toolar_hight">?attr/actionBarSize</dimen>
+
+    <dimen name="btn_adicionar_padding">0dp</dimen>
 </resources>

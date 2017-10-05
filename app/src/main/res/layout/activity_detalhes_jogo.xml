@@ -75,7 +75,7 @@
         android:id="@+id/fabAdicinarJogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="@dimen/btn_adicionar_padding"
         android:tint="@color/colorPrimary"
         app:backgroundTint="@android:color/white"
         app:fabSize="mini"

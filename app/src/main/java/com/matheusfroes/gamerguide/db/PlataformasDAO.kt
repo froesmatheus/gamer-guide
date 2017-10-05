@@ -50,4 +50,30 @@ class PlataformasDAO(context: Context) {
 
         return plataformas
     }
+
+    fun obterPlataformasPorJogo(id: Int): List<Plataforma> {
+        val cursor = db.rawQuery("""
+            SELECT P.${Helper.PLATAFORMAS_ID}, P.${Helper.PLATAFORMAS_NOME}
+            FROM ${Helper.TABELA_PLATAFORMAS} P
+            INNER JOIN ${Helper.TABELA_JOGOS_PLATAFORMAS} JP ON P._id = JP.id_plataforma
+            WHERE JP.id_jogo = ?""", arrayOf(id.toString()))
+
+        val plataformas = mutableListOf<Plataforma>()
+        if (cursor.count > 0) {
+            cursor.moveToFirst()
+
+            do {
+                val plataforma = Plataforma(
+                        id = cursor.getLong(cursor.getColumnIndex(Helper.PLATAFORMAS_ID)),
+                        nome = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME)))
+
+                plataformas.add(plataforma)
+            } while (cursor.moveToNext())
+
+        }
+
+        cursor.close()
+
+        return plataformas
+    }
 }

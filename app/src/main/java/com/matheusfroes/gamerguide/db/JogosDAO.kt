@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.models.Jogo
-import com.matheusfroes.gamerguide.models.Plataforma
 import java.util.*
 
 /**
@@ -14,6 +13,9 @@ class JogosDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
     private val videosDAO: VideosDAO by lazy {
         VideosDAO(context)
+    }
+    private val plataformasDAO: PlataformasDAO by lazy {
+        PlataformasDAO(context)
     }
 
     fun inserir(jogo: Jogo) {
@@ -62,7 +64,7 @@ class JogosDAO(context: Context) {
                     publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
                     generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
                     nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                    plataformas = obterPlataformasPorJogo(id),
+                    plataformas = plataformasDAO.obterPlataformasPorJogo(id),
                     videos = videosDAO.getVideosPorJogo(jogoId),
                     dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
             )
@@ -73,29 +75,41 @@ class JogosDAO(context: Context) {
         return jogo
     }
 
-    fun obterPlataformasPorJogo(id: Int): List<Plataforma> {
+    fun obterJogosPorLista(id: Int): List<Jogo> {
         val cursor = db.rawQuery("""
-            SELECT P.${Helper.PLATAFORMAS_ID}, P.${Helper.PLATAFORMAS_NOME}
-            FROM ${Helper.TABELA_PLATAFORMAS} P
-            INNER JOIN ${Helper.TABELA_JOGOS_PLATAFORMAS} JP ON P._id = JP.id_plataforma
-            WHERE JP.id_jogo = ?""", arrayOf(id.toString()))
+            SELECT *
+            FROM ${Helper.TABELA_JOGOS} J
+            INNER JOIN ${Helper.TABELA_LISTAS_JOGOS} LJ ON J._id = LJ.id_jogo
+            WHERE LJ.id_lista = ?""", arrayOf(id.toString()))
 
-        val plataformas = mutableListOf<Plataforma>()
+        val jogos = mutableListOf<Jogo>()
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
             do {
-                val plataforma = Plataforma(
-                        id = cursor.getLong(cursor.getColumnIndex(Helper.PLATAFORMAS_ID)),
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME)))
 
-                plataformas.add(plataforma)
+                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
+                val jogo = Jogo(
+                        id = jogoId,
+                        descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
+                        desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
+                        imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
+                        publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
+                        generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
+                        nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
+                        plataformas = plataformasDAO.obterPlataformasPorJogo(id),
+                        videos = videosDAO.getVideosPorJogo(jogoId),
+                        dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
+                )
+
+                jogos.add(jogo)
             } while (cursor.moveToNext())
 
         }
 
         cursor.close()
 
-        return plataformas
+        return jogos
     }
 }

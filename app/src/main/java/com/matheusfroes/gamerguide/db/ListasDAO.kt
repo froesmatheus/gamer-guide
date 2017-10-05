@@ -3,17 +3,15 @@ package com.matheusfroes.gamerguide.db
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.models.Lista
-import java.util.*
 
 /**
  * Created by matheus_froes on 28/09/2017.
  */
 class ListasDAO(val context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
-    private val videosDAO: VideosDAO by lazy {
-        VideosDAO(context)
+    private val jogosDAO: JogosDAO by lazy {
+        JogosDAO(context)
     }
 
     fun inserir(lista: Lista) {
@@ -49,7 +47,7 @@ class ListasDAO(val context: Context) {
             jogo = Lista(
                     id = cursor.getInt(cursor.getColumnIndex(Helper.LISTAS_ID)),
                     nome = cursor.getString(cursor.getColumnIndex(Helper.LISTAS_NOME)),
-                    jogos = obterJogosDaLista(id)
+                    jogos = jogosDAO.obterJogosPorLista(id)
             )
         }
 
@@ -71,7 +69,7 @@ class ListasDAO(val context: Context) {
                 val lista = Lista(
                         id = listaId,
                         nome = cursor.getString(cursor.getColumnIndex(Helper.LISTAS_NOME)),
-                        jogos = obterJogosDaLista(listaId)
+                        jogos = jogosDAO.obterJogosPorLista(listaId)
                 )
 
                 listas.add(lista)
@@ -82,45 +80,5 @@ class ListasDAO(val context: Context) {
         cursor.close()
 
         return listas
-    }
-
-    private fun obterJogosDaLista(id: Int): List<Jogo> {
-        val jogosDAO = JogosDAO(context)
-
-        val cursor = db.rawQuery("""
-            SELECT *
-            FROM ${Helper.TABELA_JOGOS} J
-            INNER JOIN ${Helper.TABELA_LISTAS_JOGOS} LJ ON J._id = LJ.id_jogo
-            WHERE LJ.id_lista = ?""", arrayOf(id.toString()))
-
-        val jogos = mutableListOf<Jogo>()
-        if (cursor.count > 0) {
-            cursor.moveToFirst()
-
-            do {
-
-                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
-
-                val jogo = Jogo(
-                        id = jogoId,
-                        descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
-                        desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
-                        imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
-                        publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
-                        generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                        plataformas = jogosDAO.obterPlataformasPorJogo(id),
-                        videos = videosDAO.getVideosPorJogo(jogoId),
-                        dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
-                )
-
-                jogos.add(jogo)
-            } while (cursor.moveToNext())
-
-        }
-
-        cursor.close()
-
-        return jogos
     }
 }
