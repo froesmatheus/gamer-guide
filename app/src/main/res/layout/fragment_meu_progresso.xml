@@ -1,22 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/horas_jogadas" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <EditText
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:inputType="number" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/horas_jogadas" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quantos % você jogou?" />
-</LinearLayout>
+        <EditText
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantos % você jogou?" />
+
+        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+            android:id="@+id/sbProgresso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:dsb_indicatorColor="@color/colorPrimary"
+            app:dsb_max="100"
+            app:dsb_min="0"
+            app:dsb_progressColor="@color/colorPrimary"
+            app:dsb_thumbSize="20dp"
+            app:dsb_trackColor="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tvPorcentagemProgresso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:text="0%"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Zerei este jogo" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
