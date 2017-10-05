@@ -3,6 +3,7 @@ package com.matheusfroes.gamerguide.activities
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
@@ -46,6 +47,12 @@ class DetalhesJogoActivity : AppCompatActivity() {
                 .load(obterImagemJogoCapa(jogo.imageCapa))
                 .into(ivCapaJogo)
 
+        fabAdicinarJogo.setOnClickListener {
+            val snackbar = Snackbar.make(coordinatorLayout, "Jogo adicionado", Snackbar.LENGTH_LONG)
+
+            fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
+            snackbar.show()
+        }
     }
 
     fun lockAppBarClosed() {

@@ -64,7 +64,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<include layout="@layout/fragment_informacoes_gerais" />-->
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
@@ -72,13 +71,17 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_margin="@dimen/fab_margin"-->
-    <!--app:layout_anchor="@id/app_bar"-->
-    <!--app:layout_anchorGravity="bottom|end"-->
-    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAdicinarJogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:tint="@color/colorPrimary"
+        app:backgroundTint="@android:color/white"
+        app:fabSize="mini"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="end"
+        app:srcCompat="@drawable/ic_add"
+        app:useCompatPadding="true" />
 
 </android.support.design.widget.CoordinatorLayout>

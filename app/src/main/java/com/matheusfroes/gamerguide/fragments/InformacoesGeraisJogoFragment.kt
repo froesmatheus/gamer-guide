@@ -15,6 +15,7 @@ import com.matheusfroes.gamerguide.models.Jogo
 import kotlinx.android.synthetic.main.fragment_informacoes_gerais.*
 import kotlinx.android.synthetic.main.fragment_informacoes_gerais.view.*
 
+
 /**
  * Created by matheus_froes on 26/09/2017.
  */
