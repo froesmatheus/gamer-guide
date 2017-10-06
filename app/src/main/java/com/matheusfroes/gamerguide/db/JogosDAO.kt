@@ -17,6 +17,9 @@ class JogosDAO(context: Context) {
     private val plataformasDAO: PlataformasDAO by lazy {
         PlataformasDAO(context)
     }
+    private val timeToBeatDAO: TimeToBeatDAO by lazy {
+        TimeToBeatDAO(context)
+    }
 
     fun inserir(jogo: Jogo) {
         val cv = ContentValues()
@@ -37,6 +40,9 @@ class JogosDAO(context: Context) {
 
             db.insert(Helper.TABELA_JOGOS_PLATAFORMAS, null, cvPlataformas)
         }
+
+        videosDAO.inserir(jogo.videos, jogo.id, db)
+        timeToBeatDAO.inserir(jogo.timeToBeat, jogo.id, db)
 
         db.insert(Helper.TABELA_JOGOS, null, cv)
     }
@@ -66,6 +72,7 @@ class JogosDAO(context: Context) {
                     nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
                     plataformas = plataformasDAO.obterPlataformasPorJogo(id),
                     videos = videosDAO.getVideosPorJogo(jogoId),
+                    timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
                     dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
             )
         }

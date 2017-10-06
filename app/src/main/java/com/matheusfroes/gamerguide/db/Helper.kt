@@ -63,6 +63,13 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val PROGRESSOS_PROGRESSO_PERC = "progresso_perc"
         val PROGRESSOS_ZERADO = "jogo_zerado"
 
+        // Tabela Time to Beat
+        val TABELA_TTB = "time_to_beat"
+        val TTB_ID_JOGO = "_id"
+        val TTB_SPEEDRUN = "speedrun"
+        val TTB_MODO_HISTORIA = "modo_historia"
+        val TTB_100PERC = "cem_perc"
+
         val CREATE_TABLE_JOGOS = """
              CREATE TABLE $TABELA_JOGOS(
                 $JOGOS_ID INTEGER PRIMARY KEY,
@@ -115,6 +122,14 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 $PROGRESSOS_PROGRESSO_PERC INTEGER,
                 $PROGRESSOS_ZERADO INTEGER,
                 FOREIGN KEY($PROGRESSOS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID));"""
+
+        val CREATE_TABLE_TTB = """
+            CREATE TABLE $TABELA_TTB(
+                $TTB_ID_JOGO INTEGER PRIMARY KEY NOT NULL,
+                $TTB_SPEEDRUN INTEGER,
+                $TTB_MODO_HISTORIA INTEGER,
+                $TTB_100PERC INTEGER,
+                FOREIGN KEY($TTB_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID));"""
     }
 
 
@@ -126,6 +141,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         db.execSQL(CREATE_TABLE_LISTAS_JOGOS)
         db.execSQL(CREATE_TABLE_VIDEOS)
         db.execSQL(CREATE_TABLE_PROGRESSOS)
+        db.execSQL(CREATE_TABLE_TTB)
 
         inserirPlataformas(db)
     }
@@ -135,6 +151,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         db.execSQL("DROP TABLE $TABELA_LISTAS_JOGOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_VIDEOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_PROGRESSOS IF EXISTS;")
+        db.execSQL("DROP TABLE $TABELA_TTB IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_LISTAS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_JOGOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_PLATAFORMAS IF EXISTS;")

@@ -11,7 +11,7 @@ import com.matheusfroes.gamerguide.models.Video
 class VideosDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
 
-    fun inserir(videos: List<Video>, jogoId: Long) {
+    fun inserir(videos: List<Video>, jogoId: Long, database: SQLiteDatabase = db) {
         db.beginTransaction()
         try {
             val cv = ContentValues()
