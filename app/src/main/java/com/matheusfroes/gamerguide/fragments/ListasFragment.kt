@@ -121,6 +121,6 @@ class ListasFragment : Fragment() {
 
         adapter.preencherLista(dao.obterListas())
 
-        context.toast("Lista adicionada")
+        context.toast(getString(R.string.lista_adicionada))
     }
 }

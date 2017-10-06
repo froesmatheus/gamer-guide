@@ -52,7 +52,7 @@ class DetalhesListaActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.navExcluirLista -> {
                 viewModel.excluirLista(listaId)
-                toast("Lista excluída")
+                toast(getString(R.string.lista_excluida))
                 EventBus.getDefault().postSticky(ListaExcluidaEvent())
                 finish()
             }

@@ -76,7 +76,7 @@ class JogosTabFragment : Fragment() {
                 when (menu.itemId) {
                     R.id.navRemover -> {
                         viewModel.removerJogo(itemId)
-                        context.toast("Jogo removido")
+                        context.toast(context.getString(R.string.jogo_removido))
                     }
                     R.id.navGerenciarListas -> {
                         dialogGerenciarListas()
@@ -116,12 +116,12 @@ class JogosTabFragment : Fragment() {
         view.rvGerenciarListas.adapter = GerenciarListasAdapter(context, listaDAO.obterListas())
 
         val dialog = AlertDialog.Builder(context)
-                .setTitle("Gerenciar listas")
+                .setTitle(getString(R.string.gerenciar_listas))
                 .setView(view)
-                .setPositiveButton("Confirmar") { dialogInterface, i ->
+                .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
 
                 }
-                .setNegativeButton("Cancelar") { dialogInterface, i ->
+                .setNegativeButton(getString(R.string.cancelar)) { dialogInterface, i ->
 
                 }
                 .create()

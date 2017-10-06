@@ -42,4 +42,13 @@
     <string name="youtube_thumbnail_url">https://img.youtube.com/vi/%s/mqdefault.jpg</string>
     <string name="jogo_adicionado">O jogo foi adicionado</string>
     <string name="jogo_removido">O jogo foi removido</string>
+    <string name="lista_excluida">Lista excluída</string>
+    <string name="btn_adicionar">Adicionar</string>
+    <string name="Detalhes">Detalhes</string>
+    <string name="tab_progresso">Progresso</string>
+    <string name="tab_informacoes">Informações</string>
+    <string name="tab_videos">Vídeos</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="gerenciar_listas">Gerenciar listas</string>
+    <string name="lista_adicionada">Lista adicionada</string>
 </resources>

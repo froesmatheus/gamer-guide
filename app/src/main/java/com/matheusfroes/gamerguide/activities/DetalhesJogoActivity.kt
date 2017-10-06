@@ -49,7 +49,7 @@ class DetalhesJogoActivity : AppCompatActivity() {
         viewModel.jogo.value = jogo
 
 
-        val tabAdapter = DetalhesJogosFragmentAdapter(supportFragmentManager)
+        val tabAdapter = DetalhesJogosFragmentAdapter(this, supportFragmentManager)
         viewPager.adapter = tabAdapter
         tabLayout.setupWithViewPager(viewPager)
         viewPager.setCurrentItem(1, false)
