@@ -2,6 +2,7 @@ package com.matheusfroes.gamerguide.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.view_jogo_pesquisa.view.*
  */
 class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter<AdicionarJogosAdapter.ViewHolder>() {
     private var jogos: List<Jogo> = listOf()
+    private var listener: android.widget.PopupMenu.OnMenuItemClickListener? = null
 
     fun preencherLista(jogos: List<Jogo>) {
         this.jogos = jogos
@@ -38,6 +40,10 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         holder.itemView.tvDataLancamento.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
 
+        holder.itemView.ivOverflow.setOnClickListener {
+            showPopup(holder.itemView.ivOverflow)
+        }
+
         holder.setIsRecyclable(false)
 
         if (jogo.imageCapa.isEmpty()) {
@@ -53,6 +59,21 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
                     .fit()
                     .into(holder.itemView.ivCapaJogo)
         }
+    }
+
+    private fun showPopup(v: View) {
+        val popup = PopupMenu(context, v)
+        val inflater = popup.menuInflater
+        inflater.inflate(R.menu.menu_adicionar_jogos, popup.menu)
+        popup.show()
+
+        popup.setOnMenuItemClickListener {
+            listener?.onMenuItemClick(it)!!
+        }
+    }
+
+    fun setOnMenuItemClickListener(listener: android.widget.PopupMenu.OnMenuItemClickListener) {
+        this.listener = listener
     }
 
     private fun dialogDetalhesJogo(jogo: Jogo) {
