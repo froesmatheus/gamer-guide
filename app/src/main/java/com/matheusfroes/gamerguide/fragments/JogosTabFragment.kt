@@ -8,9 +8,9 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
@@ -71,15 +71,18 @@ class JogosTabFragment : Fragment() {
             }
         })
 
-        adapter.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { menu ->
-            when (menu.itemId) {
-                R.id.navRemover -> context.toast("Remover")
-                R.id.navGerenciarListas -> {
-                    dialogGerenciarListas()
+        adapter.setOnMenuItemClickListener(object : MeusJogosAdapter.OnMenuOverflowClickListener {
+            override fun onMenuItemClick(menu: MenuItem, itemId: Long) {
+                when (menu.itemId) {
+                    R.id.navRemover -> {
+                        viewModel.removerJogo(itemId)
+                        context.toast("Jogo removido")
+                    }
+                    R.id.navGerenciarListas -> {
+                        dialogGerenciarListas()
+                    }
                 }
             }
-
-            true
         })
         return view
     }

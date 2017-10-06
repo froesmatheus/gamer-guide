@@ -1,5 +1,6 @@
 package com.matheusfroes.gamerguide.adapters
 
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.matheusfroes.gamerguide.fragments.InformacoesGeraisJogoFragment
@@ -31,5 +32,11 @@ class DetalhesJogosFragmentAdapter(fm: FragmentManager?) : FragmentStatePagerAda
             tabTitles.removeAt(position)
             notifyDataSetChanged()
         }
+    }
+
+    fun addTabPage(position: Int, fragment: Fragment, title: String) {
+        tabItems.add(position, fragment)
+        tabTitles.add(position, title)
+        notifyDataSetChanged()
     }
 }

@@ -29,6 +29,11 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
         jogosZerados.value = jogosDAO.obterJogosPorStatus(zerados = true)
     }
 
+    fun removerJogo(jogoId: Long) {
+        jogosDAO.remover(jogoId)
+        jogosNaoTerminados.postValue(jogosDAO.obterJogosPorStatus(zerados = false))
+    }
+
     fun atualizarFeed() {
         doAsync {
             val result = repository.atualizarFeed(app)

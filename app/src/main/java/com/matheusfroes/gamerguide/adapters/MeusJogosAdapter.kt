@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.view_jogo.view.*
  */
 class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<MeusJogosAdapter.ViewHolder>() {
     private var jogos = listOf<Jogo>()
-    private var listener: android.widget.PopupMenu.OnMenuItemClickListener? = null
+    private var listener: OnMenuOverflowClickListener? = null
 
 
     fun preencherLista(jogos: List<Jogo>) {
@@ -49,26 +50,31 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
                 .into(holder.itemView.ivCapaJogo)
 
         holder.itemView.ivOverflowMenu.setOnClickListener {
-            showPopup(holder.itemView.ivOverflowMenu)
+            showPopup(holder.itemView.ivOverflowMenu, jogo.id)
         }
     }
 
-    private fun showPopup(v: View) {
+    private fun showPopup(v: View, itemId: Long) {
         val popup = PopupMenu(context, v)
         val inflater = popup.menuInflater
         inflater.inflate(R.menu.popup_jogos, popup.menu)
         popup.show()
 
         popup.setOnMenuItemClickListener {
-            listener?.onMenuItemClick(it)!!
+            listener?.onMenuItemClick(it, itemId)!!
+            true
         }
     }
 
-    fun setOnMenuItemClickListener(listener: android.widget.PopupMenu.OnMenuItemClickListener) {
+    fun setOnMenuItemClickListener(listener: OnMenuOverflowClickListener) {
         this.listener = listener
     }
 
     override fun getItemCount() = jogos.size
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+
+    interface OnMenuOverflowClickListener {
+        fun onMenuItemClick(menu: MenuItem, itemId: Long)
+    }
 }

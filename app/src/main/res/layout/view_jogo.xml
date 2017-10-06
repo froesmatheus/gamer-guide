@@ -38,5 +38,7 @@
         android:layout_alignBottom="@+id/ivCapaJogo"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
         app:srcCompat="@drawable/ic_mais" />
 </RelativeLayout>
