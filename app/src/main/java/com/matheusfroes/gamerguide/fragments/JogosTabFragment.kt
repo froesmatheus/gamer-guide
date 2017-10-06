@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -14,12 +15,10 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
-import com.matheusfroes.gamerguide.adapters.GerenciarListasAdapter
 import com.matheusfroes.gamerguide.adapters.MeusJogosAdapter
 import com.matheusfroes.gamerguide.db.ListasDAO
 import kotlinx.android.synthetic.main.activity_tela_principal.*
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
-import kotlinx.android.synthetic.main.layout_gerenciar_listas_dialog.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -81,6 +80,12 @@ class JogosTabFragment : Fragment() {
                     R.id.navGerenciarListas -> {
                         dialogGerenciarListas()
                     }
+                    R.id.navAtualizarProgresso -> {
+
+                    }
+                    R.id.navMarcarComoZerado -> {
+                        viewModel.marcarComoZerado(itemId)
+                    }
                 }
             }
         })
@@ -110,19 +115,30 @@ class JogosTabFragment : Fragment() {
 
     private fun dialogGerenciarListas() {
         val listaDAO = ListasDAO(context)
+        val listas = listaDAO.obterListas()
 
-        val view = View.inflate(context, R.layout.layout_gerenciar_listas_dialog, null)
+        val listasStr = listas.map { it.toString() }.toTypedArray()
 
-        view.rvGerenciarListas.adapter = GerenciarListasAdapter(context, listaDAO.obterListas())
+        val booleans = booleanArrayOf(true, false, true)
+        val listasSelecionadas = mutableListOf<Int>()
 
         val dialog = AlertDialog.Builder(context)
                 .setTitle(getString(R.string.gerenciar_listas))
-                .setView(view)
                 .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
-
+                    Log.d("GAMERGUIDE", listasSelecionadas.toString())
+                    booleans.forEach {
+                        Log.d("GAMERGUIDE", it.toString())
+                    }
                 }
                 .setNegativeButton(getString(R.string.cancelar)) { dialogInterface, i ->
 
+                }
+                .setMultiChoiceItems(listasStr, null) { dialog, which, isChecked ->
+                    if (isChecked) {
+                        listasSelecionadas.add(which)
+                    } else if (listasSelecionadas.contains(which)) {
+                        listasSelecionadas.remove(which)
+                    }
                 }
                 .create()
 

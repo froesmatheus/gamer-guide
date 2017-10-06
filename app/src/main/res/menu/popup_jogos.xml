@@ -3,12 +3,16 @@
 
 
     <item
+        android:id="@+id/navMarcarComoZerado"
+        android:title="Marcar como zerado" />
+
+    <item
         android:id="@+id/navAtualizarProgresso"
-        android:title="Atualizar Progresso" />
+        android:title="Atualizar progresso" />
 
     <item
         android:id="@+id/navGerenciarListas"
-        android:title="Gerenciar Listas" />
+        android:title="Gerenciar listas" />
 
     <item
         android:id="@+id/navRemover"

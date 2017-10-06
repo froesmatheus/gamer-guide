@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.view_jogo_pesquisa.view.*
  */
 class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter<AdicionarJogosAdapter.ViewHolder>() {
     private var jogos: List<Jogo> = listOf()
-    private var listener: android.widget.PopupMenu.OnMenuItemClickListener? = null
+    private var listener: OnAdicionarJogoListener? = null
 
     fun preencherLista(jogos: List<Jogo>) {
         this.jogos = jogos
@@ -41,7 +41,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
 
         holder.itemView.ivOverflow.setOnClickListener {
-            showPopup(holder.itemView.ivOverflow)
+            showPopup(holder.itemView.ivOverflow, jogo)
         }
 
         holder.setIsRecyclable(false)
@@ -61,24 +61,26 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         }
     }
 
-    private fun showPopup(v: View) {
+    private fun showPopup(v: View, jogo: Jogo) {
         val popup = PopupMenu(context, v)
         val inflater = popup.menuInflater
         inflater.inflate(R.menu.menu_adicionar_jogos, popup.menu)
         popup.show()
 
         popup.setOnMenuItemClickListener {
-            listener?.onMenuItemClick(it)!!
+            true
         }
     }
 
-    fun setOnMenuItemClickListener(listener: android.widget.PopupMenu.OnMenuItemClickListener) {
+    fun setOnMenuItemClickListener(listener: OnAdicionarJogoListener) {
         this.listener = listener
     }
 
     private fun dialogDetalhesJogo(jogo: Jogo) {
         val dialog = DialogDetalhesJogo(context, jogo)
-                .setPositiveButton(context.getString(R.string.btn_adicionar), null)
+                .setPositiveButton(context.getString(R.string.btn_adicionar)) { dialogInterface, i ->
+                    this.listener?.onMenuItemClick(jogo)
+                }
                 .setNegativeButton(context.getString(R.string.Detalhes)) { _, _ ->
                     val intent = Intent(context, DetalhesJogoActivity::class.java)
                     intent.putExtra("tela_origem", "tela_adicionar")
@@ -94,5 +96,9 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var capaVisivel = true
+    }
+
+    interface OnAdicionarJogoListener {
+        fun onMenuItemClick(jogo: Jogo)
     }
 }
