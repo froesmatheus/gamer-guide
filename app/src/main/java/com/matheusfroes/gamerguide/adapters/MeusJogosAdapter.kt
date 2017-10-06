@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoActivity
 import com.matheusfroes.gamerguide.models.Jogo
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo.view.*
 
 
@@ -16,8 +17,14 @@ import kotlinx.android.synthetic.main.view_jogo.view.*
  * Created by matheusfroes on 21/09/2017.
  */
 class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<MeusJogosAdapter.ViewHolder>() {
-    private val jogos = listOf<Jogo>()
+    private var jogos = listOf<Jogo>()
     private var listener: android.widget.PopupMenu.OnMenuItemClickListener? = null
+
+
+    fun preencherLista(jogos: List<Jogo>) {
+        this.jogos = jogos
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = View.inflate(context, R.layout.view_jogo, null)
@@ -25,9 +32,19 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val jogo = jogos[position]
+
         holder.itemView.setOnClickListener {
             context.startActivity(Intent(context, DetalhesJogoActivity::class.java))
         }
+
+        holder.itemView.tvNomeJogo.text = jogo.nome
+
+        Picasso
+                .with(context)
+                .load(jogo.imageCapa.replace("t_thumb", "t_cover_big"))
+                .fit()
+                .into(holder.itemView.ivCapaJogo)
 
         holder.itemView.ivOverflowMenu.setOnClickListener {
             showPopup(holder.itemView.ivOverflowMenu)

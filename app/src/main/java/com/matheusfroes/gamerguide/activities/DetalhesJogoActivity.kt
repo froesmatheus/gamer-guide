@@ -42,10 +42,6 @@ class DetalhesJogoActivity : AppCompatActivity() {
         viewModel.jogo.value = jogo
 
 
-        jogosDAO.inserir(jogo)
-        EventBus.getDefault().postSticky(JogoAdicionadoEvent())
-
-
         val tabAdapter = DetalhesJogosFragmentAdapter(supportFragmentManager)
         viewPager.adapter = tabAdapter
         tabLayout.setupWithViewPager(viewPager)
@@ -69,6 +65,9 @@ class DetalhesJogoActivity : AppCompatActivity() {
 
         fabAdicinarJogo.setOnClickListener {
             val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
+
+            jogosDAO.inserir(jogo)
+            EventBus.getDefault().postSticky(JogoAdicionadoEvent())
 
             fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
             snackbar.show()
