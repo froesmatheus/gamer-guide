@@ -52,10 +52,13 @@ class JogosDAO(context: Context) {
     }
 
     fun remover(jogoId: Long) {
-        db.delete(Helper.TABELA_JOGOS_PLATAFORMAS, "id_jogo = ?", arrayOf(jogoId.toString()))
-        db.delete(Helper.TABELA_PROGRESSOS, "_id = ?", arrayOf(jogoId.toString()))
-        db.delete(Helper.TABELA_TTB, "_id = ?", arrayOf(jogoId.toString()))
-        db.delete(Helper.TABELA_JOGOS, "_id = ?", arrayOf(jogoId.toString()))
+        val parametros = arrayOf(jogoId.toString())
+
+        db.delete(Helper.TABELA_JOGOS_PLATAFORMAS, "id_jogo = ?", parametros)
+        db.delete(Helper.TABELA_PROGRESSOS, "_id = ?", parametros)
+        db.delete(Helper.TABELA_TTB, "_id = ?", parametros)
+        db.delete(Helper.TABELA_JOGOS, "_id = ?", parametros)
+        db.delete(Helper.TABELA_VIDEOS, "_id = ?", parametros)
     }
 
     fun obterJogo(id: Long): Jogo? {
