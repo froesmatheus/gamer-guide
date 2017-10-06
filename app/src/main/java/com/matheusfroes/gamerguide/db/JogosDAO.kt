@@ -49,6 +49,8 @@ class JogosDAO(context: Context) {
 
     fun remover(jogoId: Long) {
         db.delete(Helper.TABELA_JOGOS_PLATAFORMAS, "id_jogo = ?", arrayOf(jogoId.toString()))
+        db.delete(Helper.TABELA_PROGRESSOS, "_id = ?", arrayOf(jogoId.toString()))
+        db.delete(Helper.TABELA_TTB, "_id = ?", arrayOf(jogoId.toString()))
         db.delete(Helper.TABELA_JOGOS, "_id = ?", arrayOf(jogoId.toString()))
     }
 
@@ -82,6 +84,47 @@ class JogosDAO(context: Context) {
         return jogo
     }
 
+    fun obterJogosPorStatus(zerados: Boolean): List<Jogo> {
+        val status = if (zerados) 1 else 0
+
+        val cursor = db.rawQuery("""
+            SELECT *
+            FROM ${Helper.TABELA_JOGOS} J
+            INNER JOIN ${Helper.TABELA_PROGRESSOS} P ON J._id = P._id
+            WHERE P.jogo_zerado = ?""", arrayOf(status.toString()))
+
+        val jogos = mutableListOf<Jogo>()
+        if (cursor.count > 0) {
+            cursor.moveToFirst()
+
+            do {
+
+                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
+                val jogo = Jogo(
+                        id = jogoId,
+                        descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
+                        desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
+                        imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
+                        publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
+                        generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
+                        nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
+                        plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
+                        videos = videosDAO.getVideosPorJogo(jogoId),
+                        timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
+                        dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
+                )
+
+                jogos.add(jogo)
+            } while (cursor.moveToNext())
+
+        }
+
+        cursor.close()
+
+        return jogos
+    }
+
     fun obterJogosPorLista(id: Int): List<Jogo> {
         val cursor = db.rawQuery("""
             SELECT *
@@ -107,6 +150,7 @@ class JogosDAO(context: Context) {
                         nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
                         plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
                         videos = videosDAO.getVideosPorJogo(jogoId),
+                        timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
                         dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
                 )
 

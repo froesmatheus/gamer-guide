@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
+import com.matheusfroes.gamerguide.JogoAdicionadoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
 import com.matheusfroes.gamerguide.db.JogosDAO
@@ -14,6 +14,7 @@ import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.obterImagemJogoCapa
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
+import org.greenrobot.eventbus.EventBus
 
 
 class DetalhesJogoActivity : AppCompatActivity() {
@@ -40,7 +41,8 @@ class DetalhesJogoActivity : AppCompatActivity() {
         val jogo = intent.getSerializableExtra("jogo") as Jogo
         viewModel.jogo.value = jogo
 
-        Log.d("GAMERGUIDE", jogosDAO.obterJogo(jogo.id).toString())
+        EventBus.getDefault().postSticky(JogoAdicionadoEvent())
+
 
         val tabAdapter = DetalhesJogosFragmentAdapter(supportFragmentManager)
         viewPager.adapter = tabAdapter
