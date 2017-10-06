@@ -17,4 +17,5 @@ data class Jogo(
         val plataformas: List<Plataforma>,
         val videos: List<Video>,
         val timeToBeat: TimeToBeat? = null,
-        val imageCapa: String) : Serializable
+        val imageCapa: String,
+        val progresso: ProgressoJogo = ProgressoJogo(0, 0, false)) : Serializable

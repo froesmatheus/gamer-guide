@@ -11,7 +11,7 @@ import com.matheusfroes.gamerguide.models.ProgressoJogo
 class ProgressoDAO(val context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
 
-    private fun inserir(progresso: ProgressoJogo, idJogo: Int) {
+    private fun inserir(progresso: ProgressoJogo, idJogo: Long, database: SQLiteDatabase = db) {
         val cv = ContentValues()
 
         cv.put(Helper.PROGRESSOS_HORAS_JOGADAS, progresso.horasJogadas)
@@ -22,7 +22,7 @@ class ProgressoDAO(val context: Context) {
         db.insert(Helper.TABELA_PROGRESSOS, null, cv)
     }
 
-    fun atualizarProgresso(progresso: ProgressoJogo, idJogo: Int) {
+    fun atualizarProgresso(progresso: ProgressoJogo, idJogo: Long) {
         val progressoAtual = obterProgressoPorJogo(idJogo)
 
         if (progressoAtual == null) {
@@ -38,7 +38,7 @@ class ProgressoDAO(val context: Context) {
         }
     }
 
-    fun obterProgressoPorJogo(idJogo: Int): ProgressoJogo? {
+    fun obterProgressoPorJogo(idJogo: Long): ProgressoJogo? {
         val cursor = db.rawQuery("""
             SELECT *
             FROM ${Helper.TABELA_PROGRESSOS}

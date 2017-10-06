@@ -20,6 +20,9 @@ class JogosDAO(context: Context) {
     private val timeToBeatDAO: TimeToBeatDAO by lazy {
         TimeToBeatDAO(context)
     }
+    private val progressosDAO: ProgressoDAO by lazy {
+        ProgressoDAO(context)
+    }
 
     fun inserir(jogo: Jogo) {
         val cv = ContentValues()
@@ -43,6 +46,7 @@ class JogosDAO(context: Context) {
 
         videosDAO.inserir(jogo.videos, jogo.id, db)
         timeToBeatDAO.inserir(jogo.timeToBeat, jogo.id, db)
+        progressosDAO.atualizarProgresso(jogo.progresso, jogo.id)
 
         db.insert(Helper.TABELA_JOGOS, null, cv)
     }

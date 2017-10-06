@@ -41,6 +41,8 @@ class DetalhesJogoActivity : AppCompatActivity() {
         val jogo = intent.getSerializableExtra("jogo") as Jogo
         viewModel.jogo.value = jogo
 
+
+        jogosDAO.inserir(jogo)
         EventBus.getDefault().postSticky(JogoAdicionadoEvent())
 
 
