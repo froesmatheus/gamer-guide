@@ -56,6 +56,12 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val VIDEOS_NOME = "nome"
         val VIDEOS_VIDEOID = "video_id"
 
+        // Tabela de Progressos
+        val TABELA_PROGRESSOS = "progressos_jogos"
+        val PROGRESSOS_ID_JOGO = "_id"
+        val PROGRESSOS_HORAS_JOGADAS = "horas_jogadas"
+        val PROGRESSOS_PROGRESSO_PERC = "progresso_perc"
+        val PROGRESSOS_ZERADO = "jogo_zerado"
 
         val CREATE_TABLE_JOGOS = """
              CREATE TABLE $TABELA_JOGOS(
@@ -101,6 +107,14 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 $VIDEOS_NOME TEXT NOT NULL,
                 $VIDEOS_VIDEOID TEXT NOT NULL,
                 FOREIGN KEY($VIDEOS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID));"""
+
+        val CREATE_TABLE_PROGRESSOS = """
+            CREATE TABLE $TABELA_PROGRESSOS(
+                $PROGRESSOS_ID_JOGO INTEGER PRIMARY KEY NOT NULL,
+                $PROGRESSOS_HORAS_JOGADAS INTEGER,
+                $PROGRESSOS_PROGRESSO_PERC INTEGER,
+                $PROGRESSOS_ZERADO INTEGER,
+                FOREIGN KEY($PROGRESSOS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID));"""
     }
 
 
@@ -111,6 +125,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         db.execSQL(CREATE_TABLE_LISTAS)
         db.execSQL(CREATE_TABLE_LISTAS_JOGOS)
         db.execSQL(CREATE_TABLE_VIDEOS)
+        db.execSQL(CREATE_TABLE_PROGRESSOS)
 
         inserirPlataformas(db)
     }
@@ -119,6 +134,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         db.execSQL("DROP TABLE $TABELA_JOGOS_PLATAFORMAS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_LISTAS_JOGOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_VIDEOS IF EXISTS;")
+        db.execSQL("DROP TABLE $TABELA_PROGRESSOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_LISTAS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_JOGOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_PLATAFORMAS IF EXISTS;")

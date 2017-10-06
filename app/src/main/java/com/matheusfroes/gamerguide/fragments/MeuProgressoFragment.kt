@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
+import kotlinx.android.synthetic.main.fragment_meu_progresso.*
 import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
 
@@ -20,6 +21,7 @@ class MeuProgressoFragment : Fragment() {
         view.sbProgresso.setOnProgressChangeListener(object : DiscreteSeekBar.OnProgressChangeListener {
             override fun onProgressChanged(seekBar: DiscreteSeekBar?, value: Int, fromUser: Boolean) {
                 view.tvPorcentagemProgresso.text = "$value%"
+                chkJogoZerado.isChecked = value == 100
             }
 
             override fun onStartTrackingTouch(seekBar: DiscreteSeekBar?) {}

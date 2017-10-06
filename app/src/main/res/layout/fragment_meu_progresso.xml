@@ -48,8 +48,18 @@
             android:textStyle="bold" />
 
         <CheckBox
+            android:id="@+id/chkJogoZerado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Zerei este jogo" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Atualizar Progresso"
+            android:textColor="@android:color/white"
+            app:backgroundTint="@color/colorPrimary" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -60,6 +60,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
                 .setPositiveButton("Adicionar", null)
                 .setNegativeButton("Detalhes") { _, _ ->
                     val intent = Intent(context, DetalhesJogoActivity::class.java)
+                    intent.putExtra("tela_origem", "tela_adicionar")
                     intent.putExtra("jogo", jogo)
                     context.startActivity(intent)
                 }

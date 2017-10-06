@@ -11,12 +11,12 @@ import com.matheusfroes.gamerguide.fragments.VideosFragment
  */
 class DetalhesJogosFragmentAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     private val tabItems = mutableListOf(
-            InformacoesGeraisJogoFragment(), VideosFragment(), MeuProgressoFragment()
+            MeuProgressoFragment(), InformacoesGeraisJogoFragment(), VideosFragment()
     )
     private val tabTitles = mutableListOf(
-            "Informações Gerais",
-            "Vídeos",
-            "Meu Progresso"
+            "Progresso",
+            "Informações",
+            "Vídeos"
     )
 
     override fun getItem(position: Int) = tabItems[position]
