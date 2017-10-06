@@ -47,12 +47,12 @@ class JogosDAO(context: Context) {
         db.insert(Helper.TABELA_JOGOS, null, cv)
     }
 
-    fun remover(jogoId: Int) {
+    fun remover(jogoId: Long) {
         db.delete(Helper.TABELA_JOGOS_PLATAFORMAS, "id_jogo = ?", arrayOf(jogoId.toString()))
         db.delete(Helper.TABELA_JOGOS, "_id = ?", arrayOf(jogoId.toString()))
     }
 
-    fun obterJogo(id: Int): Jogo? {
+    fun obterJogo(id: Long): Jogo? {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_ID} = ?", arrayOf(id.toString()))
 
         var jogo: Jogo? = null
@@ -105,7 +105,7 @@ class JogosDAO(context: Context) {
                         publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
                         generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
                         nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                        plataformas = plataformasDAO.obterPlataformasPorJogo(id),
+                        plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
                         videos = videosDAO.getVideosPorJogo(jogoId),
                         dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
                 )

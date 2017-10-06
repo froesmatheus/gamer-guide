@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
+import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.obterImagemJogoCapa
 import com.squareup.picasso.Picasso
@@ -17,6 +19,9 @@ import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
 class DetalhesJogoActivity : AppCompatActivity() {
     private val viewModel: DetalhesJogoViewModel by lazy {
         ViewModelProviders.of(this).get(DetalhesJogoViewModel::class.java)
+    }
+    private val jogosDAO: JogosDAO by lazy {
+        JogosDAO(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +39,8 @@ class DetalhesJogoActivity : AppCompatActivity() {
 
         val jogo = intent.getSerializableExtra("jogo") as Jogo
         viewModel.jogo.value = jogo
+
+        Log.d("GAMERGUIDE", jogosDAO.obterJogo(jogo.id).toString())
 
         val tabAdapter = DetalhesJogosFragmentAdapter(supportFragmentManager)
         viewPager.adapter = tabAdapter

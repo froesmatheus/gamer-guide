@@ -51,7 +51,7 @@ class PlataformasDAO(context: Context) {
         return plataformas
     }
 
-    fun obterPlataformasPorJogo(id: Int): List<Plataforma> {
+    fun obterPlataformasPorJogo(id: Long): List<Plataforma> {
         val cursor = db.rawQuery("""
             SELECT P.${Helper.PLATAFORMAS_ID}, P.${Helper.PLATAFORMAS_NOME}
             FROM ${Helper.TABELA_PLATAFORMAS} P
