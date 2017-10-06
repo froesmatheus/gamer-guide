@@ -52,4 +52,17 @@
     <string name="gerenciar_listas">Gerenciar listas</string>
     <string name="lista_adicionada">Lista adicionada</string>
     <string name="data_lancamento">Data de Lançamento</string>
+    <string name="escolher_plataformas">Escolha suas plataformas preferidas</string>
+    <string name="desenvolvedores">Desenvolvedores</string>
+    <string name="publicadoras">Publicadoras</string>
+    <string name="generos">Gêneros</string>
+    <string name="descricao">Descrição</string>
+    <string name="tempo_para_zerar">Tempo para zerar</string>
+    <string name="speedrun">Speedrun</string>
+    <string name="modo_historia">Modo História</string>
+    <string name="ttb_100perc">100%</string>
+    <string name="quantos_perc_jogou">Quantos % você jogou?</string>
+    <string name="zerei_este_jogo">Zerei este jogo</string>
+    <string name="atualizar_progresso">Atualizar Progresso</string>
+    <string name="nome_da_plataforma">Nome da plataforma</string>
 </resources>

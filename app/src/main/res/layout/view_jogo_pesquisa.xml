@@ -47,7 +47,7 @@
                 android:id="@+id/tvDataLancamento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Data de Lançamento" />
+                android:text="@string/data_lancamento" />
 
             <TextView
                 android:id="@+id/tvPlataformas"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="Plataformas" />
+                android:text="@string/plataformas" />
         </LinearLayout>
 
         <ImageView

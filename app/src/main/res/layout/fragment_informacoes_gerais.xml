@@ -29,7 +29,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nome do Jogo" />
+                    android:text="@string/nome_do_jogo" />
 
                 <TextView
                     android:id="@+id/tvNomeJogo"
@@ -45,7 +45,7 @@
                     android:id="@+id/tituloDesenvolvedores"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Desenvolvedores" />
+                    android:text="@string/desenvolvedores" />
 
                 <TextView
                     android:id="@+id/tvNomeDesenvolvedores"
@@ -61,7 +61,7 @@
                     android:id="@+id/tituloPublicadoras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Publicadoras" />
+                    android:text="@string/publicadoras" />
 
                 <TextView
                     android:id="@+id/tvNomePublicadora"
@@ -76,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Plataformas" />
+                    android:text="@string/plataformas" />
 
                 <TextView
                     android:id="@+id/tvPlataformas"
@@ -92,7 +92,7 @@
                     android:id="@+id/tvTituloGenero"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gêneros" />
+                    android:text="@string/generos" />
 
                 <TextView
                     android:id="@+id/tvGenero"
@@ -107,7 +107,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data de lançamento" />
+                    android:text="@string/data_lancamento" />
 
                 <TextView
                     android:id="@+id/tvDataLancamento"
@@ -142,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Descrição"
+                    android:text="@string/descricao"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -190,7 +190,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tempo para zerar"
+                    android:text="@string/tempo_para_zerar"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -205,7 +205,7 @@
                             android:id="@+id/tituloTTBSpeedrun"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Speedrun" />
+                            android:text="@string/speedrun" />
 
                         <TextView
                             android:id="@+id/tvTTBSpeedrun"
@@ -220,7 +220,7 @@
                             android:id="@+id/tituloTTBModoHistoria"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Modo História" />
+                            android:text="@string/modo_historia" />
 
                         <TextView
                             android:id="@+id/tvTTBModoHistoria"
@@ -235,7 +235,7 @@
                             android:id="@+id/tituloTTB100Perc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="100%" />
+                            android:text="@string/ttb_100perc" />
 
                         <TextView
                             android:id="@+id/tvTTB100Perc"

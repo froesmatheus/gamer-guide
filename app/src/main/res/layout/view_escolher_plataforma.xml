@@ -16,5 +16,5 @@
         android:id="@+id/tvNomePlataforma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome da plataforma" />
+        android:text="@string/nome_da_plataforma" />
 </LinearLayout>

@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Quantos % você jogou?" />
+            android:text="@string/quantos_perc_jogou" />
 
         <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
             android:id="@+id/sbProgresso"
@@ -51,14 +51,14 @@
             android:id="@+id/chkJogoZerado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Zerei este jogo" />
+            android:text="@string/zerei_este_jogo" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Atualizar Progresso"
+            android:text="@string/atualizar_progresso"
             android:textColor="@android:color/white"
             app:backgroundTint="@color/colorPrimary" />
     </LinearLayout>

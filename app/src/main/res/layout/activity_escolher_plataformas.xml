@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20sp"
-            android:text="Escolha suas plataformas preferidas"
+            android:text="@string/escolher_plataformas"
             android:textSize="18sp"
             android:textStyle="bold" />
 
