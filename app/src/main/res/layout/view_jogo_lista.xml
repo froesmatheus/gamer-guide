@@ -40,7 +40,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/ivCapaJogo"
             android:layout_toRightOf="@+id/ivCapaJogo"
-            android:text="Data de Lançamento" />
+            android:text="@string/data_lancamento" />
 
         <TextView
             android:id="@+id/tvPlataformas"
