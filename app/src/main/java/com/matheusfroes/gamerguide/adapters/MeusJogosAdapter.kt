@@ -35,7 +35,9 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
         val jogo = jogos[position]
 
         holder.itemView.setOnClickListener {
-            context.startActivity(Intent(context, DetalhesJogoActivity::class.java))
+            val intent = Intent(context, DetalhesJogoActivity::class.java)
+            intent.putExtra("id_jogo", jogo.id)
+            context.startActivity(intent)
         }
 
         holder.itemView.tvNomeJogo.text = jogo.nome

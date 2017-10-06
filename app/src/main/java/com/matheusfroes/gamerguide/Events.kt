@@ -5,4 +5,4 @@ package com.matheusfroes.gamerguide
  */
 class ListaExcluidaEvent()
 
-class JogoAdicionadoEvent()
+class JogoAdicionadoRemovidoEvent()

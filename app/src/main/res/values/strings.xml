@@ -41,4 +41,5 @@
     <string name="youtube_url">https://www.youtube.com/watch?v=%s</string>
     <string name="youtube_thumbnail_url">https://img.youtube.com/vi/%s/mqdefault.jpg</string>
     <string name="jogo_adicionado">O jogo foi adicionado</string>
+    <string name="jogo_removido">O jogo foi removido</string>
 </resources>

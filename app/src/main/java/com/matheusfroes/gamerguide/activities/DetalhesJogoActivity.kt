@@ -6,7 +6,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.matheusfroes.gamerguide.JogoAdicionadoEvent
+import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
 import com.matheusfroes.gamerguide.db.JogosDAO
@@ -37,8 +37,15 @@ class DetalhesJogoActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
+        val jogo: Jogo
+        val jogoId = intent.getLongExtra("id_jogo", 0L)
+        jogo = if (jogoId != 0L) {
+            jogosDAO.obterJogo(jogoId)!!
+        } else {
+            intent.getSerializableExtra("jogo") as Jogo
+        }
+        var jogoSalvo = jogoId != 0L
 
-        val jogo = intent.getSerializableExtra("jogo") as Jogo
         viewModel.jogo.value = jogo
 
 
@@ -63,13 +70,27 @@ class DetalhesJogoActivity : AppCompatActivity() {
                 .load(obterImagemJogoCapa(jogo.imageCapa))
                 .into(ivCapaJogo)
 
-        fabAdicinarJogo.setOnClickListener {
-            val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
-
-            jogosDAO.inserir(jogo)
-            EventBus.getDefault().postSticky(JogoAdicionadoEvent())
-
+        if (jogoSalvo) {
             fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
+        }
+
+        fabAdicinarJogo.setOnClickListener {
+            val snackbar: Snackbar
+
+            if (jogoSalvo) {
+                snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_removido), Snackbar.LENGTH_LONG)
+                jogosDAO.remover(jogoId)
+                jogoSalvo = false
+                EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+                fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
+            } else {
+                snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
+                jogosDAO.inserir(jogo)
+                jogoSalvo = true
+                EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+                fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
+            }
+
             snackbar.show()
         }
     }

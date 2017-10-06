@@ -11,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
-import com.matheusfroes.gamerguide.JogoAdicionadoEvent
+import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.adapters.GerenciarListasAdapter
@@ -85,7 +85,7 @@ class JogosTabFragment : Fragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: JogoAdicionadoEvent) {
+    fun onMessageEvent(event: JogoAdicionadoRemovidoEvent) {
         if (tipoJogo == "nao_terminado") {
             viewModel.getJogosNaoTerminados()
         } else {
