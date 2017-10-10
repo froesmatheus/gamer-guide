@@ -109,8 +109,18 @@ class ListasFragment : Fragment() {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
-                botaoAdicionar.isEnabled = p0.isNotEmpty()
+            override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
+                val listaExistente = dao.verificarListaJaExistente(text.trim().toString())
+
+                if (listaExistente) {
+                    view.tilNomeLista.isErrorEnabled = true
+                    view.tilNomeLista.error = getString(R.string.msg_lista_existente)
+                } else {
+                    view.tilNomeLista.error = null
+                    view.tilNomeLista.isErrorEnabled = false
+                }
+
+                botaoAdicionar.isEnabled = text.isNotEmpty() && !listaExistente
             }
         })
     }

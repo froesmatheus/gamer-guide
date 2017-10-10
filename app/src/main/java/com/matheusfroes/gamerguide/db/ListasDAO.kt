@@ -32,6 +32,12 @@ class ListasDAO(val context: Context) {
         }
     }
 
+    fun verificarListaJaExistente(nomeLista: String): Boolean {
+        val count = DatabaseUtils.queryNumEntries(db, Helper.TABELA_LISTAS, "${Helper.LISTAS_NOME} = ?", arrayOf(nomeLista))
+
+        return count > 0
+    }
+
     fun excluirLista(listaId: Int) {
         db.delete(Helper.TABELA_LISTAS_JOGOS, "id_lista = ?", arrayOf(listaId.toString()))
         db.delete(Helper.TABELA_LISTAS, "_id = ?", arrayOf(listaId.toString()))

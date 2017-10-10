@@ -70,4 +70,5 @@
 
     <string name="msg_jogo_removido_lista">Jogo removido da lista</string>
     <string name="msg_jogo_removido_listas">Jogo removido das listas</string>
+    <string name="msg_lista_existente">Já existe uma lista com este nome</string>
 </resources>
