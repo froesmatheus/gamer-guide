@@ -68,6 +68,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         popup.show()
 
         popup.setOnMenuItemClickListener {
+            listener?.onMenuItemClick(jogo)
             true
         }
     }
