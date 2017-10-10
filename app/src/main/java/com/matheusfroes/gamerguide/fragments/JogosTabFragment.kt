@@ -27,7 +27,7 @@ import org.jetbrains.anko.toast
  */
 class JogosTabFragment : Fragment() {
     val adapter: MeusJogosAdapter by lazy {
-        MeusJogosAdapter(activity)
+        MeusJogosAdapter(context)
     }
     private val viewModel: TelaPrincipalViewModel by lazy {
         ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
@@ -117,24 +117,38 @@ class JogosTabFragment : Fragment() {
     private fun dialogGerenciarListas(jogoId: Long) {
         val listaDAO = ListasDAO(context)
         val listas = listaDAO.obterListas()
+        val jogoJaCadastrado = mutableListOf<Boolean>()
+
+        listas.forEach { lista ->
+            if (listasDAO.listaContemJogo(jogoId, lista.id)) {
+                jogoJaCadastrado.add(true)
+            } else {
+                jogoJaCadastrado.add(false)
+            }
+        }
 
         val listasStr = listas.map { it.toString() }.toTypedArray()
 
-        val booleans = booleanArrayOf(true, false, true)
-        val listasSelecionadas = mutableListOf<Lista>()
+        val jogosAdicionarNaLista = mutableListOf<Lista>()
+        val jogosRemoverDaLista = mutableListOf<Lista>()
 
         val dialog = AlertDialog.Builder(context)
                 .setTitle(getString(R.string.gerenciar_listas))
                 .setNegativeButton(getString(R.string.cancelar)) { dialogInterface, i -> }
-                .setMultiChoiceItems(listasStr, null) { dialog, which, isChecked ->
-                    if (isChecked) {
-                        listasSelecionadas.add(listas[which])
-                    } else if (listasSelecionadas.contains(listas[which])) {
-                        listasSelecionadas.remove(listas[which])
+                .setMultiChoiceItems(listasStr, jogoJaCadastrado.toBooleanArray()) { dialog, which, isChecked ->
+                    if (isChecked && !jogoJaCadastrado[which]) {
+                        jogosAdicionarNaLista.add(listas[which])
+                    } else if (isChecked && jogoJaCadastrado[which]) {
+                        jogosRemoverDaLista.remove(listas[which])
+                    } else if (jogosAdicionarNaLista.contains(listas[which])) {
+                        jogosAdicionarNaLista.remove(listas[which])
+                    } else if (!isChecked && jogoJaCadastrado[which] && !jogosRemoverDaLista.contains(listas[which])) {
+                        jogosRemoverDaLista.add(listas[which])
                     }
                 }
                 .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
-                    adicionarJogosLista(listasSelecionadas, jogoId)
+                    adicionarJogosLista(jogosAdicionarNaLista, jogoId)
+                    removerJogosLista(jogosRemoverDaLista, jogoId)
                 }
                 .create()
 
@@ -142,8 +156,14 @@ class JogosTabFragment : Fragment() {
 
     }
 
-    private fun adicionarJogosLista(listasSelecionadas: MutableList<Lista>, jogoId: Long) {
-        listasSelecionadas.forEach { lista ->
+    private fun removerJogosLista(jogosRemoverDaLista: MutableList<Lista>, jogoId: Long) {
+        jogosRemoverDaLista.forEach { lista ->
+            listasDAO.removerJogoDaLista(jogoId, lista.id)
+        }
+    }
+
+    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogoId: Long) {
+        jogosAdicionarNaLista.forEach { lista ->
             listasDAO.adicionarJogoNaLista(jogoId, lista.id)
         }
     }

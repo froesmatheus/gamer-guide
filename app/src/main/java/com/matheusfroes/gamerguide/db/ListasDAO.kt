@@ -2,6 +2,7 @@ package com.matheusfroes.gamerguide.db
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.models.Lista
 
@@ -63,6 +64,16 @@ class ListasDAO(val context: Context) {
         cv.put(Helper.LISTAS_JOGOS_ID_LISTA, listaId)
 
         db.insert(Helper.TABELA_LISTAS_JOGOS, null, cv)
+    }
+
+    fun removerJogoDaLista(jogoId: Long, listaId: Int) {
+        db.delete(Helper.TABELA_LISTAS_JOGOS, "${Helper.LISTAS_JOGOS_ID_JOGO} = ? AND ${Helper.LISTAS_JOGOS_ID_LISTA} = ?", arrayOf(jogoId.toString(), listaId.toString()))
+    }
+
+    fun listaContemJogo(jogoId: Long, listaId: Int): Boolean {
+        val count = DatabaseUtils.queryNumEntries(db, Helper.TABELA_LISTAS_JOGOS, "${Helper.LISTAS_JOGOS_ID_LISTA} = ? AND ${Helper.LISTAS_JOGOS_ID_JOGO} = ?", arrayOf(listaId.toString(), jogoId.toString()))
+
+        return count > 0
     }
 
     fun obterListas(): List<Lista> {
