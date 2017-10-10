@@ -6,11 +6,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_lista.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Created by matheusfroes on 21/09/2017.
@@ -36,10 +35,7 @@ class JogosListaAdapter(private val context: Context) : RecyclerView.Adapter<Jog
         }
 
         holder.itemView.tvNomeJogo.text = jogo.nome
-        val dataLancamento = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR")).format(jogo.dataLancamento)
-
-        holder.itemView.tvDataLancamento.text = dataLancamento
-
+        holder.itemView.tvDataLancamento.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
 
         if (jogo.imageCapa.isEmpty()) {

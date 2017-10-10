@@ -58,7 +58,7 @@ class JogosDAO(context: Context) {
         db.delete(Helper.TABELA_PROGRESSOS, "_id = ?", parametros)
         db.delete(Helper.TABELA_TTB, "_id = ?", parametros)
         db.delete(Helper.TABELA_JOGOS, "_id = ?", parametros)
-        db.delete(Helper.TABELA_VIDEOS, "_id = ?", parametros)
+        db.delete(Helper.TABELA_VIDEOS, "id_jogo = ?", parametros)
     }
 
     fun obterJogo(id: Long): Jogo? {
@@ -132,12 +132,12 @@ class JogosDAO(context: Context) {
         return jogos
     }
 
-    fun obterJogosPorLista(id: Int): List<Jogo> {
+    fun obterJogosPorLista(idLista: Int): List<Jogo> {
         val cursor = db.rawQuery("""
             SELECT *
             FROM ${Helper.TABELA_JOGOS} J
             INNER JOIN ${Helper.TABELA_LISTAS_JOGOS} LJ ON J._id = LJ.id_jogo
-            WHERE LJ.id_lista = ?""", arrayOf(id.toString()))
+            WHERE LJ.id_lista = ?""", arrayOf(idLista.toString()))
 
         val jogos = mutableListOf<Jogo>()
         if (cursor.count > 0) {
@@ -145,7 +145,7 @@ class JogosDAO(context: Context) {
 
             do {
 
-                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.LISTAS_JOGOS_ID_JOGO))
 
                 val jogo = Jogo(
                         id = jogoId,

@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -17,7 +15,7 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.adapters.MeusJogosAdapter
 import com.matheusfroes.gamerguide.db.ListasDAO
-import kotlinx.android.synthetic.main.activity_tela_principal.*
+import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -36,6 +34,9 @@ class JogosTabFragment : Fragment() {
     }
     val tipoJogo: String by lazy {
         arguments.getString("tipo_jogo")
+    }
+    val listasDAO: ListasDAO by lazy {
+        ListasDAO(context)
     }
 
 
@@ -59,16 +60,16 @@ class JogosTabFragment : Fragment() {
             viewModel.getJogosZerados()
         }
 
-        view.rvJogosNaoTerminados.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                if (dy > 0 && activity.bottomNavigation.isShown) {
-                    activity.bottomNavigation.visibility = View.GONE
-                } else if (dy < 0) {
-                    activity.bottomNavigation.visibility = View.VISIBLE
-                }
-            }
-        })
+//        view.rvJogosNaoTerminados.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//
+//            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+//                if (dy > 0 && activity.bottomNavigation.isShown) {
+//                    activity.bottomNavigation.visibility = View.GONE
+//                } else if (dy < 0) {
+//                    activity.bottomNavigation.visibility = View.VISIBLE
+//                }
+//            }
+//        })
 
         adapter.setOnMenuItemClickListener(object : MeusJogosAdapter.OnMenuOverflowClickListener {
             override fun onMenuItemClick(menu: MenuItem, itemId: Long) {
@@ -78,7 +79,7 @@ class JogosTabFragment : Fragment() {
                         context.toast(context.getString(R.string.jogo_removido))
                     }
                     R.id.navGerenciarListas -> {
-                        dialogGerenciarListas()
+                        dialogGerenciarListas(itemId)
                     }
                     R.id.navAtualizarProgresso -> {
 
@@ -113,35 +114,37 @@ class JogosTabFragment : Fragment() {
         EventBus.getDefault().unregister(this)
     }
 
-    private fun dialogGerenciarListas() {
+    private fun dialogGerenciarListas(jogoId: Long) {
         val listaDAO = ListasDAO(context)
         val listas = listaDAO.obterListas()
 
         val listasStr = listas.map { it.toString() }.toTypedArray()
 
         val booleans = booleanArrayOf(true, false, true)
-        val listasSelecionadas = mutableListOf<Int>()
+        val listasSelecionadas = mutableListOf<Lista>()
 
         val dialog = AlertDialog.Builder(context)
                 .setTitle(getString(R.string.gerenciar_listas))
-                .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
-                    Log.d("GAMERGUIDE", listasSelecionadas.toString())
-                    booleans.forEach {
-                        Log.d("GAMERGUIDE", it.toString())
-                    }
-                }
-                .setNegativeButton(getString(R.string.cancelar)) { dialogInterface, i ->
-
-                }
+                .setNegativeButton(getString(R.string.cancelar)) { dialogInterface, i -> }
                 .setMultiChoiceItems(listasStr, null) { dialog, which, isChecked ->
                     if (isChecked) {
-                        listasSelecionadas.add(which)
-                    } else if (listasSelecionadas.contains(which)) {
-                        listasSelecionadas.remove(which)
+                        listasSelecionadas.add(listas[which])
+                    } else if (listasSelecionadas.contains(listas[which])) {
+                        listasSelecionadas.remove(listas[which])
                     }
+                }
+                .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
+                    adicionarJogosLista(listasSelecionadas, jogoId)
                 }
                 .create()
 
         dialog.show()
+
+    }
+
+    private fun adicionarJogosLista(listasSelecionadas: MutableList<Lista>, jogoId: Long) {
+        listasSelecionadas.forEach { lista ->
+            listasDAO.adicionarJogoNaLista(jogoId, lista.id)
+        }
     }
 }

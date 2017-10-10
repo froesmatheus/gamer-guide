@@ -38,13 +38,19 @@ class DetalhesJogoActivity : AppCompatActivity() {
         supportActionBar?.title = ""
 
         val jogo: Jogo
-        val jogoId = intent.getLongExtra("id_jogo", 0L)
+        var jogoId = intent.getLongExtra("id_jogo", 0L)
         jogo = if (jogoId != 0L) {
             jogosDAO.obterJogo(jogoId)!!
         } else {
             intent.getSerializableExtra("jogo") as Jogo
         }
-        var jogoSalvo = jogoId != 0L
+        jogoId = jogo.id
+        var jogoSalvo = jogosDAO.obterJogo(jogo.id) != null
+        if (jogoSalvo) {
+            fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
+        } else {
+            fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
+        }
 
         viewModel.jogo.value = jogo
 

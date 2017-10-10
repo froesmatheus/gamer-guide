@@ -7,7 +7,6 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.fragments.*
 import kotlinx.android.synthetic.main.activity_tela_principal.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.greenrobot.eventbus.EventBus
 
 class TelaPrincipalActivity : AppCompatActivity() {
     private val viewModel: TelaPrincipalViewModel by lazy {

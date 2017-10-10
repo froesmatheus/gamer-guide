@@ -56,6 +56,15 @@ class ListasDAO(val context: Context) {
         return jogo
     }
 
+    fun adicionarJogoNaLista(jogoId: Long, listaId: Int) {
+        val cv = ContentValues()
+
+        cv.put(Helper.LISTAS_JOGOS_ID_JOGO, jogoId)
+        cv.put(Helper.LISTAS_JOGOS_ID_LISTA, listaId)
+
+        db.insert(Helper.TABELA_LISTAS_JOGOS, null, cv)
+    }
+
     fun obterListas(): List<Lista> {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_LISTAS}", null)
 
