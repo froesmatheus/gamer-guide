@@ -65,4 +65,9 @@
     <string name="zerei_este_jogo">Zerei este jogo</string>
     <string name="atualizar_progresso">Atualizar Progresso</string>
     <string name="nome_da_plataforma">Nome da plataforma</string>
+    <string name="msg_jogo_adicionado_lista">Jogo adicionado na lista</string>
+    <string name="msg_jogo_adicionado_listas">Jogo adicionado nas listas</string>
+
+    <string name="msg_jogo_removido_lista">Jogo removido da lista</string>
+    <string name="msg_jogo_removido_listas">Jogo removido das listas</string>
 </resources>

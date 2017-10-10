@@ -144,6 +144,15 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         db.execSQL(CREATE_TABLE_TTB)
 
         inserirPlataformas(db)
+        inserirListaPadrao(db)
+    }
+
+    private fun inserirListaPadrao(db: SQLiteDatabase) {
+        val cv = ContentValues()
+
+        cv.put(LISTAS_NOME, "Lista de compras")
+
+        db.insert(TABELA_LISTAS, null, cv)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

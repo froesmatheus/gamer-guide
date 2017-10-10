@@ -160,11 +160,22 @@ class JogosTabFragment : Fragment() {
         jogosRemoverDaLista.forEach { lista ->
             listasDAO.removerJogoDaLista(jogoId, lista.id)
         }
+
+        if (jogosRemoverDaLista.size == 1) {
+            context.toast(getString(R.string.msg_jogo_removido_lista))
+        } else if (jogosRemoverDaLista.size > 1) {
+            context.toast(getString(R.string.msg_jogo_removido_listas))
+        }
     }
 
     private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogoId: Long) {
         jogosAdicionarNaLista.forEach { lista ->
             listasDAO.adicionarJogoNaLista(jogoId, lista.id)
+        }
+        if (jogosAdicionarNaLista.size == 1) {
+            context.toast(getString(R.string.msg_jogo_adicionado_lista))
+        } else if (jogosAdicionarNaLista.size > 1) {
+            context.toast(getString(R.string.msg_jogo_adicionado_listas))
         }
     }
 }
