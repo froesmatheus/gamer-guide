@@ -12,7 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.activities.ConfiguracoesFeed
+import com.matheusfroes.gamerguide.activities.ConfiguracoesFeedActivity
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.adapters.FeedAdapter
 import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
@@ -77,7 +77,7 @@ class FeedFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navConfiguracaoFeed -> {
-                startActivity(Intent(context, ConfiguracoesFeed::class.java))
+                startActivity(Intent(context, ConfiguracoesFeedActivity::class.java))
                 return true
             }
             R.id.navAtualizarFeed -> {

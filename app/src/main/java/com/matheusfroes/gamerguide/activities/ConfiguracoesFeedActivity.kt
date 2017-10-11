@@ -7,7 +7,7 @@ import com.matheusfroes.gamerguide.adapters.FonteNoticiasAdapter
 import com.matheusfroes.gamerguide.models.FonteNoticia
 import kotlinx.android.synthetic.main.activity_configuracoes_feed.*
 
-class ConfiguracoesFeed : BaseActivity() {
+class ConfiguracoesFeedActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
