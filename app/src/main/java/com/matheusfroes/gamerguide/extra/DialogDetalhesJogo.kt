@@ -30,7 +30,7 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
 
         val dataLancamento = jogo.dataLancamento.formatarData("dd 'de' MMMM 'de' yyyy")
 
-        view.tvDataLancamento.text = dataLancamento
+        view.textview.text = dataLancamento
 
         if (jogo.desenvolvedores.isEmpty()) {
             view.tvDesenvolvedores.visibility = View.GONE

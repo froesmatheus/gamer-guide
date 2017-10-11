@@ -17,6 +17,8 @@ import com.matheusfroes.gamerguide.adapters.MeusJogosAdapter
 import com.matheusfroes.gamerguide.db.ListasDAO
 import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
+import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -72,21 +74,21 @@ class JogosTabFragment : Fragment() {
 //        })
 
         adapter.setOnMenuItemClickListener(object : MeusJogosAdapter.OnMenuOverflowClickListener {
-            override fun onMenuItemClick(menu: MenuItem, itemId: Long) {
+            override fun onMenuItemClick(menu: MenuItem, jogoId: Long) {
                 when (menu.itemId) {
                     R.id.navRemover -> {
                         dialogRemoverJogo()
-                        //viewModel.removerJogo(itemId)
+                        //viewModel.removerJogo(jogoId)
                         //context.toast(context.getString(R.string.jogo_removido))
                     }
                     R.id.navGerenciarListas -> {
-                        dialogGerenciarListas(itemId)
+                        dialogGerenciarListas(jogoId)
                     }
                     R.id.navAtualizarProgresso -> {
-
+                        dialogAtualizarProgresso(jogoId)
                     }
                     R.id.navMarcarComoZerado -> {
-                        viewModel.marcarComoZerado(itemId)
+                        viewModel.marcarComoZerado(jogoId)
                     }
                 }
             }
@@ -94,13 +96,56 @@ class JogosTabFragment : Fragment() {
         return view
     }
 
+    private fun dialogAtualizarProgresso(jogoId: Long) {
+        val progressoJogo = viewModel.obterProgressoJogo(jogoId)!!
+
+        val view = LayoutInflater.from(context).inflate(R.layout.fragment_meu_progresso, null, false)
+
+        view.sbProgresso.setOnProgressChangeListener(object : DiscreteSeekBar.OnProgressChangeListener {
+            override fun onProgressChanged(seekBar: DiscreteSeekBar?, value: Int, fromUser: Boolean) {
+                view.tvPorcentagemProgresso.text = "$value%"
+                view.chkJogoZerado.isChecked = value == 100
+            }
+
+            override fun onStartTrackingTouch(seekBar: DiscreteSeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: DiscreteSeekBar?) {}
+
+        })
+
+        view.etHorasJogadas.setText("${progressoJogo.horasJogadas}")
+        view.sbProgresso.progress = progressoJogo.progressoPerc
+        view.chkJogoZerado.isChecked = progressoJogo.zerado
+
+
+        val dialog = AlertDialog.Builder(context)
+                .setView(view)
+                .setPositiveButton(getString(R.string.atualizar)) { dialogInterface, i ->
+                    var horasJogadasStr = view.etHorasJogadas.text.toString().trim()
+                    horasJogadasStr = if (horasJogadasStr.isEmpty()) "0" else horasJogadasStr
+
+                    progressoJogo.horasJogadas = Integer.parseInt(horasJogadasStr)
+                    progressoJogo.progressoPerc = view.sbProgresso.progress
+                    progressoJogo.zerado = view.chkJogoZerado.isChecked
+
+                    viewModel.atualizarProgressoJogo(jogoId, progressoJogo)
+                    viewModel.getJogosNaoTerminados()
+
+                    context.toast(getString(R.string.progresso_atualizado))
+                }
+                .setNegativeButton(getString(R.string.cancelar), null)
+                .create()
+
+        dialog.show()
+    }
+
     private fun dialogRemoverJogo() {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_remover_jogo, null, false)
 
         val dialog = AlertDialog.Builder(context)
                 .setView(view)
-                .setPositiveButton("Confirmar", null)
-                .setNegativeButton("Cancelar", null)
+                .setPositiveButton(getString(R.string.confirmar), null)
+                .setNegativeButton(getString(R.string.cancelar), null)
                 .create()
 
         dialog.show()

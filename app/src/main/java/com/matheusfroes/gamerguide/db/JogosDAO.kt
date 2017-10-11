@@ -118,6 +118,7 @@ class JogosDAO(context: Context) {
                         nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
                         plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
                         videos = videosDAO.getVideosPorJogo(jogoId),
+                        progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
                         timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
                         dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
                 )

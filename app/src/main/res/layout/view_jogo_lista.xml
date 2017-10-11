@@ -24,9 +24,9 @@
             android:id="@+id/tvNomeJogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvDataLancamento"
+            android:layout_alignLeft="@+id/textview"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/tvDataLancamento"
+            android:layout_alignStart="@+id/textview"
             android:text="@string/nome_do_jogo"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -34,7 +34,7 @@
             android:layout_alignParentEnd="true" />
 
         <TextView
-            android:id="@+id/tvDataLancamento"
+            android:id="@+id/textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvNomeJogo"
@@ -48,9 +48,9 @@
             android:id="@+id/tvPlataformas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvDataLancamento"
-            android:layout_alignStart="@+id/tvDataLancamento"
-            android:layout_below="@+id/tvDataLancamento"
+            android:layout_alignLeft="@+id/textview"
+            android:layout_alignStart="@+id/textview"
+            android:layout_below="@+id/textview"
             android:text="Plataformas"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />

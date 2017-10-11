@@ -35,7 +35,7 @@ class JogosListaAdapter(private val context: Context) : RecyclerView.Adapter<Jog
         }
 
         holder.itemView.tvNomeJogo.text = jogo.nome
-        holder.itemView.tvDataLancamento.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
+        holder.itemView.textview.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
 
         if (jogo.imageCapa.isEmpty()) {

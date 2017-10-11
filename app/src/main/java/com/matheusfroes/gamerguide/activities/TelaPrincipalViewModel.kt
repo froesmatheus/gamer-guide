@@ -8,6 +8,7 @@ import com.matheusfroes.gamerguide.db.ProgressoDAO
 import com.matheusfroes.gamerguide.extra.AppRepository
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.models.Noticia
+import com.matheusfroes.gamerguide.models.ProgressoJogo
 import org.jetbrains.anko.doAsync
 
 /**
@@ -35,6 +36,14 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
     fun removerJogo(jogoId: Long) {
         jogosDAO.remover(jogoId)
         jogosNaoTerminados.postValue(jogosDAO.obterJogosPorStatus(zerados = false))
+    }
+
+    fun obterProgressoJogo(jogoId: Long): ProgressoJogo? =
+            progressosDAO.obterProgressoPorJogo(jogoId)
+
+
+    fun atualizarProgressoJogo(jogoId: Long, progressoJogo: ProgressoJogo) {
+        progressosDAO.atualizarProgresso(progressoJogo, jogoId)
     }
 
     fun marcarComoZerado(jogoId: Long) {

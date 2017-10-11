@@ -17,6 +17,7 @@
             android:text="@string/horas_jogadas" />
 
         <EditText
+            android:id="@+id/etHorasJogadas"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:inputType="number" />
@@ -52,14 +53,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/zerei_este_jogo" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="@string/atualizar_progresso"
-            android:textColor="@android:color/white"
-            app:backgroundTint="@color/colorPrimary" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

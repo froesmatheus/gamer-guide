@@ -42,6 +42,8 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
         }
 
         holder.itemView.tvNomeJogo.text = jogo.nome
+        holder.itemView.tvPorcentagemProgresso.text = "${jogo.progresso.progressoPerc}%"
+        holder.itemView.tvHorasJogadas.text = "${jogo.progresso.horasJogadas} horas"
 
         Picasso
                 .with(context)
@@ -75,6 +77,6 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
     interface OnMenuOverflowClickListener {
-        fun onMenuItemClick(menu: MenuItem, itemId: Long)
+        fun onMenuItemClick(menu: MenuItem, jogoId: Long)
     }
 }

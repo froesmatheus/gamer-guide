@@ -10,10 +10,12 @@
         android:id="@+id/ivCapaJogo"
         android:layout_width="80dp"
         android:layout_height="110dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:background="@color/cardview_dark_background" />
 
-    <TextView
-        android:id="@+id/tvNomeJogo"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -21,15 +23,45 @@
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/ivCapaJogo"
         android:layout_toRightOf="@+id/ivCapaJogo"
-        android:text="@string/nome_do_jogo" />
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="30%" />
+        <TextView
+            android:id="@+id/tvNomeJogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nome_do_jogo"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horas jogadas" />
+
+        <TextView
+            android:id="@+id/tvHorasJogadas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100 horas"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPlataformas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Progresso" />
+
+        <TextView
+            android:id="@+id/tvPorcentagemProgresso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30%"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/ivOverflowMenu"

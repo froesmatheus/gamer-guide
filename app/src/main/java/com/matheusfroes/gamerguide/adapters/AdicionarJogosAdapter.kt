@@ -37,7 +37,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         holder.itemView.setOnClickListener { dialogDetalhesJogo(jogo) }
 
         holder.itemView.tvNomeJogo.text = jogo.nome
-        holder.itemView.tvDataLancamento.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
+        holder.itemView.textview.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
 
         holder.itemView.ivOverflow.setOnClickListener {

@@ -39,7 +39,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
         view.tvNomeDesenvolvedores.text = jogo?.desenvolvedores
         view.tvNomePublicadora.text = jogo?.publicadoras
         view.tvGenero.text = jogo?.generos
-        view.tvDataLancamento.text = jogo?.dataLancamento?.formatarData("dd 'de' MMMM 'de' yyyy")
+        view.textview.text = jogo?.dataLancamento?.formatarData("dd 'de' MMMM 'de' yyyy")
         view.tvDescricao.text = jogo?.descricao
         view.tvPlataformas.text = jogo?.plataformas?.joinToString()
 
