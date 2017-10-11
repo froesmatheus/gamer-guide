@@ -77,9 +77,7 @@ class JogosTabFragment : Fragment() {
             override fun onMenuItemClick(menu: MenuItem, jogoId: Long) {
                 when (menu.itemId) {
                     R.id.navRemover -> {
-                        dialogRemoverJogo()
-                        //viewModel.removerJogo(jogoId)
-                        //context.toast(context.getString(R.string.jogo_removido))
+                        dialogRemoverJogo(jogoId)
                     }
                     R.id.navGerenciarListas -> {
                         dialogGerenciarListas(jogoId)
@@ -139,12 +137,15 @@ class JogosTabFragment : Fragment() {
         dialog.show()
     }
 
-    private fun dialogRemoverJogo() {
+    private fun dialogRemoverJogo(jogoId: Long) {
         val view = LayoutInflater.from(context).inflate(R.layout.dialog_remover_jogo, null, false)
 
         val dialog = AlertDialog.Builder(context)
                 .setView(view)
-                .setPositiveButton(getString(R.string.confirmar), null)
+                .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
+                    viewModel.removerJogo(jogoId)
+                    context.toast(context.getString(R.string.jogo_removido))
+                }
                 .setNegativeButton(getString(R.string.cancelar), null)
                 .create()
 
