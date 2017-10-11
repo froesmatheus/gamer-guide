@@ -44,6 +44,11 @@
         <activity
             android:name=".activities.DetalhesListaActivity"
             android:parentActivityName=".activities.TelaPrincipalActivity" />
+
+        <activity
+            android:name=".activities.CapaJogoTelaCheiaActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.AppCompat.Dialog" />
     </application>
 
 </manifest>

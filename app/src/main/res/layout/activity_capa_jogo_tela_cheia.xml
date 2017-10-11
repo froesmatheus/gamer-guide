@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.chrisbanes.photoview.PhotoView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/photoView"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:background="@android:color/transparent" />

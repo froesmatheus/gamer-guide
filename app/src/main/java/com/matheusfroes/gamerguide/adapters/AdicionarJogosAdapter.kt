@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.activities.CapaJogoTelaCheiaActivity
 import com.matheusfroes.gamerguide.activities.DetalhesJogoActivity
 import com.matheusfroes.gamerguide.extra.DialogDetalhesJogo
 import com.matheusfroes.gamerguide.formatarData
@@ -45,6 +46,12 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         }
 
         holder.setIsRecyclable(false)
+
+        holder.itemView.ivCapaJogo.setOnClickListener {
+            val intent = Intent(context, CapaJogoTelaCheiaActivity::class.java)
+            intent.putExtra("url_imagem", jogo.imageCapa)
+            context.startActivity(intent)
+        }
 
         if (jogo.imageCapa.isEmpty()) {
             holder.capaVisivel = false
