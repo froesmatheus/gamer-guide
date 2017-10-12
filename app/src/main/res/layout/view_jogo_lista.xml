@@ -18,7 +18,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@color/black" />
+            android:background="@color/black"
+            android:contentDescription="@string/content_description_capa_jogo" />
 
         <TextView
             android:id="@+id/tvNomeJogo"
@@ -56,6 +57,6 @@
             android:layout_alignParentRight="true"
             android:layout_alignStart="@+id/textview"
             android:layout_below="@+id/textview"
-            android:text="Plataformas" />
+            android:text="@string/plataformas" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

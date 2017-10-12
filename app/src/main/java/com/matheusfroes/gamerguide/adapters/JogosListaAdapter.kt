@@ -41,6 +41,7 @@ class JogosListaAdapter(private val context: Context) : RecyclerView.Adapter<Jog
         holder.itemView.tvNomeJogo.text = jogo.nome
         holder.itemView.textview.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
+        holder.itemView.ivCapaJogo.contentDescription = context.getString(R.string.content_description_capa_jogo, jogo.nome)
 
         if (jogo.imageCapa.isEmpty()) {
             holder.capaVisivel = false

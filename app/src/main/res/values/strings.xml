@@ -73,4 +73,6 @@
     <string name="msg_lista_existente">Já existe uma lista com este nome</string>
     <string name="atualizar">Atualizar</string>
     <string name="progresso_atualizado">Progresso atualizado</string>
+
+    <string name="content_description_capa_jogo">Capa do Jogo: %1$s</string>
 </resources>

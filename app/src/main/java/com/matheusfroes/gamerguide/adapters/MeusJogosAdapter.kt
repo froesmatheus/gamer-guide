@@ -44,6 +44,7 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
         holder.itemView.tvNomeJogo.text = jogo.nome
         holder.itemView.tvPorcentagemProgresso.text = "${jogo.progresso.progressoPerc}%"
         holder.itemView.tvHorasJogadas.text = "${jogo.progresso.horasJogadas} horas"
+        holder.itemView.ivCapaJogo.contentDescription = context.getString(R.string.content_description_capa_jogo, jogo.nome)
 
         Picasso
                 .with(context)
