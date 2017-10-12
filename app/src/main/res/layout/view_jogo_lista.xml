@@ -25,20 +25,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textview"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/textview"
+            android:layout_marginTop="5dp"
             android:text="@string/nome_do_jogo"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvNomeJogo"
+            android:layout_marginEnd="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/ivCapaJogo"
             android:layout_toRightOf="@+id/ivCapaJogo"
@@ -49,10 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textview"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignStart="@+id/textview"
             android:layout_below="@+id/textview"
-            android:text="Plataformas"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:text="Plataformas" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

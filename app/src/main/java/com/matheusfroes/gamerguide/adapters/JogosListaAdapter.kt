@@ -1,11 +1,13 @@
 package com.matheusfroes.gamerguide.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.activities.DetalhesJogoActivity
 import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
 import com.squareup.picasso.Picasso
@@ -31,7 +33,9 @@ class JogosListaAdapter(private val context: Context) : RecyclerView.Adapter<Jog
         val jogo = jogos[position]
 
         holder.itemView.setOnClickListener {
-
+            val intent = Intent(context, DetalhesJogoActivity::class.java)
+            intent.putExtra("id_jogo", jogo.id)
+            context.startActivity(intent)
         }
 
         holder.itemView.tvNomeJogo.text = jogo.nome
