@@ -5,6 +5,6 @@
     <item
         android:id="@+id/navExcluirLista"
         android:icon="@drawable/ic_apagar"
-        android:title="Excluir Lista"
+        android:title="@string/excluir_lista"
         app:showAsAction="ifRoom" />
 </menu>

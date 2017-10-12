@@ -4,17 +4,17 @@
 
     <item
         android:id="@+id/navMarcarComoZerado"
-        android:title="Marcar como zerado" />
+        android:title="@string/marcar_como_zerado" />
 
     <item
         android:id="@+id/navAtualizarProgresso"
-        android:title="Atualizar progresso" />
+        android:title="@string/atualizar_progresso" />
 
     <item
         android:id="@+id/navGerenciarListas"
-        android:title="Gerenciar listas" />
+        android:title="@string/gerenciar_listas" />
 
     <item
         android:id="@+id/navRemover"
-        android:title="Remover" />
+        android:title="@string/remover" />
 </menu>

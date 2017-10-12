@@ -175,8 +175,7 @@ class JogosTabFragment : Fragment() {
     }
 
     private fun dialogGerenciarListas(jogoId: Long) {
-        val listaDAO = ListasDAO(context)
-        val listas = listaDAO.obterListas()
+        val listas = listasDAO.obterListas()
         val jogoJaCadastrado = mutableListOf<Boolean>()
 
         listas.forEach { lista ->

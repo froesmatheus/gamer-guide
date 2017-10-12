@@ -77,7 +77,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         popup.show()
 
         popup.setOnMenuItemClickListener {
-            listener?.onMenuItemClick(jogo)
+            listener?.onMenuItemClick("adicionar_a_lista", jogo)
             true
         }
     }
@@ -89,7 +89,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
     private fun dialogDetalhesJogo(jogo: Jogo) {
         val dialog = DialogDetalhesJogo(context, jogo)
                 .setPositiveButton(context.getString(R.string.btn_adicionar)) { dialogInterface, i ->
-                    this.listener?.onMenuItemClick(jogo)
+                    this.listener?.onMenuItemClick("adicionar_jogo", jogo)
                 }
                 .setNegativeButton(context.getString(R.string.Detalhes)) { _, _ ->
                     val intent = Intent(context, DetalhesJogoActivity::class.java)
@@ -109,6 +109,6 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
     }
 
     interface OnAdicionarJogoListener {
-        fun onMenuItemClick(jogo: Jogo)
+        fun onMenuItemClick(action: String, jogo: Jogo)
     }
 }

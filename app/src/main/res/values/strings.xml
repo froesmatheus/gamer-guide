@@ -75,4 +75,9 @@
     <string name="progresso_atualizado">Progresso atualizado</string>
 
     <string name="content_description_capa_jogo">Capa do Jogo: %1$s</string>
+    <string name="adicionar_lista">Adicionar à lista</string>
+    <string name="atualizar_feed">Atualizar Feed</string>
+    <string name="excluir_lista">Excluir Lista</string>
+    <string name="marcar_como_zerado">Marcar como zerado</string>
+    <string name="remover">Remover</string>
 </resources>
