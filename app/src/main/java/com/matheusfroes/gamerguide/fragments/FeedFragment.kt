@@ -42,8 +42,8 @@ class FeedFragment : Fragment() {
 
         adapter = FeedAdapter(activity)
 
-        viewModel.noticias.observe(this, Observer {
-            adapter?.preencherNoticias(viewModel.noticias.value!!)
+        viewModel.noticias.observe(this, Observer { noticias ->
+            adapter?.preencherNoticias(noticias!!)
         })
 
         viewModel.atualizarFeed()
