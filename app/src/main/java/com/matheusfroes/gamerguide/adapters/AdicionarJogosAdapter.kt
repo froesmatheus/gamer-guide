@@ -27,6 +27,11 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         notifyDataSetChanged()
     }
 
+    fun limparLista() {
+        jogos.clear()
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = View.inflate(context, R.layout.view_jogo_pesquisa, null)
         return ViewHolder(view)

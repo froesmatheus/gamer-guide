@@ -48,8 +48,10 @@ class JogosTabNaoTerminadosFragment : Fragment() {
 
 
         viewModel.jogos.observe(this, Observer { jogos ->
-            adapter.preencherLista(jogos?.filter { !it.progresso.zerado } ?: listOf())
+            adapter.preencherLista(jogos ?: listOf())
         })
+
+        viewModel.atualizarListaJogos()
 
 
         adapter.setOnMenuItemClickListener(object : MeusJogosAdapter.OnMenuOverflowClickListener {
@@ -71,11 +73,6 @@ class JogosTabNaoTerminadosFragment : Fragment() {
             }
         })
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.atualizarListaJogos()
     }
 
     private fun dialogAtualizarProgresso(jogoId: Long) {

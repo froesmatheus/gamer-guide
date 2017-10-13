@@ -19,19 +19,9 @@ class AdicionarJogosViewModel(application: Application) : AndroidViewModel(appli
 
     private val repository = AppRepository()
 
-    fun pesquisarJogos(query: String) {
+    fun pesquisarJogos(query: String = "", nextPage: String = "") {
         doAsync {
-            val result = repository.pesquisarJogos(query)
-
-            val jogos = result.map { normalizarDadosJogo(it, PlataformasDAO(getApplication())) }
-
-            uiThread { listaPesquisas.value = jogos }
-        }
-    }
-
-    fun obterLancamentos(nextPage: String = "") {
-        doAsync {
-            val result = repository.obterLancamentos(nextPage)
+            val result = repository.pesquisarJogos(query, nextPage)
 
             val jogos = result.first.map { normalizarDadosJogo(it, PlataformasDAO(getApplication())) }
 

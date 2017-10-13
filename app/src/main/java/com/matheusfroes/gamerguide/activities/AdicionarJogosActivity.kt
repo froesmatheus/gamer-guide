@@ -34,6 +34,7 @@ class AdicionarJogosActivity : AppCompatActivity() {
     private val listasDAO: ListasDAO by lazy {
         ListasDAO(this)
     }
+    var queryDigitada = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,7 @@ class AdicionarJogosActivity : AppCompatActivity() {
 
         val scrollListener: EndlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                viewModel.obterLancamentos(viewModel.nextPageId.value!!)
+                viewModel.pesquisarJogos(queryDigitada, viewModel.nextPageId.value!!)
             }
         }
         rvJogos.addOnScrollListener(scrollListener)
@@ -68,11 +69,15 @@ class AdicionarJogosActivity : AppCompatActivity() {
         })
 
         // Obter jogos mais populares do momento
-        viewModel.obterLancamentos()
+        viewModel.pesquisarJogos()
 
         etNomeJogo.setOnEditorActionListener { _, _, _ ->
             esconderTeclado(this)
-            viewModel.pesquisarJogos(query = etNomeJogo.text.toString())
+            adapter.limparLista()
+            scrollListener.resetState()
+            queryDigitada = etNomeJogo.text.toString()
+
+            viewModel.pesquisarJogos(query = queryDigitada)
             true
         }
     }

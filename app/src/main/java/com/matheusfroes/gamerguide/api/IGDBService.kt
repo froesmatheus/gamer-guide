@@ -25,7 +25,7 @@ interface IGDBService {
 
     @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
     @GET("games/")
-    fun obterLancamentos(
+    fun pesquisar(
             @Query("search") query: String,
             @Query("fields") fields: String = "name,id,summary,cover.url,time_to_beat,developers,publishers,videos,first_release_date,genres,release_dates.date,release_dates.platform",
             @Query("expand") expands: String = "publishers,developers,genres",
