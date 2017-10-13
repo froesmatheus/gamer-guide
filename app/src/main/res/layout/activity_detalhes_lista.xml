@@ -35,6 +35,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/empty_jogos_lista" />
+
+        <Button
+            android:id="@+id/btnAdicionarJogos"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/adicionar_jogos"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
 </FrameLayout>
 
