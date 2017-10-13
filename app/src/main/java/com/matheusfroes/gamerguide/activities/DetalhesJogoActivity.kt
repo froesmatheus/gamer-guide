@@ -71,10 +71,15 @@ class DetalhesJogoActivity : AppCompatActivity() {
             viewPager.setCurrentItem(0, false)
         }
 
-        Picasso
-                .with(this)
-                .load(obterImagemJogoCapa(jogo.imageCapa))
-                .into(ivCapaJogo)
+
+        if (jogo.imageCapa.isNotEmpty()) {
+            Picasso
+                    .with(this)
+                    .load(obterImagemJogoCapa(jogo.imageCapa))
+                    .into(ivCapaJogo)
+        } else {
+            appBar.setExpanded(false, false)
+        }
 
         if (jogoSalvo) {
             fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)

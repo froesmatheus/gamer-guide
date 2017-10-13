@@ -48,7 +48,11 @@ class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog
         }
 
 
-        Picasso.with(context).load(jogo.imageCapa.replace("t_thumb", "t_cover_big")).fit()
-                .into(view.ivCapaJogo)
+        if (jogo.imageCapa.isNotEmpty()) {
+            Picasso.with(context).load(jogo.imageCapa.replace("t_thumb", "t_cover_big")).fit()
+                    .into(view.ivCapaJogo)
+        } else {
+            view.ivCapaJogo.visibility = View.GONE
+        }
     }
 }
