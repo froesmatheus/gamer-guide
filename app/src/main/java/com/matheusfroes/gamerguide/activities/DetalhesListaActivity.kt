@@ -1,6 +1,7 @@
 package com.matheusfroes.gamerguide.activities
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -52,6 +53,11 @@ class DetalhesListaActivity : AppCompatActivity() {
 
         adapter.preencherLista(lista?.jogos!!)
         title = lista?.nome
+
+
+        btnAdicionarJogos.setOnClickListener {
+            startActivity(Intent(this, AdicionarJogosActivity::class.java))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
