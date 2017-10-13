@@ -1,31 +1,26 @@
 package com.matheusfroes.gamerguide.adapters
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import com.matheusfroes.gamerguide.fragments.JogosTabFragment
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.fragments.JogosTabNaoTerminadosFragment
+import com.matheusfroes.gamerguide.fragments.JogosTabZeradosFragment
 
 /**
  * Created by matheusfroes on 20/09/2017.
  */
-class JogosFragmentAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
-    private val jogosZerados = JogosTabFragment()
-    private val jogosNaoTerminados = JogosTabFragment()
+class JogosFragmentAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+    private val jogosZerados = JogosTabZeradosFragment()
+    private val jogosNaoTerminados = JogosTabNaoTerminadosFragment()
 
     override fun getItem(position: Int): Fragment {
         val bundle = Bundle()
         return when (position) {
-            0 -> {
-                bundle.putString("tipo_jogo", "nao_terminado")
-                jogosNaoTerminados.arguments = bundle
-                jogosNaoTerminados
-            }
-            1 -> {
-                bundle.putString("tipo_jogo", "zerados")
-                jogosZerados.arguments = bundle
-                jogosZerados
-            }
+            0 -> jogosNaoTerminados
+            1 -> jogosZerados
             else -> jogosZerados
         }
     }
@@ -33,8 +28,8 @@ class JogosFragmentAdapter(fragmentManager: FragmentManager) : FragmentStatePage
     override fun getCount() = 2
 
     override fun getPageTitle(position: Int): String = when (position) {
-        0 -> "Não Terminados"
-        1 -> "Zerados"
-        else -> "Zerados"
+        0 -> context.getString(R.string.nao_terminados)
+        1 -> context.getString(R.string.zerados)
+        else -> context.getString(R.string.zerados)
     }
 }

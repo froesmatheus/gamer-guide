@@ -60,7 +60,7 @@ class JogosListaAdapter(private val context: Context) : RecyclerView.Adapter<Jog
     private fun showPopup(v: View) {
         val popup = PopupMenu(context, v)
         val inflater = popup.menuInflater
-        inflater.inflate(R.menu.popup_jogos, popup.menu)
+        inflater.inflate(R.menu.popup_jogos_nao_terminados, popup.menu)
         popup.show()
     }
 

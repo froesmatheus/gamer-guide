@@ -22,20 +22,16 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
     private val jogosDAO: JogosDAO by lazy { JogosDAO(app) }
     private val progressosDAO: ProgressoDAO by lazy { ProgressoDAO(app) }
 
-    var jogosNaoTerminados = MutableLiveData<List<Jogo>>()
-    var jogosZerados = MutableLiveData<List<Jogo>>()
+    var jogos = MutableLiveData<List<Jogo>>()
 
-    fun getJogosNaoTerminados() {
-        jogosNaoTerminados.value = jogosDAO.obterJogosPorStatus(zerados = false)
+    fun atualizarListaJogos() {
+        jogos.postValue(jogosDAO.obterJogos())
     }
 
-    fun getJogosZerados() {
-        jogosZerados.value = jogosDAO.obterJogosPorStatus(zerados = true)
-    }
 
     fun removerJogo(jogoId: Long) {
         jogosDAO.remover(jogoId)
-        jogosNaoTerminados.postValue(jogosDAO.obterJogosPorStatus(zerados = false))
+        atualizarListaJogos()
     }
 
     fun obterProgressoJogo(jogoId: Long): ProgressoJogo? =
@@ -44,6 +40,7 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun atualizarProgressoJogo(jogoId: Long, progressoJogo: ProgressoJogo) {
         progressosDAO.atualizarProgresso(progressoJogo, jogoId)
+        atualizarListaJogos()
     }
 
     fun marcarComoZerado(jogoId: Long) {
@@ -51,7 +48,7 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
         jogo?.progresso?.apply {
             jogo.progresso.zerado = true
             progressosDAO.atualizarProgresso(jogo.progresso, jogoId)
-            jogosNaoTerminados.postValue(jogosDAO.obterJogosPorStatus(zerados = true))
+            atualizarListaJogos()
         }
     }
 

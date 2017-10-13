@@ -53,18 +53,22 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
                 .into(holder.itemView.ivCapaJogo)
 
         holder.itemView.ivOverflowMenu.setOnClickListener {
-            showPopup(holder.itemView.ivOverflowMenu, jogo.id)
+            showPopup(holder.itemView.ivOverflowMenu, jogo)
         }
     }
 
-    private fun showPopup(v: View, itemId: Long) {
+    private fun showPopup(v: View, jogo: Jogo) {
         val popup = PopupMenu(context, v)
         val inflater = popup.menuInflater
-        inflater.inflate(R.menu.popup_jogos, popup.menu)
+        if (jogo.progresso.zerado) {
+            inflater.inflate(R.menu.popup_jogos_zerados, popup.menu)
+        } else {
+            inflater.inflate(R.menu.popup_jogos_nao_terminados, popup.menu)
+        }
         popup.show()
 
         popup.setOnMenuItemClickListener {
-            listener?.onMenuItemClick(it, itemId)!!
+            listener?.onMenuItemClick(it, jogo.id)!!
             true
         }
     }

@@ -3,8 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/navEditarLista"
+        android:title="@string/editar_lista"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/navExcluirLista"
-        android:icon="@drawable/ic_apagar"
         android:title="@string/excluir_lista"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 </menu>

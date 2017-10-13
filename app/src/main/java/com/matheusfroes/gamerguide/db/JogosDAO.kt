@@ -133,6 +133,44 @@ class JogosDAO(context: Context) {
         return jogos
     }
 
+    fun obterJogos(): List<Jogo> {
+        val cursor = db.rawQuery("""
+            SELECT *
+            FROM ${Helper.TABELA_JOGOS}""", null)
+
+        val jogos = mutableListOf<Jogo>()
+        if (cursor.count > 0) {
+            cursor.moveToFirst()
+
+            do {
+
+                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
+                val jogo = Jogo(
+                        id = jogoId,
+                        descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
+                        desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
+                        imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
+                        publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
+                        generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
+                        nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
+                        plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
+                        videos = videosDAO.getVideosPorJogo(jogoId),
+                        progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
+                        timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
+                        dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
+                )
+
+                jogos.add(jogo)
+            } while (cursor.moveToNext())
+
+        }
+
+        cursor.close()
+
+        return jogos
+    }
+
     fun obterJogosPorLista(idLista: Int): List<Jogo> {
         val cursor = db.rawQuery("""
             SELECT *

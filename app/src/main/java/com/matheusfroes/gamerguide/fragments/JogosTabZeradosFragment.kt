@@ -27,15 +27,12 @@ import org.jetbrains.anko.toast
 /**
  * Created by matheusfroes on 20/09/2017.
  */
-class JogosTabFragment : Fragment() {
+class JogosTabZeradosFragment : Fragment() {
     val adapter: MeusJogosAdapter by lazy {
         MeusJogosAdapter(context)
     }
     private val viewModel: TelaPrincipalViewModel by lazy {
         ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
-    }
-    val tipoJogo: String by lazy {
-        arguments.getString("tipo_jogo")
     }
     val listasDAO: ListasDAO by lazy {
         ListasDAO(context)
@@ -50,28 +47,10 @@ class JogosTabFragment : Fragment() {
         view.rvJogosNaoTerminados.adapter = adapter
 
 
-        viewModel.jogosNaoTerminados.observe(this, Observer { jogos ->
-            adapter.preencherLista(jogos ?: listOf())
+        viewModel.jogos.observe(this, Observer { jogos ->
+            adapter.preencherLista(jogos?.filter { it.progresso.zerado } ?: listOf())
         })
 
-
-
-        if (tipoJogo == "nao_terminado") {
-            viewModel.getJogosNaoTerminados()
-        } else {
-            viewModel.getJogosZerados()
-        }
-
-//        view.rvJogosNaoTerminados.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//
-//            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-//                if (dy > 0 && activity.bottomNavigation.isShown) {
-//                    activity.bottomNavigation.visibility = View.GONE
-//                } else if (dy < 0) {
-//                    activity.bottomNavigation.visibility = View.VISIBLE
-//                }
-//            }
-//        })
 
         adapter.setOnMenuItemClickListener(object : MeusJogosAdapter.OnMenuOverflowClickListener {
             override fun onMenuItemClick(menu: MenuItem, jogoId: Long) {
@@ -92,6 +71,11 @@ class JogosTabFragment : Fragment() {
             }
         })
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.atualizarListaJogos()
     }
 
     private fun dialogAtualizarProgresso(jogoId: Long) {
@@ -127,7 +111,6 @@ class JogosTabFragment : Fragment() {
                     progressoJogo.zerado = view.chkJogoZerado.isChecked
 
                     viewModel.atualizarProgressoJogo(jogoId, progressoJogo)
-                    viewModel.getJogosNaoTerminados()
 
                     context.toast(getString(R.string.progresso_atualizado))
                 }
@@ -155,11 +138,7 @@ class JogosTabFragment : Fragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     fun onMessageEvent(event: JogoAdicionadoRemovidoEvent) {
-        if (tipoJogo == "nao_terminado") {
-            viewModel.getJogosNaoTerminados()
-        } else {
-            viewModel.getJogosZerados()
-        }
+        viewModel.atualizarListaJogos()
 
         EventBus.getDefault().removeStickyEvent(event)
     }
@@ -179,11 +158,7 @@ class JogosTabFragment : Fragment() {
         val jogoJaCadastrado = mutableListOf<Boolean>()
 
         listas.forEach { lista ->
-            if (listasDAO.listaContemJogo(jogoId, lista.id)) {
-                jogoJaCadastrado.add(true)
-            } else {
-                jogoJaCadastrado.add(false)
-            }
+            jogoJaCadastrado.add(listasDAO.listaContemJogo(jogoId, lista.id))
         }
 
         val listasStr = listas.map { it.toString() }.toTypedArray()

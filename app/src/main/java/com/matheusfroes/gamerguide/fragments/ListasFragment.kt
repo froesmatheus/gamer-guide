@@ -12,7 +12,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.ListaExcluidaEvent
+import com.matheusfroes.gamerguide.ListaExcluidaEditadaEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesListaActivity
 import com.matheusfroes.gamerguide.adapters.ListasAdapter
@@ -71,7 +71,7 @@ class ListasFragment : Fragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: ListaExcluidaEvent) {
+    fun onMessageEvent(event: ListaExcluidaEditadaEvent) {
         adapter.preencherLista(dao.obterListas())
     }
 

@@ -21,7 +21,7 @@ class MeusJogosFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_meus_jogos, container, false)
 
-        val adapter = JogosFragmentAdapter(childFragmentManager)
+        val adapter = JogosFragmentAdapter(context, childFragmentManager)
         view.viewPager.adapter = adapter
 
         activity.tabLayout.visibility = View.VISIBLE

@@ -3,11 +3,11 @@
     <tab
         icon="@drawable/ic_gamepad"
         id="@+id/navMeusJogos"
-        title="Jogos" />
+        title="@string/titulo_jogos" />
     <tab
         icon="@drawable/ic_calendario"
         id="@+id/navCalendario"
-        title="Calendário" />
+        title="@string/titulo_calendario" />
     <tab
         icon="@drawable/ic_folded_newspaper"
         id="@+id/navFeed"
@@ -19,5 +19,5 @@
     <tab
         icon="@drawable/ic_estatistica"
         id="@+id/navEstatisticas"
-        title="Estatísticas" />
+        title="@string/titulo_estatiticas" />
 </tabs>

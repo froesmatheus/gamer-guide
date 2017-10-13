@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/navMarcarComoNaoTerminado"
+        android:title="@string/marcar_como_nao_terminado" />
+
+    <item
+        android:id="@+id/navAtualizarProgresso"
+        android:title="@string/atualizar_progresso" />
+
+    <item
+        android:id="@+id/navGerenciarListas"
+        android:title="@string/gerenciar_listas" />
+
+    <item
+        android:id="@+id/navRemover"
+        android:title="@string/remover" />
+</menu>

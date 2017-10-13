@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name" translatable="false">GamerGuide</string>
-    <string name="titulo_jogos">Meus Jogos</string>
+    <string name="titulo_jogos">Jogos</string>
     <string name="titulo_feed">Feed</string>
     <string name="titulo_listas">Listas</string>
+    <string name="titulo_calendario">Calendário</string>
+    <string name="titulo_estatiticas">Estatísticas</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -63,7 +65,7 @@
     <string name="ttb_100perc">100%</string>
     <string name="quantos_perc_jogou">Quantos % você jogou?</string>
     <string name="zerei_este_jogo">Zerei este jogo</string>
-    <string name="atualizar_progresso">Atualizar Progresso</string>
+    <string name="atualizar_progresso">Atualizar progresso</string>
     <string name="nome_da_plataforma">Nome da plataforma</string>
     <string name="msg_jogo_adicionado_lista">Jogo adicionado na lista</string>
     <string name="msg_jogo_adicionado_listas">Jogo adicionado nas listas</string>
@@ -77,7 +79,12 @@
     <string name="content_description_capa_jogo">Capa do Jogo: %1$s</string>
     <string name="adicionar_lista">Adicionar à lista</string>
     <string name="atualizar_feed">Atualizar Feed</string>
-    <string name="excluir_lista">Excluir Lista</string>
+    <string name="excluir_lista">Excluir</string>
     <string name="marcar_como_zerado">Marcar como zerado</string>
     <string name="remover">Remover</string>
+    <string name="marcar_como_nao_terminado">Marcar como não terminado</string>
+    <string name="nao_terminados">Não Terminados</string>
+    <string name="zerados">Zerados</string>
+    <string name="editar_lista">Editar</string>
+    <string name="lista_atualizada">Lista atualizada</string>
 </resources>

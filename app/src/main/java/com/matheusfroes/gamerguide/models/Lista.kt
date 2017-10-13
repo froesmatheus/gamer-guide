@@ -5,7 +5,7 @@ package com.matheusfroes.gamerguide.models
  */
 data class Lista(
         val id: Int = 0,
-        val nome: String,
+        var nome: String,
         val jogos: List<Jogo> = listOf()) {
 
     override fun toString() = nome

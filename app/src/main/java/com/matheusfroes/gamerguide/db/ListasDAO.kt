@@ -32,6 +32,14 @@ class ListasDAO(val context: Context) {
         }
     }
 
+    fun editar(lista: Lista) {
+        val cv = ContentValues()
+
+        cv.put(Helper.LISTAS_NOME, lista.nome)
+
+        db.update(Helper.TABELA_LISTAS, cv, "_id = ?", arrayOf(lista.id.toString()))
+    }
+
     fun verificarListaJaExistente(nomeLista: String): Boolean {
         val count = DatabaseUtils.queryNumEntries(db, Helper.TABELA_LISTAS, "${Helper.LISTAS_NOME} = ?", arrayOf(nomeLista))
 
