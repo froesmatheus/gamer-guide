@@ -7,11 +7,13 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.matheusfroes.gamerguide.EndlessRecyclerViewScrollListener
 import com.matheusfroes.gamerguide.ListaExcluidaEditadaEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesListaActivity
@@ -40,6 +42,7 @@ class ListasFragment : Fragment() {
     }
     var etNomeLista: TextInputEditText? = null
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_listas, container, false)
         activity.tabLayout.visibility = View.GONE
@@ -49,11 +52,19 @@ class ListasFragment : Fragment() {
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.rvListas.layoutManager = layoutManager
         view.rvListas.emptyView = view.layoutEmpty
+
+        val scrollListener: EndlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                context.toast("Page $page Total count: $totalItemsCount")
+            }
+        }
+
         val mDividerItemDecoration = DividerItemDecoration(
                 view.rvListas.context,
                 layoutManager.orientation
         )
         view.rvListas.addItemDecoration(mDividerItemDecoration)
+        view.rvListas.addOnScrollListener(scrollListener)
 
         view.rvListas.adapter = adapter
 
