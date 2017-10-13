@@ -19,11 +19,11 @@ import kotlinx.android.synthetic.main.view_jogo_pesquisa.view.*
  * Created by matheusfroes on 21/09/2017.
  */
 class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter<AdicionarJogosAdapter.ViewHolder>() {
-    private var jogos: List<Jogo> = listOf()
+    private var jogos: MutableList<Jogo> = mutableListOf()
     private var listener: OnAdicionarJogoListener? = null
 
     fun preencherLista(jogos: List<Jogo>) {
-        this.jogos = jogos
+        this.jogos.addAll(jogos)
         notifyDataSetChanged()
     }
 

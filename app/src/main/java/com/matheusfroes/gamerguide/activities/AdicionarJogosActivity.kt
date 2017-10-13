@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import com.matheusfroes.gamerguide.EndlessRecyclerViewScrollListener
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.AdicionarJogosAdapter
@@ -37,8 +39,16 @@ class AdicionarJogosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adicionar_jogos)
 
-        rvJogos.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvJogos.layoutManager = layoutManager
         rvJogos.adapter = adapter
+
+        val scrollListener: EndlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                viewModel.obterLancamentos(viewModel.nextPageId.value!!)
+            }
+        }
+        rvJogos.addOnScrollListener(scrollListener)
 
         adapter.setOnMenuItemClickListener(object : AdicionarJogosAdapter.OnAdicionarJogoListener {
             override fun onMenuItemClick(action: String, jogo: Jogo) {
@@ -55,7 +65,6 @@ class AdicionarJogosActivity : AppCompatActivity() {
 
         viewModel.listaPesquisas.observe(this, Observer { listaJogos ->
             adapter.preencherLista(listaJogos!!)
-            rvJogos.smoothScrollToPosition(0)
         })
 
         // Obter jogos mais populares do momento

@@ -15,6 +15,8 @@ import org.jetbrains.anko.uiThread
  */
 class AdicionarJogosViewModel(application: Application) : AndroidViewModel(application) {
     var listaPesquisas = MutableLiveData<List<Jogo>>().apply { value = mutableListOf() }
+    var nextPageId = MutableLiveData<String>()
+
     private val repository = AppRepository()
 
     fun pesquisarJogos(query: String) {
@@ -27,13 +29,16 @@ class AdicionarJogosViewModel(application: Application) : AndroidViewModel(appli
         }
     }
 
-    fun obterLancamentos() {
+    fun obterLancamentos(nextPage: String = "") {
         doAsync {
-            val result = repository.obterLancamentos()
+            val result = repository.obterLancamentos(nextPage)
 
-            val jogos = result.map { normalizarDadosJogo(it, PlataformasDAO(getApplication())) }
+            val jogos = result.first.map { normalizarDadosJogo(it, PlataformasDAO(getApplication())) }
 
-            uiThread { listaPesquisas.value = jogos }
+            uiThread {
+                nextPageId.value = result.second
+                listaPesquisas.value = jogos
+            }
         }
     }
 }

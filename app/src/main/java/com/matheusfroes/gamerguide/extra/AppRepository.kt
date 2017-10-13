@@ -32,6 +32,7 @@ class AppRepository {
         val response = call.execute()
 
         if (response.isSuccessful) {
+
             val listaResponse = response.body()
 
             listaResponse?.let { listaJogos.addAll(it) }
@@ -40,20 +41,27 @@ class AppRepository {
         return listaJogos
     }
 
-    fun obterLancamentos(): MutableList<GameResponse> {
+    fun obterLancamentos(nextPage: String = ""): Pair<MutableList<GameResponse>, String> {
         val listaJogos = mutableListOf<GameResponse>()
 
-        val call = service.obterLancamentos(query = "")
+        val call = if (nextPage.isEmpty()) {
+            service.obterLancamentos(query = "")
+        } else {
+            service.proximaPagina(nextPage)
+        }
 
         val response = call.execute()
 
+        var nextPageId: String? = null
         if (response.isSuccessful) {
+            nextPageId = response.headers()["X-Next-Page"]
+
             val listaResponse = response.body()
 
             listaResponse?.let { listaJogos.addAll(it) }
         }
 
-        return listaJogos
+        return Pair(listaJogos, nextPageId!!)
     }
 
     fun atualizarFeed(context: Context): MutableList<Noticia> {

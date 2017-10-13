@@ -53,18 +53,11 @@ class ListasFragment : Fragment() {
         view.rvListas.layoutManager = layoutManager
         view.rvListas.emptyView = view.layoutEmpty
 
-        val scrollListener: EndlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
-            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                context.toast("Page $page Total count: $totalItemsCount")
-            }
-        }
-
         val mDividerItemDecoration = DividerItemDecoration(
                 view.rvListas.context,
                 layoutManager.orientation
         )
         view.rvListas.addItemDecoration(mDividerItemDecoration)
-        view.rvListas.addOnScrollListener(scrollListener)
 
         view.rvListas.adapter = adapter
 
