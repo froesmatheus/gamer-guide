@@ -24,6 +24,12 @@ class EstatisticasFragment : Fragment() {
         view.tvQtdJogosZerados.text = "${jogosDAO.quantidadeJogos(zerado = true)}"
         view.tvQtdHorasJogadas.text = "${jogosDAO.quantidadeHorasJogadas()}"
 
+        val generosMaisJogados = jogosDAO.obterGenerosMaisJogados()
+
+        generosMaisJogados.forEachIndexed { index, genero ->
+
+        }
+
         return view
     }
 }

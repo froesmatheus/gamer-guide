@@ -231,4 +231,32 @@ class JogosDAO(context: Context) {
                     JOIN ${Helper.TABELA_PROGRESSOS} P ON J._id = P._id""", null)
     }
 
+    fun obterGenerosMaisJogados(): List<Pair<String, Int>> {
+        val cursor = db.rawQuery("SELECT ${Helper.JOGOS_GENEROS} FROM ${Helper.TABELA_JOGOS}", null)
+
+        val generos = mutableListOf<String>()
+        if (cursor.count > 0) {
+            cursor.moveToFirst()
+
+            do {
+                val genero = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS))
+                generos.addAll(genero.split(","))
+            } while (cursor.moveToNext())
+        }
+
+        val generosDiferentes = mutableSetOf<Pair<String, Int>>()
+
+        generos.forEach { genero ->
+            val count = generos.count { it.trim() == genero }
+            if (count > 0) {
+                generosDiferentes.add(Pair(genero, count))
+            }
+        }
+
+        val generosMaisJogados = generosDiferentes.sortedByDescending { it.second }
+
+        cursor.close()
+
+        return generosMaisJogados
+    }
 }
