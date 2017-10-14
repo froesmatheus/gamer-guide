@@ -14,6 +14,7 @@ import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.adapters.MeusJogosAdapter
+import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.db.ListasDAO
 import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
@@ -37,6 +38,7 @@ class JogosTabNaoTerminadosFragment : Fragment() {
     val listasDAO: ListasDAO by lazy {
         ListasDAO(context)
     }
+    private val jogosDAO: JogosDAO by lazy { JogosDAO(context) }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -47,8 +49,11 @@ class JogosTabNaoTerminadosFragment : Fragment() {
         view.rvJogosNaoTerminados.adapter = adapter
 
 
+//        val jogos = jogosDAO.obterJogosPorStatus(zerados = false)
+//        adapter.preencherLista(jogos)
+
         viewModel.jogos.observe(this, Observer { jogos ->
-            adapter.preencherLista(jogos ?: listOf())
+            adapter.preencherLista(jogos?.filter { !it.progresso.zerado } ?: listOf())
         })
 
         viewModel.atualizarListaJogos()

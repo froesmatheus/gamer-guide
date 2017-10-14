@@ -87,4 +87,5 @@
     <string name="zerados">Zerados</string>
     <string name="editar_lista">Editar</string>
     <string name="lista_atualizada">Lista atualizada</string>
+    <string name="msg_jogo_movido_zerados">Jogo movido para \'Zerados\'</string>
 </resources>

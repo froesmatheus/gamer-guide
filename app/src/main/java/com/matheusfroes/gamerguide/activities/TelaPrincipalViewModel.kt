@@ -3,12 +3,14 @@ package com.matheusfroes.gamerguide.activities
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
+import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.db.ProgressoDAO
 import com.matheusfroes.gamerguide.extra.AppRepository
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.models.Noticia
 import com.matheusfroes.gamerguide.models.ProgressoJogo
+import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.doAsync
 
 /**
@@ -21,11 +23,10 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
     var noticias = MutableLiveData<MutableList<Noticia>>()
     private val jogosDAO: JogosDAO by lazy { JogosDAO(app) }
     private val progressosDAO: ProgressoDAO by lazy { ProgressoDAO(app) }
-
     var jogos = MutableLiveData<List<Jogo>>()
 
     fun atualizarListaJogos() {
-        jogos.postValue(jogosDAO.obterJogos())
+        jogos.value = jogosDAO.obterJogos()
     }
 
 
@@ -41,15 +42,17 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
     fun atualizarProgressoJogo(jogoId: Long, progressoJogo: ProgressoJogo) {
         progressosDAO.atualizarProgresso(progressoJogo, jogoId)
         atualizarListaJogos()
+        EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
     }
 
     fun marcarComoZerado(jogoId: Long) {
         val jogo = jogosDAO.obterJogo(jogoId)
-        jogo?.progresso?.apply {
+        if (jogo?.progresso != null) {
             jogo.progresso.zerado = true
             progressosDAO.atualizarProgresso(jogo.progresso, jogoId)
             atualizarListaJogos()
         }
+        EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
     }
 
     fun atualizarFeed() {
