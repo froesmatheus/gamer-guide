@@ -2,6 +2,7 @@ package com.matheusfroes.gamerguide.db
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.models.Jogo
 import java.util.*
@@ -210,4 +211,24 @@ class JogosDAO(context: Context) {
 
         return jogos
     }
+
+    fun quantidadeJogos(zerado: Boolean): Long {
+        val condicao = if (zerado) 1 else 0
+
+        return DatabaseUtils.longForQuery(
+                db, """
+                    SELECT COUNT(*)
+                    FROM ${Helper.TABELA_JOGOS} J
+                    JOIN ${Helper.TABELA_PROGRESSOS} P ON J._id = P._id WHERE P.jogo_zerado = ?""", arrayOf(condicao.toString())
+        )
+    }
+
+    fun quantidadeHorasJogadas(): Long {
+        return DatabaseUtils.longForQuery(
+                db, """
+                    SELECT SUM(${Helper.PROGRESSOS_HORAS_JOGADAS})
+                    FROM ${Helper.TABELA_JOGOS} J
+                    JOIN ${Helper.TABELA_PROGRESSOS} P ON J._id = P._id""", null)
+    }
+
 }
