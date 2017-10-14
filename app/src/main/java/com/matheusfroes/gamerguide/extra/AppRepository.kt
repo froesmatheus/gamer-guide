@@ -24,7 +24,7 @@ class AppRepository {
         retrofit.create(IGDBService::class.java)
     }
 
-    fun pesquisarJogos(query : String = "", nextPage: String = ""): Pair<MutableList<GameResponse>, String> {
+    fun pesquisarJogos(query: String = "", nextPage: String = ""): Pair<MutableList<GameResponse>, String> {
         val listaJogos = mutableListOf<GameResponse>()
 
         val call = if (nextPage.isEmpty()) {
@@ -48,7 +48,7 @@ class AppRepository {
     }
 
     fun atualizarFeed(context: Context): MutableList<Noticia> {
-        val fontes = listOf("http://br.ign.com/feed.xml", "http://rss.baixakijogos.com.br/feed/", "http://www.eurogamer.pt/?format=rss", "https://criticalhits.com.br/feed/")
+        val fontes = listOf("http://rss.baixakijogos.com.br/feed/", "http://www.eurogamer.pt/?format=rss", "https://criticalhits.com.br/feed/")
         val noticias = mutableListOf<Noticia>()
         fontes.map {
             PkRSS.with(context).load(it).callback(object : Callback {
