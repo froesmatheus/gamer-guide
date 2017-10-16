@@ -40,7 +40,14 @@ class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapt
             listener?.onClick(noticia)
         }
 
-        Picasso.with(context).load(noticia.imagem).fit().centerCrop().into(holder.itemView.ivImage)
+        holder.capaVisivel = !noticia.imagem.isEmpty()
+
+        if (holder.capaVisivel) {
+            holder.itemView.ivImage.visibility = View.VISIBLE
+            Picasso.with(context).load(noticia.imagem).fit().centerCrop().into(holder.itemView.ivImage)
+        } else {
+            holder.itemView.ivImage.visibility = View.GONE
+        }
     }
 
     fun setOnClickListener(listener: OnNewsClickListener) {
@@ -49,7 +56,9 @@ class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapt
 
     override fun getItemCount(): Int = noticias.size
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var capaVisivel = true
+    }
 
     interface OnNewsClickListener {
         fun onClick(noticia: Noticia)

@@ -14,7 +14,7 @@ import java.util.*
  * Created by matheus_froes on 27/09/2017.
  */
 fun adicionarSchemaUrl(url: String?): String {
-    return if (url != null && !url.startsWith("http", ignoreCase = true)) {
+    return if (url != null && url != "" && !url.startsWith("http", ignoreCase = true)) {
         "http:" + url
     } else url ?: ""
 }
