@@ -28,6 +28,7 @@
             android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:text="@string/titulo_noticia"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
 

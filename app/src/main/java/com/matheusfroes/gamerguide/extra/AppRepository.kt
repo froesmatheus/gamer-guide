@@ -48,10 +48,11 @@ class AppRepository {
     }
 
     fun atualizarFeed(context: Context): MutableList<Noticia> {
-        val fontes = listOf("http://rss.baixakijogos.com.br/feed/", "http://www.eurogamer.pt/?format=rss", "https://criticalhits.com.br/feed/")
+        val fontes = listOf("http://www.eurogamer.pt/?format=rss", "https://criticalhits.com.br/feed/")
         val noticias = mutableListOf<Noticia>()
+
         fontes.map {
-            PkRSS.with(context).load(it).callback(object : Callback {
+            PkRSS.with(context).load(it).skipCache().callback(object : Callback {
                 override fun onLoadFailed() {}
 
                 override fun onPreload() {}
@@ -74,7 +75,7 @@ class AppRepository {
             }
 
             val website = when {
-                article.source.host.contains("ign", ignoreCase = true) -> "IGN"
+                article.source.host.contains("kotaku", ignoreCase = true) -> "Kotaku"
                 article.source.host.contains("tecmundo", ignoreCase = true) -> "Tecmundo"
                 article.source.host.contains("eurogamer", ignoreCase = true) -> "EuroGamer"
                 article.source.host.contains("criticalhits", ignoreCase = true) -> "Criticalhits"

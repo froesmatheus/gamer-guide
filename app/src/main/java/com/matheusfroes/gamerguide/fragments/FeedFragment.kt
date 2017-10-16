@@ -66,6 +66,7 @@ class FeedFragment : Fragment() {
 
         view.swipeRefreshLayout.setOnRefreshListener {
             viewModel.atualizarFeed()
+            view.swipeRefreshLayout.isRefreshing = false
         }
         return view
     }
