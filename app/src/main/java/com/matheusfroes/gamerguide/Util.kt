@@ -30,6 +30,7 @@ fun normalizarDadosJogo(game: GameResponse, plataformasDAO: PlataformasDAO): Jog
                 Date(game.firstReleaseDate),
                 extrairPlataformas(game.releaseDates ?: mutableListOf(), plataformasDAO),
                 game.videos ?: mutableListOf(),
+                game.gameEngines?.joinToString() ?: "",
                 game.timeToBeat,
                 adicionarSchemaUrl(game.cover?.url))
 

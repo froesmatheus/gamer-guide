@@ -36,6 +36,7 @@ class JogosDAO(context: Context) {
         cv.put(Helper.JOGOS_DESCRICAO, jogo.descricao)
         cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.imageCapa)
         cv.put(Helper.JOGOS_GENEROS, jogo.generos)
+        cv.put(Helper.JOGOS_GAME_ENGINE, jogo.gameEngine)
 
         val cvPlataformas = ContentValues()
         jogo.plataformas.forEach { plataforma ->
@@ -82,6 +83,7 @@ class JogosDAO(context: Context) {
                     nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
                     plataformas = plataformasDAO.obterPlataformasPorJogo(id),
                     videos = videosDAO.getVideosPorJogo(jogoId),
+                    gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
                     progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
                     timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
                     dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
@@ -120,6 +122,7 @@ class JogosDAO(context: Context) {
                         nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
                         plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
                         videos = videosDAO.getVideosPorJogo(jogoId),
+                        gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
                         progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
                         timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
                         dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
@@ -158,6 +161,7 @@ class JogosDAO(context: Context) {
                         nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
                         plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
                         videos = videosDAO.getVideosPorJogo(jogoId),
+                        gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
                         progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
                         timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
                         dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
@@ -196,6 +200,7 @@ class JogosDAO(context: Context) {
                         publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
                         generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
                         nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
+                        gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
                         plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
                         videos = videosDAO.getVideosPorJogo(jogoId),
                         timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),

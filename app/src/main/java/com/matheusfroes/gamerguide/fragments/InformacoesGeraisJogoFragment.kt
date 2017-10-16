@@ -42,6 +42,13 @@ class InformacoesGeraisJogoFragment : Fragment() {
         view.textview.text = jogo?.dataLancamento?.formatarData("dd 'de' MMMM 'de' yyyy")
         view.tvDescricao.text = jogo?.descricao
         view.tvPlataformas.text = jogo?.plataformas?.joinToString()
+        view.tvGameEngine.text = jogo?.gameEngine
+
+
+        if (jogo?.gameEngine.isNullOrEmpty()) {
+            view.tvTituloGameEngine.visibility = View.GONE
+            view.tvGameEngine.visibility = View.GONE
+        }
 
         if (jogo?.desenvolvedores.isNullOrEmpty()) {
             view.tvNomeDesenvolvedores.visibility = View.GONE

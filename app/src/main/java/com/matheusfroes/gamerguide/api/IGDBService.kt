@@ -17,18 +17,10 @@ interface IGDBService {
 
     @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
     @GET("games/")
-    fun pesquisarJogos(
-            @Query("search") query: String,
-            @Query("fields") fields: String = "name,id,summary,cover.url,time_to_beat,developers,publishers,videos,first_release_date,genres,release_dates.date,release_dates.platform",
-            @Query("expand") expands: String = "publishers,developers,genres"): Call<List<GameResponse>>
-
-
-    @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
-    @GET("games/")
     fun pesquisar(
             @Query("search") query: String,
-            @Query("fields") fields: String = "name,id,summary,cover.url,time_to_beat,developers,publishers,videos,first_release_date,genres,release_dates.date,release_dates.platform",
-            @Query("expand") expands: String = "publishers,developers,genres",
+            @Query("fields") fields: String = "name,id,summary,cover.url,game_engines,time_to_beat,developers,publishers,videos,first_release_date,genres,release_dates.date,release_dates.platform",
+            @Query("expand") expands: String = "publishers,developers,genres,game_engines",
             @Query("order") popularity: String = "popularity:desc",
             @Query("scroll") scroll: String = "1"): Call<List<GameResponse>>
 

@@ -20,10 +20,16 @@ data class GameResponse(
         val releaseDates: List<ReleaseDate>? = null,
         @SerializedName("time_to_beat")
         val timeToBeat: TimeToBeat? = null,
+        @SerializedName("game_engines")
+        val gameEngines: List<GameEngine>? = null,
         val videos: List<Video>? = null,
         val cover: Cover?)
 
 data class Genre(val id: Int, val name: String) {
+    override fun toString() = name
+}
+
+data class GameEngine(val name: String) {
     override fun toString() = name
 }
 

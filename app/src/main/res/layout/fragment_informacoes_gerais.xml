@@ -105,6 +105,22 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvTituloGameEngine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/game_engine" />
+
+                <TextView
+                    android:id="@+id/tvGameEngine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="Unreal Engine"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/data_lancamento" />
