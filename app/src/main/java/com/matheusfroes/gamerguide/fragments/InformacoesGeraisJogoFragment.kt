@@ -44,6 +44,14 @@ class InformacoesGeraisJogoFragment : Fragment() {
         view.tvPlataformas.text = jogo?.plataformas?.joinToString()
         view.tvGameEngine.text = jogo?.gameEngine
 
+        if (jogo?.descricao.isNullOrEmpty()) {
+            view.cvDescricaoJogo.visibility = View.GONE
+        }
+
+        if (jogo?.plataformas?.joinToString().isNullOrEmpty()) {
+            view.tvTituloPlataformas.visibility = View.GONE
+            view.tvPlataformas.visibility = View.GONE
+        }
 
         if (jogo?.gameEngine.isNullOrEmpty()) {
             view.tvTituloGameEngine.visibility = View.GONE
@@ -80,9 +88,9 @@ class InformacoesGeraisJogoFragment : Fragment() {
                 view.tituloTTB100Perc.visibility = View.GONE
                 view.tvTTB100Perc.visibility = View.GONE
             }
-            view.tvTTBSpeedrun.text = "${(jogo.timeToBeat.hastly.div(3600))} horas"
-            view.tvTTBModoHistoria.text = "${(jogo.timeToBeat.normally.div(3600))} horas"
-            view.tvTTB100Perc.text = "${(jogo.timeToBeat.completely.div(3600))} horas"
+            view.tvTTBSpeedrun.text = context.getString(R.string.horas_ttb, jogo.timeToBeat.hastly.div(3600))
+            view.tvTTBModoHistoria.text = context.getString(R.string.horas_ttb, jogo.timeToBeat.normally.div(3600))
+            view.tvTTB100Perc.text = context.getString(R.string.horas_ttb, jogo.timeToBeat.completely.div(3600))
         } else {
             view.cvCardTimeToBeat.visibility = View.GONE
         }
@@ -90,7 +98,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
 
     private fun dialogDescricao() {
         val dialog = AlertDialog.Builder(activity)
-                .setTitle("Descrição")
+                .setTitle(getString(R.string.descricao))
                 .setMessage(viewModel.jogo.value?.descricao)
                 .create()
 

@@ -11,7 +11,6 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="titulo_noticia">Título da notícia</string>
     <string name="nome_da_lista">Nome da lista</string>
     <string name="quantidade_de_jogos">Quantidade de jogos</string>
@@ -91,4 +90,7 @@
     <string name="msg_jogo_movido_zerados">Jogo movido para \'Zerados\'</string>
     <string name="game_engine">Game Engine</string>
     <string name="generos_mais_jogados">Gêneros mais jogados</string>
+
+
+    <string name="horas_ttb">%1$d horas</string>
 </resources>

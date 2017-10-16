@@ -72,7 +72,9 @@ class JogosDAO(context: Context) {
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
-            jogo = criarObjetoJogo(cursor)
+            val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
+            jogo = criarObjetoJogo(cursor, jogoId)
         }
 
         cursor.close()
@@ -94,7 +96,9 @@ class JogosDAO(context: Context) {
             cursor.moveToFirst()
 
             do {
-                jogos.add(criarObjetoJogo(cursor))
+                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
+                jogos.add(criarObjetoJogo(cursor, jogoId))
             } while (cursor.moveToNext())
 
         }
@@ -115,7 +119,9 @@ class JogosDAO(context: Context) {
 
             do {
 
-                jogos.add(criarObjetoJogo(cursor))
+                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
+                jogos.add(criarObjetoJogo(cursor, jogoId))
             } while (cursor.moveToNext())
 
         }
@@ -137,8 +143,9 @@ class JogosDAO(context: Context) {
             cursor.moveToFirst()
 
             do {
+                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.LISTAS_JOGOS_ID_JOGO))
 
-                jogos.add(criarObjetoJogo(cursor))
+                jogos.add(criarObjetoJogo(cursor, jogoId))
             } while (cursor.moveToNext())
 
         }
@@ -201,10 +208,8 @@ class JogosDAO(context: Context) {
         return generosMaisJogados
     }
 
-    private fun criarObjetoJogo(cursor: Cursor): Jogo {
-        val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
-
-        return Jogo(
+    private fun criarObjetoJogo(cursor: Cursor, jogoId: Long): Jogo {
+        val jogo = Jogo(
                 id = jogoId,
                 descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
                 desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
@@ -219,5 +224,7 @@ class JogosDAO(context: Context) {
                 timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
                 dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
         )
+
+        return jogo
     }
 }
