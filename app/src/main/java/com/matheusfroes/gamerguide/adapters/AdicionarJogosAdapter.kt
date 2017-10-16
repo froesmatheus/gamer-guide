@@ -61,18 +61,18 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
             context.startActivity(intent)
         }
 
-        if (jogo.imageCapa.isEmpty()) {
-            holder.capaVisivel = false
-            holder.itemView.ivCapaJogo.visibility = if (holder.capaVisivel) View.VISIBLE else View.GONE
-        } else {
-            holder.capaVisivel = true
-            holder.itemView.ivCapaJogo.visibility = if (holder.capaVisivel) View.VISIBLE else View.GONE
+        holder.capaVisivel = !jogo.imageCapa.isEmpty()
 
+
+        if (holder.capaVisivel) {
+            holder.itemView.ivCapaJogo.visibility = View.VISIBLE
             Picasso
                     .with(context)
                     .load(jogo.imageCapa.replace("t_thumb", "t_cover_big"))
                     .fit()
                     .into(holder.itemView.ivCapaJogo)
+        } else {
+            holder.itemView.ivCapaJogo.visibility = View.GONE
         }
     }
 
