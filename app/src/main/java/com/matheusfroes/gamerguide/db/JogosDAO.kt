@@ -176,20 +176,25 @@ class JogosDAO(context: Context) {
 
             do {
                 val genero = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS))
-                generos.addAll(genero.split(","))
+
+                if (genero.isNotEmpty()) {
+                    val generoSplit = genero.split(",")
+                    generos.addAll(generoSplit)
+                }
+
             } while (cursor.moveToNext())
         }
 
         val generosDiferentes = mutableSetOf<Pair<String, Int>>()
 
         generos.forEach { genero ->
-            val count = generos.count { it.trim() == genero }
+            val count = generos.count { it == genero }
             if (count > 0) {
                 generosDiferentes.add(Pair(genero, count))
             }
         }
 
-        val generosMaisJogados = generosDiferentes.sortedByDescending { it.second }
+        val generosMaisJogados = generosDiferentes.sortedByDescending { it.second }.take(5)
 
         cursor.close()
 

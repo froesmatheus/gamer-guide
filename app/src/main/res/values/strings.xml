@@ -90,4 +90,5 @@
     <string name="lista_atualizada">Lista atualizada</string>
     <string name="msg_jogo_movido_zerados">Jogo movido para \'Zerados\'</string>
     <string name="game_engine">Game Engine</string>
+    <string name="generos_mais_jogados">Gêneros mais jogados</string>
 </resources>

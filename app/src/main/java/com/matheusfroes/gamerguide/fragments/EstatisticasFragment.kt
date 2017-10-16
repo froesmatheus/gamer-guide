@@ -1,5 +1,6 @@
 package com.matheusfroes.gamerguide.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.db.JogosDAO
 import kotlinx.android.synthetic.main.fragment_estatisticas.view.*
 import kotlinx.android.synthetic.main.toolbar.*
+import lecho.lib.hellocharts.model.PieChartData
+import lecho.lib.hellocharts.model.SliceValue
 
 /**
  * Created by matheusfroes on 04/10/2017.
@@ -26,9 +29,30 @@ class EstatisticasFragment : Fragment() {
 
         val generosMaisJogados = jogosDAO.obterGenerosMaisJogados()
 
-        generosMaisJogados.forEachIndexed { index, genero ->
 
+        val itens = mutableListOf<SliceValue>()
+
+        val colors = listOf(
+                "#F44336",
+                "#2196F3",
+                "#4CAF50",
+                "#FFC107",
+                "#795548"
+        )
+
+        generosMaisJogados.forEachIndexed { index, genero ->
+            val sliceValue = SliceValue(genero.second.toFloat(), Color.parseColor(colors[index]))
+            sliceValue.setLabel("${genero.first} (${sliceValue.value.toInt()})")
+            itens.add(sliceValue)
         }
+
+        val pieData = PieChartData(itens)
+
+        pieData.setHasLabels(true)
+
+        view.chart.pieChartData = pieData
+        view.chart.isChartRotationEnabled = false
+        view.chart.animation = null
 
         return view
     }
