@@ -46,6 +46,7 @@
     <string name="jogo_removido">O jogo foi removido</string>
     <string name="lista_excluida">Lista excluída</string>
     <string name="btn_adicionar">Adicionar</string>
+    <string name="btn_remover">Remover</string>
     <string name="Detalhes">Detalhes</string>
     <string name="tab_progresso">Progresso</string>
     <string name="tab_informacoes">Informações</string>

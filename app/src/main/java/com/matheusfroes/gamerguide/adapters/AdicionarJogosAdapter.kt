@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.CapaJogoTelaCheiaActivity
 import com.matheusfroes.gamerguide.activities.DetalhesJogoActivity
+import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.extra.DialogDetalhesJogo
 import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
@@ -92,9 +93,20 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
     }
 
     private fun dialogDetalhesJogo(jogo: Jogo) {
+        val dao = JogosDAO(context)
+
+        val jogoSalvo = dao.obterJogo(jogo.id) != null
+
+
+        val textoBotao = if (jogoSalvo) context.getString(R.string.btn_remover) else context.getString(R.string.btn_adicionar)
+
         val dialog = DialogDetalhesJogo(context, jogo)
-                .setPositiveButton(context.getString(R.string.btn_adicionar)) { dialogInterface, i ->
-                    this.listener?.onMenuItemClick("adicionar_jogo", jogo)
+                .setPositiveButton(textoBotao) { dialogInterface, i ->
+                    if (jogoSalvo) {
+                        this.listener?.onMenuItemClick("remover_jogo", jogo)
+                    } else {
+                        this.listener?.onMenuItemClick("adicionar_jogo", jogo)
+                    }
                 }
                 .setNegativeButton(context.getString(R.string.Detalhes)) { _, _ ->
                     val intent = Intent(context, DetalhesJogoActivity::class.java)

@@ -58,19 +58,11 @@ class DetalhesJogoActivity : AppCompatActivity() {
         val tabAdapter = DetalhesJogosFragmentAdapter(this, supportFragmentManager)
         viewPager.adapter = tabAdapter
         tabLayout.setupWithViewPager(viewPager)
-        viewPager.setCurrentItem(1, false)
+        viewPager.setCurrentItem(0, false)
 
         if (viewModel.jogo.value?.videos?.size == 0) {
-            tabAdapter.removeTabPage(2)
+            tabAdapter.removeTabPage(1)
         }
-
-        val telaOrigem = intent.getStringExtra("tela_origem")
-
-        if (telaOrigem == "tela_adicionar") {
-            tabAdapter.removeTabPage(0)
-            viewPager.setCurrentItem(0, false)
-        }
-
 
         if (jogo.imageCapa.isNotEmpty()) {
             Picasso

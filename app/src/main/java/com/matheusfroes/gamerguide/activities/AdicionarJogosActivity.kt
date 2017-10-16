@@ -53,12 +53,18 @@ class AdicionarJogosActivity : AppCompatActivity() {
 
         adapter.setOnMenuItemClickListener(object : AdicionarJogosAdapter.OnAdicionarJogoListener {
             override fun onMenuItemClick(action: String, jogo: Jogo) {
-                if (action == "adicionar_jogo") {
-                    toast(getString(R.string.jogo_adicionado))
-                    jogosDAO.inserir(jogo)
-                    EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
-                } else {
-                    dialogGerenciarListas(jogo.id)
+                when (action) {
+                    "adicionar_jogo" -> {
+                        toast(getString(R.string.jogo_adicionado))
+                        jogosDAO.inserir(jogo)
+                        EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+                    }
+                    "remover_jogo" -> {
+                        toast(getString(R.string.jogo_removido))
+                        jogosDAO.remover(jogo.id)
+                        EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+                    }
+                    else -> dialogGerenciarListas(jogo.id)
                 }
             }
         })

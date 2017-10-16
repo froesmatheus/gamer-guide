@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
 import com.squareup.picasso.Picasso

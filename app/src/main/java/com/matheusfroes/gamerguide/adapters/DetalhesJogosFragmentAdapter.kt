@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.fragments.InformacoesGeraisJogoFragment
-import com.matheusfroes.gamerguide.fragments.MeuProgressoFragment
 import com.matheusfroes.gamerguide.fragments.VideosFragment
 
 /**
@@ -14,10 +13,9 @@ import com.matheusfroes.gamerguide.fragments.VideosFragment
  */
 class DetalhesJogosFragmentAdapter(val context: Context, fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     private val tabItems = mutableListOf(
-            MeuProgressoFragment(), InformacoesGeraisJogoFragment(), VideosFragment()
+            InformacoesGeraisJogoFragment(), VideosFragment()
     )
     private val tabTitles = mutableListOf(
-            context.getString(R.string.tab_progresso),
             context.getString(R.string.tab_informacoes),
             context.getString(R.string.tab_videos)
     )
@@ -26,7 +24,7 @@ class DetalhesJogosFragmentAdapter(val context: Context, fm: FragmentManager?) :
 
     override fun getCount() = tabItems.size
 
-    override fun getPageTitle(position: Int) = tabTitles[position]
+    override fun getPageTitle(position: Int): String = tabTitles[position]
 
     fun removeTabPage(position: Int) {
         if (!tabItems.isEmpty() && position < tabItems.size) {
@@ -34,11 +32,5 @@ class DetalhesJogosFragmentAdapter(val context: Context, fm: FragmentManager?) :
             tabTitles.removeAt(position)
             notifyDataSetChanged()
         }
-    }
-
-    fun addTabPage(position: Int, fragment: Fragment, title: String) {
-        tabItems.add(position, fragment)
-        tabTitles.add(position, title)
-        notifyDataSetChanged()
     }
 }
