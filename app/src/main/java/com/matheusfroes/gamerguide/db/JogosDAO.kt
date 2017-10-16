@@ -2,6 +2,7 @@ package com.matheusfroes.gamerguide.db
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.models.Jogo
@@ -71,23 +72,7 @@ class JogosDAO(context: Context) {
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
-            val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
-
-            jogo = Jogo(
-                    id = jogoId,
-                    descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
-                    desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
-                    imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
-                    publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
-                    generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
-                    nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                    plataformas = plataformasDAO.obterPlataformasPorJogo(id),
-                    videos = videosDAO.getVideosPorJogo(jogoId),
-                    gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
-                    progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
-                    timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
-                    dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
-            )
+            jogo = criarObjetoJogo(cursor)
         }
 
         cursor.close()
@@ -109,26 +94,7 @@ class JogosDAO(context: Context) {
             cursor.moveToFirst()
 
             do {
-
-                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
-
-                val jogo = Jogo(
-                        id = jogoId,
-                        descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
-                        desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
-                        imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
-                        publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
-                        generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                        plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
-                        videos = videosDAO.getVideosPorJogo(jogoId),
-                        gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
-                        progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
-                        timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
-                        dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
-                )
-
-                jogos.add(jogo)
+                jogos.add(criarObjetoJogo(cursor))
             } while (cursor.moveToNext())
 
         }
@@ -149,25 +115,7 @@ class JogosDAO(context: Context) {
 
             do {
 
-                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
-
-                val jogo = Jogo(
-                        id = jogoId,
-                        descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
-                        desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
-                        imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
-                        publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
-                        generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                        plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
-                        videos = videosDAO.getVideosPorJogo(jogoId),
-                        gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
-                        progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
-                        timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
-                        dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
-                )
-
-                jogos.add(jogo)
+                jogos.add(criarObjetoJogo(cursor))
             } while (cursor.moveToNext())
 
         }
@@ -190,24 +138,7 @@ class JogosDAO(context: Context) {
 
             do {
 
-                val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.LISTAS_JOGOS_ID_JOGO))
-
-                val jogo = Jogo(
-                        id = jogoId,
-                        descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
-                        desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
-                        imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
-                        publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
-                        generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                        gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
-                        plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
-                        videos = videosDAO.getVideosPorJogo(jogoId),
-                        timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
-                        dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
-                )
-
-                jogos.add(jogo)
+                jogos.add(criarObjetoJogo(cursor))
             } while (cursor.moveToNext())
 
         }
@@ -263,5 +194,25 @@ class JogosDAO(context: Context) {
         cursor.close()
 
         return generosMaisJogados
+    }
+
+    private fun criarObjetoJogo(cursor: Cursor): Jogo {
+        val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
+        return Jogo(
+                id = jogoId,
+                descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
+                desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
+                imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
+                publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
+                generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
+                nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
+                plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
+                videos = videosDAO.getVideosPorJogo(jogoId),
+                gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
+                progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
+                timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
+                dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
+        )
     }
 }
