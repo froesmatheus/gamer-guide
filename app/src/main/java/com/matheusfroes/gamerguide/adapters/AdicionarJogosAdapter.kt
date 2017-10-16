@@ -53,7 +53,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
             showPopup(holder.itemView.ivOverflow, jogo)
         }
 
-        holder.setIsRecyclable(false)
+//        holder.setIsRecyclable(false)
 
         holder.itemView.ivCapaJogo.setOnClickListener {
             val intent = Intent(context, CapaJogoTelaCheiaActivity::class.java)
