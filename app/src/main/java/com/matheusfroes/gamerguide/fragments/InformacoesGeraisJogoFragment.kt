@@ -10,10 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoViewModel
+import com.matheusfroes.gamerguide.db.ProgressoDAO
 import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.models.Jogo
-import kotlinx.android.synthetic.main.fragment_informacoes_gerais.*
 import kotlinx.android.synthetic.main.fragment_informacoes_gerais.view.*
+import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+import org.jetbrains.anko.toast
 
 
 /**
@@ -22,6 +25,9 @@ import kotlinx.android.synthetic.main.fragment_informacoes_gerais.view.*
 class InformacoesGeraisJogoFragment : Fragment() {
     private val viewModel: DetalhesJogoViewModel by lazy {
         ViewModelProviders.of(activity).get(DetalhesJogoViewModel::class.java)
+    }
+    private val progressosDAO: ProgressoDAO by lazy {
+        ProgressoDAO(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -73,7 +79,11 @@ class InformacoesGeraisJogoFragment : Fragment() {
             view.tvTituloGenero.visibility = View.GONE
         }
 
-        cvDescricaoJogo.setOnClickListener { dialogDescricao() }
+        view.cvDescricaoJogo.setOnClickListener { dialogDescricao() }
+
+        view.btnMeuProgresso.setOnClickListener {
+            dialogAtualizarProgresso(jogo?.id!!)
+        }
 
         if (jogo?.timeToBeat != null) {
             if (jogo.timeToBeat.hastly == 0L) {
@@ -100,6 +110,48 @@ class InformacoesGeraisJogoFragment : Fragment() {
         val dialog = AlertDialog.Builder(activity)
                 .setTitle(getString(R.string.descricao))
                 .setMessage(viewModel.jogo.value?.descricao)
+                .create()
+
+        dialog.show()
+    }
+
+    private fun dialogAtualizarProgresso(jogoId: Long) {
+        val progressoJogo = progressosDAO.obterProgressoPorJogo(jogoId)!!
+
+        val view = LayoutInflater.from(context).inflate(R.layout.fragment_meu_progresso, null, false)
+
+        view.sbProgresso.setOnProgressChangeListener(object : DiscreteSeekBar.OnProgressChangeListener {
+            override fun onProgressChanged(seekBar: DiscreteSeekBar?, value: Int, fromUser: Boolean) {
+                view.tvPorcentagemProgresso.text = "$value%"
+                view.chkJogoZerado.isChecked = value == 100
+            }
+
+            override fun onStartTrackingTouch(seekBar: DiscreteSeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: DiscreteSeekBar?) {}
+
+        })
+
+        view.etHorasJogadas.setText("${progressoJogo.horasJogadas}")
+        view.sbProgresso.progress = progressoJogo.progressoPerc
+        view.chkJogoZerado.isChecked = progressoJogo.zerado
+
+
+        val dialog = AlertDialog.Builder(context)
+                .setView(view)
+                .setPositiveButton(getString(R.string.atualizar)) { dialogInterface, i ->
+                    var horasJogadasStr = view.etHorasJogadas.text.toString().trim()
+                    horasJogadasStr = if (horasJogadasStr.isEmpty()) "0" else horasJogadasStr
+
+                    progressoJogo.horasJogadas = Integer.parseInt(horasJogadasStr)
+                    progressoJogo.progressoPerc = view.sbProgresso.progress
+                    progressoJogo.zerado = view.chkJogoZerado.isChecked
+
+                    progressosDAO.atualizarProgresso(progressoJogo, jogoId)
+
+                    context.toast(getString(R.string.progresso_atualizado))
+                }
+                .setNegativeButton(getString(R.string.cancelar), null)
                 .create()
 
         dialog.show()
