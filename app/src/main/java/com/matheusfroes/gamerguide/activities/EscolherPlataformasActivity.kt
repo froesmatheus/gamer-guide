@@ -2,18 +2,19 @@ package com.matheusfroes.gamerguide.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.matheusfroes.gamerguide.R
 import kotlinx.android.synthetic.main.activity_escolher_plataformas.*
 
-class EscolherPlataformasActivity : BaseActivity() {
+class EscolherPlataformasActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_escolher_plataformas)
 
-        btnContinuar.setOnClickListener { startActivity(Intent(this, TelaPrincipalActivity::class.java)) }
+        btnContinuar.setOnClickListener { startActivity(Intent(this, FeedActivity::class.java)) }
     }
 
     fun onImageClick(view: View) {

@@ -1,13 +1,14 @@
 package com.matheusfroes.gamerguide.activities
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.FonteNoticiasAdapter
 import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
 import kotlinx.android.synthetic.main.activity_configuracoes_feed.*
 
-class ConfiguracoesFeedActivity : BaseActivity() {
+class ConfiguracoesFeedActivity : AppCompatActivity() {
     private val fonteNoticasDAO: FonteNoticiasDAO by lazy {
         FonteNoticiasDAO(this)
     }

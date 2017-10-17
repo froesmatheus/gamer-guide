@@ -1,28 +1,23 @@
-package com.matheusfroes.gamerguide.fragments
+package com.matheusfroes.gamerguide.activities
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
-import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.matheusfroes.gamerguide.EndlessRecyclerViewScrollListener
+import com.matheusfroes.gamerguide.BaseActivity
 import com.matheusfroes.gamerguide.ListaExcluidaEditadaEvent
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.activities.DetalhesListaActivity
 import com.matheusfroes.gamerguide.adapters.ListasAdapter
 import com.matheusfroes.gamerguide.db.ListasDAO
 import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.dialog_adicionar_lista.view.*
-import kotlinx.android.synthetic.main.fab.view.*
-import kotlinx.android.synthetic.main.fragment_listas.view.*
+import kotlinx.android.synthetic.main.fab.*
+import kotlinx.android.synthetic.main.fragment_listas.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -33,45 +28,49 @@ import org.jetbrains.anko.toast
 /**
  * Created by matheus_froes on 19/09/2017.
  */
-class ListasFragment : Fragment() {
+class ListasActivity : BaseActivity() {
     val adapter: ListasAdapter by lazy {
-        ListasAdapter(context)
+        ListasAdapter(this)
     }
     private val dao: ListasDAO by lazy {
-        ListasDAO(context)
+        ListasDAO(this)
     }
     var etNomeLista: TextInputEditText? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_listas, container, false)
-        activity.tabLayout.visibility = View.GONE
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.fragment_listas)
+        setSupportActionBar(toolbar)
+        configurarDrawer()
 
-        view.fab.setOnClickListener { dialogAdicionarLista() }
+        tabLayout.visibility = View.GONE
+        title = "Listas"
 
-        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        view.rvListas.layoutManager = layoutManager
-        view.rvListas.emptyView = view.layoutEmpty
+
+        fab.setOnClickListener { dialogAdicionarLista() }
+
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvListas.layoutManager = layoutManager
+        rvListas.emptyView = layoutEmpty
 
         val mDividerItemDecoration = DividerItemDecoration(
-                view.rvListas.context,
+                rvListas.context,
                 layoutManager.orientation
         )
-        view.rvListas.addItemDecoration(mDividerItemDecoration)
+        rvListas.addItemDecoration(mDividerItemDecoration)
 
-        view.rvListas.adapter = adapter
+        rvListas.adapter = adapter
 
         adapter.preencherLista(dao.obterListas())
 
         adapter.setOnListaClickListener(object : ListasAdapter.OnListaClickListener {
             override fun onListaClick(listaId: Int) {
-                val intent = Intent(context, DetalhesListaActivity::class.java)
+                val intent = Intent(applicationContext, DetalhesListaActivity::class.java)
                 intent.putExtra("lista_id", listaId)
                 startActivity(intent)
             }
         })
-
-        return view
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
@@ -81,18 +80,23 @@ class ListasFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+
+        setDrawerSelectedItem(BaseActivity.LISTAS_IDENTIFIER)
+
         EventBus.getDefault().register(this)
     }
 
     override fun onStop() {
         super.onStop()
+
+
         EventBus.getDefault().unregister(this)
     }
 
     private fun dialogAdicionarLista() {
-        val view = View.inflate(context, R.layout.dialog_adicionar_lista, null)
+        val view = View.inflate(this, R.layout.dialog_adicionar_lista, null)
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(this)
                 .setView(view)
                 .setPositiveButton(getString(R.string.adicionar)) { _, _ ->
                     etNomeLista = view.etNomeLista
@@ -135,6 +139,6 @@ class ListasFragment : Fragment() {
 
         adapter.preencherLista(dao.obterListas())
 
-        context.toast(getString(R.string.lista_adicionada))
+        toast(getString(R.string.lista_adicionada))
     }
 }
