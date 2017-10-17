@@ -4,23 +4,27 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.FonteNoticiasAdapter
-import com.matheusfroes.gamerguide.models.FonteNoticia
+import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
 import kotlinx.android.synthetic.main.activity_configuracoes_feed.*
 
 class ConfiguracoesFeedActivity : BaseActivity() {
+    private val fonteNoticasDAO: FonteNoticiasDAO by lazy {
+        FonteNoticiasDAO(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configuracoes_feed)
 
-        val fontesNoticias = listOf(
-                FonteNoticia("Tecmundo", "http://games.tecmundo.com.br/"),
-                FonteNoticia("UOL Jogos", "https://jogos.uol.com.br/"),
-                FonteNoticia("Eurogamer", "http://www.eurogamer.pt/"),
-                FonteNoticia("IGN Brasil", "http://br.ign.com/")
-        )
-
+        val fontesNoticias = fonteNoticasDAO.obterFonteNoticias()
         val adapter = FonteNoticiasAdapter(this, fontesNoticias)
+
+
+        adapter.setAlterarStatusFonteNoticiaListener(object : FonteNoticiasAdapter.AlterarStatusFonteNoticiaListener {
+            override fun alterarStatus(fonteId: Int, ativo: Boolean) {
+                fonteNoticasDAO.alterarStatusFonteNoticia(fonteId, ativo)
+            }
+        })
 
         rvFonteNoticias.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvFonteNoticias.adapter = adapter

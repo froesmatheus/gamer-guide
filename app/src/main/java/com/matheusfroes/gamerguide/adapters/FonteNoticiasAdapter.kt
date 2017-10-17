@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.models.FonteNoticia
 import kotlinx.android.synthetic.main.view_fonte_noticia.view.*
+import org.jetbrains.anko.toast
 
 /**
  * Created by matheusfroes on 21/09/2017.
@@ -14,6 +15,8 @@ import kotlinx.android.synthetic.main.view_fonte_noticia.view.*
 class FonteNoticiasAdapter(
         private val context: Context,
         private val fontes: List<FonteNoticia>) : RecyclerView.Adapter<FonteNoticiasAdapter.ViewHolder>() {
+
+    var listener: AlterarStatusFonteNoticiaListener? = null
 
     override fun getItemCount() = fontes.size
 
@@ -27,9 +30,23 @@ class FonteNoticiasAdapter(
         holder.itemView.tvNome.text = fonteNoticia.nome
         holder.itemView.tvWebsite.text = fonteNoticia.website
 
+        holder.itemView.switchFonteNoticia.isChecked = fonteNoticia.ativado
+
+        holder.itemView.switchFonteNoticia.setOnCheckedChangeListener { buttonView, isChecked ->
+            listener?.alterarStatus(fonteNoticia.id, isChecked)
+        }
+
         holder.itemView.setOnClickListener {
             holder.itemView.switchFonteNoticia.isChecked = !holder.itemView.switchFonteNoticia.isChecked
         }
+    }
+
+    fun setAlterarStatusFonteNoticiaListener(listener: AlterarStatusFonteNoticiaListener) {
+        this.listener = listener
+    }
+
+    interface AlterarStatusFonteNoticiaListener {
+        fun alterarStatus(fonteId: Int, ativo: Boolean)
     }
 
 

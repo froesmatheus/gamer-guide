@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.matheusfroes.gamerguide.models.FonteNoticia
 import com.matheusfroes.gamerguide.models.Plataforma
 
 /**
@@ -63,6 +64,13 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val PROGRESSOS_HORAS_JOGADAS = "horas_jogadas"
         val PROGRESSOS_PROGRESSO_PERC = "progresso_perc"
         val PROGRESSOS_ZERADO = "jogo_zerado"
+
+        // Tabela de Fontes de Notícias
+        val TABELA_FONTE_NOTICIAS = "fonte_noticias"
+        val FONTE_NOTICIAS_ID = "_id"
+        val FONTE_NOTICIAS_NOME = "nome"
+        val FONTE_NOTICIAS_WEBSITE = "website"
+        val FONTE_NOTICIAS_ATIVADO = "ativado"
 
         // Tabela Time to Beat
         val TABELA_TTB = "time_to_beat"
@@ -132,6 +140,13 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 $TTB_MODO_HISTORIA INTEGER,
                 $TTB_100PERC INTEGER,
                 FOREIGN KEY($TTB_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID));"""
+
+        val CREATE_TABELA_FONTE_NOTICAS = """
+            CREATE TABLE $TABELA_FONTE_NOTICIAS(
+                $FONTE_NOTICIAS_ID INTEGER PRIMARY KEY NOT NULL,
+                $FONTE_NOTICIAS_NOME TEXT NOT NULL,
+                $FONTE_NOTICIAS_WEBSITE TEXT NOT NULL,
+                $FONTE_NOTICIAS_ATIVADO INTEGER NOT NULL);"""
     }
 
 
@@ -144,10 +159,32 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         db.execSQL(CREATE_TABLE_VIDEOS)
         db.execSQL(CREATE_TABLE_PROGRESSOS)
         db.execSQL(CREATE_TABLE_TTB)
+        db.execSQL(CREATE_TABELA_FONTE_NOTICAS)
 
         inserirPlataformas(db)
         inserirListaPadrao(db)
+        insertFontesNoticias(db)
     }
+
+    private fun insertFontesNoticias(db: SQLiteDatabase) {
+        db.beginTransaction()
+        val fontesNoticias = getFontesNoticias()
+        try {
+            val cv = ContentValues()
+
+            fontesNoticias.forEach { fonteNoticia ->
+                cv.put(FONTE_NOTICIAS_NOME, fonteNoticia.nome)
+                cv.put(FONTE_NOTICIAS_WEBSITE, fonteNoticia.website)
+                cv.put(FONTE_NOTICIAS_ATIVADO, if (fonteNoticia.ativado) 1 else 0)
+
+                db.insert(TABELA_FONTE_NOTICIAS, null, cv)
+            }
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
+    }
+
 
     private fun inserirListaPadrao(db: SQLiteDatabase) {
         val cv = ContentValues()
@@ -166,6 +203,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         db.execSQL("DROP TABLE $TABELA_LISTAS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_JOGOS IF EXISTS;")
         db.execSQL("DROP TABLE $TABELA_PLATAFORMAS IF EXISTS;")
+        db.execSQL("DROP TABLE $TABELA_FONTE_NOTICIAS IF EXISTS;")
         onCreate(db)
     }
 
@@ -187,6 +225,12 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
             db.endTransaction()
         }
     }
+
+
+    private fun getFontesNoticias(): List<FonteNoticia> = listOf(
+            FonteNoticia(nome = "Eurogamer", website = "http://www.eurogamer.pt/?format=rss", ativado = true),
+            FonteNoticia(nome = "CriticalHits", website = "https://criticalhits.com.br/feed/", ativado = true)
+    )
 
     private fun getPlataformas() = listOf(
             Plataforma(3, "Linux	"),

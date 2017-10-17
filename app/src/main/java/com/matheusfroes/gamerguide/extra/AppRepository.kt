@@ -3,6 +3,7 @@ package com.matheusfroes.gamerguide.extra
 import android.content.Context
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
 import com.matheusfroes.gamerguide.api.IGDBService
+import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
 import com.matheusfroes.gamerguide.models.GameResponse
 import com.matheusfroes.gamerguide.models.Noticia
 import com.pkmmte.pkrss.Article
@@ -48,7 +49,8 @@ class AppRepository {
     }
 
     fun atualizarFeed(context: Context): MutableList<Noticia> {
-        val fontes = listOf("http://www.eurogamer.pt/?format=rss", "https://criticalhits.com.br/feed/")
+        val fontesDAO = FonteNoticiasDAO(context)
+        val fontes = fontesDAO.obterFonteNoticias(ativos = true).map { it.website }
         val noticias = mutableListOf<Noticia>()
 
         fontes.map {
