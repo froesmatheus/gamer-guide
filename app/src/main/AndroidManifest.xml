@@ -63,7 +63,8 @@
         <activity android:name=".activities.BaseActivity" />
         <activity
             android:name=".activities.ConfiguracoesActivity"
-            android:label="@string/title_activity_configuracoes"></activity>
+            android:label="@string/title_activity_configuracoes"
+            android:theme="@style/ConfiguracoesTheme" />
     </application>
 
 </manifest>

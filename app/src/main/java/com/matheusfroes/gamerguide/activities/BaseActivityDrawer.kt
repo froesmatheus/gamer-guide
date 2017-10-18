@@ -12,6 +12,7 @@ import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
+import kotlinx.android.synthetic.main.toolbar.*
 
 
 /**
@@ -31,6 +32,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
         val ESTATISTICAS_IDENTIFIER = 4L
         val CALENDARIO_IDENTIFIER = 1L
         val MEUS_JOGOS_IDENTIFIER = 0L
+        val CONFIGURACOES_IDENTIFIER = 5L
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +48,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
         val item3 = PrimaryDrawerItem().withIdentifier(FEED_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_folded_newspaper).withName(R.string.titulo_feed)
         val item4 = PrimaryDrawerItem().withIdentifier(LISTAS_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_list).withName(R.string.titulo_listas)
         val item5 = PrimaryDrawerItem().withIdentifier(ESTATISTICAS_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_estatistica).withName(R.string.titulo_estatiticas)
-        val item6 = PrimaryDrawerItem().withIdentifier(5).withIconTintingEnabled(true).withIcon(R.drawable.ic_configuracoes).withName(R.string.configuracoes)
+        val item6 = PrimaryDrawerItem().withIdentifier(CONFIGURACOES_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_configuracoes).withName(R.string.configuracoes)
 
 
         val headerResult = AccountHeaderBuilder()
@@ -57,6 +59,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
         drawer = DrawerBuilder()
                 .withAccountHeader(headerResult)
                 .withActivity(this)
+                .withToolbar(toolbar)
                 .addDrawerItems(
                         item1,
                         item2,
@@ -100,6 +103,10 @@ open class BaseActivityDrawer : AppCompatActivity() {
             }
             MEUS_JOGOS_IDENTIFIER -> {
                 Intent(this, MeusJogosActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+            CONFIGURACOES_IDENTIFIER -> {
+                Intent(this, ConfiguracoesActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
             else -> Intent(this, ListasActivity::class.java)

@@ -75,5 +75,6 @@
         android:paddingRight="0dp"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
+        android:tint="?attr/colorControlNormal"
         app:srcCompat="@drawable/ic_mais" />
 </RelativeLayout>

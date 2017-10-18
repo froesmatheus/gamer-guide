@@ -1,6 +1,8 @@
 package com.matheusfroes.gamerguide.activities
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
@@ -24,8 +26,14 @@ class DetalhesJogoActivity : AppCompatActivity() {
     private val jogosDAO: JogosDAO by lazy {
         JogosDAO(this)
     }
+    private val preferences: SharedPreferences by lazy {
+        getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val appTheme = preferences.getString("APP_THEME", "DEFAULT")
+        val theme = if (appTheme == "DEFAULT") R.style.AppTheme_DetalhesJogo else R.style.AppTheme_DetalhesJogo_OLED
+        setTheme(theme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_jogo)
         setSupportActionBar(toolbar)

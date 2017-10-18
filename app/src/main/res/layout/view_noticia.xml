@@ -28,6 +28,7 @@
             android:paddingStart="16dp"
             android:paddingTop="16dp"
             android:text="@string/titulo_noticia"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -46,14 +47,14 @@
                 android:paddingRight="0dp"
                 android:paddingStart="16dp"
                 android:text="Tecmundo • "
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="?android:attr/textColorSecondary" />
 
             <com.github.curioustechizen.ago.RelativeTimeTextView
                 android:id="@+id/tvHorarioNoticia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="?android:attr/textColorSecondary"
                 app:relative_time_prefix=""
                 app:relative_time_suffix="" />
         </LinearLayout>
