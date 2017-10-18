@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.models.FonteNoticia
 import kotlinx.android.synthetic.main.view_fonte_noticia.view.*
-import org.jetbrains.anko.toast
 
 /**
  * Created by matheusfroes on 21/09/2017.

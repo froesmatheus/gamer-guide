@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.matheusfroes.gamerguide.BaseActivity
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.FeedAdapter
 import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
@@ -57,7 +56,7 @@ class FeedActivity : BaseActivity() {
                 val customTabsIntent = CustomTabsIntent.Builder()
                         .setToolbarColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
                         .build()
-                customTabsIntent.launchUrl(applicationContext, Uri.parse(noticia.url))
+                customTabsIntent.launchUrl(this@FeedActivity, Uri.parse(noticia.url))
             }
         })
 

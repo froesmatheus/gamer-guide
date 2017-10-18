@@ -2,7 +2,6 @@ package com.matheusfroes.gamerguide.activities
 
 import android.os.Bundle
 import android.view.View
-import com.matheusfroes.gamerguide.BaseActivity
 import com.matheusfroes.gamerguide.R
 import kotlinx.android.synthetic.main.toolbar.*
 

@@ -3,7 +3,6 @@ package com.matheusfroes.gamerguide.activities
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import com.matheusfroes.gamerguide.BaseActivity
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.db.JogosDAO
 import kotlinx.android.synthetic.main.fragment_estatisticas.*

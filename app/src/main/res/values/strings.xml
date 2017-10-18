@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">GamerGuide</string>
     <string name="titulo_jogos">Jogos</string>
-    <string name="titulo_feed">Feed</string>
+    <string name="titulo_feed">Feed de notícias</string>
     <string name="titulo_listas">Listas</string>
     <string name="titulo_calendario">Calendário</string>
     <string name="titulo_estatiticas">Estatísticas</string>

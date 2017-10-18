@@ -1,8 +1,9 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.activities
 
 import android.content.Intent
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
-import com.matheusfroes.gamerguide.activities.*
+import com.matheusfroes.gamerguide.R
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 open class BaseActivity : AppCompatActivity() {
     lateinit var drawer: Drawer
+    private val NAVDRAWER_CLOSE_DELAY = 200L
 
     companion object {
         val FEED_IDENTIFIER = 2L
@@ -92,9 +94,12 @@ open class BaseActivity : AppCompatActivity() {
             else -> Intent(this, ListasActivity::class.java)
         }
 
-        startActivity(intent)
-        overridePendingTransition(R.anim.activity_fade_enter, R.anim.activity_fade_exit)
         drawer.closeDrawer()
+
+        Handler().postDelayed({
+            startActivity(intent)
+            overridePendingTransition(R.anim.activity_fade_enter, R.anim.activity_fade_exit)
+        }, NAVDRAWER_CLOSE_DELAY)
     }
 
     override fun onBackPressed() {

@@ -3,7 +3,6 @@ package com.matheusfroes.gamerguide.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.matheusfroes.gamerguide.BaseActivity
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.JogosFragmentAdapter
 import kotlinx.android.synthetic.main.fab.*

@@ -41,7 +41,7 @@
             android:name=".activities.CapaJogoTelaCheiaActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".BaseActivity" />
+        <activity android:name=".activities.BaseActivity" />
         <activity
             android:name=".activities.FeedActivity"
             android:theme="@style/AppTheme.NoActionBar">

@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import com.matheusfroes.gamerguide.BaseActivity
 import com.matheusfroes.gamerguide.ListaExcluidaEditadaEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.ListasAdapter
