@@ -4,10 +4,12 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
@@ -39,6 +41,13 @@ class DetalhesJogoActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         //collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedAppBarText)
+
+
+        appBar.post {
+            val heightPx = ivCapaJogo.height
+            setAppBarOffset(heightPx / 2)
+        }
+
 
         intent ?: return
 
@@ -104,6 +113,13 @@ class DetalhesJogoActivity : AppCompatActivity() {
 
             snackbar.show()
         }
+    }
+
+    private fun setAppBarOffset(offsetPx: Int) {
+        val params = appBar.layoutParams as CoordinatorLayout.LayoutParams
+        val behavior = params.behavior as AppBarLayout.Behavior?
+        val view: View? = null
+        behavior!!.onNestedPreScroll(coordinatorLayout, appBar, toolbar, 0, offsetPx, intArrayOf(0, 0), 0)
     }
 
     fun lockAppBarClosed() {

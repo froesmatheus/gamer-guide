@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.db.JogosDAO
-import kotlinx.android.synthetic.main.fragment_estatisticas.*
+import kotlinx.android.synthetic.main.activity_estatisticas.*
 import kotlinx.android.synthetic.main.toolbar.*
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
@@ -17,7 +17,7 @@ class EstatisticasActivity : BaseActivityDrawer() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_estatisticas)
+        setContentView(R.layout.activity_estatisticas)
         setSupportActionBar(toolbar)
         configurarDrawer()
         title = "Estatísticas"

@@ -14,7 +14,7 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.FeedAdapter
 import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
 import com.matheusfroes.gamerguide.models.Noticia
-import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 
@@ -29,7 +29,7 @@ class FeedActivity : BaseActivityDrawer() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_feed)
+        setContentView(R.layout.activity_feed)
         setSupportActionBar(toolbar)
         configurarDrawer()
 

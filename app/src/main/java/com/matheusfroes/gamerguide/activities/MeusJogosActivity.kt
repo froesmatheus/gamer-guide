@@ -6,7 +6,7 @@ import android.view.View
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.JogosFragmentAdapter
 import kotlinx.android.synthetic.main.fab.*
-import kotlinx.android.synthetic.main.fragment_meus_jogos.*
+import kotlinx.android.synthetic.main.activity_meus_jogos.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 /**
@@ -16,7 +16,7 @@ class MeusJogosActivity : BaseActivityDrawer() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_meus_jogos)
+        setContentView(R.layout.activity_meus_jogos)
         setSupportActionBar(toolbar)
         configurarDrawer()
 

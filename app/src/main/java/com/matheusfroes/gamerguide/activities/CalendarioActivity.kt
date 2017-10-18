@@ -11,7 +11,7 @@ class CalendarioActivity : BaseActivityDrawer() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_calendario)
+        setContentView(R.layout.activity_calendario)
         setSupportActionBar(toolbar)
         configurarDrawer()
         title = "Calendário"

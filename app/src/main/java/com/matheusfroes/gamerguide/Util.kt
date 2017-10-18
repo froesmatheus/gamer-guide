@@ -47,7 +47,8 @@ fun obterImagemJogoCapa(urlImagem: String): String {
 
     val tamanhoImagem = urlImagem.substring(inicio, fim)
 
-    return urlImagem.replace(tamanhoImagem, "t_screenshot_big")
+//    return urlImagem.replace(tamanhoImagem, "t_screenshot_big")
+    return urlImagem.replace(tamanhoImagem, "t_720p")
 }
 
 fun esconderTeclado(activity: Activity) {
