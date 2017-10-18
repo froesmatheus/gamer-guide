@@ -105,5 +105,7 @@
 
 
     <string name="pref_habilitar_modo_noturno">Habilitar modo noturno</string>
+    <string name="streams">Streams</string>
+    <string name="espectadores_stream">%1$d espectadores</string>
 
 </resources>

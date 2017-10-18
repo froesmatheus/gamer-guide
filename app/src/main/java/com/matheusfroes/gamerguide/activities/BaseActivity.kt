@@ -19,6 +19,5 @@ open class BaseActivity : AppCompatActivity() {
         val theme = if (appTheme == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
         setTheme(theme)
         super.onCreate(savedInstanceState)
-
     }
 }

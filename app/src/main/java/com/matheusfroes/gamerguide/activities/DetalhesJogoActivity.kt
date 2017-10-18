@@ -9,7 +9,6 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.View
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
@@ -118,22 +117,7 @@ class DetalhesJogoActivity : AppCompatActivity() {
     private fun setAppBarOffset(offsetPx: Int) {
         val params = appBar.layoutParams as CoordinatorLayout.LayoutParams
         val behavior = params.behavior as AppBarLayout.Behavior?
-        val view: View? = null
         behavior!!.onNestedPreScroll(coordinatorLayout, appBar, toolbar, 0, offsetPx, intArrayOf(0, 0), 0)
-    }
-
-    fun lockAppBarClosed() {
-        appBar.setExpanded(false, false)
-        appBar.isActivated = false
-        val lp = appBar.layoutParams as CoordinatorLayout.LayoutParams
-        lp.height = resources.getDimension(R.dimen.toolar_hight).toInt()
-    }
-
-    fun unlockAppBarOpen() {
-        appBar.setExpanded(true, false)
-        appBar.isActivated = true
-        val lp = appBar.layoutParams as CoordinatorLayout.LayoutParams
-        lp.height = resources.getDimension(R.dimen.toolar_hight).toInt()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

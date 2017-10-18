@@ -2,7 +2,7 @@ package com.matheusfroes.gamerguide.extra
 
 import android.content.Context
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
-import com.matheusfroes.gamerguide.api.IGDBService
+import com.matheusfroes.gamerguide.api.ApiService
 import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
 import com.matheusfroes.gamerguide.models.GameResponse
 import com.matheusfroes.gamerguide.models.Noticia
@@ -18,11 +18,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class AppRepository {
     private val retrofit: Retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(IGDBService.URL_BASE)
+            .baseUrl(ApiService.URL_BASE)
             .build()
 
-    private val service: IGDBService by lazy {
-        retrofit.create(IGDBService::class.java)
+    private val service: ApiService by lazy {
+        retrofit.create(ApiService::class.java)
     }
 
     fun pesquisarJogos(query: String = "", nextPage: String = ""): Pair<MutableList<GameResponse>, String> {
