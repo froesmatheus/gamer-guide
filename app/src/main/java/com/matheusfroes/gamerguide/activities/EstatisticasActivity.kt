@@ -2,7 +2,6 @@ package com.matheusfroes.gamerguide.activities
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.db.JogosDAO
 import kotlinx.android.synthetic.main.fragment_estatisticas.*
@@ -13,7 +12,7 @@ import lecho.lib.hellocharts.model.SliceValue
 /**
  * Created by matheusfroes on 04/10/2017.
  */
-class EstatisticasActivity : BaseActivity() {
+class EstatisticasActivity : BaseActivityDrawer() {
     private val jogosDAO: JogosDAO by lazy { JogosDAO(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +20,6 @@ class EstatisticasActivity : BaseActivity() {
         setContentView(R.layout.fragment_estatisticas)
         setSupportActionBar(toolbar)
         configurarDrawer()
-
-        tabLayout.visibility = View.GONE
         title = "Estatísticas"
 
         tvQtdJogosNaoTerminados.text = "${jogosDAO.quantidadeJogos(zerado = false)}"
@@ -60,6 +57,6 @@ class EstatisticasActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
 
-        setDrawerSelectedItem(BaseActivity.ESTATISTICAS_IDENTIFIER)
+        setDrawerSelectedItem(BaseActivityDrawer.ESTATISTICAS_IDENTIFIER)
     }
 }

@@ -1,14 +1,14 @@
 package com.matheusfroes.gamerguide.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.FonteNoticiasAdapter
 import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
 import kotlinx.android.synthetic.main.activity_configuracoes_feed.*
+import kotlinx.android.synthetic.main.toolbar.*
 
-class ConfiguracoesFeedActivity : AppCompatActivity() {
+class ConfiguracoesFeedActivity : BaseActivity() {
     private val fonteNoticasDAO: FonteNoticiasDAO by lazy {
         FonteNoticiasDAO(this)
     }
@@ -16,6 +16,8 @@ class ConfiguracoesFeedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_configuracoes_feed)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val fontesNoticias = fonteNoticasDAO.obterFonteNoticias()
         val adapter = FonteNoticiasAdapter(this, fontesNoticias)

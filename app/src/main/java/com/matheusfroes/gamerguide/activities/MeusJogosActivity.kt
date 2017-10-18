@@ -12,13 +12,15 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * Created by matheus_froes on 19/09/2017.
  */
-class MeusJogosActivity : BaseActivity() {
+class MeusJogosActivity : BaseActivityDrawer() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_meus_jogos)
         setSupportActionBar(toolbar)
         configurarDrawer()
+
+        tabLayout.visibility = View.VISIBLE
 
         title = "Jogos"
 

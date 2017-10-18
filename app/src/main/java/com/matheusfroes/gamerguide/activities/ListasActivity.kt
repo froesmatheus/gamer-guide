@@ -27,7 +27,7 @@ import org.jetbrains.anko.toast
 /**
  * Created by matheus_froes on 19/09/2017.
  */
-class ListasActivity : BaseActivity() {
+class ListasActivity : BaseActivityDrawer() {
     val adapter: ListasAdapter by lazy {
         ListasAdapter(this)
     }
@@ -42,8 +42,6 @@ class ListasActivity : BaseActivity() {
         setContentView(R.layout.fragment_listas)
         setSupportActionBar(toolbar)
         configurarDrawer()
-
-        tabLayout.visibility = View.GONE
         title = "Listas"
 
 
@@ -80,7 +78,7 @@ class ListasActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
 
-        setDrawerSelectedItem(BaseActivity.LISTAS_IDENTIFIER)
+        setDrawerSelectedItem(BaseActivityDrawer.LISTAS_IDENTIFIER)
 
         EventBus.getDefault().register(this)
     }

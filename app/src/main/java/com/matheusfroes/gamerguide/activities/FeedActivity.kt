@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.FeedAdapter
 import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 /**
  * Created by matheus_froes on 19/09/2017.
  */
-class FeedActivity : BaseActivity() {
+class FeedActivity : BaseActivityDrawer() {
     lateinit var adapter: FeedAdapter
     private val viewModel: TelaPrincipalViewModel by lazy {
         ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
@@ -33,8 +32,6 @@ class FeedActivity : BaseActivity() {
         setContentView(R.layout.fragment_feed)
         setSupportActionBar(toolbar)
         configurarDrawer()
-
-        tabLayout.visibility = View.GONE
 
         title = "Feed de notícias"
 
@@ -74,7 +71,7 @@ class FeedActivity : BaseActivity() {
     override fun onStart() {
         super.onStart()
 
-        setDrawerSelectedItem(BaseActivity.FEED_IDENTIFIER)
+        setDrawerSelectedItem(BaseActivityDrawer.FEED_IDENTIFIER)
     }
 
 

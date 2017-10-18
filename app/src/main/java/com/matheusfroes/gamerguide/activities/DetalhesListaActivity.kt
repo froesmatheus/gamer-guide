@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,11 +17,12 @@ import com.matheusfroes.gamerguide.db.ListasDAO
 import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.activity_detalhes_lista.*
 import kotlinx.android.synthetic.main.dialog_adicionar_lista.view.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 
 
-class DetalhesListaActivity : AppCompatActivity() {
+class DetalhesListaActivity : BaseActivity() {
     private val viewModel: DetalhesListaViewModel by lazy {
         ViewModelProviders.of(this).get(DetalhesListaViewModel::class.java)
     }
@@ -39,7 +39,8 @@ class DetalhesListaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_lista)
-
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent ?: return
 
 

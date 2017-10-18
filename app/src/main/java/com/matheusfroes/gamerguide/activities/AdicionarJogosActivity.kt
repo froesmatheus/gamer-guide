@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.matheusfroes.gamerguide.EndlessRecyclerViewScrollListener
@@ -17,11 +16,12 @@ import com.matheusfroes.gamerguide.esconderTeclado
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.activity_adicionar_jogos.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 
 
-class AdicionarJogosActivity : AppCompatActivity() {
+class AdicionarJogosActivity : BaseActivity() {
     val adapter: AdicionarJogosAdapter by lazy {
         AdicionarJogosAdapter(this)
     }
@@ -39,6 +39,8 @@ class AdicionarJogosActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adicionar_jogos)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvJogos.layoutManager = layoutManager
