@@ -95,4 +95,10 @@
     <string name="horas_ttb">%1$d horas</string>
     <string name="configuracoes">Configurações</string>
     <string name="meu_progresso">Meu Progresso</string>
+    <string name="zoom">Zoom</string>
+    <string name="url_zoom">https://www.zoom.com.br/search?q=%1$s</string>
+    <string name="url_buscape">http://www.buscape.com.br/search/%1$s</string>
+    <string name="url_steam">http://store.steampowered.com/search/?term=%1$s</string>
+    <string name="buscap">Buscapé</string>
+    <string name="steam">Steam</string>
 </resources>

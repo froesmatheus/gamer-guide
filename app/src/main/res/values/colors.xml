@@ -9,4 +9,8 @@
     <color name="colorAccent">#000000</color>
 
     <color name="black">#000000</color>
+
+    <color name="cor_zoom">#53207c</color>
+    <color name="cor_buscape">#ffcd00</color>
+    <color name="cor_steam">#171a21</color>
 </resources>

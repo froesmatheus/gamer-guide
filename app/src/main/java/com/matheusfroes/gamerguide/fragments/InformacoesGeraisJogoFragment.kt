@@ -2,8 +2,11 @@ package com.matheusfroes.gamerguide.fragments
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.net.Uri
 import android.os.Bundle
+import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -81,9 +84,44 @@ class InformacoesGeraisJogoFragment : Fragment() {
 
         view.cvDescricaoJogo.setOnClickListener { dialogDescricao() }
 
-        view.btnMeuProgresso.setOnClickListener {
-            dialogAtualizarProgresso(jogo?.id!!)
+//        view.btnMeuProgresso.setOnClickListener {
+//            dialogAtualizarProgresso(jogo?.id!!)
+//        }
+
+        view.btnZoom.setOnClickListener {
+            val urlZoom = getString(R.string.url_zoom, jogo?.nome)
+
+            val customTabsIntent = CustomTabsIntent.Builder()
+                    .setToolbarColor(ContextCompat.getColor(activity, R.color.cor_zoom))
+                    .build()
+            customTabsIntent.launchUrl(activity, Uri.parse(urlZoom))
         }
+
+        view.btnBuscape.setOnClickListener {
+            val urlZoom = getString(R.string.url_buscape, jogo?.nome?.replace(" ", "-"))
+
+            val customTabsIntent = CustomTabsIntent.Builder()
+                    .setToolbarColor(ContextCompat.getColor(activity, R.color.cor_buscape))
+                    .build()
+            customTabsIntent.launchUrl(activity, Uri.parse(urlZoom))
+        }
+
+        if (jogo?.plataformas != null) {
+            val jogoParaPC = jogo.plataformas.any { it.nome == "PC" }
+
+            if (jogoParaPC) {
+                view.btnSteam.visibility = View.VISIBLE
+                view.btnSteam.setOnClickListener {
+                    val urlZoom = getString(R.string.url_steam, jogo.nome)
+
+                    val customTabsIntent = CustomTabsIntent.Builder()
+                            .setToolbarColor(ContextCompat.getColor(activity, R.color.cor_steam))
+                            .build()
+                    customTabsIntent.launchUrl(activity, Uri.parse(urlZoom))
+                }
+            }
+        }
+
 
         if (jogo?.timeToBeat != null) {
             if (jogo.timeToBeat.hastly == 0L) {
