@@ -16,6 +16,7 @@ import com.matheusfroes.gamerguide.activities.DetalhesJogoViewModel
 import com.matheusfroes.gamerguide.adapters.StreamsAdapter
 import com.matheusfroes.gamerguide.api.ApiService
 import com.matheusfroes.gamerguide.models.Stream
+import kotlinx.android.synthetic.main.fragment_streams.*
 import kotlinx.android.synthetic.main.fragment_streams.view.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -44,14 +45,15 @@ class StreamsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_streams, container, false)
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        view.rvVideos.layoutManager = layoutManager
-        view.rvVideos.adapter = adapter
+        view.rvStreams.emptyView = layoutEmpty
+        view.rvStreams.layoutManager = layoutManager
+        view.rvStreams.adapter = adapter
 
         val nomeJogo = viewModel.jogo.value?.nome!!
 
         obterStreams(nomeJogo)
 
-        view.rvVideos.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManager) {
+        view.rvStreams.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 apiOffset += 10
                 obterStreams(nomeJogo)
