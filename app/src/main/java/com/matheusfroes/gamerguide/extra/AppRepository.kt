@@ -1,6 +1,7 @@
 package com.matheusfroes.gamerguide.extra
 
 import android.content.Context
+import android.util.Log
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
 import com.matheusfroes.gamerguide.api.ApiService
 import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
@@ -11,6 +12,7 @@ import com.pkmmte.pkrss.Callback
 import com.pkmmte.pkrss.PkRSS
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 /**
  * Created by matheusfroes on 29/09/2017.
@@ -54,10 +56,14 @@ class AppRepository {
         val noticias = mutableListOf<Noticia>()
 
         fontes.map {
-            PkRSS.with(context).load(it).skipCache().callback(object : Callback {
-                override fun onLoadFailed() {}
+            PkRSS.with(context).load(it).skipCache().safe(true).callback(object : Callback {
+                override fun onLoadFailed() {
+                    Log.d("GAMERGUIDE", "onLoadFailed() $it")
+                }
 
-                override fun onPreload() {}
+                override fun onPreload() {
+                    Log.d("GAMERGUIDE", "onPreload() $it")
+                }
 
                 override fun onLoaded(newArticles: MutableList<Article>) {}
             }).get()
@@ -77,7 +83,7 @@ class AppRepository {
             }
 
             val website = when {
-                article.source.host.contains("kotaku", ignoreCase = true) -> "Kotaku"
+                article.source.host.contains("comboinfinito", ignoreCase = true) -> "Combo Infinito"
                 article.source.host.contains("tecmundo", ignoreCase = true) -> "Tecmundo"
                 article.source.host.contains("eurogamer", ignoreCase = true) -> "EuroGamer"
                 article.source.host.contains("criticalhits", ignoreCase = true) -> "Criticalhits"

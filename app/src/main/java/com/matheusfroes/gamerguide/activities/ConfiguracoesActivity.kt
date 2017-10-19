@@ -5,11 +5,15 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceActivity
+import android.preference.PreferenceCategory
 import android.preference.PreferenceFragment
+import android.preference.SwitchPreference
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
 import org.jetbrains.anko.toast
 
+@Suppress("DEPRECATION")
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
@@ -24,6 +28,9 @@ class ConfiguracoesActivity : AppCompatPreferenceActivity() {
     private val preferences: SharedPreferences by lazy {
         getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
     }
+    private val fonteNoticiasDAO: FonteNoticiasDAO by lazy {
+        FonteNoticiasDAO(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val appTheme = preferences.getString("APP_THEME", "DEFAULT")
@@ -35,6 +42,29 @@ class ConfiguracoesActivity : AppCompatPreferenceActivity() {
 
         val switchHabilitarModoNoturno = findPreference("switchHabilitarModoNoturno")
 
+        val preferenceScreen = this.preferenceScreen
+
+        val preferenceCategory = preferenceScreen.getPreference(1) as PreferenceCategory
+
+        val fonteNoticias = fonteNoticiasDAO.obterFonteNoticias()
+        fonteNoticias.forEach { fonteNoticia ->
+            val switchPreference = SwitchPreference(this)
+            switchPreference.title = fonteNoticia.nome
+            switchPreference.summary = fonteNoticia.website
+            switchPreference.isChecked = fonteNoticia.ativado
+            switchPreference.key = fonteNoticia.id.toString()
+
+            switchPreference.setOnPreferenceChangeListener { preference, any ->
+                val fonteAtivada = any as Boolean
+                val fonteId = preference.key.toInt()
+                fonteNoticiasDAO.alterarStatusFonteNoticia(fonteId, fonteAtivada)
+                true
+            }
+
+            preferenceCategory.addPreference(switchPreference)
+        }
+
+
         switchHabilitarModoNoturno.setOnPreferenceChangeListener { preference, any ->
             val modoNoturnoHabilitado = any as Boolean
 
@@ -43,7 +73,7 @@ class ConfiguracoesActivity : AppCompatPreferenceActivity() {
             } else {
                 preferences.edit().putString("APP_THEME", "DEFAULT").apply()
             }
-            toast("Reinicie a aplicação para aplicar o tema")
+            toast(getString(R.string.reinicie_app_msg))
             true
         }
 

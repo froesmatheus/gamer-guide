@@ -46,6 +46,8 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'org.adw.library:discrete-seekbar:1.0.1'
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
+    compile 'com.einmalfel:earl:1.2.0'
+
 
     compile('com.mikepenz:materialdrawer:5.9.5@aar') {
         transitive = true

@@ -77,10 +77,10 @@ class FeedActivity : BaseActivityDrawer() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.navConfiguracaoFeed -> {
-                startActivity(Intent(this, ConfiguracoesFeedActivity::class.java))
-                return true
-            }
+//            R.id.navConfiguracaoFeed -> {
+//                startActivity(Intent(this, ConfiguracoesFeedActivity::class.java))
+//                return true
+//            }
             R.id.navAtualizarFeed -> {
                 viewModel.atualizarFeed()
                 return true
