@@ -18,7 +18,7 @@
             <ImageView
                 android:id="@+id/ivPreviewStream"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="190dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/mqdefault" />
 
@@ -28,6 +28,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|start"
                 android:padding="10dp"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="-2"
+                android:shadowDy="-2"
+                android:shadowRadius="1"
                 android:text="@string/espectadores_stream"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
