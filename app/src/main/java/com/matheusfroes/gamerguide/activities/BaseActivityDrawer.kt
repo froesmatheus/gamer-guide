@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import com.matheusfroes.gamerguide.R
-import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
@@ -51,14 +50,9 @@ open class BaseActivityDrawer : AppCompatActivity() {
         val item6 = PrimaryDrawerItem().withIdentifier(CONFIGURACOES_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_configuracoes).withName(R.string.configuracoes)
 
 
-        val headerResult = AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.color.colorPrimary)
-                .build()
-
         drawer = DrawerBuilder()
-                .withAccountHeader(headerResult)
                 .withActivity(this)
+                .withHeader(R.layout.header_drawer)
                 .withToolbar(toolbar)
                 .addDrawerItems(
                         item1,
