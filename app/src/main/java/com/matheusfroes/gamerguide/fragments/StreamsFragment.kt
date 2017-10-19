@@ -6,9 +6,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.matheusfroes.gamerguide.EndlessRecyclerViewScrollListener
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoViewModel
 import com.matheusfroes.gamerguide.adapters.StreamsAdapter
@@ -30,24 +32,45 @@ class StreamsFragment : Fragment() {
     private val adapter: StreamsAdapter by lazy {
         StreamsAdapter(activity)
     }
+    val retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(ApiService.URL_BASE)
+            .build()
+
+    val service = retrofit.create(ApiService::class.java)
+    var apiOffset = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_streams, container, false)
 
-        view.rvVideos.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        view.rvVideos.layoutManager = layoutManager
         view.rvVideos.adapter = adapter
-
 
         val nomeJogo = viewModel.jogo.value?.nome!!
 
-        val retrofit = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(ApiService.URL_BASE)
-                .build()
+        obterStreams(nomeJogo)
 
-        val service = retrofit.create(ApiService::class.java)
+        view.rvVideos.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                apiOffset += 10
+                obterStreams(nomeJogo)
+            }
+        })
 
-        val call = service.obterStreamsPorJogo(nomeJogo)
+
+        adapter.setOnStreamClickListener(object : StreamsAdapter.OnStreamClickListener {
+            override fun onStreamClick(stream: Stream) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(stream.channel.url))
+                startActivity(intent)
+            }
+        })
+
+        return view
+    }
+
+    fun obterStreams(nomeJogo: String) {
+        val call = service.obterStreamsPorJogo(nomeJogo, offset = apiOffset)
 
         doAsync {
             val response = call.execute()
@@ -58,14 +81,5 @@ class StreamsFragment : Fragment() {
                 }
             }
         }
-
-        adapter.setOnStreamClickListener(object : StreamsAdapter.OnStreamClickListener {
-            override fun onStreamClick(stream: Stream) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(stream.channel.url))
-                startActivity(intent)
-            }
-        })
-
-        return view
     }
 }

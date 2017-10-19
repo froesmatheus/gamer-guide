@@ -14,11 +14,11 @@ import kotlinx.android.synthetic.main.view_stream.view.*
  * Created by matheusfroes on 30/09/2017.
  */
 class StreamsAdapter(val context: Context) : RecyclerView.Adapter<StreamsAdapter.ViewHolder>() {
-    private var streams: List<Stream> = mutableListOf()
+    private var streams: MutableList<Stream> = mutableListOf()
     private var listener: OnStreamClickListener? = null
 
     fun preencherLista(listas: List<Stream>) {
-        this.streams = listas
+        this.streams.addAll(listas)
         notifyDataSetChanged()
     }
 
