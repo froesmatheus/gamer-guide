@@ -40,6 +40,8 @@ class StreamsAdapter(val context: Context) : RecyclerView.Adapter<StreamsAdapter
                 .load(stream.preview.large)
                 .fit()
                 .into(holder.itemView.ivPreviewStream)
+
+        Picasso.with(context).load(stream.channel.logo).fit().into(holder.itemView.ivStreamerLogo)
     }
 
     fun setOnStreamClickListener(listener: OnStreamClickListener) {

@@ -15,4 +15,5 @@ data class Channel(
         val status: String,
         @SerializedName("display_name")
         val displayName: String,
+        val logo: String,
         val url: String)
