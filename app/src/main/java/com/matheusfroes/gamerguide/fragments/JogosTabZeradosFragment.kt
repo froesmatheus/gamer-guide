@@ -10,13 +10,11 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
-import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.adapters.MeusJogosAdapter
 import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.db.ListasDAO
-import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
@@ -62,10 +60,10 @@ class JogosTabZeradosFragment : Fragment() {
             override fun onMenuItemClick(menu: MenuItem, jogoId: Long) {
                 when (menu.itemId) {
                     R.id.navRemover -> {
-                        dialogRemoverJogo(jogoId)
+                        EventBus.getDefault().post(ExcluirJogoEvent(jogoId))
                     }
                     R.id.navGerenciarListas -> {
-                        dialogGerenciarListas(jogoId)
+                        EventBus.getDefault().post(GerenciarListasEvent(jogoId))
                     }
                     R.id.navAtualizarProgresso -> {
                         dialogAtualizarProgresso(jogoId)
@@ -122,27 +120,16 @@ class JogosTabZeradosFragment : Fragment() {
         dialog.show()
     }
 
-    private fun dialogRemoverJogo(jogoId: Long) {
-        val view = LayoutInflater.from(context).inflate(R.layout.dialog_remover_jogo, null, false)
-
-        val dialog = AlertDialog.Builder(context)
-                .setView(view)
-                .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
-                    viewModel.removerJogo(jogoId)
-                    context.toast(context.getString(R.string.jogo_removido))
-                }
-                .setNegativeButton(getString(R.string.cancelar), null)
-                .create()
-
-        dialog.show()
-
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onMessageEvent(event: JogoAdicionadoRemovidoEvent) {
+    fun jogoAdicionadoRemovido(event: JogoAdicionadoRemovidoEvent) {
         viewModel.atualizarListaJogos()
 
         EventBus.getDefault().removeStickyEvent(event)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun atualizarListaJogos(event: AtualizarListaJogosEvent) {
+        viewModel.atualizarListaJogos()
     }
 
     override fun onStart() {
@@ -153,65 +140,5 @@ class JogosTabZeradosFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         EventBus.getDefault().unregister(this)
-    }
-
-    private fun dialogGerenciarListas(jogoId: Long) {
-        val listas = listasDAO.obterListas()
-        val jogoJaCadastrado = mutableListOf<Boolean>()
-
-        listas.forEach { lista ->
-            jogoJaCadastrado.add(listasDAO.listaContemJogo(jogoId, lista.id))
-        }
-
-        val listasStr = listas.map { it.toString() }.toTypedArray()
-
-        val jogosAdicionarNaLista = mutableListOf<Lista>()
-        val jogosRemoverDaLista = mutableListOf<Lista>()
-
-        val dialog = AlertDialog.Builder(context)
-                .setTitle(getString(R.string.gerenciar_listas))
-                .setNegativeButton(getString(R.string.cancelar)) { dialogInterface, i -> }
-                .setMultiChoiceItems(listasStr, jogoJaCadastrado.toBooleanArray()) { dialog, which, isChecked ->
-                    if (isChecked && !jogoJaCadastrado[which]) {
-                        jogosAdicionarNaLista.add(listas[which])
-                    } else if (isChecked && jogoJaCadastrado[which]) {
-                        jogosRemoverDaLista.remove(listas[which])
-                    } else if (jogosAdicionarNaLista.contains(listas[which])) {
-                        jogosAdicionarNaLista.remove(listas[which])
-                    } else if (!isChecked && jogoJaCadastrado[which] && !jogosRemoverDaLista.contains(listas[which])) {
-                        jogosRemoverDaLista.add(listas[which])
-                    }
-                }
-                .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
-                    adicionarJogosLista(jogosAdicionarNaLista, jogoId)
-                    removerJogosLista(jogosRemoverDaLista, jogoId)
-                }
-                .create()
-
-        dialog.show()
-
-    }
-
-    private fun removerJogosLista(jogosRemoverDaLista: MutableList<Lista>, jogoId: Long) {
-        jogosRemoverDaLista.forEach { lista ->
-            listasDAO.removerJogoDaLista(jogoId, lista.id)
-        }
-
-        if (jogosRemoverDaLista.size == 1) {
-            context.toast(getString(R.string.msg_jogo_removido_lista))
-        } else if (jogosRemoverDaLista.size > 1) {
-            context.toast(getString(R.string.msg_jogo_removido_listas))
-        }
-    }
-
-    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogoId: Long) {
-        jogosAdicionarNaLista.forEach { lista ->
-            listasDAO.adicionarJogoNaLista(jogoId, lista.id)
-        }
-        if (jogosAdicionarNaLista.size == 1) {
-            context.toast(getString(R.string.msg_jogo_adicionado_lista))
-        } else if (jogosAdicionarNaLista.size > 1) {
-            context.toast(getString(R.string.msg_jogo_adicionado_listas))
-        }
     }
 }

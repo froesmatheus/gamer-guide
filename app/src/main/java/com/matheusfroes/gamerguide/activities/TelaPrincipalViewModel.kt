@@ -32,7 +32,6 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun removerJogo(jogoId: Long) {
         jogosDAO.remover(jogoId)
-        atualizarListaJogos()
     }
 
     fun obterProgressoJogo(jogoId: Long): ProgressoJogo? =
