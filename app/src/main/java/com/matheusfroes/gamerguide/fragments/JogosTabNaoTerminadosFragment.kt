@@ -14,6 +14,7 @@ import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.adapters.MeusJogosAdapter
 import com.matheusfroes.gamerguide.db.JogosDAO
+import kotlinx.android.synthetic.main.activity_meus_jogos.*
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
@@ -42,6 +43,9 @@ class JogosTabNaoTerminadosFragment : Fragment() {
         view.rvJogosNaoTerminados.emptyView = view.layoutEmpty
         view.rvJogosNaoTerminados.adapter = adapter
 
+        //val floatingActionButton = activity.fab
+
+        //view.rvJogosNaoTerminados.addOnScrollListener(HideFloatingActionButtonListener(floatingActionButton))
 
         viewModel.jogos.observe(this, Observer { jogos ->
             adapter.preencherLista(jogos?.filter { !it.progresso.zerado } ?: listOf())

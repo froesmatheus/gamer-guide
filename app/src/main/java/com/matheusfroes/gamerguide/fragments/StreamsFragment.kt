@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.EndlessRecyclerViewScrollListener
+import com.matheusfroes.gamerguide.EndlessScrollListener
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoViewModel
 import com.matheusfroes.gamerguide.adapters.StreamsAdapter
@@ -53,7 +53,7 @@ class StreamsFragment : Fragment() {
 
         obterStreams(nomeJogo)
 
-        view.rvStreams.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManager) {
+        view.rvStreams.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 apiOffset += 10
                 obterStreams(nomeJogo)

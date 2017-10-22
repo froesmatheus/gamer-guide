@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.matheusfroes.gamerguide.EndlessRecyclerViewScrollListener
+import com.matheusfroes.gamerguide.EndlessScrollListener
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.AdicionarJogosAdapter
@@ -46,7 +46,7 @@ class AdicionarJogosActivity : BaseActivity() {
         rvJogos.layoutManager = layoutManager
         rvJogos.adapter = adapter
 
-        val scrollListener: EndlessRecyclerViewScrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
+        val scrollListener: EndlessScrollListener = object : EndlessScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 viewModel.pesquisarJogos(queryDigitada, viewModel.nextPageId.value!!)
             }
