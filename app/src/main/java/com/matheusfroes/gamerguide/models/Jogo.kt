@@ -6,8 +6,6 @@ import java.util.*
 /**
  * Created by matheusfroes on 23/09/2017.
  */
-enum class FormaCadastro { CADASTRO_POR_LISTA, CADASTRO_POR_BUSCA }
-
 data class Jogo(
         val id: Long,
         val nome: String,
