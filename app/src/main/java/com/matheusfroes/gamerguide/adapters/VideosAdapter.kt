@@ -32,8 +32,6 @@ class VideosAdapter(val context: Context) : RecyclerView.Adapter<VideosAdapter.V
 
         holder.itemView.tvNomeVideo.text = video.nome
 
-        holder.itemView.setOnClickListener { listener?.onVideoClick(video) }
-
         val thumbnailUrl = context.getString(R.string.youtube_thumbnail_url, video.videoId)
         Picasso
                 .with(context)
@@ -46,7 +44,15 @@ class VideosAdapter(val context: Context) : RecyclerView.Adapter<VideosAdapter.V
         this.listener = listener
     }
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener {
+                val video = videos[adapterPosition]
+                listener?.onVideoClick(video)
+            }
+        }
+    }
 
     interface OnVideoClickListener {
         fun onVideoClick(video: Video)

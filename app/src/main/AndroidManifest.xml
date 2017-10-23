@@ -15,7 +15,8 @@
             android:name=".activities.TelaPrincipalActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activities.ConfiguracoesFeedActivity"
             android:label="@string/configuracoes_feed"

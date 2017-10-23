@@ -32,12 +32,6 @@ class JogosListaAdapter(private val context: Context) : RecyclerView.Adapter<Jog
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val jogo = jogos[position]
 
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, DetalhesJogoActivity::class.java)
-            intent.putExtra("id_jogo", jogo.id)
-            context.startActivity(intent)
-        }
-
         holder.itemView.tvNomeJogo.text = jogo.nome
         holder.itemView.textview.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
@@ -66,7 +60,17 @@ class JogosListaAdapter(private val context: Context) : RecyclerView.Adapter<Jog
 
     override fun getItemCount() = jogos.size
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var capaVisivel = true
+
+        init {
+            itemView.setOnClickListener {
+                val jogo = jogos[adapterPosition]
+
+                val intent = Intent(context, DetalhesJogoActivity::class.java)
+                intent.putExtra("id_jogo", jogo.id)
+                context.startActivity(intent)
+            }
+        }
     }
 }

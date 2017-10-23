@@ -30,14 +30,6 @@ class FonteNoticiasAdapter(
         holder.itemView.tvWebsite.text = fonteNoticia.website
 
         holder.itemView.switchFonteNoticia.isChecked = fonteNoticia.ativado
-
-        holder.itemView.switchFonteNoticia.setOnCheckedChangeListener { buttonView, isChecked ->
-            listener?.alterarStatus(fonteNoticia.id, isChecked)
-        }
-
-        holder.itemView.setOnClickListener {
-            holder.itemView.switchFonteNoticia.isChecked = !holder.itemView.switchFonteNoticia.isChecked
-        }
     }
 
     fun setAlterarStatusFonteNoticiaListener(listener: AlterarStatusFonteNoticiaListener) {
@@ -49,5 +41,17 @@ class FonteNoticiasAdapter(
     }
 
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                itemView.switchFonteNoticia.isChecked = !itemView.switchFonteNoticia.isChecked
+            }
+
+            itemView.switchFonteNoticia.setOnCheckedChangeListener { buttonView, isChecked ->
+                val fonteNoticia = fontes[adapterPosition]
+
+                listener?.alterarStatus(fonteNoticia.id, isChecked)
+            }
+        }
+    }
 }

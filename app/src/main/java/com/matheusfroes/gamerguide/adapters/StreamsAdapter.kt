@@ -34,7 +34,7 @@ class StreamsAdapter(val context: Context) : RecyclerView.Adapter<StreamsAdapter
         holder.itemView.tvTituloStream.text = stream.channel.status
         holder.itemView.tvNomeStreamer.text = stream.channel.displayName
 
-        holder.itemView.setOnClickListener { listener?.onStreamClick(stream) }
+        //holder.itemView.setOnClickListener { listener?.onStreamClick(stream) }
 
         Picasso.with(context)
                 .load(stream.preview.large)
@@ -48,7 +48,16 @@ class StreamsAdapter(val context: Context) : RecyclerView.Adapter<StreamsAdapter
         this.listener = listener
     }
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener {
+                val stream = streams[adapterPosition]
+                listener?.onStreamClick(stream)
+            }
+        }
+
+    }
 
     interface OnStreamClickListener {
         fun onStreamClick(stream: Stream)

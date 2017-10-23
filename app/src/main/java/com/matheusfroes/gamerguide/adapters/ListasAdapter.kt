@@ -39,15 +39,20 @@ class ListasAdapter(private val context: Context) : RecyclerView.Adapter<ListasA
             context.resources.getQuantityString(R.plurals.qtd_jogos, qtdJogos, qtdJogos)
 
         holder.itemView.tvQuantidadeJogos.text = string
-
-        holder.itemView.setOnClickListener { listener?.onListaClick(lista.id) }
     }
 
     fun setOnListaClickListener(listener: OnListaClickListener) {
         this.listener = listener
     }
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                val lista = listas[adapterPosition]
+                listener?.onListaClick(lista.id)
+            }
+        }
+    }
 
     interface OnListaClickListener {
         fun onListaClick(listaId: Int)

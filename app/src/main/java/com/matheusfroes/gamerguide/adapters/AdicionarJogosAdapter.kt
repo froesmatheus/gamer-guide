@@ -41,25 +41,11 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val jogo = jogos[position]
 
-        holder.itemView.setOnClickListener { dialogDetalhesJogo(jogo) }
 
         holder.itemView.tvNomeJogo.text = jogo.nome
         holder.itemView.textview.text = jogo.dataLancamento.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataformas.text = jogo.plataformas.joinToString()
         holder.itemView.ivCapaJogo.contentDescription = context.getString(R.string.content_description_capa_jogo, jogo.nome)
-
-
-        holder.itemView.ivOverflow.setOnClickListener {
-            showPopup(holder.itemView.ivOverflow, jogo)
-        }
-
-//        holder.setIsRecyclable(false)
-
-        holder.itemView.ivCapaJogo.setOnClickListener {
-            val intent = Intent(context, CapaJogoTelaCheiaActivity::class.java)
-            intent.putExtra("url_imagem", jogo.imageCapa)
-            context.startActivity(intent)
-        }
 
         holder.capaVisivel = !jogo.imageCapa.isEmpty()
 
@@ -123,6 +109,25 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var capaVisivel = true
+
+        init {
+            itemView.ivOverflow.setOnClickListener {
+                val jogo = jogos[adapterPosition]
+                showPopup(itemView.ivOverflow, jogo)
+            }
+
+            itemView.setOnClickListener {
+                val jogo = jogos[adapterPosition]
+                dialogDetalhesJogo(jogo)
+            }
+
+            itemView.ivCapaJogo.setOnClickListener {
+                val jogo = jogos[adapterPosition]
+                val intent = Intent(context, CapaJogoTelaCheiaActivity::class.java)
+                intent.putExtra("url_imagem", jogo.imageCapa)
+                context.startActivity(intent)
+            }
+        }
     }
 
     interface OnAdicionarJogoListener {

@@ -35,12 +35,6 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val jogo = jogos[position]
 
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, DetalhesJogoActivity::class.java)
-            intent.putExtra("id_jogo", jogo.id)
-            context.startActivity(intent)
-        }
-
         holder.itemView.tvNomeJogo.text = jogo.nome
         holder.itemView.tvPorcentagemProgresso.text = "${jogo.progresso.progressoPerc}%"
         holder.itemView.tvHorasJogadas.text = "${jogo.progresso.horasJogadas} horas"
@@ -51,10 +45,6 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
                 .load(jogo.imageCapa.replace("t_thumb", "t_cover_big"))
                 .fit()
                 .into(holder.itemView.ivCapaJogo)
-
-        holder.itemView.ivOverflowMenu.setOnClickListener {
-            showPopup(holder.itemView.ivOverflowMenu, jogo)
-        }
     }
 
     private fun showPopup(v: View, jogo: Jogo) {
@@ -79,7 +69,24 @@ class MeusJogosAdapter(private val context: Context) : RecyclerView.Adapter<Meus
 
     override fun getItemCount() = jogos.size
 
-    inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.setOnClickListener {
+                val jogo = jogos[adapterPosition]
+
+                val intent = Intent(context, DetalhesJogoActivity::class.java)
+                intent.putExtra("id_jogo", jogo.id)
+                context.startActivity(intent)
+            }
+
+            itemView.ivOverflowMenu.setOnClickListener {
+                val jogo = jogos[adapterPosition]
+
+                showPopup(itemView.ivOverflowMenu, jogo)
+            }
+        }
+    }
 
     interface OnMenuOverflowClickListener {
         fun onMenuItemClick(menu: MenuItem, jogoId: Long)

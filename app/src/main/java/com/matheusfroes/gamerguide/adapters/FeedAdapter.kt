@@ -36,10 +36,6 @@ class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapt
 
         holder.itemView.tvWebsite.text = "${noticia.website} • "
 
-        holder.itemView.setOnClickListener {
-            listener?.onClick(noticia)
-        }
-
         holder.capaVisivel = !noticia.imagem.isEmpty()
 
         if (holder.capaVisivel) {
@@ -58,6 +54,13 @@ class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapt
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var capaVisivel = true
+
+        init {
+            itemView.setOnClickListener {
+                val noticia = noticias[adapterPosition]
+                listener?.onClick(noticia)
+            }
+        }
     }
 
     interface OnNewsClickListener {
