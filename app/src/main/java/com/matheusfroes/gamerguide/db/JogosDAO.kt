@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
+import com.matheusfroes.gamerguide.models.FormaCadastro
 import com.matheusfroes.gamerguide.models.Jogo
 import java.util.*
 
@@ -38,6 +39,7 @@ class JogosDAO(context: Context) {
         cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.imageCapa)
         cv.put(Helper.JOGOS_GENEROS, jogo.generos)
         cv.put(Helper.JOGOS_GAME_ENGINE, jogo.gameEngine)
+        cv.put(Helper.JOGOS_FORMA_CADASTRO, jogo.formaCadastro.name)
 
         val cvPlataformas = ContentValues()
         jogo.plataformas.forEach { plataforma ->
@@ -54,6 +56,23 @@ class JogosDAO(context: Context) {
         db.insert(Helper.TABELA_JOGOS, null, cv)
     }
 
+    fun atualizar(jogo: Jogo) {
+        val cv = ContentValues()
+
+        cv.put(Helper.JOGOS_NOME, jogo.nome)
+        cv.put(Helper.JOGOS_DATA_LANCAMENTO, jogo.dataLancamento.time)
+        cv.put(Helper.JOGOS_DESENVOLVEDORAS, jogo.desenvolvedores)
+        cv.put(Helper.JOGOS_PUBLICADORAS, jogo.publicadoras)
+        cv.put(Helper.JOGOS_DESCRICAO, jogo.descricao)
+        cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.imageCapa)
+        cv.put(Helper.JOGOS_GENEROS, jogo.generos)
+        cv.put(Helper.JOGOS_GAME_ENGINE, jogo.gameEngine)
+        cv.put(Helper.JOGOS_FORMA_CADASTRO, jogo.formaCadastro.name)
+
+
+        db.update(Helper.TABELA_JOGOS, cv, "_id = ?", arrayOf(jogo.id.toString()))
+    }
+
     fun remover(jogoId: Long) {
         val parametros = arrayOf(jogoId.toString())
 
@@ -64,8 +83,8 @@ class JogosDAO(context: Context) {
         db.delete(Helper.TABELA_VIDEOS, "id_jogo = ?", parametros)
     }
 
-    fun obterJogo(id: Long): Jogo? {
-        val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_ID} = ?", arrayOf(id.toString()))
+    fun obterJogo(id: Long, formaCadastro: FormaCadastro = FormaCadastro.CADASTRO_POR_BUSCA): Jogo? {
+        val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_ID} = ? AND ${Helper.JOGOS_FORMA_CADASTRO} = ?", arrayOf(id.toString(), formaCadastro.name))
 
         var jogo: Jogo? = null
 
@@ -89,7 +108,7 @@ class JogosDAO(context: Context) {
             SELECT *
             FROM ${Helper.TABELA_JOGOS} J
             INNER JOIN ${Helper.TABELA_PROGRESSOS} P ON J._id = P._id
-            WHERE P.jogo_zerado = ?""", arrayOf(status.toString()))
+            WHERE P.jogo_zerado = ? AND ${Helper.JOGOS_FORMA_CADASTRO} = 'CADASTRO_POR_BUSCA'""", arrayOf(status.toString()))
 
         val jogos = mutableListOf<Jogo>()
         if (cursor.count > 0) {
@@ -111,7 +130,7 @@ class JogosDAO(context: Context) {
     fun obterJogos(): List<Jogo> {
         val cursor = db.rawQuery("""
             SELECT *
-            FROM ${Helper.TABELA_JOGOS}""", null)
+            FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_FORMA_CADASTRO} = 'CADASTRO_POR_BUSCA'""", null)
 
         val jogos = mutableListOf<Jogo>()
         if (cursor.count > 0) {
@@ -209,7 +228,7 @@ class JogosDAO(context: Context) {
     }
 
     private fun criarObjetoJogo(cursor: Cursor, jogoId: Long): Jogo {
-        val jogo = Jogo(
+        return Jogo(
                 id = jogoId,
                 descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
                 desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
@@ -222,9 +241,8 @@ class JogosDAO(context: Context) {
                 gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
                 progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
                 timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
+                formaCadastro = FormaCadastro.valueOf(cursor.getString(cursor.getColumnIndex(Helper.JOGOS_FORMA_CADASTRO))),
                 dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
         )
-
-        return jogo
     }
 }

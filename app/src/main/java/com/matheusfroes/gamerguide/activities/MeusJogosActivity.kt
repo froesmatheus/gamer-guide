@@ -12,9 +12,12 @@ import com.matheusfroes.gamerguide.ExcluirJogoEvent
 import com.matheusfroes.gamerguide.GerenciarListasEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.JogosFragmentAdapter
+import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.db.ListasDAO
+import com.matheusfroes.gamerguide.models.FormaCadastro
 import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.activity_meus_jogos.*
+import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -30,6 +33,8 @@ class MeusJogosActivity : BaseActivityDrawer() {
     private val listasDAO: ListasDAO by lazy {
         ListasDAO(this)
     }
+    private val jogosDAO: JogosDAO by lazy { JogosDAO(this) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,8 +92,19 @@ class MeusJogosActivity : BaseActivityDrawer() {
 
         val dialog = AlertDialog.Builder(this)
                 .setView(view)
-                .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
-                    viewModel.removerJogo(jogoId)
+                .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
+                    val removerDasListas = view.chkRemoverDasListas.isChecked
+
+                    val jogo = jogosDAO.obterJogo(jogoId)
+
+                    if (removerDasListas) {
+                        listasDAO.removerJogoTodasListas(jogoId)
+                        jogosDAO.remover(jogoId)
+                    } else {
+                        jogo?.formaCadastro = FormaCadastro.CADASTRO_POR_LISTA
+                        jogosDAO.atualizar(jogo!!)
+                    }
+
                     EventBus.getDefault().post(AtualizarListaJogosEvent())
                     toast(getString(R.string.jogo_removido))
                 }

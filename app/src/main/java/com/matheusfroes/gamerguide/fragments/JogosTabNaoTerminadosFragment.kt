@@ -14,7 +14,6 @@ import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.activities.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.adapters.MeusJogosAdapter
 import com.matheusfroes.gamerguide.db.JogosDAO
-import kotlinx.android.synthetic.main.activity_meus_jogos.*
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
@@ -67,7 +66,8 @@ class JogosTabNaoTerminadosFragment : Fragment() {
                         dialogAtualizarProgresso(jogoId)
                     }
                     R.id.navMarcarComoZerado -> {
-                        viewModel.marcarComoZerado(jogoId)
+                        viewModel.alterarStatusJogo(jogoId, zerado = true)
+                        context.toast(getString(R.string.msg_jogo_movido_zerados))
                     }
                 }
             }

@@ -44,10 +44,10 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
         EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
     }
 
-    fun marcarComoZerado(jogoId: Long) {
+    fun alterarStatusJogo(jogoId: Long, zerado: Boolean) {
         val jogo = jogosDAO.obterJogo(jogoId)
         if (jogo?.progresso != null) {
-            jogo.progresso.zerado = true
+            jogo.progresso.zerado = zerado
             progressosDAO.atualizarProgresso(jogo.progresso, jogoId)
             atualizarListaJogos()
         }

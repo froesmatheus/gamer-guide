@@ -6,16 +6,16 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.matheusfroes.gamerguide.EndlessScrollListener
-import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
-import com.matheusfroes.gamerguide.R
+import android.view.LayoutInflater
+import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.adapters.AdicionarJogosAdapter
 import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.db.ListasDAO
-import com.matheusfroes.gamerguide.esconderTeclado
+import com.matheusfroes.gamerguide.models.FormaCadastro
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.models.Lista
 import kotlinx.android.synthetic.main.activity_adicionar_jogos.*
+import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
@@ -58,15 +58,19 @@ class AdicionarJogosActivity : BaseActivity() {
                 when (action) {
                     "adicionar_jogo" -> {
                         toast(getString(R.string.jogo_adicionado))
-                        jogosDAO.inserir(jogo)
+                        val jogoInserido = jogosDAO.obterJogo(jogo.id, formaCadastro = FormaCadastro.CADASTRO_POR_LISTA)
+                        if (jogoInserido == null) {
+                            jogosDAO.inserir(jogo)
+                        } else {
+                            jogoInserido.formaCadastro = FormaCadastro.CADASTRO_POR_BUSCA
+                            jogosDAO.atualizar(jogoInserido)
+                        }
                         EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
                     }
                     "remover_jogo" -> {
-                        toast(getString(R.string.jogo_removido))
-                        jogosDAO.remover(jogo.id)
-                        EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+                        dialogRemoverJogo(jogo.id)
                     }
-                    else -> dialogGerenciarListas(jogo.id)
+                    else -> dialogGerenciarListas(jogo)
                 }
             }
         })
@@ -90,12 +94,39 @@ class AdicionarJogosActivity : BaseActivity() {
         }
     }
 
-    private fun dialogGerenciarListas(jogoId: Long) {
+    private fun dialogRemoverJogo(jogoId: Long) {
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_remover_jogo, null, false)
+
+        val dialog = AlertDialog.Builder(this)
+                .setView(view)
+                .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
+                    val removerDasListas = view.chkRemoverDasListas.isChecked
+
+                    val jogo = jogosDAO.obterJogo(jogoId)
+
+                    if (removerDasListas) {
+                        listasDAO.removerJogoTodasListas(jogoId)
+                        jogosDAO.remover(jogoId)
+                    } else {
+                        jogo?.formaCadastro = FormaCadastro.CADASTRO_POR_LISTA
+                        jogosDAO.atualizar(jogo!!)
+                    }
+
+                    EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+                    toast(getString(R.string.jogo_removido))
+                }
+                .setNegativeButton(getString(R.string.cancelar), null)
+                .create()
+
+        dialog.show()
+    }
+
+    private fun dialogGerenciarListas(jogo: Jogo) {
         val listas = listasDAO.obterListas()
         val jogoJaCadastrado = mutableListOf<Boolean>()
 
         listas.forEach { lista ->
-            if (listasDAO.listaContemJogo(jogoId, lista.id)) {
+            if (listasDAO.listaContemJogo(jogo.id, lista.id)) {
                 jogoJaCadastrado.add(true)
             } else {
                 jogoJaCadastrado.add(false)
@@ -122,8 +153,8 @@ class AdicionarJogosActivity : BaseActivity() {
                     }
                 }
                 .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
-                    adicionarJogosLista(jogosAdicionarNaLista, jogoId)
-                    removerJogosLista(jogosRemoverDaLista, jogoId)
+                    adicionarJogosLista(jogosAdicionarNaLista, jogo)
+                    removerJogosLista(jogosRemoverDaLista, jogo)
                 }
                 .create()
 
@@ -131,9 +162,9 @@ class AdicionarJogosActivity : BaseActivity() {
 
     }
 
-    private fun removerJogosLista(jogosRemoverDaLista: MutableList<Lista>, jogoId: Long) {
+    private fun removerJogosLista(jogosRemoverDaLista: MutableList<Lista>, jogo: Jogo) {
         jogosRemoverDaLista.forEach { lista ->
-            listasDAO.removerJogoDaLista(jogoId, lista.id)
+            listasDAO.removerJogoDaLista(jogo.id, lista.id)
         }
 
         if (jogosRemoverDaLista.size == 1) {
@@ -143,9 +174,17 @@ class AdicionarJogosActivity : BaseActivity() {
         }
     }
 
-    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogoId: Long) {
+    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogo: Jogo) {
+
+        // Verificando se o jogo já está cadastrado no banco na hora de inserir na lista
+        if (jogosDAO.obterJogo(jogo.id) == null) {
+            jogo.formaCadastro = FormaCadastro.CADASTRO_POR_LISTA
+            jogosDAO.inserir(jogo)
+        }
+
+
         jogosAdicionarNaLista.forEach { lista ->
-            listasDAO.adicionarJogoNaLista(jogoId, lista.id)
+            listasDAO.adicionarJogoNaLista(jogo.id, lista.id)
         }
         if (jogosAdicionarNaLista.size == 1) {
             toast(getString(R.string.msg_jogo_adicionado_lista))

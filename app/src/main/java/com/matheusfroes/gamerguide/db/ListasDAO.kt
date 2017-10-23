@@ -46,6 +46,10 @@ class ListasDAO(val context: Context) {
         return count > 0
     }
 
+    fun removerJogoTodasListas(jogoId: Long) {
+        db.delete(Helper.TABELA_LISTAS_JOGOS, "id_jogo = ?", arrayOf(jogoId.toString()))
+    }
+
     fun excluirLista(listaId: Int) {
         db.delete(Helper.TABELA_LISTAS_JOGOS, "id_lista = ?", arrayOf(listaId.toString()))
         db.delete(Helper.TABELA_LISTAS, "_id = ?", arrayOf(listaId.toString()))

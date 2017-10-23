@@ -68,9 +68,9 @@ class JogosTabZeradosFragment : Fragment() {
                     R.id.navAtualizarProgresso -> {
                         dialogAtualizarProgresso(jogoId)
                     }
-                    R.id.navMarcarComoZerado -> {
-                        viewModel.marcarComoZerado(jogoId)
-                        context.toast(getString(R.string.msg_jogo_movido_zerados))
+                    R.id.navMarcarComoNaoTerminado -> {
+                        viewModel.alterarStatusJogo(jogoId, zerado = false)
+                        context.toast(getString(R.string.msg_jogo_movido_nao_terminados))
                     }
                 }
             }

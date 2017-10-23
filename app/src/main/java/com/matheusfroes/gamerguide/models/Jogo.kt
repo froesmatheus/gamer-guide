@@ -6,6 +6,8 @@ import java.util.*
 /**
  * Created by matheusfroes on 23/09/2017.
  */
+enum class FormaCadastro { CADASTRO_POR_LISTA, CADASTRO_POR_BUSCA }
+
 data class Jogo(
         val id: Long,
         val nome: String,
@@ -19,4 +21,5 @@ data class Jogo(
         val gameEngine: String,
         val timeToBeat: TimeToBeat? = null,
         val imageCapa: String,
-        val progresso: ProgressoJogo = ProgressoJogo(0, 0, false)) : Serializable
+        val progresso: ProgressoJogo = ProgressoJogo(0, 0, false),
+        var formaCadastro: FormaCadastro = FormaCadastro.CADASTRO_POR_BUSCA) : Serializable

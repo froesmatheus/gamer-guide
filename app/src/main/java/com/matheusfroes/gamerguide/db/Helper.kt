@@ -26,6 +26,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val JOGOS_DATA_LANCAMENTO = "data_lancamento"
         val JOGOS_IMAGEM_CAPA = "imagem_capa"
         val JOGOS_GAME_ENGINE = "game_engine"
+        val JOGOS_FORMA_CADASTRO = "forma_cadastro"
 
 
         // Tabela de Plataformas
@@ -89,7 +90,8 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
                 $JOGOS_GENEROS TEXT,
                 $JOGOS_DATA_LANCAMENTO INTEGER,
                 $JOGOS_GAME_ENGINE TEXT,
-                $JOGOS_IMAGEM_CAPA TEXT);"""
+                $JOGOS_IMAGEM_CAPA TEXT,
+                $JOGOS_FORMA_CADASTRO TEXT);"""
 
         val CREATE_TABLE_PLATAFORMAS = """
             CREATE TABLE $TABELA_PLATAFORMAS(
