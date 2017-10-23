@@ -110,5 +110,6 @@
     <string name="streams">Streams</string>
     <string name="espectadores_stream">%1$d espectadores</string>
     <string name="reinicie_app_msg">Reinicie a aplicação para aplicar o tema</string>
+    <string name="progresso">Progresso</string>
 
 </resources>
