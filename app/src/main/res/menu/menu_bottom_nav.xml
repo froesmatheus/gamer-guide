@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/navMeusJogos"
-        android:icon="@drawable/ic_gamepad"
+        android:icon="@drawable/ic_joystick"
         android:title="@string/titulo_jogos" />
 
     <item

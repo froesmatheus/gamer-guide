@@ -21,7 +21,7 @@ class TelaPrincipalActivity : AppCompatActivity() {
     }
 
     private fun montarDrawer(): Drawer {
-        val item1 = PrimaryDrawerItem().withIdentifier(0).withIcon(R.drawable.ic_gamepad).withName(R.string.titulo_jogos)
+        val item1 = PrimaryDrawerItem().withIdentifier(0).withIcon(R.drawable.ic_joystick).withName(R.string.titulo_jogos)
         val item2 = PrimaryDrawerItem().withIdentifier(1).withIcon(R.drawable.ic_calendario).withName(R.string.titulo_calendario)
         val item3 = PrimaryDrawerItem().withIdentifier(2).withIcon(R.drawable.ic_folded_newspaper).withName(R.string.titulo_feed)
         val item4 = PrimaryDrawerItem().withIdentifier(3).withIcon(R.drawable.ic_list).withName(R.string.titulo_listas)
