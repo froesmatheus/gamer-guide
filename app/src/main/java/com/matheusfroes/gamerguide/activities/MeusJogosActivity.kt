@@ -79,6 +79,9 @@ class MeusJogosActivity : BaseActivityDrawer() {
 
     override fun onStart() {
         super.onStart()
+
+        setDrawerSelectedItem(BaseActivityDrawer.MEUS_JOGOS_IDENTIFIER)
+
         EventBus.getDefault().register(this)
     }
 
@@ -95,7 +98,7 @@ class MeusJogosActivity : BaseActivityDrawer() {
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
                     val removerDasListas = view.chkRemoverDasListas.isChecked
 
-                    val jogo = jogosDAO.obterJogo(jogoId)
+                    val jogo = jogosDAO.obterJogoPorFormaCadastro(jogoId)
 
                     if (removerDasListas) {
                         listasDAO.removerJogoTodasListas(jogoId)

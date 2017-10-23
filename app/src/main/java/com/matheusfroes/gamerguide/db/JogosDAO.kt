@@ -83,8 +83,26 @@ class JogosDAO(context: Context) {
         db.delete(Helper.TABELA_VIDEOS, "id_jogo = ?", parametros)
     }
 
-    fun obterJogo(id: Long, formaCadastro: FormaCadastro = FormaCadastro.CADASTRO_POR_BUSCA): Jogo? {
+    fun obterJogoPorFormaCadastro(id: Long, formaCadastro: FormaCadastro = FormaCadastro.CADASTRO_POR_BUSCA): Jogo? {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_ID} = ? AND ${Helper.JOGOS_FORMA_CADASTRO} = ?", arrayOf(id.toString(), formaCadastro.name))
+
+        var jogo: Jogo? = null
+
+        if (cursor.count > 0) {
+            cursor.moveToFirst()
+
+            val jogoId = cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_ID))
+
+            jogo = criarObjetoJogo(cursor, jogoId)
+        }
+
+        cursor.close()
+
+        return jogo
+    }
+
+    fun obterJogo(id: Long): Jogo? {
+        val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_ID} = ?", arrayOf(id.toString()))
 
         var jogo: Jogo? = null
 

@@ -58,7 +58,7 @@ class AdicionarJogosActivity : BaseActivity() {
                 when (action) {
                     "adicionar_jogo" -> {
                         toast(getString(R.string.jogo_adicionado))
-                        val jogoInserido = jogosDAO.obterJogo(jogo.id, formaCadastro = FormaCadastro.CADASTRO_POR_LISTA)
+                        val jogoInserido = jogosDAO.obterJogoPorFormaCadastro(jogo.id, formaCadastro = FormaCadastro.CADASTRO_POR_LISTA)
                         if (jogoInserido == null) {
                             jogosDAO.inserir(jogo)
                         } else {
@@ -102,7 +102,7 @@ class AdicionarJogosActivity : BaseActivity() {
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
                     val removerDasListas = view.chkRemoverDasListas.isChecked
 
-                    val jogo = jogosDAO.obterJogo(jogoId)
+                    val jogo = jogosDAO.obterJogoPorFormaCadastro(jogoId)
 
                     if (removerDasListas) {
                         listasDAO.removerJogoTodasListas(jogoId)
@@ -177,7 +177,7 @@ class AdicionarJogosActivity : BaseActivity() {
     private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogo: Jogo) {
 
         // Verificando se o jogo já está cadastrado no banco na hora de inserir na lista
-        if (jogosDAO.obterJogo(jogo.id) == null) {
+        if (jogosDAO.obterJogoPorFormaCadastro(jogo.id) == null) {
             jogo.formaCadastro = FormaCadastro.CADASTRO_POR_LISTA
             jogosDAO.inserir(jogo)
         }

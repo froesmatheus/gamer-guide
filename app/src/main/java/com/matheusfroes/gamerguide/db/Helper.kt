@@ -231,8 +231,8 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
     private fun getFontesNoticias(): List<FonteNoticia> = listOf(
             FonteNoticia(nome = "Eurogamer", website = "http://www.eurogamer.pt/?format=rss", ativado = true),
-            FonteNoticia(nome = "CriticalHits", website = "https://criticalhits.com.br/feed/", ativado = true),
-            FonteNoticia(nome = "Combo Infinito", website = "http://www.comboinfinito.com.br/principal/feed/", ativado = true)
+            FonteNoticia(nome = "CriticalHits", website = "https://criticalhits.com.br/feed/", ativado = true)
+//            FonteNoticia(nome = "Combo Infinito", website = "http://www.comboinfinito.com.br/principal/feed/", ativado = true)
     )
 
     private fun getPlataformas() = listOf(

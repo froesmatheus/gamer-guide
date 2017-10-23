@@ -95,7 +95,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
     private fun dialogDetalhesJogo(jogo: Jogo) {
         val dao = JogosDAO(context)
 
-        val jogoSalvo = dao.obterJogo(jogo.id) != null
+        val jogoSalvo = dao.obterJogoPorFormaCadastro(jogo.id) != null
 
 
         val textoBotao = if (jogoSalvo) context.getString(R.string.btn_remover) else context.getString(R.string.btn_adicionar)

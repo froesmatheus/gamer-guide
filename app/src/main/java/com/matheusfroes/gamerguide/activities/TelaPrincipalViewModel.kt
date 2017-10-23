@@ -45,7 +45,7 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     fun alterarStatusJogo(jogoId: Long, zerado: Boolean) {
-        val jogo = jogosDAO.obterJogo(jogoId)
+        val jogo = jogosDAO.obterJogoPorFormaCadastro(jogoId)
         if (jogo?.progresso != null) {
             jogo.progresso.zerado = zerado
             progressosDAO.atualizarProgresso(jogo.progresso, jogoId)

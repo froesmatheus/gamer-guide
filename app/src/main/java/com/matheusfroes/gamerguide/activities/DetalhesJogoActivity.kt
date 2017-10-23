@@ -7,16 +7,21 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.DetalhesJogosFragmentAdapter
 import com.matheusfroes.gamerguide.db.JogosDAO
+import com.matheusfroes.gamerguide.db.ListasDAO
+import com.matheusfroes.gamerguide.models.FormaCadastro
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.obterImagemJogoCapa
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
+import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import org.greenrobot.eventbus.EventBus
 
 
@@ -30,6 +35,7 @@ class DetalhesJogoActivity : AppCompatActivity() {
     private val preferences: SharedPreferences by lazy {
         getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
     }
+    var jogoSalvo = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val appTheme = preferences.getString("APP_THEME", "DEFAULT")
@@ -38,9 +44,6 @@ class DetalhesJogoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_jogo)
         setSupportActionBar(toolbar)
-
-        //collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedAppBarText)
-
 
         appBar.post {
             val heightPx = ivCapaJogo.height
@@ -61,7 +64,7 @@ class DetalhesJogoActivity : AppCompatActivity() {
             intent.getSerializableExtra("jogo") as Jogo
         }
         jogoId = jogo.id
-        var jogoSalvo = jogosDAO.obterJogo(jogo.id) != null
+        jogoSalvo = jogosDAO.obterJogoPorFormaCadastro(jogo.id) != null
         if (jogoSalvo) {
             fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
         } else {
@@ -94,24 +97,50 @@ class DetalhesJogoActivity : AppCompatActivity() {
         }
 
         fabAdicinarJogo.setOnClickListener {
-            val snackbar: Snackbar
 
             if (jogoSalvo) {
-                snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_removido), Snackbar.LENGTH_LONG)
-                jogosDAO.remover(jogoId)
-                jogoSalvo = false
-                EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
-                fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
+                dialogRemoverJogo(jogoId)
             } else {
-                snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
+                val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
                 jogosDAO.inserir(jogo)
                 jogoSalvo = true
                 EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
                 fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
+                snackbar.show()
             }
 
-            snackbar.show()
         }
+    }
+
+    private fun dialogRemoverJogo(jogoId: Long) {
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_remover_jogo, null, false)
+
+        val listasDAO = ListasDAO(this)
+        val dialog = AlertDialog.Builder(this)
+                .setView(view)
+                .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
+                    val removerDasListas = view.chkRemoverDasListas.isChecked
+
+                    val jogo = jogosDAO.obterJogoPorFormaCadastro(jogoId)
+
+                    if (removerDasListas) {
+                        listasDAO.removerJogoTodasListas(jogoId)
+                        jogosDAO.remover(jogoId)
+                    } else {
+                        jogo?.formaCadastro = FormaCadastro.CADASTRO_POR_LISTA
+                        jogosDAO.atualizar(jogo!!)
+                    }
+
+                    jogoSalvo = false
+                    EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+                    fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
+                    val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_removido), Snackbar.LENGTH_LONG)
+                    snackbar.show()
+                }
+                .setNegativeButton(getString(R.string.cancelar), null)
+                .create()
+
+        dialog.show()
     }
 
     private fun setAppBarOffset(offsetPx: Int) {
