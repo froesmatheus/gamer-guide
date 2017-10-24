@@ -111,5 +111,11 @@
     <string name="espectadores_stream">%1$d espectadores</string>
     <string name="reinicie_app_msg">Reinicie a aplicação para aplicar o tema</string>
     <string name="progresso">Progresso</string>
+    <string name="feed_noticias">Feed de notícias</string>
+    <string name="calendario">Calendário</string>
+    <string name="listas">Listas</string>
+    <string name="jogos">Jogos</string>
+    <string name="estatisticas">Estatísticas</string>
+    <string name="plataforma">Plataforma</string>
 
 </resources>

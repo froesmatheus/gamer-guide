@@ -20,7 +20,7 @@ class EstatisticasActivity : BaseActivityDrawer() {
         setContentView(R.layout.activity_estatisticas)
         setSupportActionBar(toolbar)
         configurarDrawer()
-        title = "Estatísticas"
+        title = getString(R.string.estatisticas)
 
         tvQtdJogosNaoTerminados.text = "${jogosDAO.quantidadeJogos(zerado = false)}"
         tvQtdJogosZerados.text = "${jogosDAO.quantidadeJogos(zerado = true)}"

@@ -32,7 +32,7 @@ class FeedActivity : BaseActivityDrawer() {
         setSupportActionBar(toolbar)
         configurarDrawer()
 
-        title = "Feed de notícias"
+        title = getString(R.string.feed_noticias)
 
         adapter = FeedAdapter(this)
 

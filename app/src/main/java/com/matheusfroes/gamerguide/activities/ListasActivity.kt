@@ -42,7 +42,7 @@ class ListasActivity : BaseActivityDrawer() {
         setContentView(R.layout.activity_listas)
         setSupportActionBar(toolbar)
         configurarDrawer()
-        title = "Listas"
+        title = getString(R.string.listas)
 
 
         fab.setOnClickListener { dialogAdicionarLista() }

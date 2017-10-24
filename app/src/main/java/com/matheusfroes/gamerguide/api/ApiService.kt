@@ -1,6 +1,7 @@
 package com.matheusfroes.gamerguide.api
 
 import com.matheusfroes.gamerguide.models.GameResponse
+import com.matheusfroes.gamerguide.models.ObterLancamentosResponse
 import com.matheusfroes.gamerguide.models.ObterStreamsResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -33,4 +34,13 @@ interface ApiService {
     @GET("https://api.twitch.tv/kraken/streams")
     @Headers("Client-Id:8xydr1gey20rwhe79m5i328fitovuz")
     fun obterStreamsPorJogo(@Query("game") nomeJogo: String, @Query("limit") limit: Int = 10, @Query("offset") offset: Int = 0): Call<ObterStreamsResponse>
+
+
+    @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
+    @GET("release_dates/")
+    fun obterUltimosLancamentos(
+            @Query("filter[date][gt]") dataLancamento: Long,
+            @Query("fields") fields: String = "game.name,game.cover.url,date,platform,region",
+            @Query("expand") expands: String = "game",
+            @Query("order") order: String = "date:asc"): Call<List<ObterLancamentosResponse>>
 }

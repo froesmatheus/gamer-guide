@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import com.matheusfroes.gamerguide.db.PlataformasDAO
-import com.matheusfroes.gamerguide.models.GameResponse
-import com.matheusfroes.gamerguide.models.Jogo
-import com.matheusfroes.gamerguide.models.Plataforma
-import com.matheusfroes.gamerguide.models.ReleaseDate
+import com.matheusfroes.gamerguide.models.*
 import java.util.*
 
 /**
@@ -33,6 +30,29 @@ fun normalizarDadosJogo(game: GameResponse, plataformasDAO: PlataformasDAO): Jog
                 game.gameEngines?.joinToString() ?: "",
                 game.timeToBeat,
                 adicionarSchemaUrl(game.cover?.url))
+
+fun normalizarDadosLancamentos(lancamentosResponse: ObterLancamentosResponse, plataformasDAO: PlataformasDAO): Lancamento {
+    return Lancamento(
+            game = extrairJogoLancamento(lancamentosResponse.game),
+            platform = plataformasDAO.obterPlataforma(lancamentosResponse.platform),
+            date = Date(lancamentosResponse.date),
+            region = extrairRegiao(lancamentosResponse.region)
+    )
+}
+
+fun extrairRegiao(region: Int) = when (region) {
+    1 -> REGIAO_EUROPA
+    2 -> REGIAO_AMERICA_NORTE
+    3 -> REGIAO_AUSTRALIA
+    4 -> REGIAO_NOVA_ZELANDIA
+    5 -> REGIAO_JAPAO
+    6 -> REGIAO_CHINA
+    7 -> REGIAO_ASIA
+    8 -> REGIAO_MUNDIAL
+    else -> REGIAO_MUNDIAL
+}
+
+fun extrairJogoLancamento(game: GameResponse): JogoLancamento = JogoLancamento(game.id, game.name!!)
 
 fun extrairPlataformas(releaseDates: List<ReleaseDate>, plataformasDAO: PlataformasDAO): List<Plataforma> {
     return releaseDates

@@ -44,7 +44,7 @@ class MeusJogosActivity : BaseActivityDrawer() {
 
         tabLayout.visibility = View.VISIBLE
 
-        title = "Jogos"
+        title = getString(R.string.jogos)
 
         val adapter = JogosFragmentAdapter(this, supportFragmentManager)
         viewPager.adapter = adapter
