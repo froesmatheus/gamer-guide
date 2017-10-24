@@ -37,7 +37,6 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
         // Tabela ligação Jogos/Plataformas
         val TABELA_JOGOS_PLATAFORMAS = "jogos_plataformas"
-        val JOGOS_PLATAFORMAS_ID = "_id"
         val JOGOS_PLATAFORMAS_ID_JOGO = "id_jogo"
         val JOGOS_PLATAFORMAS_ID_PLATAFORMA = "id_plataforma"
 
@@ -48,13 +47,11 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
         // Tabela ligação Listas/Jogos
         val TABELA_LISTAS_JOGOS = "listas_jogos"
-        val LISTAS_JOGOS_ID = "_id"
         val LISTAS_JOGOS_ID_LISTA = "id_lista"
         val LISTAS_JOGOS_ID_JOGO = "id_jogo"
 
         // Tabela de Vídeos
         val TABELA_VIDEOS = "videos"
-        val VIDEOS_ID = "_id"
         val VIDEOS_ID_JOGO = "id_jogo"
         val VIDEOS_NOME = "nome"
         val VIDEOS_VIDEOID = "video_id"
@@ -100,9 +97,9 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
         val CREATE_TABLE_JOGOS_PLATAFORMAS = """
             CREATE TABLE $TABELA_JOGOS_PLATAFORMAS(
-                $JOGOS_PLATAFORMAS_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 $JOGOS_PLATAFORMAS_ID_JOGO INTEGER NOT NULL,
                 $JOGOS_PLATAFORMAS_ID_PLATAFORMA INTEGER NOT NULL,
+                PRIMARY KEY($JOGOS_PLATAFORMAS_ID_JOGO, $JOGOS_PLATAFORMAS_ID_PLATAFORMA),
                 FOREIGN KEY($JOGOS_PLATAFORMAS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID),
                 FOREIGN KEY($JOGOS_PLATAFORMAS_ID_PLATAFORMA) REFERENCES $TABELA_PLATAFORMAS($PLATAFORMAS_ID));"""
 
@@ -113,18 +110,18 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
         val CREATE_TABLE_LISTAS_JOGOS = """
             CREATE TABLE $TABELA_LISTAS_JOGOS(
-                $LISTAS_JOGOS_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 $LISTAS_JOGOS_ID_JOGO INTEGER NOT NULL,
                 $LISTAS_JOGOS_ID_LISTA INTEGER NOT NULL,
+                PRIMARY KEY($LISTAS_JOGOS_ID_JOGO, $LISTAS_JOGOS_ID_LISTA),
                 FOREIGN KEY($LISTAS_JOGOS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID),
                 FOREIGN KEY($LISTAS_JOGOS_ID_LISTA) REFERENCES $TABELA_LISTAS($LISTAS_ID));"""
 
         val CREATE_TABLE_VIDEOS = """
             CREATE TABLE $TABELA_VIDEOS(
-                $VIDEOS_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 $VIDEOS_ID_JOGO INTEGER NOT NULL,
                 $VIDEOS_NOME TEXT NOT NULL,
                 $VIDEOS_VIDEOID TEXT NOT NULL,
+                PRIMARY KEY($VIDEOS_ID_JOGO, $VIDEOS_VIDEOID),
                 FOREIGN KEY($VIDEOS_ID_JOGO) REFERENCES $TABELA_JOGOS($JOGOS_ID));"""
 
         val CREATE_TABLE_PROGRESSOS = """
