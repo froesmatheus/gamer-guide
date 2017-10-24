@@ -32,5 +32,5 @@ interface ApiService {
 
     @GET("https://api.twitch.tv/kraken/streams")
     @Headers("Client-Id:8xydr1gey20rwhe79m5i328fitovuz")
-    fun obterStreamsPorJogo(@Query("game") nomeJogo: String, @Query("limit") limit: Int = 10, @Query("offset") offset: Int = 0) : Call<ObterStreamsResponse>
+    fun obterStreamsPorJogo(@Query("game") nomeJogo: String, @Query("limit") limit: Int = 10, @Query("offset") offset: Int = 0): Call<ObterStreamsResponse>
 }

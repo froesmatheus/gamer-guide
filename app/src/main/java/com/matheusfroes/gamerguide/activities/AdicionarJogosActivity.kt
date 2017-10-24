@@ -7,10 +7,13 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import com.matheusfroes.gamerguide.*
+import com.matheusfroes.gamerguide.EndlessScrollListener
+import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
+import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.AdicionarJogosAdapter
 import com.matheusfroes.gamerguide.db.JogosDAO
 import com.matheusfroes.gamerguide.db.ListasDAO
+import com.matheusfroes.gamerguide.esconderTeclado
 import com.matheusfroes.gamerguide.models.FormaCadastro
 import com.matheusfroes.gamerguide.models.Jogo
 import com.matheusfroes.gamerguide.models.Lista

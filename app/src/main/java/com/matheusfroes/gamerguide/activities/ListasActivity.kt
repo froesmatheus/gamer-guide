@@ -14,9 +14,9 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.ListasAdapter
 import com.matheusfroes.gamerguide.db.ListasDAO
 import com.matheusfroes.gamerguide.models.Lista
+import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.dialog_adicionar_lista.view.*
 import kotlinx.android.synthetic.main.fab.*
-import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
