@@ -53,7 +53,7 @@ class AppRepository {
     fun atualizarFeed(context: Context): MutableList<Noticia> {
         val fontesDAO = FonteNoticiasDAO(context)
         val fontes = fontesDAO.obterFonteNoticias(ativos = true).map { it.website }
-        val noticias = mutableListOf<Noticia>()
+        val noticias = mutableSetOf<Noticia>()
 
         fontes.map {
             PkRSS.with(context).load(it).skipCache().safe(true).callback(object : Callback {
@@ -69,9 +69,11 @@ class AppRepository {
             }).get()
         }.forEach { noticias.addAll(extrairNoticias(it)) }
 
-        noticias.sortByDescending { it.dataPublicacao }
+        val lista = noticias.toMutableList()
 
-        return noticias
+        lista.sortByDescending { it.dataPublicacao }
+
+        return lista
     }
 
     private fun extrairNoticias(newArticles: MutableList<Article>): MutableList<Noticia> {
