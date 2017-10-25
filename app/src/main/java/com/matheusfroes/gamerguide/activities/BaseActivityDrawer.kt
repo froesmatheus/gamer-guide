@@ -14,10 +14,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import kotlinx.android.synthetic.main.toolbar.*
 
 
-/**
- * Created by matheus_froes on 17/10/2017.
- */
-
 open class BaseActivityDrawer : AppCompatActivity() {
     lateinit var drawer: Drawer
     private val NAVDRAWER_CLOSE_DELAY = 200L
@@ -64,7 +60,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
                         item6
                 ).build()
 
-        drawer.setOnDrawerItemClickListener { view, position, drawerItem ->
+        drawer.setOnDrawerItemClickListener { _, _, drawerItem ->
             mudarTela(drawerItem.identifier)
             true
         }

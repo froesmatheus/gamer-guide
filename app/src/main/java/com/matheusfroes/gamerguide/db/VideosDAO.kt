@@ -5,13 +5,10 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.models.Video
 
-/**
- * Created by matheus_froes on 28/09/2017.
- */
 class VideosDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
 
-    fun inserir(videos: List<Video>, jogoId: Long, database: SQLiteDatabase = db) {
+    fun inserir(videos: List<Video>, jogoId: Long) {
         db.beginTransaction()
         try {
             val cv = ContentValues()

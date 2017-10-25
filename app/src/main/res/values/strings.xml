@@ -118,4 +118,5 @@
     <string name="jogos">Jogos</string>
     <string name="estatisticas">Estatísticas</string>
     <string name="plataforma">Plataforma</string>
+    <string name="progresso_usuario">%1$s%</string>
 </resources>

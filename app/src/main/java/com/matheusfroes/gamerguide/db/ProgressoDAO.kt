@@ -5,13 +5,11 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.models.ProgressoJogo
 
-/**
- * Created by matheus_froes on 28/09/2017.
- */
+
 class ProgressoDAO(val context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
 
-    private fun inserir(progresso: ProgressoJogo, idJogo: Long, database: SQLiteDatabase = db) {
+    private fun inserir(progresso: ProgressoJogo, idJogo: Long) {
         val cv = ContentValues()
 
         cv.put(Helper.PROGRESSOS_HORAS_JOGADAS, progresso.horasJogadas)

@@ -8,9 +8,7 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.models.FonteNoticia
 import kotlinx.android.synthetic.main.view_fonte_noticia.view.*
 
-/**
- * Created by matheusfroes on 21/09/2017.
- */
+
 class FonteNoticiasAdapter(
         private val context: Context,
         private val fontes: List<FonteNoticia>) : RecyclerView.Adapter<FonteNoticiasAdapter.ViewHolder>() {
@@ -47,7 +45,7 @@ class FonteNoticiasAdapter(
                 itemView.switchFonteNoticia.isChecked = !itemView.switchFonteNoticia.isChecked
             }
 
-            itemView.switchFonteNoticia.setOnCheckedChangeListener { buttonView, isChecked ->
+            itemView.switchFonteNoticia.setOnCheckedChangeListener { _, isChecked ->
                 val fonteNoticia = fontes[adapterPosition]
 
                 listener?.alterarStatus(fonteNoticia.id, isChecked)

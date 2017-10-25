@@ -16,9 +16,7 @@ import com.matheusfroes.gamerguide.models.Jogo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_pesquisa.view.*
 
-/**
- * Created by matheusfroes on 21/09/2017.
- */
+
 class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter<AdicionarJogosAdapter.ViewHolder>() {
     private var jogos: MutableList<Jogo> = mutableListOf()
     private var listener: OnAdicionarJogoListener? = null
@@ -87,7 +85,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
         val textoBotao = if (jogoSalvo) context.getString(R.string.btn_remover) else context.getString(R.string.btn_adicionar)
 
         val dialog = DialogDetalhesJogo(context, jogo)
-                .setPositiveButton(textoBotao) { dialogInterface, i ->
+                .setPositiveButton(textoBotao) { _, _ ->
                     if (jogoSalvo) {
                         this.listener?.onMenuItemClick("remover_jogo", jogo)
                     } else {

@@ -66,7 +66,7 @@ class ConfiguracoesActivity : AppCompatPreferenceActivity() {
         }
 
 
-        switchHabilitarModoNoturno.setOnPreferenceChangeListener { preference, any ->
+        switchHabilitarModoNoturno.setOnPreferenceChangeListener { _, any ->
             val modoNoturnoHabilitado = any as Boolean
 
             if (modoNoturnoHabilitado) {

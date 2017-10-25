@@ -143,8 +143,8 @@ class AdicionarJogosActivity : BaseActivity() {
 
         val dialog = AlertDialog.Builder(this)
                 .setTitle(getString(R.string.gerenciar_listas))
-                .setNegativeButton(getString(R.string.cancelar)) { dialogInterface, i -> }
-                .setMultiChoiceItems(listasStr, jogoJaCadastrado.toBooleanArray()) { dialog, which, isChecked ->
+                .setNegativeButton(getString(R.string.cancelar)) { _, _ -> }
+                .setMultiChoiceItems(listasStr, jogoJaCadastrado.toBooleanArray()) { _, which, isChecked ->
                     if (isChecked && !jogoJaCadastrado[which]) {
                         jogosAdicionarNaLista.add(listas[which])
                     } else if (isChecked && jogoJaCadastrado[which]) {
@@ -155,7 +155,7 @@ class AdicionarJogosActivity : BaseActivity() {
                         jogosRemoverDaLista.add(listas[which])
                     }
                 }
-                .setPositiveButton(getString(R.string.confirmar)) { dialogInterface, i ->
+                .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
                     adicionarJogosLista(jogosAdicionarNaLista, jogo)
                     removerJogosLista(jogosRemoverDaLista, jogo)
                 }

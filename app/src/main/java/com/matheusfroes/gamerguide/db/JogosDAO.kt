@@ -9,9 +9,7 @@ import com.matheusfroes.gamerguide.models.FormaCadastro
 import com.matheusfroes.gamerguide.models.Jogo
 import java.util.*
 
-/**
- * Created by matheus_froes on 28/09/2017.
- */
+
 class JogosDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
     private val videosDAO: VideosDAO by lazy {
@@ -49,8 +47,8 @@ class JogosDAO(context: Context) {
             db.insert(Helper.TABELA_JOGOS_PLATAFORMAS, null, cvPlataformas)
         }
 
-        videosDAO.inserir(jogo.videos, jogo.id, db)
-        timeToBeatDAO.inserir(jogo.timeToBeat, jogo.id, db)
+        videosDAO.inserir(jogo.videos, jogo.id)
+        timeToBeatDAO.inserir(jogo.timeToBeat, jogo.id)
         progressosDAO.atualizarProgresso(jogo.progresso, jogo.id)
 
         db.insert(Helper.TABELA_JOGOS, null, cv)

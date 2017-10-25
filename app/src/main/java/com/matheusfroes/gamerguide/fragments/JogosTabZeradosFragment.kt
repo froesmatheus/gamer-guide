@@ -23,9 +23,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
 
-/**
- * Created by matheusfroes on 20/09/2017.
- */
+
 class JogosTabZeradosFragment : Fragment() {
     val adapter: MeusJogosAdapter by lazy {
         MeusJogosAdapter(context)
@@ -102,7 +100,7 @@ class JogosTabZeradosFragment : Fragment() {
 
         val dialog = AlertDialog.Builder(context)
                 .setView(view)
-                .setPositiveButton(getString(R.string.atualizar)) { dialogInterface, i ->
+                .setPositiveButton(getString(R.string.atualizar)) { _, _ ->
                     var horasJogadasStr = view.etHorasJogadas.text.toString().trim()
                     horasJogadasStr = if (horasJogadasStr.isEmpty()) "0" else horasJogadasStr
 

@@ -22,9 +22,6 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
 import org.jetbrains.anko.toast
 
 
-/**
- * Created by matheus_froes on 26/09/2017.
- */
 class InformacoesGeraisJogoFragment : Fragment() {
     private val viewModel: DetalhesJogoViewModel by lazy {
         ViewModelProviders.of(activity).get(DetalhesJogoViewModel::class.java)
@@ -177,7 +174,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
 
         val dialog = AlertDialog.Builder(context)
                 .setView(view)
-                .setPositiveButton(getString(R.string.atualizar)) { dialogInterface, i ->
+                .setPositiveButton(getString(R.string.atualizar)) { _, _ ->
                     var horasJogadasStr = view.etHorasJogadas.text.toString().trim()
                     horasJogadasStr = if (horasJogadasStr.isEmpty()) "0" else horasJogadasStr
 

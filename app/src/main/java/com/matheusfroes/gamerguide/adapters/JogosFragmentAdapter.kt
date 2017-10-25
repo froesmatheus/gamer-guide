@@ -1,7 +1,6 @@
 package com.matheusfroes.gamerguide.adapters
 
 import android.content.Context
-import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -9,15 +8,12 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.fragments.JogosTabNaoTerminadosFragment
 import com.matheusfroes.gamerguide.fragments.JogosTabZeradosFragment
 
-/**
- * Created by matheusfroes on 20/09/2017.
- */
+
 class JogosFragmentAdapter(val context: Context, fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
     private val jogosZerados = JogosTabZeradosFragment()
     private val jogosNaoTerminados = JogosTabNaoTerminadosFragment()
 
     override fun getItem(position: Int): Fragment {
-        val bundle = Bundle()
         return when (position) {
             0 -> jogosNaoTerminados
             1 -> jogosZerados

@@ -5,16 +5,14 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.models.TimeToBeat
 
-/**
- * Created by matheus_froes on 28/09/2017.
- */
+
 class TimeToBeatDAO(val context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
     private val jogosDAO: JogosDAO by lazy {
         JogosDAO(context)
     }
 
-    fun inserir(timeToBeat: TimeToBeat?, idJogo: Long, database: SQLiteDatabase = db) {
+    fun inserir(timeToBeat: TimeToBeat?, idJogo: Long) {
         val cv = ContentValues()
 
         timeToBeat?.apply {
