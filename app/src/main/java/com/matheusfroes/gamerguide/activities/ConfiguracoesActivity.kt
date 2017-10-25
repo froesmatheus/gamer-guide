@@ -13,6 +13,7 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
 import org.jetbrains.anko.toast
 
+
 @Suppress("DEPRECATION")
 /**
  * A [PreferenceActivity] that presents a set of application settings. On
@@ -73,6 +74,7 @@ class ConfiguracoesActivity : AppCompatPreferenceActivity() {
             } else {
                 preferences.edit().putString("APP_THEME", "DEFAULT").apply()
             }
+
             toast(getString(R.string.reinicie_app_msg))
             true
         }

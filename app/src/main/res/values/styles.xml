@@ -7,6 +7,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
     <style name="ConfiguracoesTheme.OLED" parent="Theme.AppCompat">
@@ -16,6 +17,7 @@
         <item name="colorAccent">@android:color/white</item>
 
         <item name="android:windowBackground">@color/black</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -25,6 +27,7 @@
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
 
@@ -47,6 +50,7 @@
         </item>
 
         <item name="android:windowBackground">@color/black</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
     <style name="AppTheme.DetalhesJogo" parent="Theme.AppCompat.Light.NoActionBar">
@@ -70,6 +74,10 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@anim/activity_fade_enter</item>
+        <item name="android:windowExitAnimation">@anim/activity_fade_exit</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

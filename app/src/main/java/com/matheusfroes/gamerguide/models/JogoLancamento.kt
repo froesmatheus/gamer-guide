@@ -12,8 +12,8 @@ val REGIAO_CHINA = "China"
 val REGIAO_ASIA = "Ásia"
 val REGIAO_MUNDIAL = "Mundial"
 
-
 data class JogoLancamento(
         val id: Long,
-        val nome: String
+        val nome: String,
+        val cover: String
 )

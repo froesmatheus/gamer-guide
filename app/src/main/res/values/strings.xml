@@ -13,7 +13,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="titulo_noticia">Título da notícia</string>
     <string name="nome_da_lista">Nome da lista</string>
-    <string name="quantidade_de_jogos">Quantidade de jogos</string>
+    <string name="quantidade_de_jogos">Quantidade de lancamentos</string>
     <string name="nome_do_jogo">Nome do Jogo</string>
     <string name="produtora">Produtora</string>
     <string name="continuar">Continuar</string>
@@ -29,13 +29,13 @@
 
     <plurals name="qtd_jogos">
         <item quantity="one">%d jogo</item>
-        <item quantity="other">%d jogos</item>
+        <item quantity="other">%d lancamentos</item>
     </plurals>
 
-    <string name="qtd_jogos_0">0 jogos</string>
+    <string name="qtd_jogos_0">0 lancamentos</string>
     <string name="empty_lista">Nenhuma lista adicionada\nClique no botão adicionar para criar novas listas</string>
     <string name="empty_stream">Nenhuma stream foi encontrada para este jogo</string>
-    <string name="empty_jogos">Nenhum jogo adicionado\nClique no botão adicionar para inserir novos jogos</string>
+    <string name="empty_jogos">Nenhum jogo adicionado\nClique no botão adicionar para inserir novos lancamentos</string>
     <string name="empty_jogos_lista">Nenhum jogo adicionado nesta lista</string>
 
     <string name="horas_jogadas">Horas Jogadas</string>
@@ -114,8 +114,8 @@
     <string name="feed_noticias">Feed de notícias</string>
     <string name="calendario">Calendário</string>
     <string name="listas">Listas</string>
+    <string name="lancamentos">Lançamentos</string>
     <string name="jogos">Jogos</string>
     <string name="estatisticas">Estatísticas</string>
     <string name="plataforma">Plataforma</string>
-
 </resources>

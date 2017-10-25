@@ -31,9 +31,9 @@ class AppRepository {
         val listaJogos = mutableListOf<GameResponse>()
 
         val call = if (nextPage.isEmpty()) {
-            service.pesquisar(query)
+            service.pesquisarJogos(query)
         } else {
-            service.proximaPagina(nextPage)
+            service.proximaPaginaJogos(nextPage)
         }
 
         val response = call.execute()

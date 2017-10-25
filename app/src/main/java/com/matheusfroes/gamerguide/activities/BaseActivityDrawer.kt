@@ -110,7 +110,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
 
         Handler().postDelayed({
             startActivity(intent)
-            overridePendingTransition(R.anim.activity_fade_enter, R.anim.activity_fade_exit)
+//            overridePendingTransition(R.anim.activity_fade_enter, R.anim.activity_fade_exit)
         }, NAVDRAWER_CLOSE_DELAY)
     }
 

@@ -19,7 +19,7 @@ interface ApiService {
 
     @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
     @GET("games/")
-    fun pesquisar(
+    fun pesquisarJogos(
             @Query("search") query: String,
             @Query("fields") fields: String = "name,id,summary,cover.url,game_engines,time_to_beat,developers,publishers,videos,first_release_date,genres,release_dates.date,release_dates.platform",
             @Query("expand") expands: String = "publishers,developers,genres,game_engines",
@@ -28,7 +28,7 @@ interface ApiService {
 
     @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
     @GET
-    fun proximaPagina(@Url scrollUrl: String): Call<List<GameResponse>>
+    fun proximaPaginaJogos(@Url scrollUrl: String): Call<List<GameResponse>>
 
 
     @GET("https://api.twitch.tv/kraken/streams")
@@ -42,5 +42,10 @@ interface ApiService {
             @Query("filter[date][gt]") dataLancamento: Long,
             @Query("fields") fields: String = "game.name,game.cover.url,date,platform,region",
             @Query("expand") expands: String = "game",
-            @Query("order") order: String = "date:asc"): Call<List<ObterLancamentosResponse>>
+            @Query("order") order: String = "date:asc",
+            @Query("scroll") scroll: String = "1"): Call<List<ObterLancamentosResponse>>
+
+    @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
+    @GET
+    fun proximaPaginaLancamentos(@Url scrollUrl: String): Call<List<ObterLancamentosResponse>>
 }

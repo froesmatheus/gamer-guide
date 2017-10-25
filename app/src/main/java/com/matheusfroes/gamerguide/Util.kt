@@ -52,7 +52,7 @@ fun extrairRegiao(region: Int) = when (region) {
     else -> REGIAO_MUNDIAL
 }
 
-fun extrairJogoLancamento(game: GameResponse): JogoLancamento = JogoLancamento(game.id, game.name!!)
+fun extrairJogoLancamento(game: GameResponse): JogoLancamento = JogoLancamento(game.id, game.name!!, adicionarSchemaUrl(game.cover?.url))
 
 fun extrairPlataformas(releaseDates: List<ReleaseDate>, plataformasDAO: PlataformasDAO): List<Plataforma> {
     return releaseDates

@@ -54,7 +54,7 @@
             android:text="@string/plataforma" />
 
         <TextView
-            android:id="@+id/tvPorcentagemProgresso"
+            android:id="@+id/tvPlataforma"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Xbox One"
