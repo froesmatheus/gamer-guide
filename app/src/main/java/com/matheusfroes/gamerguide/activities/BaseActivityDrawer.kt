@@ -42,7 +42,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
     }
 
     fun configurarDrawer(): Drawer {
-        val item1 = PrimaryDrawerItem().withIdentifier(MEUS_JOGOS_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_joystick).withName(R.string.titulo_jogos)
+        val item1 = PrimaryDrawerItem().withIdentifier(MEUS_JOGOS_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_gamepad).withName(R.string.titulo_jogos)
         val item2 = PrimaryDrawerItem().withIdentifier(CALENDARIO_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_calendario).withName(R.string.titulo_calendario)
         val item3 = PrimaryDrawerItem().withIdentifier(FEED_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_folded_newspaper).withName(R.string.titulo_feed)
         val item4 = PrimaryDrawerItem().withIdentifier(LISTAS_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_list).withName(R.string.titulo_listas)
