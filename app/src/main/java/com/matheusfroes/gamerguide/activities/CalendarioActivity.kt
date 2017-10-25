@@ -72,7 +72,7 @@ class CalendarioActivity : BaseActivityDrawer() {
             if (response.isSuccessful) {
                 val lancamentos = response.body()?.map { resp ->
                     normalizarDadosLancamentos(resp, plataformasDAO)
-                }?.toMutableList()
+                }?.distinctBy { it.game.nome }?.toMutableList()
 
                 uiThread {
                     lancamentosAdapter.preencherLista(lancamentos!!)

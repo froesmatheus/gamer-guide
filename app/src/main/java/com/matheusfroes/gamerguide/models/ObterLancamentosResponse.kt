@@ -18,4 +18,22 @@ data class Lancamento(
         val platform: Plataforma,
         val date: Date,
         val region: String
-)
+) {
+
+    override fun equals(other: Any?): Boolean {
+        return if (other is Lancamento) {
+            this.game.nome == other.game.nome
+        } else {
+            false
+        }
+
+    }
+
+    override fun hashCode(): Int {
+        var result = game.hashCode()
+        result = 31 * result + platform.hashCode()
+        result = 31 * result + date.hashCode()
+        result = 31 * result + region.hashCode()
+        return result
+    }
+}
