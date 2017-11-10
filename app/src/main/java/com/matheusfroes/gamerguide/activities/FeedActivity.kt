@@ -7,19 +7,14 @@ import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.adapters.FeedAdapter
-import com.matheusfroes.gamerguide.api.ApiService
 import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
 import com.matheusfroes.gamerguide.models.Noticia
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.doAsync
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 /**
@@ -36,8 +31,6 @@ class FeedActivity : BaseActivityDrawer() {
         setContentView(R.layout.activity_feed)
         setSupportActionBar(toolbar)
         configurarDrawer()
-
-        testesLomadee()
 
         title = getString(R.string.feed_noticias)
 
@@ -66,25 +59,6 @@ class FeedActivity : BaseActivityDrawer() {
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.atualizarFeed()
             swipeRefreshLayout.isRefreshing = false
-        }
-    }
-
-    private fun testesLomadee() {
-        val retrofit = Retrofit.Builder()
-                .baseUrl(ApiService.URL_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        val service = retrofit.create(ApiService::class.java)
-
-        val call = service.obterOfertasJogo("Destiny 2")
-
-        doAsync {
-            val response = call.execute()
-
-            if (response.isSuccessful) {
-                Log.d("GAMERGUIDE", response.body().toString())
-            }
         }
     }
 
