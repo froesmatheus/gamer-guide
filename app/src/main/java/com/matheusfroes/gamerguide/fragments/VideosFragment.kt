@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,12 @@ class VideosFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_videos, container, false)
+        val theme = if (viewModel.temaAtual.value == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
+
+        val context = ContextThemeWrapper(activity, theme)
+        val localInflater = inflater.cloneInContext(context)
+        val view = localInflater.inflate(R.layout.fragment_videos, container, false)
+
 
         view.rvVideos.layoutManager = GridLayoutManager(activity, 2, GridLayoutManager.VERTICAL, false)
         view.rvVideos.adapter = adapter

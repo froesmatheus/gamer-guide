@@ -9,4 +9,5 @@ import com.matheusfroes.gamerguide.models.Jogo
  */
 class DetalhesJogoViewModel : ViewModel() {
     var jogo = MutableLiveData<Jogo>()
+    val temaAtual = MutableLiveData<String>()
 }

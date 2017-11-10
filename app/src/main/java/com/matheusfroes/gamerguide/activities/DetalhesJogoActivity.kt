@@ -45,6 +45,8 @@ class DetalhesJogoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detalhes_jogo)
         setSupportActionBar(toolbar)
 
+        viewModel.temaAtual.value = preferences.getString("APP_THEME", "DEFAULT")
+
         appBar.post {
             val heightPx = ivCapaJogo.height
             setAppBarOffset(heightPx / 2)

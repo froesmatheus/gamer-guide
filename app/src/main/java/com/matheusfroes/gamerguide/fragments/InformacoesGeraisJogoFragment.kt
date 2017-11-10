@@ -8,6 +8,7 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +32,11 @@ class InformacoesGeraisJogoFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_informacoes_gerais, container, false)
+        val theme = if (viewModel.temaAtual.value == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
+
+        val context = ContextThemeWrapper(activity, theme)
+        val localInflater = inflater.cloneInContext(context)
+        val view = localInflater.inflate(R.layout.fragment_informacoes_gerais, container, false)
 
         viewModel.jogo.observe(this, Observer { jogo ->
             preencherDadosJogo(view, jogo)

@@ -4,11 +4,10 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.EndlessScrollListener
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activities.DetalhesJogoViewModel
 import com.matheusfroes.gamerguide.adapters.OfertasAdapter
@@ -39,7 +38,12 @@ class OfertasFragment : Fragment() {
     var apiOffset = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_ofertas, container, false)
+        val theme = if (viewModel.temaAtual.value == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
+
+        val context = ContextThemeWrapper(activity, theme)
+        val localInflater = inflater.cloneInContext(context)
+        val view = localInflater.inflate(R.layout.fragment_ofertas, container, false)
+
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.rvOfertas.emptyView = layoutEmpty
