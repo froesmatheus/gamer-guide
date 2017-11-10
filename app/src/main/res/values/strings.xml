@@ -49,7 +49,7 @@
     <string name="btn_remover">Remover</string>
     <string name="Detalhes">Detalhes</string>
     <string name="tab_progresso">Progresso</string>
-    <string name="tab_informacoes">Informações</string>
+    <string name="tab_informacoes">Info</string>
     <string name="tab_videos">Vídeos</string>
     <string name="confirmar">Confirmar</string>
     <string name="gerenciar_listas">Gerenciar listas</string>
@@ -119,4 +119,7 @@
     <string name="estatisticas">Estatísticas</string>
     <string name="plataforma">Plataforma</string>
     <string name="progresso_usuario">%1$s%</string>
+    <string name="melhor_preco">Melhor preço</string>
+    <string name="comprar">Comprar</string>
+    <string name="ofertas">Ofertas</string>
 </resources>

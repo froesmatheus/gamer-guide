@@ -1,6 +1,7 @@
 package com.matheusfroes.gamerguide.api
 
 import com.matheusfroes.gamerguide.models.GameResponse
+import com.matheusfroes.gamerguide.models.LomadeeResponse
 import com.matheusfroes.gamerguide.models.ObterLancamentosResponse
 import com.matheusfroes.gamerguide.models.ObterStreamsResponse
 import retrofit2.Call
@@ -48,4 +49,8 @@ interface ApiService {
     @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
     @GET
     fun proximaPaginaLancamentos(@Url scrollUrl: String): Call<List<ObterLancamentosResponse>>
+
+
+    @GET("https://sandbox-api.lomadee.com/v2/15103313189856185110c/product/_search?sourceId=35877935&categoryId=6409")
+    fun obterOfertasJogo(@Query("keyword") keyword: String): Call<LomadeeResponse>
 }
