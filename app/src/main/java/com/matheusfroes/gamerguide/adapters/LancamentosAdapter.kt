@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.formatarData
-import com.matheusfroes.gamerguide.models.Lancamento
+import com.matheusfroes.gamerguide.models.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_lancamento2.view.*
 
@@ -33,6 +33,23 @@ class LancamentosAdapter(private val context: Context) : RecyclerView.Adapter<La
         holder.itemView.tvNomeJogo.text = lancamento.game.nome
         holder.itemView.tvDataLancamento.text = lancamento.date.formatarData("dd/MM/yyyy")
         holder.itemView.tvPlataforma.text = lancamento.platform.toString()
+        holder.itemView.tvRegiao.text = lancamento.region
+
+        val imagemRegiao = when (lancamento.region) {
+            REGIAO_AMERICA_NORTE -> R.drawable.regiao_america_norte
+            REGIAO_EUROPA -> R.drawable.regiao_europa
+            REGIAO_AUSTRALIA -> R.drawable.regiao_australia
+            REGIAO_NOVA_ZELANDIA -> R.drawable.regiao_nova_zelandia
+            REGIAO_JAPAO -> R.drawable.regiao_japao
+            REGIAO_CHINA -> R.drawable.regiao_china
+            REGIAO_ASIA -> R.drawable.regiao_asia
+            REGIAO_MUNDIAL -> R.drawable.regiao_mundial
+            else -> R.drawable.regiao_mundial
+        }
+
+        holder.itemView.ivRegiao.setImageResource(imagemRegiao)
+
+
 
         holder.capaVisivel = !lancamento.game.cover.isEmpty()
 

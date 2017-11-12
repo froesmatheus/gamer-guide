@@ -52,6 +52,7 @@ dependencies {
     compile('com.mikepenz:materialdrawer:5.9.5@aar') {
         transitive = true
     }
+    compile 'agency.tango.android:material-intro-screen:0.0.5'
 }
 repositories {
     mavenCentral()

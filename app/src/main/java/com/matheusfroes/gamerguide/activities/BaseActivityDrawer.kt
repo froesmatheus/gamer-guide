@@ -28,6 +28,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
         val CALENDARIO_IDENTIFIER = 1L
         val MEUS_JOGOS_IDENTIFIER = 0L
         val CONFIGURACOES_IDENTIFIER = 5L
+        val AJUDA_IDENTIFIER = 6L
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
         val item4 = PrimaryDrawerItem().withIdentifier(LISTAS_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_list).withName(R.string.titulo_listas)
         val item5 = PrimaryDrawerItem().withIdentifier(ESTATISTICAS_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_estatistica).withName(R.string.titulo_estatiticas)
         val item6 = PrimaryDrawerItem().withIdentifier(CONFIGURACOES_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_configuracoes).withName(R.string.configuracoes)
+        val item7 = PrimaryDrawerItem().withIdentifier(AJUDA_IDENTIFIER).withIconTintingEnabled(true).withIcon(R.drawable.ic_ajuda).withName(R.string.ajuda)
 
 
         drawer = DrawerBuilder()
@@ -98,6 +100,9 @@ open class BaseActivityDrawer : AppCompatActivity() {
             CONFIGURACOES_IDENTIFIER -> {
                 Intent(this, ConfiguracoesActivity::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+            AJUDA_IDENTIFIER -> {
+                Intent(this, IntroducaoActivity::class.java)
             }
             else -> Intent(this, ListasActivity::class.java)
         }

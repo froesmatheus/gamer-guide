@@ -60,6 +60,10 @@
             android:name=".activities.ConfiguracoesActivity"
             android:label="@string/title_activity_configuracoes"
             android:theme="@style/ConfiguracoesTheme" />
+
+        <activity
+            android:name=".activities.IntroducaoActivity"
+            android:theme="@style/Theme.Intro" />
     </application>
 
 </manifest>
