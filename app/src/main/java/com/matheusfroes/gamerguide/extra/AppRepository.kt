@@ -3,20 +3,16 @@ package com.matheusfroes.gamerguide.extra
 import android.content.Context
 import android.util.Log
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
-import com.matheusfroes.gamerguide.api.ApiService
-import com.matheusfroes.gamerguide.db.FonteNoticiasDAO
-import com.matheusfroes.gamerguide.models.GameResponse
-import com.matheusfroes.gamerguide.models.Noticia
+import com.matheusfroes.gamerguide.data.db.FonteNoticiasDAO
+import com.matheusfroes.gamerguide.data.models.GameResponse
+import com.matheusfroes.gamerguide.data.models.Noticia
+import com.matheusfroes.gamerguide.network.ApiService
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
 import com.pkmmte.pkrss.PkRSS
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-/**
- * Created by matheusfroes on 29/09/2017.
- */
 class AppRepository {
     private val retrofit: Retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())

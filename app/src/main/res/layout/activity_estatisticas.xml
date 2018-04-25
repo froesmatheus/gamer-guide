@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.matheusfroes.gamerguide.activities.EstatisticasActivity">
+    tools:context="com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity">
 
     <include layout="@layout/toolbar" />
 

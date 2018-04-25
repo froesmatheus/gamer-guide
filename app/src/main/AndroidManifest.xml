@@ -12,29 +12,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".activities.ConfiguracoesFeedActivity"
+            android:name=".ui.feed.ConfiguracoesFeedActivity"
             android:label="@string/configuracoes_feed"
-            android:parentActivityName=".activities.FeedActivity" />
+            android:parentActivityName=".ui.feed.FeedActivity" />
         <activity
-            android:name=".activities.AdicionarJogosActivity"
+            android:name=".ui.adicionarjogos.AdicionarJogosActivity"
             android:label="@string/adicionar_jogos"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MeusJogosActivity"
+            android:parentActivityName=".ui.meusjogos.MeusJogosActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.DetalhesJogoActivity"
+            android:name=".ui.detalhesjogo.DetalhesJogoActivity"
             android:label="@string/title_activity_detalhes_jogo"
             android:theme="@style/AppTheme.DetalhesJogo" />
         <activity
-            android:name=".activities.DetalhesListaActivity"
-            android:parentActivityName=".activities.ListasActivity" />
+            android:name=".ui.listas.DetalhesListaActivity"
+            android:parentActivityName=".ui.listas.ListasActivity" />
         <activity
-            android:name=".activities.CapaJogoTelaCheiaActivity"
+            android:name=".ui.adicionarjogos.CapaJogoTelaCheiaActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".activities.BaseActivityDrawer" />
+        <activity android:name=".ui.BaseActivityDrawer" />
         <activity
-            android:name=".activities.FeedActivity"
+            android:name=".ui.feed.FeedActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -44,25 +44,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ListasActivity"
+            android:name=".ui.listas.ListasActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.EstatisticasActivity"
+            android:name=".ui.estatisticas.EstatisticasActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.CalendarioActivity"
+            android:name=".ui.calendario.CalendarioActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.MeusJogosActivity"
+            android:name=".ui.meusjogos.MeusJogosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.BaseActivity" />
+        <activity android:name=".ui.BaseActivity" />
         <activity
-            android:name=".activities.ConfiguracoesActivity"
+            android:name=".ui.configuracoes.ConfiguracoesActivity"
             android:label="@string/title_activity_configuracoes"
             android:theme="@style/ConfiguracoesTheme" />
 
         <activity
-            android:name=".activities.IntroducaoActivity"
+            android:name=".ui.intro.IntroducaoActivity"
             android:theme="@style/Theme.Intro" />
     </application>
 

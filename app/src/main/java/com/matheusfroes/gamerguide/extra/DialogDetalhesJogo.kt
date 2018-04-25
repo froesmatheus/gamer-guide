@@ -4,15 +4,11 @@ import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.data.models.Jogo
 import com.matheusfroes.gamerguide.formatarData
-import com.matheusfroes.gamerguide.models.Jogo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.dialog_detalhes_jogo.view.*
 
-
-/**
- * Created by matheusfroes on 25/09/2017.
- */
 class DialogDetalhesJogo(context: Context, private val jogo: Jogo) : AlertDialog.Builder(context) {
 
     init {

@@ -1,8 +1,5 @@
 package com.matheusfroes.gamerguide.extra
 
-/**
- * Created by matheusfroes on 29/09/2017.
- */
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
