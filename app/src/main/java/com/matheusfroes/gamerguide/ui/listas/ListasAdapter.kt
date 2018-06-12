@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.Lista
+import com.matheusfroes.gamerguide.data.model.GameList
 import kotlinx.android.synthetic.main.view_lista.view.*
 
 class ListasAdapter(private val context: Context) : RecyclerView.Adapter<ListasAdapter.ViewHolder>() {
-    private var listas: List<Lista> = mutableListOf()
+    private var listas: List<GameList> = mutableListOf()
     private var listener: OnListaClickListener? = null
 
-    fun preencherLista(listas: List<Lista>) {
+    fun preencherLista(listas: List<GameList>) {
         this.listas = listas
         notifyDataSetChanged()
     }
@@ -26,9 +26,9 @@ class ListasAdapter(private val context: Context) : RecyclerView.Adapter<ListasA
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val lista = listas[position]
 
-        holder.itemView.tvNome.text = lista.nome
+        holder.itemView.tvNome.text = lista.name
 
-        val qtdJogos = lista.jogos.size
+        val qtdJogos = lista.games.size
 
         val string = if (qtdJogos == 0)
             context.getString(R.string.qtd_jogos_0)

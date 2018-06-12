@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
-import com.matheusfroes.gamerguide.data.models.Lista
+import com.matheusfroes.gamerguide.data.model.GameList
 
 class ListasDAO(val context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
@@ -12,16 +12,16 @@ class ListasDAO(val context: Context) {
         JogosDAO(context)
     }
 
-    fun inserir(lista: Lista) {
+    fun inserir(lista: GameList) {
         val cv = ContentValues()
 
-        cv.put(Helper.LISTAS_NOME, lista.nome)
+        cv.put(Helper.LISTAS_NOME, lista.name)
 
         val listaId = db.insert(Helper.TABELA_LISTAS, null, cv)
 
 
         val cvJogos = ContentValues()
-        lista.jogos.forEach { jogo ->
+        lista.games.forEach { jogo ->
             cvJogos.put(Helper.LISTAS_JOGOS_ID_JOGO, jogo.id)
             cvJogos.put(Helper.LISTAS_JOGOS_ID_LISTA, listaId)
 
@@ -29,10 +29,10 @@ class ListasDAO(val context: Context) {
         }
     }
 
-    fun editar(lista: Lista) {
+    fun editar(lista: GameList) {
         val cv = ContentValues()
 
-        cv.put(Helper.LISTAS_NOME, lista.nome)
+        cv.put(Helper.LISTAS_NOME, lista.name)
 
         db.update(Helper.TABELA_LISTAS, cv, "_id = ?", arrayOf(lista.id.toString()))
     }
@@ -52,18 +52,18 @@ class ListasDAO(val context: Context) {
         db.delete(Helper.TABELA_LISTAS, "_id = ?", arrayOf(listaId.toString()))
     }
 
-    fun obterLista(id: Int): Lista? {
+    fun obterLista(id: Int): GameList? {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_LISTAS} WHERE ${Helper.LISTAS_ID} = ?", arrayOf(id.toString()))
 
-        var jogo: Lista? = null
+        var jogo: GameList? = null
 
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
-            jogo = Lista(
+            jogo = GameList(
                     id = cursor.getInt(cursor.getColumnIndex(Helper.LISTAS_ID)),
-                    nome = cursor.getString(cursor.getColumnIndex(Helper.LISTAS_NOME)),
-                    jogos = jogosDAO.obterJogosPorLista(id)
+                    name = cursor.getString(cursor.getColumnIndex(Helper.LISTAS_NOME))
+//                    games = jogosDAO.obterJogosPorLista(id)
             )
         }
 
@@ -91,20 +91,20 @@ class ListasDAO(val context: Context) {
         return count > 0
     }
 
-    fun obterListas(): List<Lista> {
+    fun obterListas(): List<GameList> {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_LISTAS}", null)
 
-        val listas = mutableListOf<Lista>()
+        val listas = mutableListOf<GameList>()
 
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
             do {
                 val listaId = cursor.getInt(cursor.getColumnIndex(Helper.LISTAS_ID))
-                val lista = Lista(
+                val lista = GameList(
                         id = listaId,
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.LISTAS_NOME)),
-                        jogos = jogosDAO.obterJogosPorLista(listaId)
+                        name = cursor.getString(cursor.getColumnIndex(Helper.LISTAS_NOME))
+//                        games = jogosDAO.obterJogosPorLista(listaId)
                 )
 
                 listas.add(lista)

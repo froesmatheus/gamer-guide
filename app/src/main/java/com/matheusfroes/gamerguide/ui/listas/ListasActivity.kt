@@ -12,7 +12,7 @@ import android.view.View
 import com.matheusfroes.gamerguide.ListaExcluidaEditadaEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.db.ListasDAO
-import com.matheusfroes.gamerguide.data.models.Lista
+import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.ui.BaseActivityDrawer
 import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.dialog_adicionar_lista.view.*
@@ -129,7 +129,7 @@ class ListasActivity : BaseActivityDrawer() {
 
     private fun adicionarLista() {
         val nomeLista = etNomeLista?.text.toString()
-        dao.inserir(Lista(nome = nomeLista))
+        dao.inserir(GameList(name = nomeLista))
 
         adapter.preencherLista(dao.obterListas())
 

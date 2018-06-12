@@ -13,7 +13,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.EndlessScrollListener
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.Stream
+import com.matheusfroes.gamerguide.activity
+import com.matheusfroes.gamerguide.network.data.Stream
 import com.matheusfroes.gamerguide.network.ApiService
 import kotlinx.android.synthetic.main.fragment_streams.*
 import kotlinx.android.synthetic.main.fragment_streams.view.*
@@ -24,10 +25,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class StreamsFragment : Fragment() {
     private val viewModel: DetalhesJogoViewModel by lazy {
-        ViewModelProviders.of(activity).get(DetalhesJogoViewModel::class.java)
+        ViewModelProviders.of(activity()).get(DetalhesJogoViewModel::class.java)
     }
     private val adapter: StreamsAdapter by lazy {
-        StreamsAdapter(activity)
+        StreamsAdapter(activity())
     }
     val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -50,7 +51,7 @@ class StreamsFragment : Fragment() {
         view.rvStreams.layoutManager = layoutManager
         view.rvStreams.adapter = adapter
 
-        val nomeJogo = viewModel.jogo.value?.nome!!
+        val nomeJogo = viewModel.jogo.value?.name!!
 
         obterStreams(nomeJogo)
 

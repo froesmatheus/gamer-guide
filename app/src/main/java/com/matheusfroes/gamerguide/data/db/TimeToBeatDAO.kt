@@ -3,7 +3,7 @@ package com.matheusfroes.gamerguide.data.db
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.matheusfroes.gamerguide.data.models.TimeToBeat
+import com.matheusfroes.gamerguide.data.model.TimeToBeat
 
 
 class TimeToBeatDAO(val context: Context) {

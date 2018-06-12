@@ -4,8 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.matheusfroes.gamerguide.data.models.FonteNoticia
-import com.matheusfroes.gamerguide.data.models.Plataforma
+import com.matheusfroes.gamerguide.data.model.NewsSource
+import com.matheusfroes.gamerguide.data.model.Platform
 
 class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     companion object {
@@ -13,13 +13,13 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         val DB_VERSION = 1
 
         // Tabela de Jogos
-        val TABELA_JOGOS = "jogos"
+        val TABELA_JOGOS = "games"
         val JOGOS_ID = "_id"
-        val JOGOS_NOME = "nome"
-        val JOGOS_DESCRICAO = "descricao"
-        val JOGOS_DESENVOLVEDORAS = "desenvolvedores"
-        val JOGOS_PUBLICADORAS = "publicadoras"
-        val JOGOS_GENEROS = "generos"
+        val JOGOS_NOME = "name"
+        val JOGOS_DESCRICAO = "description"
+        val JOGOS_DESENVOLVEDORAS = "developers"
+        val JOGOS_PUBLICADORAS = "publishers"
+        val JOGOS_GENEROS = "genres"
         val JOGOS_DATA_LANCAMENTO = "data_lancamento"
         val JOGOS_IMAGEM_CAPA = "imagem_capa"
         val JOGOS_GAME_ENGINE = "game_engine"
@@ -27,9 +27,9 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
 
         // Tabela de Plataformas
-        val TABELA_PLATAFORMAS = "plataformas"
+        val TABELA_PLATAFORMAS = "platforms"
         val PLATAFORMAS_ID = "_id"
-        val PLATAFORMAS_NOME = "nome"
+        val PLATAFORMAS_NOME = "name"
 
 
         // Tabela ligação Jogos/Plataformas
@@ -40,7 +40,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         // Tabela de Listas
         val TABELA_LISTAS = "listas"
         val LISTAS_ID = "_id"
-        val LISTAS_NOME = "nome"
+        val LISTAS_NOME = "name"
 
         // Tabela ligação Listas/Jogos
         val TABELA_LISTAS_JOGOS = "listas_jogos"
@@ -50,7 +50,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         // Tabela de Vídeos
         val TABELA_VIDEOS = "videos"
         val VIDEOS_ID_JOGO = "id_jogo"
-        val VIDEOS_NOME = "nome"
+        val VIDEOS_NOME = "name"
         val VIDEOS_VIDEOID = "video_id"
 
         // Tabela de Progressos
@@ -63,9 +63,9 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
         // Tabela de Fontes de Notícias
         val TABELA_FONTE_NOTICIAS = "fonte_noticias"
         val FONTE_NOTICIAS_ID = "_id"
-        val FONTE_NOTICIAS_NOME = "nome"
+        val FONTE_NOTICIAS_NOME = "name"
         val FONTE_NOTICIAS_WEBSITE = "website"
-        val FONTE_NOTICIAS_ATIVADO = "ativado"
+        val FONTE_NOTICIAS_ATIVADO = "enabled"
 
         // Tabela Time to Beat
         val TABELA_TTB = "time_to_beat"
@@ -169,9 +169,9 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
             val cv = ContentValues()
 
             fontesNoticias.forEach { fonteNoticia ->
-                cv.put(FONTE_NOTICIAS_NOME, fonteNoticia.nome)
+                cv.put(FONTE_NOTICIAS_NOME, fonteNoticia.name)
                 cv.put(FONTE_NOTICIAS_WEBSITE, fonteNoticia.website)
-                cv.put(FONTE_NOTICIAS_ATIVADO, if (fonteNoticia.ativado) 1 else 0)
+                cv.put(FONTE_NOTICIAS_ATIVADO, if (fonteNoticia.enabled) 1 else 0)
 
                 db.insert(TABELA_FONTE_NOTICIAS, null, cv)
             }
@@ -185,7 +185,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
     private fun inserirListaPadrao(db: SQLiteDatabase) {
         val cv = ContentValues()
 
-        cv.put(LISTAS_NOME, "Lista de compras")
+        cv.put(LISTAS_NOME, "GameList de compras")
 
         db.insert(TABELA_LISTAS, null, cv)
     }
@@ -212,7 +212,7 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
 
             plataformas.forEach { plataforma ->
                 cv.put(PLATAFORMAS_ID, plataforma.id)
-                cv.put(PLATAFORMAS_NOME, plataforma.nome.trim())
+                cv.put(PLATAFORMAS_NOME, plataforma.name.trim())
 
                 db.insert(TABELA_PLATAFORMAS, null, cv)
             }
@@ -223,147 +223,147 @@ class Helper(context: Context?) : SQLiteOpenHelper(context, DB_NAME, null, DB_VE
     }
 
 
-    private fun getFontesNoticias(): List<FonteNoticia> = listOf(
-            FonteNoticia(nome = "Eurogamer", website = "http://www.eurogamer.pt/?format=rss", ativado = true),
-            FonteNoticia(nome = "CriticalHits", website = "https://criticalhits.com.br/feed/", ativado = true)
-//            FonteNoticia(nome = "Combo Infinito", website = "http://www.comboinfinito.com.br/principal/feed/", ativado = true)
+    private fun getFontesNoticias(): List<NewsSource> = listOf(
+            NewsSource(name = "Eurogamer", website = "http://www.eurogamer.pt/?format=rss", enabled = true),
+            NewsSource(name = "CriticalHits", website = "https://criticalhits.com.br/feed/", enabled = true)
+//            NewsSource(name = "Combo Infinito", website = "http://www.comboinfinito.com.br/principal/feed/", enabled = true)
     )
 
     private fun getPlataformas() = listOf(
-            Plataforma(3, "Linux	"),
-            Plataforma(4, "Nintendo 64	"),
-            Plataforma(5, "Wii	"),
-            Plataforma(6, "PC"),
-            Plataforma(7, "PlayStation	"),
-            Plataforma(8, "PS2	"),
-            Plataforma(9, "PS3	"),
-            Plataforma(11, "Xbox	"),
-            Plataforma(12, "Xbox 360	"),
-            Plataforma(13, "PC DOS	"),
-            Plataforma(14, "Mac	"),
-            Plataforma(15, "Commodore C64/128	"),
-            Plataforma(16, "Amiga	"),
-            Plataforma(18, "Nintendo Entertainment System (NES)	"),
-            Plataforma(19, "Super Nintendo Entertainment System (SNES)	"),
-            Plataforma(20, "Nintendo DS	"),
-            Plataforma(21, "Nintendo GameCube	"),
-            Plataforma(22, "Game Boy Color	"),
-            Plataforma(23, "Dreamcast	"),
-            Plataforma(24, "Game Boy Advance	"),
-            Plataforma(25, "Amstrad CPC	"),
-            Plataforma(26, "ZX Spectrum	"),
-            Plataforma(27, "MSX	"),
-            Plataforma(29, "Sega Mega Drive/Genesis	"),
-            Plataforma(30, "Sega 32X	"),
-            Plataforma(32, "Sega Saturn	"),
-            Plataforma(33, "Game Boy	"),
-            Plataforma(34, "Android	"),
-            Plataforma(35, "Sega Game Gear	"),
-            Plataforma(36, "Xbox Live Arcade	"),
-            Plataforma(37, "Nintendo 3DS	"),
-            Plataforma(38, "PlayStation Portable	"),
-            Plataforma(39, "iOS	"),
-            Plataforma(41, "Wii U	"),
-            Plataforma(42, "N-Gage	"),
-            Plataforma(44, "Tapwave Zodiac	"),
-            Plataforma(45, "PlayStation Network	"),
-            Plataforma(46, "PlayStation Vita	"),
-            Plataforma(47, "Virtual Console (Nintendo)	"),
-            Plataforma(48, "PlayStation 4	"),
-            Plataforma(49, "Xbox One	"),
-            Plataforma(50, "3DO Interactive Multiplayer	"),
-            Plataforma(51, "Family Computer Disk System	"),
-            Plataforma(52, "Arcade	"),
-            Plataforma(53, "MSX2	"),
-            Plataforma(55, "Mobile	"),
-            Plataforma(56, "WiiWare	"),
-            Plataforma(57, "WonderSwan	"),
-            Plataforma(58, "Super Famicom	"),
-            Plataforma(59, "Atari 2600	"),
-            Plataforma(60, "Atari 7800	"),
-            Plataforma(61, "Atari Lynx	"),
-            Plataforma(62, "Atari Jaguar	"),
-            Plataforma(63, "Atari ST/STE	"),
-            Plataforma(64, "Sega Master System	"),
-            Plataforma(65, "Atari 8-bit	"),
-            Plataforma(66, "Atari 5200	"),
-            Plataforma(67, "Intellivision	"),
-            Plataforma(68, "ColecoVision	"),
-            Plataforma(69, "BBC Microcomputer System	"),
-            Plataforma(70, "Vectrex	"),
-            Plataforma(71, "Commodore VIC-20	"),
-            Plataforma(72, "Ouya	"),
-            Plataforma(73, "BlackBerry OS	"),
-            Plataforma(74, "Windows Phone	"),
-            Plataforma(75, "Apple II	"),
-            Plataforma(77, "Sharp X1	"),
-            Plataforma(78, "Sega CD	"),
-            Plataforma(79, "Neo Geo MVS	"),
-            Plataforma(80, "Neo Geo AES	"),
-            Plataforma(82, "Web browser	"),
-            Plataforma(84, "SG-1000	"),
-            Plataforma(85, "Donner Model 30	"),
-            Plataforma(86, "TurboGrafx-16/PC Engine	"),
-            Plataforma(87, "Virtual Boy	"),
-            Plataforma(88, "Odyssey	"),
-            Plataforma(89, "Microvision	"),
-            Plataforma(90, "Commodore PET	"),
-            Plataforma(91, "Bally Astrocade	"),
-            Plataforma(92, "SteamOS	"),
-            Plataforma(93, "Commodore 16	"),
-            Plataforma(94, "Commodore Plus/4	"),
-            Plataforma(95, "PDP-1	"),
-            Plataforma(96, "PDP-10	"),
-            Plataforma(97, "PDP-8	"),
-            Plataforma(98, "DEC GT40	"),
-            Plataforma(99, "Family Computer (FAMICOM)	"),
-            Plataforma(100, "Analogue electronics	"),
-            Plataforma(101, "Ferranti Nimrod Computer	"),
-            Plataforma(102, "EDSAC	"),
-            Plataforma(103, "PDP-7	"),
-            Plataforma(104, "HP 2100	"),
-            Plataforma(105, "HP 3000	"),
-            Plataforma(106, "SDS Sigma 7	"),
-            Plataforma(107, "Call-A-Computer time-shared mainframe computer system	"),
-            Plataforma(108, "PDP-11	"),
-            Plataforma(109, "CDC Cyber 70	"),
-            Plataforma(110, "PLATO	"),
-            Plataforma(111, "Imlac PDS-1	"),
-            Plataforma(112, "Microcomputer	"),
-            Plataforma(113, "OnLive Game System	"),
-            Plataforma(114, "Amiga CD32	"),
-            Plataforma(115, "Apple IIGS	"),
-            Plataforma(116, "Acorn Archimedes	"),
-            Plataforma(117, "Philips CD-i	"),
-            Plataforma(118, "FM Towns	"),
-            Plataforma(119, "Neo Geo Pocket	"),
-            Plataforma(120, "Neo Geo Pocket Color	"),
-            Plataforma(121, "Sharp X68000	"),
-            Plataforma(122, "Nuon	"),
-            Plataforma(123, "WonderSwan Color	"),
-            Plataforma(124, "SwanCrystal	"),
-            Plataforma(125, "PC-8801	"),
-            Plataforma(126, "TRS-80	"),
-            Plataforma(127, "Fairchild Channel F	"),
-            Plataforma(128, "PC Engine SuperGrafx	"),
-            Plataforma(129, "Texas Instruments TI-99	"),
-            Plataforma(130, "Nintendo Switch	"),
-            Plataforma(131, "Nintendo PlayStation	"),
-            Plataforma(132, "Amazon Fire TV	"),
-            Plataforma(133, "Philips Videopac G7000	"),
-            Plataforma(134, "Acorn Electron	"),
-            Plataforma(135, "Hyper Neo Geo 64	"),
-            Plataforma(136, "Neo Geo CD	"),
-            Plataforma(137, "New Nintendo 3DS	"),
-            Plataforma(138, "VC 4000	"),
-            Plataforma(139, "1292 Advanced Programmable Video System	"),
-            Plataforma(140, "AY-3-8500	"),
-            Plataforma(141, "AY-3-8610	"),
-            Plataforma(142, "PC-50X Family	"),
-            Plataforma(143, "AY-3-8760	"),
-            Plataforma(144, "AY-3-8710	"),
-            Plataforma(145, "AY-3-8603	"),
-            Plataforma(146, "AY-3-8605	"),
-            Plataforma(147, "AY-3-8606	"),
-            Plataforma(148, "AY-3-8607	"))
+            Platform(3, "Linux	"),
+            Platform(4, "Nintendo 64	"),
+            Platform(5, "Wii	"),
+            Platform(6, "PC"),
+            Platform(7, "PlayStation	"),
+            Platform(8, "PS2	"),
+            Platform(9, "PS3	"),
+            Platform(11, "Xbox	"),
+            Platform(12, "Xbox 360	"),
+            Platform(13, "PC DOS	"),
+            Platform(14, "Mac	"),
+            Platform(15, "Commodore C64/128	"),
+            Platform(16, "Amiga	"),
+            Platform(18, "Nintendo Entertainment System (NES)	"),
+            Platform(19, "Super Nintendo Entertainment System (SNES)	"),
+            Platform(20, "Nintendo DS	"),
+            Platform(21, "Nintendo GameCube	"),
+            Platform(22, "Game Boy Color	"),
+            Platform(23, "Dreamcast	"),
+            Platform(24, "Game Boy Advance	"),
+            Platform(25, "Amstrad CPC	"),
+            Platform(26, "ZX Spectrum	"),
+            Platform(27, "MSX	"),
+            Platform(29, "Sega Mega Drive/Genesis	"),
+            Platform(30, "Sega 32X	"),
+            Platform(32, "Sega Saturn	"),
+            Platform(33, "Game Boy	"),
+            Platform(34, "Android	"),
+            Platform(35, "Sega Game Gear	"),
+            Platform(36, "Xbox Live Arcade	"),
+            Platform(37, "Nintendo 3DS	"),
+            Platform(38, "PlayStation Portable	"),
+            Platform(39, "iOS	"),
+            Platform(41, "Wii U	"),
+            Platform(42, "N-Gage	"),
+            Platform(44, "Tapwave Zodiac	"),
+            Platform(45, "PlayStation Network	"),
+            Platform(46, "PlayStation Vita	"),
+            Platform(47, "Virtual Console (Nintendo)	"),
+            Platform(48, "PlayStation 4	"),
+            Platform(49, "Xbox One	"),
+            Platform(50, "3DO Interactive Multiplayer	"),
+            Platform(51, "Family Computer Disk System	"),
+            Platform(52, "Arcade	"),
+            Platform(53, "MSX2	"),
+            Platform(55, "Mobile	"),
+            Platform(56, "WiiWare	"),
+            Platform(57, "WonderSwan	"),
+            Platform(58, "Super Famicom	"),
+            Platform(59, "Atari 2600	"),
+            Platform(60, "Atari 7800	"),
+            Platform(61, "Atari Lynx	"),
+            Platform(62, "Atari Jaguar	"),
+            Platform(63, "Atari ST/STE	"),
+            Platform(64, "Sega Master System	"),
+            Platform(65, "Atari 8-bit	"),
+            Platform(66, "Atari 5200	"),
+            Platform(67, "Intellivision	"),
+            Platform(68, "ColecoVision	"),
+            Platform(69, "BBC Microcomputer System	"),
+            Platform(70, "Vectrex	"),
+            Platform(71, "Commodore VIC-20	"),
+            Platform(72, "Ouya	"),
+            Platform(73, "BlackBerry OS	"),
+            Platform(74, "Windows Phone	"),
+            Platform(75, "Apple II	"),
+            Platform(77, "Sharp X1	"),
+            Platform(78, "Sega CD	"),
+            Platform(79, "Neo Geo MVS	"),
+            Platform(80, "Neo Geo AES	"),
+            Platform(82, "Web browser	"),
+            Platform(84, "SG-1000	"),
+            Platform(85, "Donner Model 30	"),
+            Platform(86, "TurboGrafx-16/PC Engine	"),
+            Platform(87, "Virtual Boy	"),
+            Platform(88, "Odyssey	"),
+            Platform(89, "Microvision	"),
+            Platform(90, "Commodore PET	"),
+            Platform(91, "Bally Astrocade	"),
+            Platform(92, "SteamOS	"),
+            Platform(93, "Commodore 16	"),
+            Platform(94, "Commodore Plus/4	"),
+            Platform(95, "PDP-1	"),
+            Platform(96, "PDP-10	"),
+            Platform(97, "PDP-8	"),
+            Platform(98, "DEC GT40	"),
+            Platform(99, "Family Computer (FAMICOM)	"),
+            Platform(100, "Analogue electronics	"),
+            Platform(101, "Ferranti Nimrod Computer	"),
+            Platform(102, "EDSAC	"),
+            Platform(103, "PDP-7	"),
+            Platform(104, "HP 2100	"),
+            Platform(105, "HP 3000	"),
+            Platform(106, "SDS Sigma 7	"),
+            Platform(107, "Call-A-Computer time-shared mainframe computer system	"),
+            Platform(108, "PDP-11	"),
+            Platform(109, "CDC Cyber 70	"),
+            Platform(110, "PLATO	"),
+            Platform(111, "Imlac PDS-1	"),
+            Platform(112, "Microcomputer	"),
+            Platform(113, "OnLive Game System	"),
+            Platform(114, "Amiga CD32	"),
+            Platform(115, "Apple IIGS	"),
+            Platform(116, "Acorn Archimedes	"),
+            Platform(117, "Philips CD-i	"),
+            Platform(118, "FM Towns	"),
+            Platform(119, "Neo Geo Pocket	"),
+            Platform(120, "Neo Geo Pocket Color	"),
+            Platform(121, "Sharp X68000	"),
+            Platform(122, "Nuon	"),
+            Platform(123, "WonderSwan Color	"),
+            Platform(124, "SwanCrystal	"),
+            Platform(125, "PC-8801	"),
+            Platform(126, "TRS-80	"),
+            Platform(127, "Fairchild Channel F	"),
+            Platform(128, "PC Engine SuperGrafx	"),
+            Platform(129, "Texas Instruments TI-99	"),
+            Platform(130, "Nintendo Switch	"),
+            Platform(131, "Nintendo PlayStation	"),
+            Platform(132, "Amazon Fire TV	"),
+            Platform(133, "Philips Videopac G7000	"),
+            Platform(134, "Acorn Electron	"),
+            Platform(135, "Hyper Neo Geo 64	"),
+            Platform(136, "Neo Geo CD	"),
+            Platform(137, "New Nintendo 3DS	"),
+            Platform(138, "VC 4000	"),
+            Platform(139, "1292 Advanced Programmable Video System	"),
+            Platform(140, "AY-3-8500	"),
+            Platform(141, "AY-3-8610	"),
+            Platform(142, "PC-50X Family	"),
+            Platform(143, "AY-3-8760	"),
+            Platform(144, "AY-3-8710	"),
+            Platform(145, "AY-3-8603	"),
+            Platform(146, "AY-3-8605	"),
+            Platform(147, "AY-3-8606	"),
+            Platform(148, "AY-3-8607	"))
 }

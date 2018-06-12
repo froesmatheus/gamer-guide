@@ -1,5 +1,6 @@
-package com.matheusfroes.gamerguide.data.models
+package com.matheusfroes.gamerguide.network.data
 
+import com.matheusfroes.gamerguide.data.model.Platform
 import java.util.*
 
 data class ObterLancamentosResponse(
@@ -12,7 +13,7 @@ data class ObterLancamentosResponse(
 
 data class Lancamento(
         val game: JogoLancamento,
-        val platform: Plataforma,
+        val platform: Platform,
         val date: Date,
         val region: String
 ) {

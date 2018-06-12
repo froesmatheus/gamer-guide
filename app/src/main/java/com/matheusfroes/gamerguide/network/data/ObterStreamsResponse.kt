@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.data.models
+package com.matheusfroes.gamerguide.network.data
 
 import com.google.gson.annotations.SerializedName
 

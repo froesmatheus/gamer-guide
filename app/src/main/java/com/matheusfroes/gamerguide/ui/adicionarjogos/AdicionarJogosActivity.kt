@@ -12,9 +12,9 @@ import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.db.ListasDAO
-import com.matheusfroes.gamerguide.data.models.FormaCadastro
-import com.matheusfroes.gamerguide.data.models.Jogo
-import com.matheusfroes.gamerguide.data.models.Lista
+import com.matheusfroes.gamerguide.data.model.FormaCadastro
+import com.matheusfroes.gamerguide.data.model.Game
+import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.esconderTeclado
 import com.matheusfroes.gamerguide.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_adicionar_jogos.*
@@ -57,7 +57,7 @@ class AdicionarJogosActivity : BaseActivity() {
         rvJogos.addOnScrollListener(scrollListener)
 
         adapter.setOnMenuItemClickListener(object : AdicionarJogosAdapter.OnAdicionarJogoListener {
-            override fun onMenuItemClick(action: String, jogo: Jogo) {
+            override fun onMenuItemClick(action: String, jogo: Game) {
                 when (action) {
                     "adicionar_jogo" -> {
                         toast(getString(R.string.jogo_adicionado))
@@ -83,7 +83,7 @@ class AdicionarJogosActivity : BaseActivity() {
             adapter.preencherLista(listaJogos!!)
         })
 
-        // Obter jogos mais populares do momento
+        // Obter games mais populares do momento
         viewModel.pesquisarJogos()
 
         etNomeJogo.setOnEditorActionListener { _, _, _ ->
@@ -124,7 +124,7 @@ class AdicionarJogosActivity : BaseActivity() {
         dialog.show()
     }
 
-    private fun dialogGerenciarListas(jogo: Jogo) {
+    private fun dialogGerenciarListas(jogo: Game) {
         val listas = listasDAO.obterListas()
         val jogoJaCadastrado = mutableListOf<Boolean>()
 
@@ -138,8 +138,8 @@ class AdicionarJogosActivity : BaseActivity() {
 
         val listasStr = listas.map { it.toString() }.toTypedArray()
 
-        val jogosAdicionarNaLista = mutableListOf<Lista>()
-        val jogosRemoverDaLista = mutableListOf<Lista>()
+        val jogosAdicionarNaLista = mutableListOf<GameList>()
+        val jogosRemoverDaLista = mutableListOf<GameList>()
 
         val dialog = AlertDialog.Builder(this)
                 .setTitle(getString(R.string.gerenciar_listas))
@@ -165,7 +165,7 @@ class AdicionarJogosActivity : BaseActivity() {
 
     }
 
-    private fun removerJogosLista(jogosRemoverDaLista: MutableList<Lista>, jogo: Jogo) {
+    private fun removerJogosLista(jogosRemoverDaLista: MutableList<GameList>, jogo: Game) {
         jogosRemoverDaLista.forEach { lista ->
             listasDAO.removerJogoDaLista(jogo.id, lista.id)
         }
@@ -177,7 +177,7 @@ class AdicionarJogosActivity : BaseActivity() {
         }
     }
 
-    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogo: Jogo) {
+    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<GameList>, jogo: Game) {
 
         // Verificando se o jogo já está cadastrado no banco na hora de inserir na lista
         if (jogosDAO.obterJogoPorFormaCadastro(jogo.id) == null) {

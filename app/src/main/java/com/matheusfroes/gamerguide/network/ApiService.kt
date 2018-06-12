@@ -1,9 +1,9 @@
 package com.matheusfroes.gamerguide.network
 
-import com.matheusfroes.gamerguide.data.models.GameResponse
-import com.matheusfroes.gamerguide.data.models.LomadeeResponse
-import com.matheusfroes.gamerguide.data.models.ObterLancamentosResponse
-import com.matheusfroes.gamerguide.data.models.ObterStreamsResponse
+import com.matheusfroes.gamerguide.network.data.GameResponse
+import com.matheusfroes.gamerguide.network.data.LomadeeResponse
+import com.matheusfroes.gamerguide.network.data.ObterLancamentosResponse
+import com.matheusfroes.gamerguide.network.data.ObterStreamsResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers

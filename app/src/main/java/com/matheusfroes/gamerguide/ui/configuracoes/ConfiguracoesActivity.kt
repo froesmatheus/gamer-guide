@@ -51,9 +51,9 @@ class ConfiguracoesActivity : AppCompatPreferenceActivity() {
         val fonteNoticias = fonteNoticiasDAO.obterFonteNoticias()
         fonteNoticias.forEach { fonteNoticia ->
             val switchPreference = SwitchPreference(this)
-            switchPreference.title = fonteNoticia.nome
+            switchPreference.title = fonteNoticia.name
             switchPreference.summary = fonteNoticia.website
-            switchPreference.isChecked = fonteNoticia.ativado
+            switchPreference.isChecked = fonteNoticia.enabled
             switchPreference.key = fonteNoticia.id.toString()
 
             switchPreference.setOnPreferenceChangeListener { preference, any ->

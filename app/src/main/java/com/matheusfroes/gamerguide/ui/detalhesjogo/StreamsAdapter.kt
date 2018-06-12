@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.Stream
+import com.matheusfroes.gamerguide.network.data.Stream
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_stream.view.*
 

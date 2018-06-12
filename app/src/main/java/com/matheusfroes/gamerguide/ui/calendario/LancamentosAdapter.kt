@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.*
 import com.matheusfroes.gamerguide.formatarData
+import com.matheusfroes.gamerguide.network.data.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_lancamento2.view.*
 
@@ -19,7 +19,7 @@ class LancamentosAdapter(private val context: Context) : RecyclerView.Adapter<La
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.view_jogo_lancamento2, parent, false)
         return ViewHolder(view)
     }

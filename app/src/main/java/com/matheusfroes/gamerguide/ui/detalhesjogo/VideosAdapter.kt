@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.Video
+import com.matheusfroes.gamerguide.data.model.Video
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_video.view.*
 
@@ -27,7 +27,7 @@ class VideosAdapter(val context: Context) : RecyclerView.Adapter<VideosAdapter.V
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val video = videos[position]
 
-        holder.itemView.tvNomeVideo.text = video.nome
+        holder.itemView.tvNomeVideo.text = video.name
 
         val thumbnailUrl = context.getString(R.string.youtube_thumbnail_url, video.videoId)
         Picasso

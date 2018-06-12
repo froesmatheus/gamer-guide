@@ -2,22 +2,22 @@ package com.matheusfroes.gamerguide.data.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.matheusfroes.gamerguide.data.models.Plataforma
+import com.matheusfroes.gamerguide.data.model.Platform
 
 class PlataformasDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
 
-    fun obterPlataforma(id: Long): Plataforma {
+    fun obterPlataforma(id: Long): Platform {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_PLATAFORMAS} WHERE ${Helper.PLATAFORMAS_ID} = ?", arrayOf(id.toString()))
 
-        var plataforma: Plataforma? = null
+        var plataforma: Platform? = null
 
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
-            plataforma = Plataforma(
+            plataforma = Platform(
                     id = cursor.getLong(cursor.getColumnIndex(Helper.PLATAFORMAS_ID)),
-                    nome = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME))
+                    name = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME))
             )
         }
 
@@ -26,17 +26,17 @@ class PlataformasDAO(context: Context) {
         return plataforma!!
     }
 
-    fun obterPlataformas(): List<Plataforma> {
+    fun obterPlataformas(): List<Platform> {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_PLATAFORMAS}", null)
 
-        val plataformas = mutableListOf<Plataforma>()
+        val plataformas = mutableListOf<Platform>()
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
             do {
-                val plataforma = Plataforma(
+                val plataforma = Platform(
                         id = cursor.getLong(cursor.getColumnIndex(Helper.PLATAFORMAS_ID)),
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME)))
+                        name = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME)))
 
                 plataformas.add(plataforma)
             } while (cursor.moveToNext())
@@ -48,21 +48,21 @@ class PlataformasDAO(context: Context) {
         return plataformas
     }
 
-    fun obterPlataformasPorJogo(id: Long): List<Plataforma> {
+    fun obterPlataformasPorJogo(id: Long): List<Platform> {
         val cursor = db.rawQuery("""
             SELECT P.${Helper.PLATAFORMAS_ID}, P.${Helper.PLATAFORMAS_NOME}
             FROM ${Helper.TABELA_PLATAFORMAS} P
             INNER JOIN ${Helper.TABELA_JOGOS_PLATAFORMAS} JP ON P._id = JP.id_plataforma
             WHERE JP.id_jogo = ?""", arrayOf(id.toString()))
 
-        val plataformas = mutableListOf<Plataforma>()
+        val plataformas = mutableListOf<Platform>()
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
             do {
-                val plataforma = Plataforma(
+                val plataforma = Platform(
                         id = cursor.getLong(cursor.getColumnIndex(Helper.PLATAFORMAS_ID)),
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME)))
+                        name = cursor.getString(cursor.getColumnIndex(Helper.PLATAFORMAS_NOME)))
 
                 plataformas.add(plataforma)
             } while (cursor.moveToNext())

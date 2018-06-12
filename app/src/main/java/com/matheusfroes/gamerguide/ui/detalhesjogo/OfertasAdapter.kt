@@ -9,8 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.Product
-import com.matheusfroes.gamerguide.data.models.Stream
+import com.matheusfroes.gamerguide.network.data.Product
+import com.matheusfroes.gamerguide.network.data.Stream
 import kotlinx.android.synthetic.main.view_oferta.view.*
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols

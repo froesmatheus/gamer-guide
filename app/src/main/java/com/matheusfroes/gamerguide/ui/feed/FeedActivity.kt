@@ -10,7 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.Noticia
+import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
 import com.matheusfroes.gamerguide.ui.BaseActivityDrawer
 import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
@@ -46,7 +46,7 @@ class FeedActivity : BaseActivityDrawer() {
         rvNoticias.adapter = adapter
 
         adapter.setOnClickListener(object : FeedAdapter.OnNewsClickListener {
-            override fun onClick(noticia: Noticia) {
+            override fun onClick(noticia: News) {
                 val customTabsIntent = CustomTabsIntent.Builder()
                         .setToolbarColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
                         .build()

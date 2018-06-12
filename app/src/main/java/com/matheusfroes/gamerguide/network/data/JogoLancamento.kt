@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.data.models
+package com.matheusfroes.gamerguide.network.data
 
 val REGIAO_EUROPA = "Europa"
 val REGIAO_AMERICA_NORTE = "América do Norte"

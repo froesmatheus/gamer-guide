@@ -5,8 +5,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
-import com.matheusfroes.gamerguide.data.models.FormaCadastro
-import com.matheusfroes.gamerguide.data.models.Jogo
+import com.matheusfroes.gamerguide.data.model.FormaCadastro
+import com.matheusfroes.gamerguide.data.model.Game
 import java.util.*
 
 
@@ -25,22 +25,22 @@ class JogosDAO(context: Context) {
         ProgressoDAO(context)
     }
 
-    fun inserir(jogo: Jogo) {
+    fun inserir(jogo: Game) {
         val cv = ContentValues()
 
         cv.put(Helper.JOGOS_ID, jogo.id)
-        cv.put(Helper.JOGOS_NOME, jogo.nome)
-        cv.put(Helper.JOGOS_DATA_LANCAMENTO, jogo.dataLancamento.time)
-        cv.put(Helper.JOGOS_DESENVOLVEDORAS, jogo.desenvolvedores)
-        cv.put(Helper.JOGOS_PUBLICADORAS, jogo.publicadoras)
-        cv.put(Helper.JOGOS_DESCRICAO, jogo.descricao)
-        cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.imageCapa)
-        cv.put(Helper.JOGOS_GENEROS, jogo.generos)
+        cv.put(Helper.JOGOS_NOME, jogo.name)
+        cv.put(Helper.JOGOS_DATA_LANCAMENTO, jogo.releaseDate.time)
+        cv.put(Helper.JOGOS_DESENVOLVEDORAS, jogo.developers)
+        cv.put(Helper.JOGOS_PUBLICADORAS, jogo.publishers)
+        cv.put(Helper.JOGOS_DESCRICAO, jogo.description)
+        cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.coverImage)
+        cv.put(Helper.JOGOS_GENEROS, jogo.genres)
         cv.put(Helper.JOGOS_GAME_ENGINE, jogo.gameEngine)
         cv.put(Helper.JOGOS_FORMA_CADASTRO, jogo.formaCadastro.name)
 
         val cvPlataformas = ContentValues()
-        jogo.plataformas.forEach { plataforma ->
+        jogo.platforms.forEach { plataforma ->
             cvPlataformas.put(Helper.JOGOS_PLATAFORMAS_ID_JOGO, jogo.id)
             cvPlataformas.put(Helper.JOGOS_PLATAFORMAS_ID_PLATAFORMA, plataforma.id)
 
@@ -49,21 +49,21 @@ class JogosDAO(context: Context) {
 
         videosDAO.inserir(jogo.videos, jogo.id)
         timeToBeatDAO.inserir(jogo.timeToBeat, jogo.id)
-        progressosDAO.atualizarProgresso(jogo.progresso, jogo.id)
+        progressosDAO.atualizarProgresso(jogo.progress, jogo.id)
 
         db.insert(Helper.TABELA_JOGOS, null, cv)
     }
 
-    fun atualizar(jogo: Jogo) {
+    fun atualizar(jogo: Game) {
         val cv = ContentValues()
 
-        cv.put(Helper.JOGOS_NOME, jogo.nome)
-        cv.put(Helper.JOGOS_DATA_LANCAMENTO, jogo.dataLancamento.time)
-        cv.put(Helper.JOGOS_DESENVOLVEDORAS, jogo.desenvolvedores)
-        cv.put(Helper.JOGOS_PUBLICADORAS, jogo.publicadoras)
-        cv.put(Helper.JOGOS_DESCRICAO, jogo.descricao)
-        cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.imageCapa)
-        cv.put(Helper.JOGOS_GENEROS, jogo.generos)
+        cv.put(Helper.JOGOS_NOME, jogo.name)
+        cv.put(Helper.JOGOS_DATA_LANCAMENTO, jogo.releaseDate.time)
+        cv.put(Helper.JOGOS_DESENVOLVEDORAS, jogo.developers)
+        cv.put(Helper.JOGOS_PUBLICADORAS, jogo.publishers)
+        cv.put(Helper.JOGOS_DESCRICAO, jogo.description)
+        cv.put(Helper.JOGOS_IMAGEM_CAPA, jogo.coverImage)
+        cv.put(Helper.JOGOS_GENEROS, jogo.genres)
         cv.put(Helper.JOGOS_GAME_ENGINE, jogo.gameEngine)
         cv.put(Helper.JOGOS_FORMA_CADASTRO, jogo.formaCadastro.name)
 
@@ -81,10 +81,10 @@ class JogosDAO(context: Context) {
         db.delete(Helper.TABELA_VIDEOS, "id_jogo = ?", parametros)
     }
 
-    fun obterJogoPorFormaCadastro(id: Long, formaCadastro: FormaCadastro = FormaCadastro.CADASTRO_POR_BUSCA): Jogo? {
+    fun obterJogoPorFormaCadastro(id: Long, formaCadastro: FormaCadastro = FormaCadastro.CADASTRO_POR_BUSCA): Game? {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_ID} = ? AND ${Helper.JOGOS_FORMA_CADASTRO} = ?", arrayOf(id.toString(), formaCadastro.name))
 
-        var jogo: Jogo? = null
+        var jogo: Game? = null
 
         if (cursor.count > 0) {
             cursor.moveToFirst()
@@ -99,10 +99,10 @@ class JogosDAO(context: Context) {
         return jogo
     }
 
-    fun obterJogo(id: Long): Jogo? {
+    fun obterJogo(id: Long): Game? {
         val cursor = db.rawQuery("SELECT * FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_ID} = ?", arrayOf(id.toString()))
 
-        var jogo: Jogo? = null
+        var jogo: Game? = null
 
         if (cursor.count > 0) {
             cursor.moveToFirst()
@@ -117,7 +117,7 @@ class JogosDAO(context: Context) {
         return jogo
     }
 
-    fun obterJogosPorStatus(zerados: Boolean): List<Jogo> {
+    fun obterJogosPorStatus(zerados: Boolean): List<Game> {
         val status = if (zerados) 1 else 0
 
         val cursor = db.rawQuery("""
@@ -126,7 +126,7 @@ class JogosDAO(context: Context) {
             INNER JOIN ${Helper.TABELA_PROGRESSOS} P ON J._id = P._id
             WHERE P.jogo_zerado = ? AND ${Helper.JOGOS_FORMA_CADASTRO} = 'CADASTRO_POR_BUSCA'""", arrayOf(status.toString()))
 
-        val jogos = mutableListOf<Jogo>()
+        val jogos = mutableListOf<Game>()
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
@@ -143,12 +143,12 @@ class JogosDAO(context: Context) {
         return jogos
     }
 
-    fun obterJogos(): List<Jogo> {
+    fun obterJogos(): List<Game> {
         val cursor = db.rawQuery("""
             SELECT *
             FROM ${Helper.TABELA_JOGOS} WHERE ${Helper.JOGOS_FORMA_CADASTRO} = 'CADASTRO_POR_BUSCA'""", null)
 
-        val jogos = mutableListOf<Jogo>()
+        val jogos = mutableListOf<Game>()
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
@@ -166,14 +166,14 @@ class JogosDAO(context: Context) {
         return jogos
     }
 
-    fun obterJogosPorLista(idLista: Int): List<Jogo> {
+    fun obterJogosPorLista(idLista: Int): List<Game> {
         val cursor = db.rawQuery("""
             SELECT *
             FROM ${Helper.TABELA_JOGOS} J
             INNER JOIN ${Helper.TABELA_LISTAS_JOGOS} LJ ON J._id = LJ.id_jogo
             WHERE LJ.id_lista = ?""", arrayOf(idLista.toString()))
 
-        val jogos = mutableListOf<Jogo>()
+        val jogos = mutableListOf<Game>()
         if (cursor.count > 0) {
             cursor.moveToFirst()
 
@@ -243,22 +243,22 @@ class JogosDAO(context: Context) {
         return generosMaisJogados
     }
 
-    private fun criarObjetoJogo(cursor: Cursor, jogoId: Long): Jogo {
-        return Jogo(
+    private fun criarObjetoJogo(cursor: Cursor, jogoId: Long): Game {
+        return Game(
                 id = jogoId,
-                descricao = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
-                desenvolvedores = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
-                imageCapa = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
-                publicadoras = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
-                generos = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
-                nome = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
-                plataformas = plataformasDAO.obterPlataformasPorJogo(jogoId),
-                videos = videosDAO.getVideosPorJogo(jogoId),
+                description = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESCRICAO)),
+                developers = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_DESENVOLVEDORAS)),
+                coverImage = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_IMAGEM_CAPA)),
+                publishers = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_PUBLICADORAS)),
+                genres = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GENEROS)),
+                name = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_NOME)),
+//                platforms = plataformasDAO.obterPlataformasPorJogo(jogoId),
+//                videos = videosDAO.getVideosPorJogo(jogoId),
                 gameEngine = cursor.getString(cursor.getColumnIndex(Helper.JOGOS_GAME_ENGINE)),
-                progresso = progressosDAO.obterProgressoPorJogo(jogoId)!!,
+                progress = progressosDAO.obterProgressoPorJogo(jogoId)!!,
                 timeToBeat = timeToBeatDAO.obterTTBPorJogo(jogoId),
                 formaCadastro = FormaCadastro.valueOf(cursor.getString(cursor.getColumnIndex(Helper.JOGOS_FORMA_CADASTRO))),
-                dataLancamento = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
+                releaseDate = Date(cursor.getLong(cursor.getColumnIndex(Helper.JOGOS_DATA_LANCAMENTO)))
         )
     }
 }

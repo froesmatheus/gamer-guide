@@ -4,14 +4,14 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import com.matheusfroes.gamerguide.data.db.PlataformasDAO
-import com.matheusfroes.gamerguide.data.models.Jogo
+import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.extra.AppRepository
 import com.matheusfroes.gamerguide.normalizarDadosJogo
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
 class AdicionarJogosViewModel(application: Application) : AndroidViewModel(application) {
-    var listaPesquisas = MutableLiveData<List<Jogo>>().apply { value = mutableListOf() }
+    var listaPesquisas = MutableLiveData<List<Game>>().apply { value = mutableListOf() }
     var nextPageId = MutableLiveData<String>()
 
     private val repository = AppRepository()

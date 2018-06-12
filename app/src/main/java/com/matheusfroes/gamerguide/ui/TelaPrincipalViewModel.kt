@@ -6,9 +6,9 @@ import android.arch.lifecycle.MutableLiveData
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.db.ProgressoDAO
-import com.matheusfroes.gamerguide.data.models.Jogo
-import com.matheusfroes.gamerguide.data.models.Noticia
-import com.matheusfroes.gamerguide.data.models.ProgressoJogo
+import com.matheusfroes.gamerguide.data.model.Game
+import com.matheusfroes.gamerguide.data.model.News
+import com.matheusfroes.gamerguide.data.model.GameProgress
 import com.matheusfroes.gamerguide.extra.AppRepository
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.doAsync
@@ -17,10 +17,10 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
     private val repository = AppRepository()
 
     var fragmentAtual = MutableLiveData<Int>().apply { value = 2 }
-    var noticias = MutableLiveData<MutableList<Noticia>>()
+    var noticias = MutableLiveData<MutableList<News>>()
     private val jogosDAO: JogosDAO by lazy { JogosDAO(app) }
     private val progressosDAO: ProgressoDAO by lazy { ProgressoDAO(app) }
-    var jogos = MutableLiveData<List<Jogo>>()
+    var jogos = MutableLiveData<List<Game>>()
 
     fun atualizarListaJogos() {
         jogos.value = jogosDAO.obterJogos()
@@ -31,11 +31,11 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
         jogosDAO.remover(jogoId)
     }
 
-    fun obterProgressoJogo(jogoId: Long): ProgressoJogo? =
+    fun obterProgressoJogo(jogoId: Long): GameProgress? =
             progressosDAO.obterProgressoPorJogo(jogoId)
 
 
-    fun atualizarProgressoJogo(jogoId: Long, progressoJogo: ProgressoJogo) {
+    fun atualizarProgressoJogo(jogoId: Long, progressoJogo: GameProgress) {
         progressosDAO.atualizarProgresso(progressoJogo, jogoId)
         atualizarListaJogos()
         EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
@@ -43,9 +43,9 @@ class TelaPrincipalViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun alterarStatusJogo(jogoId: Long, zerado: Boolean) {
         val jogo = jogosDAO.obterJogoPorFormaCadastro(jogoId)
-        if (jogo?.progresso != null) {
-            jogo.progresso.zerado = zerado
-            progressosDAO.atualizarProgresso(jogo.progresso, jogoId)
+        if (jogo?.progress != null) {
+            jogo.progress.beaten = zerado
+            progressosDAO.atualizarProgresso(jogo.progress, jogoId)
             atualizarListaJogos()
         }
         EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())

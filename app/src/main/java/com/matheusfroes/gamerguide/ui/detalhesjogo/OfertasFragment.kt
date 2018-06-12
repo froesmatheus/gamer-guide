@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.activity
 import com.matheusfroes.gamerguide.network.ApiService
 import kotlinx.android.synthetic.main.fragment_ofertas.*
 import kotlinx.android.synthetic.main.fragment_ofertas.view.*
@@ -19,10 +20,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class OfertasFragment : Fragment() {
     private val viewModel: DetalhesJogoViewModel by lazy {
-        ViewModelProviders.of(activity).get(DetalhesJogoViewModel::class.java)
+        ViewModelProviders.of(activity()).get(DetalhesJogoViewModel::class.java)
     }
     private val adapter: OfertasAdapter by lazy {
-        OfertasAdapter(activity)
+        OfertasAdapter(activity())
     }
     val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -45,7 +46,7 @@ class OfertasFragment : Fragment() {
         view.rvOfertas.layoutManager = layoutManager
         view.rvOfertas.adapter = adapter
 
-        val nomeJogo = viewModel.jogo.value?.nome!!
+        val nomeJogo = viewModel.jogo.value?.name!!
 
         obterOfertas(nomeJogo)
 

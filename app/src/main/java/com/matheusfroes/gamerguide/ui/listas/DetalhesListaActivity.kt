@@ -13,7 +13,7 @@ import android.view.View
 import com.matheusfroes.gamerguide.ListaExcluidaEditadaEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.db.ListasDAO
-import com.matheusfroes.gamerguide.data.models.Lista
+import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.ui.BaseActivity
 import com.matheusfroes.gamerguide.ui.adicionarjogos.AdicionarJogosActivity
 import kotlinx.android.synthetic.main.activity_detalhes_lista.*
@@ -33,7 +33,7 @@ class DetalhesListaActivity : BaseActivity() {
     private val dao: ListasDAO by lazy {
         ListasDAO(this)
     }
-    var lista: Lista? = null
+    var lista: GameList? = null
 
     private var listaId = 0
 
@@ -53,8 +53,8 @@ class DetalhesListaActivity : BaseActivity() {
         rvJogosLista.emptyView = layoutEmpty
         rvJogosLista.adapter = adapter
 
-        adapter.preencherLista(lista?.jogos!!)
-        title = lista?.nome
+        adapter.preencherLista(lista?.games!!)
+        title = lista?.name
 
 
         btnAdicionarJogos.setOnClickListener {
@@ -116,7 +116,7 @@ class DetalhesListaActivity : BaseActivity() {
                     view.tilNomeLista.error = null
                     view.tilNomeLista.isErrorEnabled = false
 
-                    lista?.nome = text.toString()
+                    lista?.name = text.toString()
                 }
 
                 botaoAdicionar.isEnabled = text.isNotEmpty() && !listaExistente

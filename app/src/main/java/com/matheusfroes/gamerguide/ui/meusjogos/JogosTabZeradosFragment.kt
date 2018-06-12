@@ -14,8 +14,6 @@ import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.db.ListasDAO
 import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
-import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
-import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -25,15 +23,15 @@ import org.jetbrains.anko.toast
 
 class JogosTabZeradosFragment : Fragment() {
     val adapter: MeusJogosAdapter by lazy {
-        MeusJogosAdapter(context)
+        MeusJogosAdapter(context())
     }
     private val viewModel: TelaPrincipalViewModel by lazy {
         ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
     }
     val listasDAO: ListasDAO by lazy {
-        ListasDAO(context)
+        ListasDAO(context())
     }
-    private val jogosDAO: JogosDAO by lazy { JogosDAO(context) }
+    private val jogosDAO: JogosDAO by lazy { JogosDAO(context()) }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,7 +44,7 @@ class JogosTabZeradosFragment : Fragment() {
 
         //adapter.preencherLista(jogosDAO.obterJogosPorStatus(zerados = true))
         viewModel.jogos.observe(this, Observer { jogos ->
-            adapter.preencherLista(jogos?.filter { it.progresso.zerado } ?: listOf())
+            adapter.preencherLista(jogos?.filter { it.progress.beaten } ?: listOf())
         })
 
         viewModel.atualizarListaJogos()
@@ -67,7 +65,7 @@ class JogosTabZeradosFragment : Fragment() {
                     }
                     R.id.navMarcarComoNaoTerminado -> {
                         viewModel.alterarStatusJogo(jogoId, zerado = false)
-                        context.toast(getString(R.string.msg_jogo_movido_nao_terminados))
+                        context().toast(getString(R.string.msg_jogo_movido_nao_terminados))
                     }
                 }
             }
@@ -92,24 +90,24 @@ class JogosTabZeradosFragment : Fragment() {
 
         })
 
-        view.etHorasJogadas.setText("${progressoJogo.horasJogadas}")
-        view.sbProgresso.progress = progressoJogo.progressoPerc
-        view.chkJogoZerado.isChecked = progressoJogo.zerado
+        view.etHorasJogadas.setText("${progressoJogo.hoursPlayed}")
+        view.sbProgresso.progress = progressoJogo.percentage
+        view.chkJogoZerado.isChecked = progressoJogo.beaten
 
 
-        val dialog = AlertDialog.Builder(context)
+        val dialog = AlertDialog.Builder(context())
                 .setView(view)
                 .setPositiveButton(getString(R.string.atualizar)) { _, _ ->
                     var horasJogadasStr = view.etHorasJogadas.text.toString().trim()
                     horasJogadasStr = if (horasJogadasStr.isEmpty()) "0" else horasJogadasStr
 
-                    progressoJogo.horasJogadas = Integer.parseInt(horasJogadasStr)
-                    progressoJogo.progressoPerc = view.sbProgresso.progress
-                    progressoJogo.zerado = view.chkJogoZerado.isChecked
+                    progressoJogo.hoursPlayed = Integer.parseInt(horasJogadasStr)
+                    progressoJogo.percentage = view.sbProgresso.progress
+                    progressoJogo.beaten = view.chkJogoZerado.isChecked
 
                     viewModel.atualizarProgressoJogo(jogoId, progressoJogo)
 
-                    context.toast(getString(R.string.progresso_atualizado))
+                    context().toast(getString(R.string.progresso_atualizado))
                 }
                 .setNegativeButton(getString(R.string.cancelar), null)
                 .create()

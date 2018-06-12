@@ -3,7 +3,7 @@ package com.matheusfroes.gamerguide.data.db
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.matheusfroes.gamerguide.data.models.Video
+import com.matheusfroes.gamerguide.data.model.Video
 
 class VideosDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
@@ -15,7 +15,7 @@ class VideosDAO(context: Context) {
 
             videos.forEach { video ->
                 cv.put(Helper.VIDEOS_ID_JOGO, jogoId)
-                cv.put(Helper.VIDEOS_NOME, video.nome)
+                cv.put(Helper.VIDEOS_NOME, video.name)
                 cv.put(Helper.VIDEOS_VIDEOID, video.videoId)
 
                 db.insert(Helper.TABELA_VIDEOS, null, cv)
@@ -38,7 +38,7 @@ class VideosDAO(context: Context) {
 
             do {
                 val video = Video(
-                        nome = cursor.getString(cursor.getColumnIndex(Helper.VIDEOS_NOME)),
+                        name = cursor.getString(cursor.getColumnIndex(Helper.VIDEOS_NOME)),
                         videoId = cursor.getString(cursor.getColumnIndex(Helper.VIDEOS_VIDEOID)))
 
                 videos.add(video)

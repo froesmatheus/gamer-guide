@@ -12,15 +12,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.Video
+import com.matheusfroes.gamerguide.activity
+import com.matheusfroes.gamerguide.data.model.Video
 import kotlinx.android.synthetic.main.fragment_videos.view.*
 
 class VideosFragment : Fragment() {
     private val viewModel: DetalhesJogoViewModel by lazy {
-        ViewModelProviders.of(activity).get(DetalhesJogoViewModel::class.java)
+        ViewModelProviders.of(activity()).get(DetalhesJogoViewModel::class.java)
     }
     private val adapter: VideosAdapter by lazy {
-        VideosAdapter(activity)
+        VideosAdapter(activity())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

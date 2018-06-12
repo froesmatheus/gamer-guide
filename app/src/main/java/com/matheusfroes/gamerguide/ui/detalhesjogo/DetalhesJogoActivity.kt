@@ -15,8 +15,8 @@ import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.db.ListasDAO
-import com.matheusfroes.gamerguide.data.models.FormaCadastro
-import com.matheusfroes.gamerguide.data.models.Jogo
+import com.matheusfroes.gamerguide.data.model.FormaCadastro
+import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.obterImagemJogoCapa
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
@@ -57,12 +57,12 @@ class DetalhesJogoActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
-        val jogo: Jogo
+        val jogo: Game
         var jogoId = intent.getLongExtra("id_jogo", 0L)
         jogo = if (jogoId != 0L) {
             jogosDAO.obterJogo(jogoId)!!
         } else {
-            intent.getSerializableExtra("jogo") as Jogo
+            intent.getSerializableExtra("jogo") as Game
         }
         jogoId = jogo.id
         jogoSalvo = jogosDAO.obterJogoPorFormaCadastro(jogo.id) != null
@@ -84,10 +84,10 @@ class DetalhesJogoActivity : AppCompatActivity() {
             tabAdapter.removeTabPage(1)
         }
 
-        if (jogo.imageCapa.isNotEmpty()) {
+        if (jogo.coverImage.isNotEmpty()) {
             Picasso
                     .with(this)
-                    .load(obterImagemJogoCapa(jogo.imageCapa))
+                    .load(obterImagemJogoCapa(jogo.coverImage))
                     .into(ivCapaJogo)
         } else {
             appBar.setExpanded(false, false)

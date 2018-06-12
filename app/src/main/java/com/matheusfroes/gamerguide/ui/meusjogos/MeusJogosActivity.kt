@@ -13,13 +13,14 @@ import com.matheusfroes.gamerguide.GerenciarListasEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.db.ListasDAO
-import com.matheusfroes.gamerguide.data.models.FormaCadastro
-import com.matheusfroes.gamerguide.data.models.Lista
+import com.matheusfroes.gamerguide.data.model.FormaCadastro
+import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.ui.BaseActivityDrawer
 import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.ui.adicionarjogos.AdicionarJogosActivity
 import kotlinx.android.synthetic.main.activity_meus_jogos.*
 import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -131,8 +132,8 @@ class MeusJogosActivity : BaseActivityDrawer() {
 
         val listasStr = listas.map { it.toString() }.toTypedArray()
 
-        val jogosAdicionarNaLista = mutableListOf<Lista>()
-        val jogosRemoverDaLista = mutableListOf<Lista>()
+        val jogosAdicionarNaLista = mutableListOf<GameList>()
+        val jogosRemoverDaLista = mutableListOf<GameList>()
 
         val dialog = AlertDialog.Builder(this)
                 .setTitle(getString(R.string.gerenciar_listas))
@@ -158,7 +159,7 @@ class MeusJogosActivity : BaseActivityDrawer() {
 
     }
 
-    private fun removerJogosLista(jogosRemoverDaLista: MutableList<Lista>, jogoId: Long) {
+    private fun removerJogosLista(jogosRemoverDaLista: MutableList<GameList>, jogoId: Long) {
         jogosRemoverDaLista.forEach { lista ->
             listasDAO.removerJogoDaLista(jogoId, lista.id)
         }
@@ -172,7 +173,7 @@ class MeusJogosActivity : BaseActivityDrawer() {
         EventBus.getDefault().post(AtualizarListaJogosEvent())
     }
 
-    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogoId: Long) {
+    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<GameList>, jogoId: Long) {
         jogosAdicionarNaLista.forEach { lista ->
             listasDAO.adicionarJogoNaLista(jogoId, lista.id)
         }
