@@ -11,8 +11,6 @@ import com.matheusfroes.gamerguide.AtualizarListaJogosEvent
 import com.matheusfroes.gamerguide.ExcluirJogoEvent
 import com.matheusfroes.gamerguide.GerenciarListasEvent
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.db.JogosDAO
-import com.matheusfroes.gamerguide.data.db.ListasDAO
 import com.matheusfroes.gamerguide.data.model.FormaCadastro
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.ui.BaseActivityDrawer

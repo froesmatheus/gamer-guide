@@ -15,7 +15,6 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activity
 import com.matheusfroes.gamerguide.context
-import com.matheusfroes.gamerguide.data.db.ProgressoDAO
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.formatarData
 import kotlinx.android.synthetic.main.fragment_informacoes_gerais.view.*

@@ -3,10 +3,8 @@ package com.matheusfroes.gamerguide.ui.adicionarjogos
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import com.matheusfroes.gamerguide.data.db.PlataformasDAO
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.extra.AppRepository
-import com.matheusfroes.gamerguide.normalizarDadosJogo
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 

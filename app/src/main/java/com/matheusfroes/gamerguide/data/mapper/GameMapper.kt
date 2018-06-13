@@ -2,7 +2,7 @@ package com.matheusfroes.gamerguide.data.mapper
 
 import android.content.Context
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
-import com.matheusfroes.gamerguide.data.db.PlataformasDAO
+import com.matheusfroes.gamerguide.data.dao.PlatformDAO
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.network.data.GameResponse
 import java.util.*
@@ -23,7 +23,7 @@ class GameMapper {
                     coverImage = adicionarSchemaUrl(gameResponse.cover?.url))
 
             val videos = VideoMapper.map(gameResponse.videos)
-            val platforms = PlatformMapper.map(gameResponse.releaseDates, PlataformasDAO(context))
+            val platforms = PlatformMapper.map(gameResponse.releaseDates, PlatformDAO(context))
 
             game.videos = videos
             game.platforms = platforms

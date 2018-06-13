@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.data.db
+package com.matheusfroes.gamerguide.data.dao
 
 import android.content.ContentValues
 import android.content.Context

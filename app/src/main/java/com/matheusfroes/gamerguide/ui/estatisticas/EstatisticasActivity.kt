@@ -3,7 +3,6 @@ package com.matheusfroes.gamerguide.ui.estatisticas
 import android.graphics.Color
 import android.os.Bundle
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.ui.BaseActivityDrawer
 import kotlinx.android.synthetic.main.activity_estatisticas.*
 import kotlinx.android.synthetic.main.toolbar.*

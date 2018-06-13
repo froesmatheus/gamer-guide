@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.matheusfroes.gamerguide.EndlessScrollListener
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.db.PlataformasDAO
 import com.matheusfroes.gamerguide.network.ApiService
 import com.matheusfroes.gamerguide.normalizarDadosLancamentos
 import com.matheusfroes.gamerguide.ui.BaseActivityDrawer

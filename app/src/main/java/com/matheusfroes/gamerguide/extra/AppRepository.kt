@@ -3,10 +3,9 @@ package com.matheusfroes.gamerguide.extra
 import android.content.Context
 import android.util.Log
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
-import com.matheusfroes.gamerguide.data.db.FonteNoticiasDAO
-import com.matheusfroes.gamerguide.network.data.GameResponse
 import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.network.ApiService
+import com.matheusfroes.gamerguide.network.data.GameResponse
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
 import com.pkmmte.pkrss.PkRSS

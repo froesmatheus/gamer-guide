@@ -13,8 +13,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.db.JogosDAO
-import com.matheusfroes.gamerguide.data.db.ListasDAO
 import com.matheusfroes.gamerguide.data.model.FormaCadastro
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.obterImagemJogoCapa

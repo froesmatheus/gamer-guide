@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.EndlessScrollListener
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activity
-import com.matheusfroes.gamerguide.network.data.Stream
 import com.matheusfroes.gamerguide.network.ApiService
+import com.matheusfroes.gamerguide.network.data.Stream
 import kotlinx.android.synthetic.main.fragment_streams.*
 import kotlinx.android.synthetic.main.fragment_streams.view.*
 import org.jetbrains.anko.doAsync

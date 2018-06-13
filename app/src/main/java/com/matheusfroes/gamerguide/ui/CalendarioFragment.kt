@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
-import com.matheusfroes.gamerguide.data.db.PlataformasDAO
 import com.matheusfroes.gamerguide.network.ApiService
 import com.matheusfroes.gamerguide.ui.calendario.LancamentosAdapter
 import kotlinx.android.synthetic.main.activity_calendario.*

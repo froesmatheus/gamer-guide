@@ -4,11 +4,9 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
-import com.matheusfroes.gamerguide.data.db.JogosDAO
-import com.matheusfroes.gamerguide.data.db.ProgressoDAO
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.data.model.GameProgress
+import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.extra.AppRepository
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.doAsync

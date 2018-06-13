@@ -13,7 +13,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
-import com.matheusfroes.gamerguide.data.db.ListasDAO
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.ui.listas.DetalhesListaActivity
 import com.matheusfroes.gamerguide.ui.listas.ListasAdapter

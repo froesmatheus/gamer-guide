@@ -11,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
-import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
 import org.greenrobot.eventbus.EventBus

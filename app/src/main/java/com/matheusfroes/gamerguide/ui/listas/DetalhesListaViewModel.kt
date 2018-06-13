@@ -3,7 +3,6 @@ package com.matheusfroes.gamerguide.ui.listas
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
-import com.matheusfroes.gamerguide.data.db.ListasDAO
 import com.matheusfroes.gamerguide.data.model.GameList
 
 class DetalhesListaViewModel(application: Application) : AndroidViewModel(application) {

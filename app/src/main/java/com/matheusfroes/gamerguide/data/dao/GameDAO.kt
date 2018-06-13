@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.data.db
+package com.matheusfroes.gamerguide.data.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
@@ -7,7 +7,7 @@ import android.arch.persistence.room.Update
 import com.matheusfroes.gamerguide.data.model.Game
 
 @Dao
-interface JogosDAOr {
+interface GameDAO {
 
     @Insert
     fun insert(game: Game)
@@ -32,4 +32,7 @@ interface JogosDAOr {
 
     @Query("SELECT SUM(game_progress_hoursPlayed) FROM games")
     fun getTotalHoursPlayed(): Int
+
+    @Query("SELECT g.* FROM games g INNER JOIN games_lists gl ON g.id = gl.gameId WHERE gl.gameListId = :listId")
+    fun getGamesByList(listId: Long): List<Game>
 }

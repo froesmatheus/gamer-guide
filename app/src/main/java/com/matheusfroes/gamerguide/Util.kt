@@ -3,7 +3,6 @@ package com.matheusfroes.gamerguide
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
-import com.matheusfroes.gamerguide.data.db.PlataformasDAO
 import com.matheusfroes.gamerguide.network.data.*
 import java.util.*
 

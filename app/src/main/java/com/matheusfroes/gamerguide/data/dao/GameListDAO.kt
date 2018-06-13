@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.data.db
+package com.matheusfroes.gamerguide.data.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
@@ -7,7 +7,7 @@ import android.arch.persistence.room.Update
 import com.matheusfroes.gamerguide.data.model.GameList
 
 @Dao
-interface ListasDAOr {
+interface GameListDAO {
 
     @Insert
     fun insert(list: GameList)
@@ -18,6 +18,9 @@ interface ListasDAOr {
     @Query("SELECT COUNT(*) FROM lists WHERE name = :listName")
     fun listAlreadyAdded(listName: String): Int
 
+    @Query("DELETE FROM games_lists WHERE gameId = :gameId")
+    fun deleteGameFromLists(gameId: Long)
+
     @Query("DELETE FROM lists WHERE id = :listId")
     fun delete(listId: Int)
 
@@ -26,4 +29,13 @@ interface ListasDAOr {
 
     @Query("SELECT * FROM lists")
     fun getAll(): List<GameList>
+
+    @Query("INSERT INTO games_lists VALUES (:gameId, :gameListId)")
+    fun insertGameIntoList(gameId: Long, gameListId: Long)
+
+    @Query("DELETE FROM games_lists WHERE gameId = :gameId AND gameListId = :gameListId")
+    fun deleteGameFromList(gameId: Long, gameListId: Long)
+
+    @Query("SELECT COUNT(*) FROM games_lists WHERE gameId = :gameId AND gameListId = :gameListId")
+    fun listContainsGame(gameId: Long, gameListId: Long): Int
 }

@@ -10,7 +10,6 @@ import com.matheusfroes.gamerguide.MainActivity
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.activity
 import com.matheusfroes.gamerguide.context
-import com.matheusfroes.gamerguide.data.db.JogosDAO
 import kotlinx.android.synthetic.main.activity_estatisticas.*
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
