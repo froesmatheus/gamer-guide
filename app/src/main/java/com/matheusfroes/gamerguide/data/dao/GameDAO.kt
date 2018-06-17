@@ -30,6 +30,9 @@ interface GameDAO {
     @Query("SELECT COUNT(*) FROM games WHERE game_progress_beaten = :beaten")
     fun getGameCountByProgressStatus(beaten: Boolean): Int
 
+    @Query("SELECT genres FROM games")
+    fun getGenres(): List<String>
+
     @Query("SELECT SUM(game_progress_hoursPlayed) FROM games")
     fun getTotalHoursPlayed(): Int
 

@@ -5,6 +5,8 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
 import com.matheusfroes.gamerguide.data.model.GameList
+import com.matheusfroes.gamerguide.data.model.GameWithGameList
+import io.reactivex.Flowable
 
 @Dao
 interface GameListDAO {
@@ -28,10 +30,10 @@ interface GameListDAO {
     fun get(listId: Int): GameList
 
     @Query("SELECT * FROM lists")
-    fun getAll(): List<GameList>
+    fun getAll(): Flowable<List<GameList>>
 
-    @Query("INSERT INTO games_lists VALUES (:gameId, :gameListId)")
-    fun insertGameIntoList(gameId: Long, gameListId: Long)
+    @Insert
+    fun insertGameIntoList(gameWithGameList: GameWithGameList)
 
     @Query("DELETE FROM games_lists WHERE gameId = :gameId AND gameListId = :gameListId")
     fun deleteGameFromList(gameId: Long, gameListId: Long)

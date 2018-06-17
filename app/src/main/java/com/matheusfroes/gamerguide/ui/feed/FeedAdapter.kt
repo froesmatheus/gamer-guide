@@ -8,23 +8,23 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.News
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.view_noticia.view.*
 
 class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
     private var listener: OnNewsClickListener? = null
-    private var noticias: MutableList<News> = mutableListOf()
+    var news: List<News> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.view_noticia, parent, false)
         return ViewHolder(view)
     }
 
-    fun preencherNoticias(noticias: MutableList<News>) {
-        this.noticias = noticias
-        this.notifyDataSetChanged()
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val noticia = noticias[position]
+        val noticia = news[position]
 
         holder.itemView.tvTitulo.text = noticia.title
         holder.itemView.tvHorarioNoticia.setReferenceTime(noticia.publishDate)
@@ -45,14 +45,14 @@ class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapt
         this.listener = listener
     }
 
-    override fun getItemCount(): Int = noticias.size
+    override fun getItemCount(): Int = news.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var capaVisivel = true
 
         init {
             itemView.setOnClickListener {
-                val noticia = noticias[adapterPosition]
+                val noticia = news[adapterPosition]
                 listener?.onClick(noticia)
             }
         }

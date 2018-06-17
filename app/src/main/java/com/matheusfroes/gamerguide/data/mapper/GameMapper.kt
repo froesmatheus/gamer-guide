@@ -1,15 +1,13 @@
 package com.matheusfroes.gamerguide.data.mapper
 
-import android.content.Context
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
-import com.matheusfroes.gamerguide.data.dao.PlatformDAO
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.network.data.GameResponse
 import java.util.*
 
 class GameMapper {
     companion object {
-        fun map(gameResponse: GameResponse, context: Context): Game {
+        fun map(gameResponse: GameResponse): Game {
             val game = Game(
                     id = gameResponse.id,
                     name = gameResponse.name ?: "",
@@ -23,11 +21,15 @@ class GameMapper {
                     coverImage = adicionarSchemaUrl(gameResponse.cover?.url))
 
             val videos = VideoMapper.map(gameResponse.videos)
-            val platforms = PlatformMapper.map(gameResponse.releaseDates, PlatformDAO(context))
+            val platforms = PlatformMapper.map(gameResponse.releaseDates)
 
             game.videos = videos
             game.platforms = platforms
             return game
+        }
+
+        fun map(gameResponse: List<GameResponse>): List<Game> {
+            return gameResponse.map { map(it) }
         }
     }
 }

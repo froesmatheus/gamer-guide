@@ -4,6 +4,7 @@ import com.matheusfroes.gamerguide.network.data.GameResponse
 import com.matheusfroes.gamerguide.network.data.LomadeeResponse
 import com.matheusfroes.gamerguide.network.data.ObterLancamentosResponse
 import com.matheusfroes.gamerguide.network.data.ObterStreamsResponse
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -23,6 +24,16 @@ interface ApiService {
             @Query("expand") expands: String = "publishers,developers,genres,game_engines",
             @Query("order") popularity: String = "popularity:desc",
             @Query("scroll") scroll: String = "1"): Call<List<GameResponse>>
+
+    @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
+    @GET("games/")
+    fun searchGames(
+            @Query("search") query: String,
+            @Query("fields") fields: String = "name,id,summary,cover.url,game_engines,time_to_beat,developers,publishers,videos,first_release_date,genres,release_dates.date,release_dates.platform",
+            @Query("expand") expands: String = "publishers,developers,genres,game_engines",
+            @Query("order") popularity: String = "popularity:desc",
+            @Query("scroll") scroll: String = "1"): Observable<List<GameResponse>>
+
 
     @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
     @GET

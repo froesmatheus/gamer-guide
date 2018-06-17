@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "lists")
 data class GameList(
         @PrimaryKey(autoGenerate = true)
-        val id: Long,
+        val id: Long = 0,
         var name: String) {
 
     @Ignore

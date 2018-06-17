@@ -10,7 +10,7 @@ import java.util.*
 @Entity(tableName = "games")
 data class Game(
         @PrimaryKey
-        val id: Long,
+        val id: Long = 0,
         val name: String,
         val description: String,
         val developers: String,
@@ -22,8 +22,7 @@ data class Game(
         val timeToBeat: TimeToBeat? = null,
         val coverImage: String,
         @Embedded(prefix = "game_progress_")
-        val progress: GameProgress = GameProgress(0, 0, false),
-        var formaCadastro: FormaCadastro = FormaCadastro.CADASTRO_POR_BUSCA) : Serializable {
+        val progress: GameProgress? = null) : Serializable {
 
     @Ignore
     lateinit var platforms: List<Platform>

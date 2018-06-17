@@ -3,20 +3,21 @@ package com.matheusfroes.gamerguide
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.annotation.IdRes
-import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.matheusfroes.gamerguide.ui.*
-import kotlinx.android.synthetic.main.activity_bottom_sample.*
-import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.android.synthetic.main.toolbar.view.*
+import com.matheusfroes.gamerguide.ui.calendar.CalendarFragment
+import com.matheusfroes.gamerguide.ui.statistics.StatisticsFragment
+import com.matheusfroes.gamerguide.ui.feed.FeedFragment
+import com.matheusfroes.gamerguide.ui.gamelists.GameListFragment
+import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
+import dagger.android.support.DaggerAppCompatActivity
 
 
-class MainActivity : AppCompatActivity() {
-    val meusJogosFragment = MeusJogosFragment()
-    val calendarioFragment = CalendarioFragment()
+class MainActivity : DaggerAppCompatActivity() {
+    val meusJogosFragment = MyGamesFragment()
+    val calendarioFragment = CalendarFragment()
     val feedFragment = FeedFragment()
-    val listasFragment = ListasFragment()
-    val estatisticasFragment = EstatisticasFragment()
+    val listasFragment = GameListFragment()
+    val estatisticasFragment = StatisticsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_feed -> feedFragment
             R.id.menu_listas -> listasFragment
             R.id.menu_estatisticas -> estatisticasFragment
-            else -> MeusJogosFragment()
+            else -> MyGamesFragment()
         }
 
         supportFragmentManager.beginTransaction().replace(R.id.content, fragment).commit()

@@ -11,9 +11,9 @@ import android.arch.persistence.room.OnConflictStrategy
             childColumns = ["gameId"],
             onDelete = OnConflictStrategy.REPLACE),
     ForeignKey(
-            entity = Platform::class,
+            entity = GameList::class,
             parentColumns = ["id"],
-            childColumns = ["platformId"],
+            childColumns = ["gameListId"],
             onDelete = OnConflictStrategy.REPLACE)])
 data class GameWithGameList(
         val gameId: Long,
