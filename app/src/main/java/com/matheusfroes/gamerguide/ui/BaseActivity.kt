@@ -3,10 +3,10 @@ package com.matheusfroes.gamerguide.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.matheusfroes.gamerguide.R
-import dagger.android.support.DaggerAppCompatActivity
 
-open class BaseActivity : DaggerAppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
     private val preferences: SharedPreferences by lazy {
         getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
     }

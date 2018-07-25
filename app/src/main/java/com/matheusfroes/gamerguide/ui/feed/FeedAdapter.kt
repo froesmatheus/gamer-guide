@@ -6,36 +6,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.model.News
+import com.matheusfroes.gamerguide.data.models.Noticia
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_noticia.view.*
 
 class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
     private var listener: OnNewsClickListener? = null
-    var news: List<News> = listOf()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+    private var noticias: MutableList<Noticia> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.view_noticia, parent, false)
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val noticia = news[position]
+    fun preencherNoticias(noticias: MutableList<Noticia>) {
+        this.noticias = noticias
+        this.notifyDataSetChanged()
+    }
 
-        holder.itemView.tvTitulo.text = noticia.title
-        holder.itemView.tvHorarioNoticia.setReferenceTime(noticia.publishDate)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val noticia = noticias[position]
+
+        holder.itemView.tvTitulo.text = noticia.titulo
+        holder.itemView.tvHorarioNoticia.setReferenceTime(noticia.dataPublicacao)
 
         holder.itemView.tvWebsite.text = "${noticia.website} • "
 
-        holder.capaVisivel = !noticia.image.isEmpty()
+        holder.capaVisivel = !noticia.imagem.isEmpty()
 
         if (holder.capaVisivel) {
             holder.itemView.ivImage.visibility = View.VISIBLE
-            Picasso.with(context).load(noticia.image).fit().centerCrop().into(holder.itemView.ivImage)
+            Picasso.with(context).load(noticia.imagem).fit().centerCrop().into(holder.itemView.ivImage)
         } else {
             holder.itemView.ivImage.visibility = View.GONE
         }
@@ -45,20 +46,20 @@ class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapt
         this.listener = listener
     }
 
-    override fun getItemCount(): Int = news.size
+    override fun getItemCount(): Int = noticias.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var capaVisivel = true
 
         init {
             itemView.setOnClickListener {
-                val noticia = news[adapterPosition]
+                val noticia = noticias[adapterPosition]
                 listener?.onClick(noticia)
             }
         }
     }
 
     interface OnNewsClickListener {
-        fun onClick(noticia: News)
+        fun onClick(noticia: Noticia)
     }
 }
