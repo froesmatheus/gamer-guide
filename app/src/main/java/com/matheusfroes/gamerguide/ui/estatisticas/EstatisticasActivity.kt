@@ -2,23 +2,28 @@ package com.matheusfroes.gamerguide.ui.estatisticas
 
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.db.JogosDAO
-import com.matheusfroes.gamerguide.ui.BaseActivityDrawer
 import kotlinx.android.synthetic.main.activity_estatisticas.*
 import kotlinx.android.synthetic.main.toolbar.*
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
 
-class EstatisticasActivity : BaseActivityDrawer() {
-    private val jogosDAO: JogosDAO by lazy { JogosDAO(this) }
+class EstatisticasActivity : Fragment() {
+    private val jogosDAO: JogosDAO by lazy { JogosDAO(activity) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_estatisticas)
-        setSupportActionBar(toolbar)
-        configurarDrawer()
-        title = getString(R.string.estatisticas)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+            inflater.inflate(R.layout.activity_estatisticas, container, false)
+
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        activity?.tabLayout?.visibility = View.GONE
 
         tvQtdJogosNaoTerminados.text = "${jogosDAO.quantidadeJogos(zerado = false)}"
         tvQtdJogosZerados.text = "${jogosDAO.quantidadeJogos(zerado = true)}"
@@ -50,11 +55,5 @@ class EstatisticasActivity : BaseActivityDrawer() {
         chart.pieChartData = pieData
         chart.isChartRotationEnabled = false
         chart.animation = null
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        setDrawerSelectedItem(BaseActivityDrawer.ESTATISTICAS_IDENTIFIER)
     }
 }

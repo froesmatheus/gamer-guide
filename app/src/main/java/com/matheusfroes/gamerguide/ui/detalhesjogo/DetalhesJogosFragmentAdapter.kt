@@ -7,13 +7,12 @@ import com.matheusfroes.gamerguide.R
 
 class DetalhesJogosFragmentAdapter(val context: Context, fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     private val tabItems = mutableListOf(
-            InformacoesGeraisJogoFragment(), VideosFragment(), StreamsFragment(), OfertasFragment()
+            InformacoesGeraisJogoFragment(), VideosFragment(), StreamsFragment()
     )
     private val tabTitles = mutableListOf(
             context.getString(R.string.tab_informacoes),
             context.getString(R.string.tab_videos),
-            context.getString(R.string.streams),
-            context.getString(R.string.ofertas)
+            context.getString(R.string.streams)
     )
 
     override fun getItem(position: Int) = tabItems[position]

@@ -5,20 +5,19 @@ import android.arch.lifecycle.ViewModelProviders
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.models.Noticia
 import com.matheusfroes.gamerguide.extra.VerticalSpaceItemDecoration
-import com.matheusfroes.gamerguide.ui.BaseActivityDrawer
 import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 
-class FeedActivity : BaseActivityDrawer() {
+class FeedActivity : Fragment() {
     lateinit var adapter: FeedAdapter
     private val viewModel: TelaPrincipalViewModel by lazy {
         ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
@@ -26,13 +25,19 @@ class FeedActivity : BaseActivityDrawer() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_feed)
-        setSupportActionBar(toolbar)
-        configurarDrawer()
 
-        title = getString(R.string.feed_noticias)
+        setHasOptionsMenu(true)
+    }
 
-        adapter = FeedAdapter(this)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+            inflater.inflate(R.layout.activity_feed, container, false)
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        activity?.tabLayout?.visibility = View.GONE
+
+        adapter = FeedAdapter(activity)
 
         viewModel.noticias.observe(this, Observer { noticias ->
             adapter.preencherNoticias(noticias!!)
@@ -40,7 +45,7 @@ class FeedActivity : BaseActivityDrawer() {
 
         viewModel.atualizarFeed()
 
-        rvNoticias.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rvNoticias.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rvNoticias.addItemDecoration(VerticalSpaceItemDecoration(50))
 
         rvNoticias.adapter = adapter
@@ -48,9 +53,9 @@ class FeedActivity : BaseActivityDrawer() {
         adapter.setOnClickListener(object : FeedAdapter.OnNewsClickListener {
             override fun onClick(noticia: Noticia) {
                 val customTabsIntent = CustomTabsIntent.Builder()
-                        .setToolbarColor(ContextCompat.getColor(applicationContext, R.color.colorPrimary))
+                        .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
                         .build()
-                customTabsIntent.launchUrl(this@FeedActivity, Uri.parse(noticia.url))
+                customTabsIntent.launchUrl(activity, Uri.parse(noticia.url))
             }
         })
 
@@ -60,17 +65,9 @@ class FeedActivity : BaseActivityDrawer() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_feed, menu)
-        return true
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_feed, menu)
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        setDrawerSelectedItem(FEED_IDENTIFIER)
-    }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

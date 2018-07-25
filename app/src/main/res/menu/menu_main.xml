@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_jogos"
+        android:enabled="true"
+        android:icon="@drawable/ic_gamepad"
+        android:title="@string/jogos"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_calendario"
+        android:enabled="true"
+        android:icon="@drawable/ic_calendario"
+        android:title="@string/calendario"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_feed"
+        android:enabled="true"
+        android:icon="@drawable/ic_newspaper"
+        android:title="Feed"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_listas"
+        android:enabled="true"
+        android:icon="@drawable/ic_list"
+        android:title="@string/listas"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_estatisticas"
+        android:enabled="true"
+        android:icon="@drawable/ic_estatistica"
+        android:title="@string/estatisticas"
+        app:showAsAction="ifRoom" />
+
+</menu>

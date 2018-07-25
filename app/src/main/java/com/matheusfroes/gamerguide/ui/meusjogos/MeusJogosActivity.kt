@@ -4,9 +4,11 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.matheusfroes.gamerguide.AtualizarListaJogosEvent
 import com.matheusfroes.gamerguide.ExcluirJogoEvent
 import com.matheusfroes.gamerguide.GerenciarListasEvent
@@ -15,52 +17,50 @@ import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.db.ListasDAO
 import com.matheusfroes.gamerguide.data.models.FormaCadastro
 import com.matheusfroes.gamerguide.data.models.Lista
-import com.matheusfroes.gamerguide.ui.BaseActivityDrawer
 import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.ui.adicionarjogos.AdicionarJogosActivity
 import kotlinx.android.synthetic.main.activity_meus_jogos.*
 import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
+import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
 
-class MeusJogosActivity : BaseActivityDrawer() {
+class MeusJogosActivity : Fragment() {
     private val viewModel: TelaPrincipalViewModel by lazy {
         ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
     }
     private val listasDAO: ListasDAO by lazy {
-        ListasDAO(this)
+        ListasDAO(activity)
     }
-    private val jogosDAO: JogosDAO by lazy { JogosDAO(this) }
+    private val jogosDAO: JogosDAO by lazy { JogosDAO(activity) }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_meus_jogos)
-        setSupportActionBar(toolbar)
-        configurarDrawer()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+            inflater.inflate(R.layout.activity_meus_jogos, container, false)
 
-        tabLayout.visibility = View.VISIBLE
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        title = getString(R.string.jogos)
+        activity?.tabLayout?.visibility = View.VISIBLE
 
-        val adapter = JogosFragmentAdapter(this, supportFragmentManager)
+        val adapter = JogosFragmentAdapter(activity, activity.supportFragmentManager)
         viewPager.adapter = adapter
 
-        tabLayout.visibility = View.VISIBLE
-        tabLayout.setupWithViewPager(viewPager)
+        activity?.tabLayout?.visibility = View.VISIBLE
+        activity?.tabLayout?.setupWithViewPager(viewPager)
         fab.setOnClickListener {
-            startActivity(Intent(this, AdicionarJogosActivity::class.java))
+            startActivity(Intent(activity, AdicionarJogosActivity::class.java))
         }
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        activity.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                appBar.setExpanded(true, true)
+                activity?.appBar?.setExpanded(true, true)
             }
 
         })
@@ -79,8 +79,6 @@ class MeusJogosActivity : BaseActivityDrawer() {
     override fun onStart() {
         super.onStart()
 
-        setDrawerSelectedItem(MEUS_JOGOS_IDENTIFIER)
-
         EventBus.getDefault().register(this)
     }
 
@@ -90,9 +88,9 @@ class MeusJogosActivity : BaseActivityDrawer() {
     }
 
     private fun dialogRemoverJogo(jogoId: Long) {
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_remover_jogo, null, false)
+        val view = LayoutInflater.from(activity).inflate(R.layout.dialog_remover_jogo, null, false)
 
-        val dialog = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(activity)
                 .setView(view)
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
                     val removerDasListas = view.chkRemoverDasListas.isChecked
@@ -108,7 +106,7 @@ class MeusJogosActivity : BaseActivityDrawer() {
                     }
 
                     EventBus.getDefault().post(AtualizarListaJogosEvent())
-                    toast(getString(R.string.jogo_removido))
+                    activity.toast(getString(R.string.jogo_removido))
                 }
                 .setNegativeButton(getString(R.string.cancelar), null)
                 .create()
@@ -134,7 +132,7 @@ class MeusJogosActivity : BaseActivityDrawer() {
         val jogosAdicionarNaLista = mutableListOf<Lista>()
         val jogosRemoverDaLista = mutableListOf<Lista>()
 
-        val dialog = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(activity)
                 .setTitle(getString(R.string.gerenciar_listas))
                 .setNegativeButton(getString(R.string.cancelar)) { _, _ -> }
                 .setMultiChoiceItems(listasStr, jogoJaCadastrado.toBooleanArray()) { _, which, isChecked ->
@@ -164,9 +162,9 @@ class MeusJogosActivity : BaseActivityDrawer() {
         }
 
         if (jogosRemoverDaLista.size == 1) {
-            toast(getString(R.string.msg_jogo_removido_lista))
+            activity.toast(getString(R.string.msg_jogo_removido_lista))
         } else if (jogosRemoverDaLista.size > 1) {
-            toast(getString(R.string.msg_jogo_removido_listas))
+            activity.toast(getString(R.string.msg_jogo_removido_listas))
         }
 
         EventBus.getDefault().post(AtualizarListaJogosEvent())
@@ -177,9 +175,9 @@ class MeusJogosActivity : BaseActivityDrawer() {
             listasDAO.adicionarJogoNaLista(jogoId, lista.id)
         }
         if (jogosAdicionarNaLista.size == 1) {
-            toast(getString(R.string.msg_jogo_adicionado_lista))
+            activity.toast(getString(R.string.msg_jogo_adicionado_lista))
         } else if (jogosAdicionarNaLista.size > 1) {
-            toast(getString(R.string.msg_jogo_adicionado_listas))
+            activity.toast(getString(R.string.msg_jogo_adicionado_listas))
         }
     }
 }

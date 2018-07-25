@@ -1,8 +1,12 @@
 package com.matheusfroes.gamerguide.ui.calendario
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.matheusfroes.gamerguide.EndlessScrollListener
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.db.PlataformasDAO
@@ -17,13 +21,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-class CalendarioActivity : BaseActivityDrawer() {
+class CalendarioActivity : Fragment() {
     private val plataformasDAO: PlataformasDAO by lazy {
-        PlataformasDAO(this)
+        PlataformasDAO(activity)
     }
 
     val lancamentosAdapter: LancamentosAdapter by lazy {
-        LancamentosAdapter(this)
+        LancamentosAdapter(activity)
     }
     var nextPage = ""
     val retrofit = Retrofit.Builder()
@@ -31,17 +35,18 @@ class CalendarioActivity : BaseActivityDrawer() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_calendario)
-        setSupportActionBar(toolbar)
-        configurarDrawer()
-        title = getString(R.string.calendario)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
+            inflater.inflate(R.layout.activity_calendario, container, false)
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        activity?.tabLayout?.visibility = View.GONE
 
 
         val dataAtual = Calendar.getInstance().timeInMillis
 
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rvLancamentos.layoutManager = layoutManager
         rvLancamentos.adapter = lancamentosAdapter
         rvLancamentos.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
@@ -76,12 +81,5 @@ class CalendarioActivity : BaseActivityDrawer() {
                 }
             }
         }
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-
-        setDrawerSelectedItem(CALENDARIO_IDENTIFIER)
     }
 }

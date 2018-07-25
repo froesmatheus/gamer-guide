@@ -14,56 +14,43 @@
         <activity
             android:name=".ui.feed.ConfiguracoesFeedActivity"
             android:label="@string/configuracoes_feed"
-            android:parentActivityName=".ui.feed.FeedActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ui.adicionarjogos.AdicionarJogosActivity"
             android:label="@string/adicionar_jogos"
-            android:launchMode="singleTop"
-            android:parentActivityName=".ui.meusjogos.MeusJogosActivity"
+            android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.detalhesjogo.DetalhesJogoActivity"
             android:label="@string/title_activity_detalhes_jogo"
             android:theme="@style/AppTheme.DetalhesJogo" />
+
         <activity
-            android:name=".ui.listas.DetalhesListaActivity"
-            android:parentActivityName=".ui.listas.ListasActivity" />
+            android:parentActivityName=".MainActivity"
+            android:name=".ui.listas.DetalhesListaActivity" />
+
         <activity
             android:name=".ui.adicionarjogos.CapaJogoTelaCheiaActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".ui.BaseActivityDrawer" />
+
         <activity
-            android:name=".ui.feed.FeedActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".ui.configuracoes.ConfiguracoesActivity"
+            android:label="@string/title_activity_configuracoes"
+            android:theme="@style/ConfiguracoesTheme" />
+        <activity
+            android:name=".ui.intro.IntroducaoActivity"
+            android:theme="@style/Theme.Intro" />
+
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.listas.ListasActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.estatisticas.EstatisticasActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.calendario.CalendarioActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.meusjogos.MeusJogosActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.BaseActivity" />
-        <activity
-            android:name=".ui.configuracoes.ConfiguracoesActivity"
-            android:label="@string/title_activity_configuracoes"
-            android:theme="@style/ConfiguracoesTheme" />
-
-        <activity
-            android:name=".ui.intro.IntroducaoActivity"
-            android:theme="@style/Theme.Intro" />
     </application>
 
 </manifest>
