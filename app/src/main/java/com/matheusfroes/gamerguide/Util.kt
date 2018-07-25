@@ -3,30 +3,14 @@ package com.matheusfroes.gamerguide
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
-import com.matheusfroes.gamerguide.data.db.PlataformasDAO
-import com.matheusfroes.gamerguide.data.models.*
+import com.matheusfroes.gamerguide.network.data.*
 import java.util.*
 
 fun adicionarSchemaUrl(url: String?): String {
     return if (url != null && url != "" && !url.startsWith("http", ignoreCase = true)) {
-        "http:" + url
+        "http:$url"
     } else url ?: ""
 }
-
-fun normalizarDadosJogo(game: GameResponse, plataformasDAO: PlataformasDAO): Jogo =
-        Jogo(
-                game.id,
-                game.name ?: "",
-                game.summary ?: "",
-                game.developers?.joinToString() ?: "",
-                game.publishers?.joinToString() ?: "",
-                game.genres?.joinToString() ?: "",
-                Date(game.firstReleaseDate),
-                extrairPlataformas(game.releaseDates ?: mutableListOf(), plataformasDAO),
-                game.videos ?: mutableListOf(),
-                game.gameEngines?.joinToString() ?: "",
-                game.timeToBeat,
-                adicionarSchemaUrl(game.cover?.url))
 
 fun normalizarDadosLancamentos(lancamentosResponse: ObterLancamentosResponse, plataformasDAO: PlataformasDAO): Lancamento {
     return Lancamento(
@@ -50,13 +34,6 @@ fun extrairRegiao(region: Int) = when (region) {
 }
 
 fun extrairJogoLancamento(game: GameResponse): JogoLancamento = JogoLancamento(game.id, game.name!!, adicionarSchemaUrl(game.cover?.url))
-
-fun extrairPlataformas(releaseDates: List<ReleaseDate>, plataformasDAO: PlataformasDAO): List<Plataforma> {
-    return releaseDates
-            .map { plataformasDAO.obterPlataforma(it.platform) }
-            .distinct()
-            .sortedBy { it.nome.toLowerCase() }
-}
 
 fun obterImagemJogoCapa(urlImagem: String): String {
     val inicio = urlImagem.indexOf("t_")

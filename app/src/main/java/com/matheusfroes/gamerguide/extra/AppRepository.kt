@@ -1,15 +1,10 @@
 package com.matheusfroes.gamerguide.extra
 
-import android.content.Context
-import android.util.Log
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
-import com.matheusfroes.gamerguide.data.db.FonteNoticiasDAO
-import com.matheusfroes.gamerguide.data.models.GameResponse
-import com.matheusfroes.gamerguide.data.models.Noticia
+import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.network.ApiService
+import com.matheusfroes.gamerguide.network.data.GameResponse
 import com.pkmmte.pkrss.Article
-import com.pkmmte.pkrss.Callback
-import com.pkmmte.pkrss.PkRSS
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -46,33 +41,33 @@ class AppRepository {
         return Pair(listaJogos, nextPageId!!)
     }
 
-    fun atualizarFeed(context: Context): MutableList<Noticia> {
-        val fontesDAO = FonteNoticiasDAO(context)
-        val fontes = fontesDAO.obterFonteNoticias(ativos = true).map { it.website }
-        val noticias = mutableSetOf<Noticia>()
+//    fun atualizarFeed(context: Context): MutableList<News> {
+//        val fontesDAO = FonteNoticiasDAO(context)
+//        val fontes = fontesDAO.obterFonteNoticias(ativos = true).map { it.website }
+//        val noticias = mutableSetOf<News>()
+//
+//        fontes.map {
+//            PkRSS.with(context).load(it).skipCache().safe(true).callback(object : Callback {
+//                override fun onLoadFailed() {
+//                    Log.d("GAMERGUIDE", "onLoadFailed() $it")
+//                }
+//
+//                override fun onPreload() {
+//                    Log.d("GAMERGUIDE", "onPreload() $it")
+//                }
+//
+//                override fun onLoaded(newArticles: MutableList<Article>) {}
+//            }).get()
+//        }.forEach { noticias.addAll(extrairNoticias(it)) }
+//
+//        val lista = noticias.toMutableList()
+//
+//        lista.sortByDescending { it.publishDate }
+//
+//        return lista
+//    }
 
-        fontes.map {
-            PkRSS.with(context).load(it).skipCache().safe(true).callback(object : Callback {
-                override fun onLoadFailed() {
-                    Log.d("GAMERGUIDE", "onLoadFailed() $it")
-                }
-
-                override fun onPreload() {
-                    Log.d("GAMERGUIDE", "onPreload() $it")
-                }
-
-                override fun onLoaded(newArticles: MutableList<Article>) {}
-            }).get()
-        }.forEach { noticias.addAll(extrairNoticias(it)) }
-
-        val lista = noticias.toMutableList()
-
-        lista.sortByDescending { it.dataPublicacao }
-
-        return lista
-    }
-
-    private fun extrairNoticias(newArticles: MutableList<Article>): MutableList<Noticia> {
+    private fun extrairNoticias(newArticles: MutableList<Article>): MutableList<News> {
         return newArticles.map { article ->
             val imagemNoticia: String? = if (article.enclosure == null) {
                 article.image?.toString()
@@ -88,7 +83,7 @@ class AppRepository {
                 else -> "IGN"
             }
 
-            Noticia(article.title, adicionarSchemaUrl(imagemNoticia!!), article.source.toString(), article.date, website)
+            News(article.title, adicionarSchemaUrl(imagemNoticia!!), article.source.toString(), article.date, website)
         }.toMutableList()
     }
 
