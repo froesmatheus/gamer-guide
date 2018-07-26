@@ -24,7 +24,7 @@ interface GameListDAO {
     fun deleteGameFromLists(gameId: Long)
 
     @Query("DELETE FROM lists WHERE id = :listId")
-    fun delete(listId: Int)
+    fun delete(listId: Long)
 
     @Query("SELECT * FROM lists WHERE id = :listId")
     fun get(listId: Long): GameList

@@ -5,6 +5,7 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
 import com.matheusfroes.gamerguide.data.model.Game
+import io.reactivex.Flowable
 
 @Dao
 interface GameDAO {
@@ -37,5 +38,5 @@ interface GameDAO {
     fun getTotalHoursPlayed(): Int
 
     @Query("SELECT g.* FROM games g INNER JOIN games_lists gl ON g.id = gl.gameId WHERE gl.gameListId = :listId")
-    fun getGamesByList(listId: Long): List<Game>
+    fun getGamesByList(listId: Long): Flowable<List<Game>>
 }

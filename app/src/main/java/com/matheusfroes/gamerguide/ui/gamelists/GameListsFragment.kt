@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.AddGameListDialog
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.appInjector
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.fab.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -28,7 +30,7 @@ class GameListsFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: GameListsViewModel
-
+    private val subscriptions = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.activity_listas, container, false)
@@ -40,7 +42,7 @@ class GameListsFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[GameListsViewModel::class.java]
 
-        viewModel.gameLists.subscribe { gameLists ->
+        subscriptions += viewModel.gameLists.subscribe { gameLists ->
             adapter.gameLists = gameLists
         }
 
@@ -58,7 +60,7 @@ class GameListsFragment : Fragment() {
         rvListas.adapter = adapter
 
         adapter.gameListClick { gameListId ->
-            val intent = Intent(activity, DetalhesListaActivity::class.java)
+            val intent = Intent(activity, GameListDetailsActivity::class.java)
             intent.putExtra("lista_id", gameListId)
             startActivity(intent)
         }
@@ -66,7 +68,7 @@ class GameListsFragment : Fragment() {
     }
 
     private fun dialogAdicionarLista() {
-        val addGameDialog = AddGameListDialog()
+        val addGameDialog = AddGameListDialog.newInstance(AddGameListDialog.ADD_LIST)
         addGameDialog.show(childFragmentManager, "add_game")
 
         addGameDialog.addButtonClick { gameListName ->
@@ -77,5 +79,11 @@ class GameListsFragment : Fragment() {
         addGameDialog.listAlreadyAdded { gameListName ->
             viewModel.listAlreadyAdded(gameListName)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        subscriptions.dispose()
     }
 }

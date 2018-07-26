@@ -11,6 +11,17 @@ import kotlinx.android.synthetic.main.dialog_adicionar_lista.*
 
 class AddGameListDialog : DialogFragment() {
 
+    companion object {
+        val ADD_LIST = "add_list"
+        val UPDATE_LIST = "update_list"
+
+        fun newInstance(dialogType: String) = AddGameListDialog().apply {
+            arguments = Bundle().apply {
+                putString("DIALOG_TYPE", dialogType)
+            }
+        }
+    }
+
     private lateinit var addButtonClicked: ((String) -> Unit)
     private lateinit var listAlreadyAdded: ((String) -> Boolean)
 
@@ -27,6 +38,14 @@ class AddGameListDialog : DialogFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val dialogType = arguments.getString("DIALOG_TYPE")
+
+        btnAdicionar.text = if (dialogType == ADD_LIST) {
+            "Adicionar"
+        } else {
+            "Atualizar"
+        }
 
         btnAdicionar.isEnabled = false
 
@@ -61,43 +80,4 @@ class AddGameListDialog : DialogFragment() {
         })
 
     }
-
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        val view = View.inflate(activity, R.layout.dialog_adicionar_lista, null)
-//
-//        val dialog = AlertDialog.Builder(activity)
-//                .setView(view)
-//                .setPositiveButton(getString(R.string.adicionar)) { _, _ ->
-//                    addButtonClicked.invoke(view.etNomeLista.text.toString())
-//                }
-//                .setNegativeButton(getString(R.string.cancelar)) { _, _ -> }
-//                .create()
-//
-//
-//        val botaoAdicionar = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-//
-//        botaoAdicionar.isEnabled = false
-//
-//        view.etNomeLista.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(p0: Editable?) {}
-//
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//
-//            override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
-//                val listaExistente = listAlreadyAdded.invoke(text.trim().toString())
-//
-//                if (listaExistente) {
-//                    view.tilNomeLista.isErrorEnabled = true
-//                    view.tilNomeLista.error = getString(R.string.msg_lista_existente)
-//                } else {
-//                    view.tilNomeLista.error = null
-//                    view.tilNomeLista.isErrorEnabled = false
-//                }
-//
-//                botaoAdicionar.isEnabled = text.isNotEmpty() && !listaExistente
-//            }
-//        })
-//
-//        return dialog
-//    }
 }

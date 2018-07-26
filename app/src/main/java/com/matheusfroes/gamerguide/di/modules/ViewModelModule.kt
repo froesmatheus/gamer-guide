@@ -2,6 +2,7 @@ package com.matheusfroes.gamerguide.di.modules
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsViewModel
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -33,5 +34,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(GameListsViewModel::class)
     internal abstract fun listasViewModel(viewModel: GameListsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(GameListDetailsViewModel::class)
+    internal abstract fun detalhesListaViewModel(viewModel: GameListDetailsViewModel): ViewModel
 
 }

@@ -5,11 +5,13 @@ import android.content.Context
 import com.matheusfroes.gamerguide.data.GamerGuideDatabase
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 class DataModule {
 
     @Provides
+    @Singleton
     fun database(context: Context): GamerGuideDatabase {
         return Room
                 .databaseBuilder(context, GamerGuideDatabase::class.java, "gamerguide.db")
