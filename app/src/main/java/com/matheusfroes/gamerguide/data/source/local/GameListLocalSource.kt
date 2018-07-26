@@ -11,6 +11,10 @@ class GameListLocalSource @Inject constructor(private val database: GamerGuideDa
         return database.listsDao().getAll()
     }
 
+    fun getList(gameListId: Long): GameList {
+        return database.listsDao().get(gameListId)
+    }
+
     fun addList(gameList: GameList) {
         database.listsDao().insert(gameList)
     }

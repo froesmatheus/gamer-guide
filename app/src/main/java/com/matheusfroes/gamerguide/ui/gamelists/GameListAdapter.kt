@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.listas
+package com.matheusfroes.gamerguide.ui.gamelists
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

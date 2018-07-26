@@ -2,7 +2,7 @@ package com.matheusfroes.gamerguide.di.modules
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.matheusfroes.gamerguide.ui.listas.GameListsViewModel
+import com.matheusfroes.gamerguide.ui.gamelists.GameListsViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module

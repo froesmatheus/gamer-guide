@@ -17,6 +17,7 @@ val Activity.app: GamerGuideApplication get() = application as GamerGuideApplica
 val Fragment.app: GamerGuideApplication get() = activity.app
 
 val Fragment.appInjector: Injector get() = app.injector
+val Activity.appInjector: Injector get() = app.injector
 
 @SuppressLint("RestrictedApi")
 fun BottomNavigationView.disableShiftMode() {

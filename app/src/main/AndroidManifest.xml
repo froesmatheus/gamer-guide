@@ -28,7 +28,7 @@
 
         <activity
             android:parentActivityName=".MainActivity"
-            android:name=".ui.listas.DetalhesListaActivity" />
+            android:name=".ui.gamelists.DetalhesListaActivity" />
 
         <activity
             android:name=".ui.adicionarjogos.CapaJogoTelaCheiaActivity"

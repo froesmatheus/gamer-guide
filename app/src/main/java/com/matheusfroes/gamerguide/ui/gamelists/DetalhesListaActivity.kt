@@ -1,6 +1,6 @@
-package com.matheusfroes.gamerguide.ui.listas
+package com.matheusfroes.gamerguide.ui.gamelists
 
-import android.arch.lifecycle.ViewModelProviders
+import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -12,7 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import com.matheusfroes.gamerguide.ListaExcluidaEditadaEvent
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.db.ListasDAO
+import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.data.models.Lista
 import com.matheusfroes.gamerguide.ui.BaseActivity
 import com.matheusfroes.gamerguide.ui.adicionarjogos.AdicionarJogosActivity
@@ -21,28 +21,33 @@ import kotlinx.android.synthetic.main.dialog_adicionar_lista.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
+import javax.inject.Inject
 
 
 class DetalhesListaActivity : BaseActivity() {
-    private val viewModel: DetalhesListaViewModel by lazy {
-        ViewModelProviders.of(this).get(DetalhesListaViewModel::class.java)
-    }
     private val adapter: JogosListaAdapter by lazy {
-        JogosListaAdapter(this)
+        JogosListaAdapter()
     }
-    private val dao: ListasDAO by lazy {
-        ListasDAO(this)
-    }
+
+
     var lista: Lista? = null
 
     private var listaId = 0
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: DetalhesListaViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_lista)
         setSupportActionBar(toolbar)
+        appInjector.inject(this)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent ?: return
+
+
 
 
         listaId = intent.getIntExtra("lista_id", 0)

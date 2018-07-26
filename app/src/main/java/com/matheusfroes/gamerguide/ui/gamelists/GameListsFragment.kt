@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.listas
+package com.matheusfroes.gamerguide.ui.gamelists
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -68,7 +68,6 @@ class GameListsFragment : Fragment() {
     private fun dialogAdicionarLista() {
         val addGameDialog = AddGameListDialog()
         addGameDialog.show(childFragmentManager, "add_game")
-
 
         addGameDialog.addButtonClick { gameListName ->
             viewModel.addList(gameListName)

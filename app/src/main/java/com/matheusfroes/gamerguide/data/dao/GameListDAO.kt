@@ -27,7 +27,7 @@ interface GameListDAO {
     fun delete(listId: Int)
 
     @Query("SELECT * FROM lists WHERE id = :listId")
-    fun get(listId: Int): GameList
+    fun get(listId: Long): GameList
 
     @Query("SELECT * FROM lists")
     fun getAll(): Flowable<List<GameList>>
