@@ -10,7 +10,7 @@ import com.matheusfroes.gamerguide.ui.calendario.CalendarioActivity
 import com.matheusfroes.gamerguide.ui.configuracoes.ConfiguracoesActivity
 import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
-import com.matheusfroes.gamerguide.ui.listas.ListasActivity
+import com.matheusfroes.gamerguide.ui.listas.GameListsFragment
 import com.matheusfroes.gamerguide.ui.meusjogos.MeusJogosActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var meusJogos: MeusJogosActivity
     lateinit var calendario: CalendarioActivity
     lateinit var feed: FeedActivity
-    lateinit var listas: ListasActivity
+    lateinit var listas: GameListsFragment
     lateinit var estatisticas: EstatisticasActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         calendario = CalendarioActivity()
         feed = FeedActivity()
-        listas = ListasActivity()
+        listas = GameListsFragment()
         estatisticas = EstatisticasActivity()
 
         setSupportActionBar(toolbar)

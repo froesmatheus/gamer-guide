@@ -12,7 +12,7 @@ import com.matheusfroes.gamerguide.ui.configuracoes.ConfiguracoesActivity
 import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
 import com.matheusfroes.gamerguide.ui.intro.IntroducaoActivity
-import com.matheusfroes.gamerguide.ui.listas.ListasActivity
+import com.matheusfroes.gamerguide.ui.listas.GameListsFragment
 import com.matheusfroes.gamerguide.ui.meusjogos.MeusJogosActivity
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
@@ -89,7 +89,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
             LISTAS_IDENTIFIER -> {
-                Intent(this, ListasActivity::class.java)
+                Intent(this, GameListsFragment::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
             ESTATISTICAS_IDENTIFIER -> {
@@ -111,7 +111,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
             AJUDA_IDENTIFIER -> {
                 Intent(this, IntroducaoActivity::class.java)
             }
-            else -> Intent(this, ListasActivity::class.java)
+            else -> Intent(this, GameListsFragment::class.java)
         }
 
         drawer.closeDrawer()
