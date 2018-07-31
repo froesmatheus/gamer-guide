@@ -1,5 +1,7 @@
 package com.matheusfroes.gamerguide.ui.estatisticas
 
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,14 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.db.JogosDAO
+import com.matheusfroes.gamerguide.appInjector
 import kotlinx.android.synthetic.main.activity_estatisticas.*
 import kotlinx.android.synthetic.main.toolbar.*
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
+import javax.inject.Inject
 
 class EstatisticasActivity : Fragment() {
-    private val jogosDAO: JogosDAO by lazy { JogosDAO(activity) }
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: EstatisticasViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.activity_estatisticas, container, false)
@@ -22,15 +27,18 @@ class EstatisticasActivity : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        appInjector.inject(this)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[EstatisticasViewModel::class.java]
 
         activity?.tabLayout?.visibility = View.GONE
 
-        tvQtdJogosNaoTerminados.text = "${jogosDAO.quantidadeJogos(zerado = false)}"
-        tvQtdJogosZerados.text = "${jogosDAO.quantidadeJogos(zerado = true)}"
-        tvQtdHorasJogadas.text = "${jogosDAO.quantidadeHorasJogadas()}"
+        tvQtdJogosNaoTerminados.text = "${viewModel.getGameCount(beaten = false)}"
+        tvQtdJogosZerados.text = "${viewModel.getGameCount(beaten = true)}"
+        tvQtdHorasJogadas.text = "${viewModel.getTotalHoursPlayed()}"
 
-        val generosMaisJogados = jogosDAO.obterGenerosMaisJogados()
-
+//        val generosMaisJogados = jogosDAO.obterGenerosMaisJogados()
+        val generosMaisJogados = viewModel.getMostPlayedGenres()
 
         val itens = mutableListOf<SliceValue>()
 

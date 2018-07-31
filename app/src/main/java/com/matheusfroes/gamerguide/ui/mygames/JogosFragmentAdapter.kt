@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.meusjogos
+package com.matheusfroes.gamerguide.ui.mygames
 
 import android.content.Context
 import android.support.v4.app.Fragment

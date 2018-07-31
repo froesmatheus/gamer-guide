@@ -83,7 +83,7 @@ class AdicionarJogosAdapter(private val context: Context) : RecyclerView.Adapter
 
         val textoBotao = if (jogoSalvo) context.getString(R.string.btn_remover) else context.getString(R.string.btn_adicionar)
 
-        val dialog = DialogDetalhesJogo(context, jogo)
+        val dialog = DialogDetalhesJogo(context, null!!)
                 .setPositiveButton(textoBotao) { _, _ ->
                     if (jogoSalvo) {
                         this.listener?.onMenuItemClick("remover_jogo", jogo)

@@ -13,7 +13,7 @@ import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
 import com.matheusfroes.gamerguide.ui.intro.IntroducaoActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
-import com.matheusfroes.gamerguide.ui.meusjogos.MeusJogosActivity
+import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
@@ -101,7 +101,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
             MEUS_JOGOS_IDENTIFIER -> {
-                Intent(this, MeusJogosActivity::class.java)
+                Intent(this, MyGamesFragment::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
             CONFIGURACOES_IDENTIFIER -> {

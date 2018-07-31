@@ -38,7 +38,6 @@ class GameListAdapter : RecyclerView.Adapter<GameListAdapter.ViewHolder>() {
 
             val qtdJogos = lista.games.size
 
-
             val string = if (qtdJogos == 0)
                 itemView.context.getString(R.string.qtd_jogos_0)
             else

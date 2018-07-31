@@ -93,44 +93,6 @@ class GameListDetailsActivity : BaseActivity() {
         addGameDialog.listAlreadyAdded { gameListName ->
             viewModel.listAlreadyAdded(gameListName)
         }
-//        val view = View.inflate(this, R.layout.dialog_adicionar_lista, null)
-//
-//        view.etNomeLista.setText(title)
-//
-//        val dialog = AlertDialog.Builder(this)
-//                .setView(view)
-//                .setPositiveButton(getString(R.string.atualizar)) { _, _ ->
-//                    editarLista()
-//                }
-//                .setNegativeButton(getString(R.string.cancelar), null)
-//                .create()
-//
-//        dialog.show()
-//        val botaoAdicionar = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-//
-//        botaoAdicionar.isEnabled = false
-//
-//        view.etNomeLista.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(p0: Editable?) {}
-//
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//
-//            override fun onTextChanged(text: CharSequence, p1: Int, p2: Int, p3: Int) {
-//                val listaExistente = dao.verificarListaJaExistente(text.trim().toString())
-//
-//                if (listaExistente && text.toString() != title) {
-//                    view.tilNomeLista.isErrorEnabled = true
-//                    view.tilNomeLista.error = getString(R.string.msg_lista_existente)
-//                } else {
-//                    view.tilNomeLista.error = null
-//                    view.tilNomeLista.isErrorEnabled = false
-//
-//                    lista?.nome = text.toString()
-//                }
-//
-//                botaoAdicionar.isEnabled = text.isNotEmpty() && !listaExistente
-//            }
-//        })
     }
 }
 

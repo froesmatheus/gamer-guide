@@ -2,8 +2,11 @@ package com.matheusfroes.gamerguide.di.modules
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.matheusfroes.gamerguide.ui.adicionarjogos.AddGamesViewModel
+import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasViewModel
 import com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsViewModel
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsViewModel
+import com.matheusfroes.gamerguide.ui.mygames.MyGamesViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -40,4 +43,18 @@ abstract class ViewModelModule {
     @ViewModelKey(GameListDetailsViewModel::class)
     internal abstract fun detalhesListaViewModel(viewModel: GameListDetailsViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(MyGamesViewModel::class)
+    internal abstract fun myGamesViewModel(viewModel: MyGamesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddGamesViewModel::class)
+    internal abstract fun addGamesViewModel(viewModel: AddGamesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EstatisticasViewModel::class)
+    internal abstract fun estatisticasViewModel(viewModel: EstatisticasViewModel): ViewModel
 }

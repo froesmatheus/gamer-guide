@@ -11,7 +11,7 @@ data class GameList(
         var name: String) {
 
     @Ignore
-    val games: List<Game> = listOf()
+    var games: List<Game> = listOf()
 
     override fun toString() = name
 }

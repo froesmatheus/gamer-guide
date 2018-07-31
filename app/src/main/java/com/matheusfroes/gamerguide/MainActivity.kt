@@ -11,13 +11,13 @@ import com.matheusfroes.gamerguide.ui.configuracoes.ConfiguracoesActivity
 import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
-import com.matheusfroes.gamerguide.ui.meusjogos.MeusJogosActivity
+import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var meusJogos: MeusJogosActivity
+    lateinit var meusJogos: MyGamesFragment
     lateinit var calendario: CalendarioActivity
     lateinit var feed: FeedActivity
     lateinit var listas: GameListsFragment
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         if (frag == null) {
             when (tag) {
                 "MEUS_JOGOS" -> {
-                    frag = MeusJogosActivity()
+                    frag = MyGamesFragment()
                 }
                 "CALENDARIO" -> {
                     frag = calendario

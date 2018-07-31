@@ -1,5 +1,6 @@
 package com.matheusfroes.gamerguide.ui.gamelists
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -15,7 +16,6 @@ import com.matheusfroes.gamerguide.AddGameListDialog
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.appInjector
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.fab.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -42,9 +42,9 @@ class GameListsFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[GameListsViewModel::class.java]
 
-        subscriptions += viewModel.gameLists.subscribe { gameLists ->
-            adapter.gameLists = gameLists
-        }
+        viewModel.lists.observe(this, Observer { gameLists ->
+            adapter.gameLists = gameLists.orEmpty()
+        })
 
         fab.setOnClickListener { dialogAdicionarLista() }
 

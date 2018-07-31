@@ -1,5 +1,6 @@
-package com.matheusfroes.gamerguide.ui.meusjogos
+package com.matheusfroes.gamerguide.ui.mygames
 
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
@@ -9,16 +10,11 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.AtualizarListaJogosEvent
-import com.matheusfroes.gamerguide.ExcluirJogoEvent
-import com.matheusfroes.gamerguide.GerenciarListasEvent
-import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.db.JogosDAO
-import com.matheusfroes.gamerguide.data.db.ListasDAO
+import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.models.FormaCadastro
-import com.matheusfroes.gamerguide.data.models.Lista
-import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
-import com.matheusfroes.gamerguide.ui.adicionarjogos.AdicionarJogosActivity
+import com.matheusfroes.gamerguide.ui.adicionarjogos.AddGamesActivity
 import kotlinx.android.synthetic.main.activity_meus_jogos.*
 import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -26,14 +22,15 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
+import javax.inject.Inject
 
-class MeusJogosActivity : Fragment() {
-    private val viewModel: TelaPrincipalViewModel by lazy {
-        ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
-    }
-    private val listasDAO: ListasDAO by lazy {
-        ListasDAO(activity)
-    }
+@Suppress("IMPLICIT_CAST_TO_ANY")
+class MyGamesFragment : Fragment() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: MyGamesViewModel
+
+
     private val jogosDAO: JogosDAO by lazy { JogosDAO(activity) }
 
 
@@ -42,8 +39,10 @@ class MeusJogosActivity : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        appInjector.inject(this)
         activity?.tabLayout?.visibility = View.VISIBLE
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[MyGamesViewModel::class.java]
 
         val adapter = JogosFragmentAdapter(activity, activity.supportFragmentManager)
         viewPager.adapter = adapter
@@ -51,7 +50,7 @@ class MeusJogosActivity : Fragment() {
         activity?.tabLayout?.visibility = View.VISIBLE
         activity?.tabLayout?.setupWithViewPager(viewPager)
         fab.setOnClickListener {
-            startActivity(Intent(activity, AdicionarJogosActivity::class.java))
+            startActivity(Intent(activity, AddGamesActivity::class.java))
         }
 
         activity.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -98,7 +97,7 @@ class MeusJogosActivity : Fragment() {
                     val jogo = jogosDAO.obterJogoPorFormaCadastro(jogoId)
 
                     if (removerDasListas) {
-                        listasDAO.removerJogoTodasListas(jogoId)
+                        viewModel.removeGameFromLists(jogoId)
                         jogosDAO.remover(jogoId)
                     } else {
                         jogo?.formaCadastro = FormaCadastro.CADASTRO_POR_LISTA
@@ -116,11 +115,11 @@ class MeusJogosActivity : Fragment() {
 
 
     private fun dialogGerenciarListas(jogoId: Long) {
-        val listas = listasDAO.obterListas()
+        val listas = viewModel.getLists()
         val jogoJaCadastrado = mutableListOf<Boolean>()
 
         listas.forEach { lista ->
-            if (listasDAO.listaContemJogo(jogoId, lista.id)) {
+            if (viewModel.listContainsGame(jogoId, lista.id)) {
                 jogoJaCadastrado.add(true)
             } else {
                 jogoJaCadastrado.add(false)
@@ -129,13 +128,13 @@ class MeusJogosActivity : Fragment() {
 
         val listasStr = listas.map { it.toString() }.toTypedArray()
 
-        val jogosAdicionarNaLista = mutableListOf<Lista>()
-        val jogosRemoverDaLista = mutableListOf<Lista>()
+        val jogosAdicionarNaLista = mutableListOf<GameList>()
+        val jogosRemoverDaLista = mutableListOf<GameList>()
 
         val dialog = AlertDialog.Builder(activity)
                 .setTitle(getString(R.string.gerenciar_listas))
                 .setNegativeButton(getString(R.string.cancelar)) { _, _ -> }
-                .setMultiChoiceItems(listasStr, jogoJaCadastrado.toBooleanArray()) { _, which, isChecked ->
+                .setMultiChoiceItems(listasStr, jogoJaCadastrado.toBooleanArray()) { _, which: Int, isChecked: Boolean ->
                     if (isChecked && !jogoJaCadastrado[which]) {
                         jogosAdicionarNaLista.add(listas[which])
                     } else if (isChecked && jogoJaCadastrado[which]) {
@@ -156,9 +155,9 @@ class MeusJogosActivity : Fragment() {
 
     }
 
-    private fun removerJogosLista(jogosRemoverDaLista: MutableList<Lista>, jogoId: Long) {
+    private fun removerJogosLista(jogosRemoverDaLista: MutableList<GameList>, jogoId: Long) {
         jogosRemoverDaLista.forEach { lista ->
-            listasDAO.removerJogoDaLista(jogoId, lista.id)
+            viewModel.removeGameFromList(jogoId, lista.id)
         }
 
         if (jogosRemoverDaLista.size == 1) {
@@ -166,13 +165,11 @@ class MeusJogosActivity : Fragment() {
         } else if (jogosRemoverDaLista.size > 1) {
             activity.toast(getString(R.string.msg_jogo_removido_listas))
         }
-
-        EventBus.getDefault().post(AtualizarListaJogosEvent())
     }
 
-    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<Lista>, jogoId: Long) {
+    private fun adicionarJogosLista(jogosAdicionarNaLista: MutableList<GameList>, jogoId: Long) {
         jogosAdicionarNaLista.forEach { lista ->
-            listasDAO.adicionarJogoNaLista(jogoId, lista.id)
+            viewModel.addGameToList(jogoId, lista.id)
         }
         if (jogosAdicionarNaLista.size == 1) {
             activity.toast(getString(R.string.msg_jogo_adicionado_lista))

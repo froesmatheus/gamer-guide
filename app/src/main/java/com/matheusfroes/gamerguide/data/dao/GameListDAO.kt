@@ -14,6 +14,9 @@ interface GameListDAO {
     @Insert
     fun insert(list: GameList)
 
+    @Insert
+    fun addGameToList(gameToList: GameWithGameList)
+
     @Update
     fun update(list: GameList)
 
