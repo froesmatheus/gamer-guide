@@ -3,6 +3,7 @@ package com.matheusfroes.gamerguide.ui.mygames
 import android.arch.lifecycle.ViewModel
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
+import com.matheusfroes.gamerguide.data.model.InsertType
 import com.matheusfroes.gamerguide.data.source.local.GameListLocalSource
 import com.matheusfroes.gamerguide.data.source.local.GameLocalSource
 import io.reactivex.Flowable
@@ -49,5 +50,17 @@ class MyGamesViewModel @Inject constructor(
     fun updateGameProgress(game: Game) {
         gameLocalSource
                 .updateGame(game)
+    }
+
+    fun removeGame(gameId: Long) {
+        gameLocalSource.deleteGame(gameId)
+    }
+
+    fun getGameByInsertType(gameId: Long, insertType: InsertType = InsertType.INSERT_BY_SEARCH): Game? {
+        return gameLocalSource.getGamesByInsertType(gameId, insertType)
+    }
+
+    fun updateGame(game: Game) {
+        gameLocalSource.updateGame(game)
     }
 }

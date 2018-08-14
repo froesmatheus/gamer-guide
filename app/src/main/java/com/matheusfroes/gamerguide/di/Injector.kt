@@ -1,7 +1,12 @@
 package com.matheusfroes.gamerguide.di
 
 import com.matheusfroes.gamerguide.di.modules.*
-import com.matheusfroes.gamerguide.ui.adicionarjogos.AddGamesActivity
+import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
+import com.matheusfroes.gamerguide.ui.calendario.CalendarFragment
+import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity
+import com.matheusfroes.gamerguide.ui.gamedetails.gameinfo.InformacoesGeraisJogoFragment
+import com.matheusfroes.gamerguide.ui.gamedetails.livestream.StreamsFragment
+import com.matheusfroes.gamerguide.ui.gamedetails.video.VideosFragment
 import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
@@ -22,4 +27,9 @@ interface Injector {
     fun inject(jogosTabNaoTerminadosFragment: JogosTabNaoTerminadosFragment)
     fun inject(jogosTabZeradosFragment: JogosTabZeradosFragment)
     fun inject(estatisticasActivity: EstatisticasActivity)
+    fun inject(gameDetailsActivity: GameDetailsActivity)
+    fun inject(informacoesGeraisJogoFragment: InformacoesGeraisJogoFragment)
+    fun inject(videosFragment: VideosFragment)
+    fun inject(streamsFragment: StreamsFragment)
+    fun inject(calendarFragment: CalendarFragment)
 }

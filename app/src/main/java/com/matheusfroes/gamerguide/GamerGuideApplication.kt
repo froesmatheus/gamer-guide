@@ -5,6 +5,7 @@ import com.facebook.stetho.Stetho
 import com.matheusfroes.gamerguide.di.DaggerInjector
 import com.matheusfroes.gamerguide.di.Injector
 import com.matheusfroes.gamerguide.di.modules.AppModule
+import timber.log.Timber
 
 class GamerGuideApplication : Application() {
     lateinit var injector: Injector private set
@@ -13,6 +14,8 @@ class GamerGuideApplication : Application() {
         super.onCreate()
 
         Stetho.initializeWithDefaults(this)
+
+        Timber.plant(Timber.DebugTree())
 
         setupDagger()
     }

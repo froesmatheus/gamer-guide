@@ -1,5 +1,7 @@
-package com.matheusfroes.gamerguide.ui.detalhesjogo
+package com.matheusfroes.gamerguide.ui.gamedetails
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.SharedPreferences
@@ -13,28 +15,30 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.db.JogosDAO
+import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.data.db.ListasDAO
-import com.matheusfroes.gamerguide.data.models.FormaCadastro
-import com.matheusfroes.gamerguide.data.models.Jogo
+import com.matheusfroes.gamerguide.data.model.Game
+import com.matheusfroes.gamerguide.data.model.InsertType
 import com.matheusfroes.gamerguide.obterImagemJogoCapa
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
 import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
 
 
-class DetalhesJogoActivity : AppCompatActivity() {
-    private val viewModel: DetalhesJogoViewModel by lazy {
-        ViewModelProviders.of(this).get(DetalhesJogoViewModel::class.java)
-    }
-    private val jogosDAO: JogosDAO by lazy {
-        JogosDAO(this)
-    }
+class GameDetailsActivity : AppCompatActivity() {
     private val preferences: SharedPreferences by lazy {
         getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
     }
-    var jogoSalvo = false
+    private var jogoSalvo = false
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: GameDetailsViewModel
+
+    private val gameId by lazy { intent.getLongExtra("id_jogo", 0L) }
+    private val game by lazy { intent.getSerializableExtra("jogo") as Game }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val appTheme = preferences.getString("APP_THEME", "DEFAULT")
@@ -42,52 +46,46 @@ class DetalhesJogoActivity : AppCompatActivity() {
         setTheme(theme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_jogo)
+        appInjector.inject(this)
         setSupportActionBar(toolbar)
 
-        viewModel.temaAtual.value = preferences.getString("APP_THEME", "DEFAULT")
+        intent ?: return
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[GameDetailsViewModel::class.java]
+
+        if (gameId == 0L) {
+            viewModel.game.postValue(game)
+        } else {
+            viewModel.gameId = gameId
+        }
+
+        viewModel.currentAppTheme.value = preferences.getString("APP_THEME", "DEFAULT")
 
         appBar.post {
             val heightPx = ivCapaJogo.height
             setAppBarOffset(heightPx / 2)
         }
 
-
-        intent ?: return
-
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
-        val jogo: Jogo
-        var jogoId = intent.getLongExtra("id_jogo", 0L)
-        jogo = if (jogoId != 0L) {
-            jogosDAO.obterJogo(jogoId)!!
-        } else {
-            intent.getSerializableExtra("jogo") as Jogo
-        }
-        jogoId = jogo.id
-        jogoSalvo = jogosDAO.obterJogoPorFormaCadastro(jogo.id) != null
+        viewModel.game.observe(this, Observer { game ->
+            if (game != null) updateUI(game)
+        })
+    }
+
+    private fun updateUI(game: Game) {
+        jogoSalvo = viewModel.getGameByInsertType(game.id) != null
         if (jogoSalvo) {
             fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
         } else {
             fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
         }
 
-        viewModel.jogo.value = jogo
-
-
-        val tabAdapter = DetalhesJogosFragmentAdapter(this, supportFragmentManager)
-        viewPager.adapter = tabAdapter
-        tabLayout.setupWithViewPager(viewPager)
-        viewPager.setCurrentItem(0, false)
-
-        if (viewModel.jogo.value?.videos?.size == 0) {
-            tabAdapter.removeTabPage(1)
-        }
-
-        if (jogo.imageCapa.isNotEmpty()) {
+        if (game.coverImage.isNotEmpty()) {
             Picasso
                     .with(this)
-                    .load(obterImagemJogoCapa(jogo.imageCapa))
+                    .load(obterImagemJogoCapa(game.coverImage))
                     .into(ivCapaJogo)
         } else {
             appBar.setExpanded(false, false)
@@ -100,16 +98,24 @@ class DetalhesJogoActivity : AppCompatActivity() {
         fabAdicinarJogo.setOnClickListener {
 
             if (jogoSalvo) {
-                dialogRemoverJogo(jogoId)
+                dialogRemoverJogo(gameId)
             } else {
                 val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
-                jogosDAO.inserir(jogo)
+                viewModel.addGame(game)
                 jogoSalvo = true
                 EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
                 fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
                 snackbar.show()
             }
+        }
 
+        val tabAdapter = GameDetailsTabAdapter(this, supportFragmentManager)
+        viewPager.adapter = tabAdapter
+        tabLayout.setupWithViewPager(viewPager)
+        viewPager.setCurrentItem(0, false)
+
+        if (game.videos.isEmpty()) {
+            tabAdapter.removeTabPage(1)
         }
     }
 
@@ -122,14 +128,14 @@ class DetalhesJogoActivity : AppCompatActivity() {
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
                     val removerDasListas = view.chkRemoverDasListas.isChecked
 
-                    val jogo = jogosDAO.obterJogoPorFormaCadastro(jogoId)
+                    val jogo = viewModel.getGameByInsertType(jogoId)
 
                     if (removerDasListas) {
                         listasDAO.removerJogoTodasListas(jogoId)
-                        jogosDAO.remover(jogoId)
+                        viewModel.removeGame(jogoId)
                     } else {
-                        jogo?.formaCadastro = FormaCadastro.CADASTRO_POR_LISTA
-                        jogosDAO.atualizar(jogo!!)
+                        jogo?.insertType = InsertType.INSERT_TO_LIST
+                        viewModel.updateGame(jogo!!)
                     }
 
                     jogoSalvo = false

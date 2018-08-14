@@ -1,11 +1,14 @@
-package com.matheusfroes.gamerguide.ui.detalhesjogo
+package com.matheusfroes.gamerguide.ui.gamedetails
 
 import android.content.Context
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.ui.gamedetails.gameinfo.InformacoesGeraisJogoFragment
+import com.matheusfroes.gamerguide.ui.gamedetails.livestream.StreamsFragment
+import com.matheusfroes.gamerguide.ui.gamedetails.video.VideosFragment
 
-class DetalhesJogosFragmentAdapter(val context: Context, fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
+class GameDetailsTabAdapter(val context: Context, fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
     private val tabItems = mutableListOf(
             InformacoesGeraisJogoFragment(), VideosFragment(), StreamsFragment()
     )

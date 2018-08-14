@@ -14,4 +14,8 @@ class PlatformMapper @Inject constructor(private val platformLocalSource: Platfo
                 .distinct()
                 .sortedBy { it.name.toLowerCase() }
     }
+
+    fun map(platformId: Long): Platform {
+        return platformLocalSource.getPlatform(platformId)
+    }
 }

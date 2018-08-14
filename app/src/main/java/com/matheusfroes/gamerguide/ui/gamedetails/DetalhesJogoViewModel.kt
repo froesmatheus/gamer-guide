@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.detalhesjogo
+package com.matheusfroes.gamerguide.ui.gamedetails
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.adicionarjogos
+package com.matheusfroes.gamerguide.ui.addgames
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.models.Jogo
 import com.matheusfroes.gamerguide.extra.DialogDetalhesJogo
 import com.matheusfroes.gamerguide.formatarData
-import com.matheusfroes.gamerguide.ui.detalhesjogo.DetalhesJogoActivity
+import com.matheusfroes.gamerguide.ui.gamedetails.DetalhesJogoActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_pesquisa.view.*
 

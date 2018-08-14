@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.matheusfroes.gamerguide.ui.calendario.CalendarioActivity
+import com.matheusfroes.gamerguide.ui.calendario.CalendarFragment
 import com.matheusfroes.gamerguide.ui.configuracoes.ConfiguracoesActivity
 import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var meusJogos: MyGamesFragment
-    lateinit var calendario: CalendarioActivity
+    lateinit var calendario: CalendarFragment
     lateinit var feed: FeedActivity
     lateinit var listas: GameListsFragment
     lateinit var estatisticas: EstatisticasActivity
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        calendario = CalendarioActivity()
+        calendario = CalendarFragment()
         feed = FeedActivity()
         listas = GameListsFragment()
         estatisticas = EstatisticasActivity()
@@ -136,7 +136,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId)  {
+        when (item.itemId) {
             R.id.navConfiguracoes -> {
                 startActivity(Intent(this, ConfiguracoesActivity::class.java))
                 return true

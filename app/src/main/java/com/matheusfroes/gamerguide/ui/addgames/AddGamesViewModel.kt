@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.adicionarjogos
+package com.matheusfroes.gamerguide.ui.addgames
 
 import android.arch.lifecycle.ViewModel
 import com.matheusfroes.gamerguide.Result
@@ -17,10 +17,11 @@ class AddGamesViewModel @Inject constructor(
         private val gameRemoteSource: GameRemoteSource,
         private val gameListLocalSource: GameListLocalSource,
         private val gameLocalSource: GameLocalSource) : ViewModel() {
-    private var nextPageId = ""
+    var nextPageId = ""
+    var queryDigitada = ""
 
-    fun searchGames(query: String = ""): Observable<Result<List<Game>>> {
-        return gameRemoteSource.searchGames(query, nextPageId)
+    fun searchGames(): Observable<Result<List<Game>>> {
+        return gameRemoteSource.searchGames(queryDigitada, nextPageId)
                 .map {
                     nextPageId = it.second
                     it.first

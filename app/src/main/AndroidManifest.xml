@@ -17,19 +17,24 @@
             android:label="@string/configuracoes_feed"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".ui.adicionarjogos.AdicionarJogosActivity"
+            android:name=".ui.addgames.AdicionarJogosActivity"
             android:label="@string/adicionar_jogos"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".ui.adicionarjogos.AddGamesActivity"
+            android:name=".ui.addgames.AddGamesActivity"
             android:label="@string/adicionar_jogos"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".ui.detalhesjogo.DetalhesJogoActivity"
+            android:name=".ui.gamedetails.DetalhesJogoActivity"
+            android:label="@string/title_activity_detalhes_jogo"
+            android:theme="@style/AppTheme.DetalhesJogo" />
+
+        <activity
+            android:name=".ui.gamedetails.GameDetailsActivity"
             android:label="@string/title_activity_detalhes_jogo"
             android:theme="@style/AppTheme.DetalhesJogo" />
 
@@ -38,7 +43,7 @@
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".ui.adicionarjogos.CapaJogoTelaCheiaActivity"
+            android:name=".ui.addgames.CapaJogoTelaCheiaActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".ui.BaseActivityDrawer" />

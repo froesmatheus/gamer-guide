@@ -13,8 +13,8 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.model.GameList
-import com.matheusfroes.gamerguide.data.models.FormaCadastro
-import com.matheusfroes.gamerguide.ui.adicionarjogos.AddGamesActivity
+import com.matheusfroes.gamerguide.data.model.InsertType
+import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
 import kotlinx.android.synthetic.main.activity_meus_jogos.*
 import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -29,10 +29,6 @@ class MyGamesFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: MyGamesViewModel
-
-
-    private val jogosDAO: JogosDAO by lazy { JogosDAO(activity) }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.activity_meus_jogos, container, false)
@@ -94,15 +90,16 @@ class MyGamesFragment : Fragment() {
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
                     val removerDasListas = view.chkRemoverDasListas.isChecked
 
-                    val jogo = jogosDAO.obterJogoPorFormaCadastro(jogoId)
+                    val jogo = viewModel.getGameByInsertType(jogoId)
 
                     if (removerDasListas) {
                         viewModel.removeGameFromLists(jogoId)
-                        jogosDAO.remover(jogoId)
+                        viewModel.removeGame(jogoId)
                     } else {
-                        jogo?.formaCadastro = FormaCadastro.CADASTRO_POR_LISTA
-                        jogosDAO.atualizar(jogo!!)
+                        jogo?.insertType = InsertType.INSERT_TO_LIST
+                        viewModel.updateGame(jogo!!)
                     }
+
 
                     EventBus.getDefault().post(AtualizarListaJogosEvent())
                     activity.toast(getString(R.string.jogo_removido))

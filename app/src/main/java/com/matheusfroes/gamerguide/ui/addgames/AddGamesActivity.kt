@@ -1,7 +1,8 @@
-package com.matheusfroes.gamerguide.ui.adicionarjogos
+package com.matheusfroes.gamerguide.ui.addgames
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -11,7 +12,9 @@ import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.model.InsertType
+import com.matheusfroes.gamerguide.extra.DialogDetalhesJogo
 import com.matheusfroes.gamerguide.ui.BaseActivity
+import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.activity_adicionar_jogos.*
@@ -23,10 +26,7 @@ import javax.inject.Inject
 
 
 class AddGamesActivity : BaseActivity() {
-    val adapter: AddGamesAdapter by lazy {
-        AddGamesAdapter(this)
-    }
-    var queryDigitada = ""
+    val adapter: AddGamesAdapter by lazy { AddGamesAdapter() }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -49,32 +49,18 @@ class AddGamesActivity : BaseActivity() {
 
         val scrollListener: EndlessScrollListener = object : EndlessScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
-                searchGames(queryDigitada)
+                searchGames()
             }
         }
         rvJogos.addOnScrollListener(scrollListener)
 
-        adapter.setOnMenuItemClickListener(object : AddGamesAdapter.OnAdicionarJogoListener {
-            override fun onMenuItemClick(action: String, jogo: Game) {
-                when (action) {
-                    "adicionar_jogo" -> {
-                        toast(getString(R.string.jogo_adicionado))
-                        val jogoInserido = viewModel.getGameByInsertType(jogo.id, InsertType.INSERT_TO_LIST)
-                        if (jogoInserido == null) {
-                            viewModel.addGame(jogo)
-                        } else {
-                            jogoInserido.insertType = InsertType.INSERT_BY_SEARCH
-                            viewModel.updateGame(jogoInserido)
-                        }
-                        EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
-                    }
-                    "remover_jogo" -> {
-                        dialogRemoverJogo(jogo.id)
-                    }
-                    else -> dialogGerenciarListas(jogo)
-                }
-            }
-        })
+        adapter.gameDetailsClick = { game ->
+            dialogDetalhesJogo(game)
+        }
+
+        adapter.onPopupMenuClick = { action: String, game: Game ->
+            popupMenuClick(action, game)
+        }
 
         // Obter jogos mais populares do momento
         searchGames()
@@ -83,15 +69,36 @@ class AddGamesActivity : BaseActivity() {
             esconderTeclado(this)
             adapter.limparLista()
             scrollListener.resetState()
-            queryDigitada = etNomeJogo.text.toString()
+            viewModel.nextPageId = ""
+            viewModel.queryDigitada = etNomeJogo.text.toString()
 
-            searchGames(queryDigitada)
+            searchGames()
             true
         }
     }
 
-    private fun searchGames(query: String = "") {
-        subscriptions += viewModel.searchGames(query).subscribe { result ->
+    private fun popupMenuClick(action: String, game: Game) {
+        when (action) {
+            "adicionar_jogo" -> {
+                toast(getString(R.string.jogo_adicionado))
+                val jogoInserido = viewModel.getGameByInsertType(game.id, InsertType.INSERT_TO_LIST)
+                if (jogoInserido == null) {
+                    viewModel.addGame(game)
+                } else {
+                    jogoInserido.insertType = InsertType.INSERT_BY_SEARCH
+                    viewModel.updateGame(jogoInserido)
+                }
+                EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+            }
+            "remover_jogo" -> {
+                dialogRemoverJogo(game.id)
+            }
+            else -> dialogGerenciarListas(game)
+        }
+    }
+
+    private fun searchGames() {
+        subscriptions += viewModel.searchGames().subscribe { result ->
 
             when (result) {
                 is Result.Complete -> {
@@ -203,6 +210,30 @@ class AddGamesActivity : BaseActivity() {
         } else if (jogosAdicionarNaLista.size > 1) {
             toast(getString(R.string.msg_jogo_adicionado_listas))
         }
+    }
+
+    private fun dialogDetalhesJogo(game: Game) {
+        val jogoSalvo = viewModel.getGameByInsertType(game.id) != null
+
+        val textoBotao = if (jogoSalvo) getString(R.string.btn_remover) else getString(R.string.btn_adicionar)
+
+        val dialog = DialogDetalhesJogo(this, game)
+                .setPositiveButton(textoBotao) { _, _ ->
+                    if (jogoSalvo) {
+                        popupMenuClick("remover_jogo", game)
+                    } else {
+                        popupMenuClick("adicionar_jogo", game)
+                    }
+                }
+                .setNegativeButton(getString(R.string.Detalhes)) { _, _ ->
+                    val intent = Intent(this, GameDetailsActivity::class.java)
+                    intent.putExtra("tela_origem", "tela_adicionar")
+                    intent.putExtra("jogo", game)
+                    startActivity(intent)
+                }
+                .create()
+
+        dialog.show()
     }
 
     override fun onDestroy() {

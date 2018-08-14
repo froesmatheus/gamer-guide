@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.formatarData
-import com.matheusfroes.gamerguide.ui.detalhesjogo.DetalhesJogoActivity
+import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_lista.view.*
 
@@ -59,7 +59,7 @@ class GameListGamesAdapter : RecyclerView.Adapter<GameListGamesAdapter.ViewHolde
             itemView.setOnClickListener {
                 val jogo = games[adapterPosition]
 
-                val intent = Intent(itemView.context, DetalhesJogoActivity::class.java)
+                val intent = Intent(itemView.context, GameDetailsActivity::class.java)
                 intent.putExtra("id_jogo", jogo.id)
                 itemView.context.startActivity(intent)
             }

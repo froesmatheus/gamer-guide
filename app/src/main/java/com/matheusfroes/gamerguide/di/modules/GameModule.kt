@@ -27,6 +27,4 @@ class GameModule {
     fun gameService(retrofit: Retrofit): GameService {
         return retrofit.create(GameService::class.java)
     }
-
-
 }

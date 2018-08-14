@@ -24,9 +24,7 @@ import javax.inject.Inject
 
 class JogosTabNaoTerminadosFragment : Fragment() {
     val adapter: MyGamesAdapter by lazy { MyGamesAdapter() }
-    //    private val viewModel: TelaPrincipalViewModel by lazy {
-//        ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
-//    }
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: MyGamesViewModel

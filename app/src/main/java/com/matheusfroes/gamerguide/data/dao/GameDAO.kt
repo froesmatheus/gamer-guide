@@ -56,7 +56,7 @@ interface GameDAO {
     @Query("SELECT * FROM games WHERE id = :gameId AND insertType = :insertType")
     fun getGamesByInsertType(gameId: Long, insertType: InsertType): Game?
 
-    @Query("SELECT * FROM games WHERE game_progress_beaten = 0")
+    @Query("SELECT * FROM games WHERE game_progress_beaten = 0 AND insertType = 'INSERT_BY_SEARCH'")
     fun getUnfinishedGames(): Flowable<List<Game>>
 
     @Query("SELECT * FROM games WHERE game_progress_beaten = 1")

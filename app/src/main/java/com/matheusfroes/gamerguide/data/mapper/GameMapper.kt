@@ -32,27 +32,4 @@ class GameMapper @Inject constructor(private val platformMapper: PlatformMapper)
     fun map(gameResponse: List<GameResponse>): List<Game> {
         return gameResponse.map { map(it) }
     }
-
-//    companion object {
-//        fun map(gameResponse: GameResponse): Game {
-//            val game = Game(
-//                    id = gameResponse.id,
-//                    name = gameResponse.name ?: "",
-//                    description = gameResponse.summary ?: "",
-//                    developers = gameResponse.developers?.joinToString() ?: "",
-//                    publishers = gameResponse.publishers?.joinToString() ?: "",
-//                    genres = GenreMapper.map(gameResponse.genres),
-//                    releaseDate = Date(gameResponse.firstReleaseDate),
-//                    gameEngine = GameEngineMapper.map(gameResponse.gameEngines),
-//                    timeToBeat = TimeToBeatMapper.map(gameResponse.timeToBeat),
-//                    coverImage = adicionarSchemaUrl(gameResponse.cover?.url))
-//
-//            val videos = VideoMapper.map(gameResponse.videos, gameResponse.id)
-////            val platforms = PlatformMapper.map(gameResponse.releaseDates)
-//
-//            game.videos = videos
-////            game.platforms = platforms
-//            return game
-//        }
-//    }
 }

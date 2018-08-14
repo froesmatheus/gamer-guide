@@ -59,7 +59,7 @@ class JogosTabZeradosFragment : Fragment() {
                         dialogAtualizarProgresso(game)
                     }
                     R.id.navMarcarComoNaoTerminado -> {
-                        game.progress.beaten = true
+                        game.progress.beaten = false
                         viewModel.updateGameProgress(game)
                         context.toast(getString(R.string.msg_jogo_movido_nao_terminados))
                     }

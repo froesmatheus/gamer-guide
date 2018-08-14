@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.ui.calendario.CalendarioActivity
+import com.matheusfroes.gamerguide.ui.calendario.CalendarFragment
 import com.matheusfroes.gamerguide.ui.configuracoes.ConfiguracoesActivity
 import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
-import com.matheusfroes.gamerguide.ui.intro.IntroducaoActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
+import com.matheusfroes.gamerguide.ui.intro.IntroducaoActivity
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
@@ -97,7 +97,7 @@ open class BaseActivityDrawer : AppCompatActivity() {
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
             CALENDARIO_IDENTIFIER -> {
-                Intent(this, CalendarioActivity::class.java)
+                Intent(this, CalendarFragment::class.java)
                         .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
             MEUS_JOGOS_IDENTIFIER -> {

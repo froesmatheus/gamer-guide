@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.adicionarjogos
+package com.matheusfroes.gamerguide.ui.addgames
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

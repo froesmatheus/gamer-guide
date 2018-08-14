@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.adicionarjogos
+package com.matheusfroes.gamerguide.ui.addgames
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel

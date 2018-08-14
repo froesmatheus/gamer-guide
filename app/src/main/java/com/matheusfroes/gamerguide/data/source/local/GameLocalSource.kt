@@ -28,6 +28,15 @@ class GameLocalSource @Inject constructor(private val database: GamerGuideDataba
                 .take(5)
     }
 
+    fun getGame(gameId: Long): Game {
+        val game = database.gamesDao().get(gameId)
+
+        game.videos = database.videosDao().getVideosByGame(gameId)
+        game.platforms = database.platformsDao().getPlatformsByGame(gameId)
+
+        return game
+    }
+
     fun addGame(game: Game) {
         database.gamesDao().insert(game)
     }
