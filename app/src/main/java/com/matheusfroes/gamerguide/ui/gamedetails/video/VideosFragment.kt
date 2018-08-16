@@ -27,7 +27,7 @@ class VideosFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         appInjector.inject(this)
-        viewModel = ViewModelProviders.of(activity, viewModelFactory)[GameDetailsViewModel::class.java]
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[GameDetailsViewModel::class.java]
 
         val theme = if (viewModel.currentAppTheme.value == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
 

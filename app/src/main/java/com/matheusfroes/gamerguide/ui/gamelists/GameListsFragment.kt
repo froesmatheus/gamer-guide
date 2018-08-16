@@ -35,7 +35,7 @@ class GameListsFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.activity_listas, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
         activity?.tabLayout?.visibility = View.GONE
@@ -73,7 +73,7 @@ class GameListsFragment : Fragment() {
 
         addGameDialog.addButtonClick { gameListName ->
             viewModel.addList(gameListName)
-            activity.toast(getString(R.string.lista_adicionada))
+            requireActivity().toast(getString(R.string.lista_adicionada))
         }
 
         addGameDialog.listAlreadyAdded { gameListName ->

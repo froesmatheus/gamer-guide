@@ -14,7 +14,7 @@ fun Date.formatarData(formato: String): String =
         SimpleDateFormat(formato, Locale("pt", "BR")).format(this)
 
 val Activity.app: GamerGuideApplication get() = application as GamerGuideApplication
-val Fragment.app: GamerGuideApplication get() = activity.app
+val Fragment.app: GamerGuideApplication get() = requireActivity().app
 
 val Fragment.appInjector: Injector get() = app.injector
 val Activity.appInjector: Injector get() = app.injector

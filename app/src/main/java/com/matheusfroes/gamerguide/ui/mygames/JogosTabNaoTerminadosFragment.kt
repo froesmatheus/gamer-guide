@@ -36,7 +36,7 @@ class JogosTabNaoTerminadosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
-        viewModel = ViewModelProviders.of(activity, viewModelFactory)[MyGamesViewModel::class.java]
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[MyGamesViewModel::class.java]
 
         rvJogosNaoTerminados.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity)
         rvJogosNaoTerminados.adapter = adapter
@@ -61,7 +61,7 @@ class JogosTabNaoTerminadosFragment : Fragment() {
                     R.id.navMarcarComoZerado -> {
                         game.progress.beaten = true
                         viewModel.updateGameProgress(game)
-                        context.toast(getString(R.string.msg_jogo_movido_zerados))
+                        requireContext().toast(getString(R.string.msg_jogo_movido_zerados))
                     }
                 }
             }
@@ -90,7 +90,7 @@ class JogosTabNaoTerminadosFragment : Fragment() {
         view.chkJogoZerado.isChecked = game.progress.beaten
 
 
-        val dialog = AlertDialog.Builder(context)
+        val dialog = AlertDialog.Builder(requireContext())
                 .setView(view)
                 .setPositiveButton(getString(R.string.atualizar)) { _, _ ->
                     var horasJogadasStr = view.etHorasJogadas.text.toString().trim()
@@ -102,7 +102,7 @@ class JogosTabNaoTerminadosFragment : Fragment() {
 
                     viewModel.updateGameProgress(game)
 
-                    context.toast(getString(R.string.progresso_atualizado))
+                    requireContext().toast(getString(R.string.progresso_atualizado))
                 }
                 .setNegativeButton(getString(R.string.cancelar), null)
                 .create()

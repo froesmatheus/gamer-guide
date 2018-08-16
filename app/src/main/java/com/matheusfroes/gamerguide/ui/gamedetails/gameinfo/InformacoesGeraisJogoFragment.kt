@@ -29,7 +29,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         appInjector.inject(this)
-        viewModel = ViewModelProviders.of(activity, viewModelFactory)[GameDetailsViewModel::class.java]
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[GameDetailsViewModel::class.java]
 
         val theme = if (viewModel.currentAppTheme.value == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
 
@@ -89,7 +89,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
             val urlZoom = getString(R.string.url_zoom, game.name)
 
             val customTabsIntent = CustomTabsIntent.Builder()
-                    .setToolbarColor(ContextCompat.getColor(activity, R.color.cor_zoom))
+                    .setToolbarColor(ContextCompat.getColor(requireActivity(), R.color.cor_zoom))
                     .build()
             customTabsIntent.launchUrl(activity, Uri.parse(urlZoom))
         }
@@ -98,7 +98,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
             val urlZoom = getString(R.string.url_buscape, game.name.replace(" ", "-"))
 
             val customTabsIntent = CustomTabsIntent.Builder()
-                    .setToolbarColor(ContextCompat.getColor(activity, R.color.cor_buscape))
+                    .setToolbarColor(ContextCompat.getColor(requireActivity(), R.color.cor_buscape))
                     .build()
             customTabsIntent.launchUrl(activity, Uri.parse(urlZoom))
         }
@@ -111,7 +111,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
                 val urlZoom = getString(R.string.url_steam, game.name)
 
                 val customTabsIntent = CustomTabsIntent.Builder()
-                        .setToolbarColor(ContextCompat.getColor(activity, R.color.cor_steam))
+                        .setToolbarColor(ContextCompat.getColor(requireActivity(), R.color.cor_steam))
                         .build()
                 customTabsIntent.launchUrl(activity, Uri.parse(urlZoom))
             }
@@ -132,16 +132,16 @@ class InformacoesGeraisJogoFragment : Fragment() {
                 tituloTTB100Perc.visibility = View.GONE
                 tvTTB100Perc.visibility = View.GONE
             }
-            tvTTBSpeedrun.text = context.getString(R.string.horas_ttb, game.timeToBeat.hastly.div(3600))
-            tvTTBModoHistoria.text = context.getString(R.string.horas_ttb, game.timeToBeat.normally.div(3600))
-            tvTTB100Perc.text = context.getString(R.string.horas_ttb, game.timeToBeat.completely.div(3600))
+            tvTTBSpeedrun.text = requireContext().getString(R.string.horas_ttb, game.timeToBeat.hastly.div(3600))
+            tvTTBModoHistoria.text = requireContext().getString(R.string.horas_ttb, game.timeToBeat.normally.div(3600))
+            tvTTB100Perc.text = requireContext().getString(R.string.horas_ttb, game.timeToBeat.completely.div(3600))
         } else {
             cvCardTimeToBeat.visibility = View.GONE
         }
     }
 
     private fun dialogDescricao(jogo: Game?) {
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(requireActivity())
                 .setTitle(getString(R.string.descricao))
                 .setMessage(jogo?.description)
                 .create()

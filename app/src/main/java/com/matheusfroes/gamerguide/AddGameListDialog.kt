@@ -46,10 +46,10 @@ class AddGameListDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.dialog_adicionar_lista, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val dialogType = arguments.getString("DIALOG_TYPE")
+        val dialogType = arguments?.getString("DIALOG_TYPE")
 
         btnAdicionar.text = if (dialogType == ADD_LIST) {
             "Adicionar"

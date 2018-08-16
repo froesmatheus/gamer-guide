@@ -32,12 +32,12 @@ class FeedActivity : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.activity_feed, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         activity?.tabLayout?.visibility = View.GONE
 
-        adapter = FeedAdapter(activity)
+        adapter = FeedAdapter(requireActivity())
 
         viewModel.noticias.observe(this, Observer { noticias ->
             adapter.preencherNoticias(noticias!!)
@@ -53,7 +53,7 @@ class FeedActivity : Fragment() {
         adapter.setOnClickListener(object : FeedAdapter.OnNewsClickListener {
             override fun onClick(noticia: Noticia) {
                 val customTabsIntent = CustomTabsIntent.Builder()
-                        .setToolbarColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                        .setToolbarColor(ContextCompat.getColor(requireActivity(), R.color.colorPrimary))
                         .build()
                 customTabsIntent.launchUrl(activity, Uri.parse(noticia.url))
             }

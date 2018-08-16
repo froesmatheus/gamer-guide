@@ -17,7 +17,7 @@ class FonteNoticiasAdapter(
 
     override fun getItemCount() = fontes.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(View.inflate(context, R.layout.view_fonte_noticia, null))
     }
 

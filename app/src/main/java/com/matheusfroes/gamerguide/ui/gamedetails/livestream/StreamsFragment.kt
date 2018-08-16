@@ -30,7 +30,7 @@ class StreamsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         appInjector.inject(this)
-        viewModel = ViewModelProviders.of(activity, viewModelFactory)[GameDetailsViewModel::class.java]
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[GameDetailsViewModel::class.java]
         val theme = if (viewModel.currentAppTheme.value == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
 
         val context = ContextThemeWrapper(activity, theme)
@@ -39,7 +39,7 @@ class StreamsFragment : Fragment() {
         return localInflater.inflate(R.layout.fragment_streams, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

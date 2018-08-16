@@ -32,14 +32,14 @@ class MyGamesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.activity_meus_jogos, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
         activity?.tabLayout?.visibility = View.VISIBLE
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[MyGamesViewModel::class.java]
 
-        val adapter = JogosFragmentAdapter(activity, activity.supportFragmentManager)
+        val adapter = JogosFragmentAdapter(requireActivity(), requireActivity().supportFragmentManager)
         viewPager.adapter = adapter
 
         activity?.tabLayout?.visibility = View.VISIBLE
@@ -48,7 +48,7 @@ class MyGamesFragment : Fragment() {
             startActivity(Intent(activity, AddGamesActivity::class.java))
         }
 
-        activity.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        requireActivity().tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -89,7 +89,7 @@ class MyGamesFragment : Fragment() {
         if (!gameIsInGameLists) {
             view.chkRemoverDasListas.visibility = View.GONE
         }
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(requireActivity())
                 .setView(view)
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
                     val removerDasListas = view.chkRemoverDasListas.isChecked
@@ -106,7 +106,7 @@ class MyGamesFragment : Fragment() {
 
 
                     EventBus.getDefault().post(AtualizarListaJogosEvent())
-                    activity.toast(getString(R.string.jogo_removido))
+                    requireActivity().toast(getString(R.string.jogo_removido))
                 }
                 .setNegativeButton(getString(R.string.cancelar), null)
                 .create()
@@ -132,7 +132,7 @@ class MyGamesFragment : Fragment() {
         val jogosAdicionarNaLista = mutableListOf<GameList>()
         val jogosRemoverDaLista = mutableListOf<GameList>()
 
-        val dialog = AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(requireActivity())
                 .setTitle(getString(R.string.gerenciar_listas))
                 .setNegativeButton(getString(R.string.cancelar)) { _, _ -> }
                 .setMultiChoiceItems(listasStr, jogoJaCadastrado.toBooleanArray()) { _, which: Int, isChecked: Boolean ->
@@ -162,9 +162,9 @@ class MyGamesFragment : Fragment() {
         }
 
         if (jogosRemoverDaLista.size == 1) {
-            activity.toast(getString(R.string.msg_jogo_removido_lista))
+            requireActivity().toast(getString(R.string.msg_jogo_removido_lista))
         } else if (jogosRemoverDaLista.size > 1) {
-            activity.toast(getString(R.string.msg_jogo_removido_listas))
+            requireActivity().toast(getString(R.string.msg_jogo_removido_listas))
         }
     }
 
@@ -173,9 +173,9 @@ class MyGamesFragment : Fragment() {
             viewModel.addGameToList(jogoId, lista.id)
         }
         if (jogosAdicionarNaLista.size == 1) {
-            activity.toast(getString(R.string.msg_jogo_adicionado_lista))
+            requireActivity().toast(getString(R.string.msg_jogo_adicionado_lista))
         } else if (jogosAdicionarNaLista.size > 1) {
-            activity.toast(getString(R.string.msg_jogo_adicionado_listas))
+            requireActivity().toast(getString(R.string.msg_jogo_adicionado_listas))
         }
     }
 }

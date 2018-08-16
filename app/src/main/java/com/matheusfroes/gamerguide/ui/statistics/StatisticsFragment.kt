@@ -25,7 +25,7 @@ class StatisticsFragment : Fragment() {
             inflater.inflate(R.layout.activity_estatisticas, container, false)
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
 
