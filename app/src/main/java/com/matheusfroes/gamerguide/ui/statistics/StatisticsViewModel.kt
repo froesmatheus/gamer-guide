@@ -1,20 +1,23 @@
 package com.matheusfroes.gamerguide.ui.statistics
 
 import android.arch.lifecycle.ViewModel
-import com.matheusfroes.gamerguide.data.source.local.StatisticLocalSource
+import com.matheusfroes.gamerguide.data.source.local.GameLocalSource
 import javax.inject.Inject
 
-class StatisticsViewModel @Inject constructor(private val source: StatisticLocalSource) : ViewModel() {
+class StatisticsViewModel @Inject constructor(
+        private val gameLocalSource: GameLocalSource
+) : ViewModel() {
 
-    fun getGameCountByProgressStatus(beaten: Boolean): Int {
-        return source.getGameCountByProgressStatus(beaten)
-    }
 
     fun getTotalHoursPlayed(): Int {
-        return source.getTotalHoursPlayed()
+        return gameLocalSource.getTotalHoursPlayed()
+    }
+
+    fun getGameCount(beaten: Boolean): Int {
+        return gameLocalSource.getGameCount(beaten)
     }
 
     fun getMostPlayedGenres(): List<Pair<String, Int>> {
-        return source.getMostPlayedGenres()
+        return gameLocalSource.getMostPlayedGenres()
     }
 }

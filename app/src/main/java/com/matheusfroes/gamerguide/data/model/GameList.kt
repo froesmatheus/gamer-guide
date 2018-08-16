@@ -8,10 +8,11 @@ import android.arch.persistence.room.PrimaryKey
 data class GameList(
         @PrimaryKey(autoGenerate = true)
         val id: Long = 0,
-        var name: String) {
+        var name: String,
+        val isDefault: Boolean = false) {
 
     @Ignore
-    val games: List<Game> = listOf()
+    var games: List<Game> = listOf()
 
     override fun toString() = name
 }

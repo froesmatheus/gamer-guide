@@ -1,16 +1,15 @@
 package com.matheusfroes.gamerguide.di.modules
 
 import android.content.Context
-import com.matheusfroes.gamerguide.GamerGuideApplication
-import com.matheusfroes.gamerguide.di.annotation.AppContext
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 
-@Module(includes = [(ViewModelModule::class)])
-class AppModule {
+@Module
+class AppModule(val app: Context) {
 
     @Provides
-    @AppContext
-    fun application(app: GamerGuideApplication): Context = app.applicationContext
+    @Singleton
+    fun provideApp(): Context = app
 }

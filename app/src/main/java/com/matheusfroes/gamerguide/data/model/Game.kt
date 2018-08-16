@@ -22,11 +22,12 @@ data class Game(
         val timeToBeat: TimeToBeat? = null,
         val coverImage: String,
         @Embedded(prefix = "game_progress_")
-        val progress: GameProgress? = null) : Serializable {
+        val progress: GameProgress = GameProgress(0, 0, false),
+        var insertType: InsertType = InsertType.INSERT_BY_SEARCH) : Serializable {
 
     @Ignore
-    lateinit var platforms: List<Platform>
+    var platforms = listOf<Platform>()
 
     @Ignore
-    lateinit var videos: List<Video>
+    var videos = listOf<Video>()
 }

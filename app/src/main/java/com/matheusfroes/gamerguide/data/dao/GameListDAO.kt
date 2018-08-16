@@ -14,20 +14,26 @@ interface GameListDAO {
     @Insert
     fun insert(list: GameList)
 
+    @Insert
+    fun addGameToList(gameToList: GameWithGameList)
+
     @Update
     fun update(list: GameList)
 
     @Query("SELECT COUNT(*) FROM lists WHERE name = :listName")
     fun listAlreadyAdded(listName: String): Int
 
+    @Query("SELECT COUNT(*) FROM games_lists WHERE gameId = :gameId")
+    fun gameIsInGameLists(gameId: Long): Int
+
     @Query("DELETE FROM games_lists WHERE gameId = :gameId")
     fun deleteGameFromLists(gameId: Long)
 
     @Query("DELETE FROM lists WHERE id = :listId")
-    fun delete(listId: Int)
+    fun delete(listId: Long)
 
     @Query("SELECT * FROM lists WHERE id = :listId")
-    fun get(listId: Int): GameList
+    fun get(listId: Long): GameList
 
     @Query("SELECT * FROM lists")
     fun getAll(): Flowable<List<GameList>>

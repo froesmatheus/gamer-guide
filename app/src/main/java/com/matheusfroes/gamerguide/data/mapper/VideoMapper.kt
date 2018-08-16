@@ -5,15 +5,16 @@ import com.matheusfroes.gamerguide.network.data.VideoResponse
 
 class VideoMapper {
     companion object {
-        fun map(videoResponse: VideoResponse): Video {
+        fun map(videoResponse: VideoResponse, gameId: Long): Video {
             return Video(
                     name = videoResponse.nome,
-                    videoId = videoResponse.videoId
+                    videoId = videoResponse.videoId,
+                    gameId = gameId
             )
         }
 
-        fun map(videosResponse: List<VideoResponse>?): List<Video> {
-            return videosResponse.orEmpty().map { video -> map(video) }
+        fun map(videosResponse: List<VideoResponse>?, gameId: Long): List<Video> {
+            return videosResponse.orEmpty().map { video -> map(video, gameId) }
         }
     }
 }

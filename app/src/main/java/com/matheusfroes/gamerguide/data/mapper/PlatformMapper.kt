@@ -1,17 +1,21 @@
 package com.matheusfroes.gamerguide.data.mapper
 
-import com.matheusfroes.gamerguide.data.dao.PlatformDAO
 import com.matheusfroes.gamerguide.data.model.Platform
+import com.matheusfroes.gamerguide.data.source.local.PlatformLocalSource
 import com.matheusfroes.gamerguide.network.data.ReleaseDateResponse
+import javax.inject.Inject
 
-class PlatformMapper {
-    companion object {
-        fun map(releaseDates: List<ReleaseDateResponse>?, platformsDAO: PlatformDAO): List<Platform> {
-            return releaseDates
-                    .orEmpty()
-                    .map { platformsDAO.get(it.platform) }
-                    .distinct()
-                    .sortedBy { it.name.toLowerCase() }
-        }
+class PlatformMapper @Inject constructor(private val platformLocalSource: PlatformLocalSource) {
+
+    fun map(releaseDates: List<ReleaseDateResponse>?): List<Platform> {
+        return releaseDates
+                .orEmpty()
+                .map { platformLocalSource.getPlatform(it.platform) }
+                .distinct()
+                .sortedBy { it.name.toLowerCase() }
+    }
+
+    fun map(platformId: Long): Platform {
+        return platformLocalSource.getPlatform(platformId)
     }
 }

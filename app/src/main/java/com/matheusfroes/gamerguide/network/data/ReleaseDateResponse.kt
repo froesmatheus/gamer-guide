@@ -1,5 +1,7 @@
 package com.matheusfroes.gamerguide.network.data
 
+import com.matheusfroes.gamerguide.data.models.ReleaseDate
+
 class ReleaseDateResponse(val platform: Long, val date: Long) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

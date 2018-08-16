@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import com.matheusfroes.gamerguide.R
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_capa_jogo_tela_cheia.*
 
 
 class CapaJogoTelaCheiaActivity : AppCompatActivity() {

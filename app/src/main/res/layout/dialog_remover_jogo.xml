@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tem certeza que deseja remover este jogo?"
-        android:textColor="@color/black"
         android:textSize="16sp" />
 
     <CheckBox

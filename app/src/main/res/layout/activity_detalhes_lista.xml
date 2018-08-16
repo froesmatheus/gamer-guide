@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:padding="16dp"
-            tools:context="com.matheusfroes.gamerguide.ui.gamelists.DetalhesListaActivity"
+            tools:context="com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsActivity"
             tools:listitem="@layout/view_jogo_lista" />
 
         <LinearLayout

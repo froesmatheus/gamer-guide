@@ -4,12 +4,8 @@
     <!--<color name="colorPrimaryDark">#37474F</color>-->
     <!--<color name="colorAccent">#000000</color>-->
 
-    <!--<color name="colorPrimary">#960018</color>-->
-    <!--<color name="colorPrimaryDark">#740013</color>-->
-    <!--<color name="colorAccent">#000000</color>-->
-
-    <color name="colorPrimary">#7CB342</color>
-    <color name="colorPrimaryDark">#689F38</color>
+    <color name="colorPrimary">#960018</color>
+    <color name="colorPrimaryDark">#740013</color>
     <color name="colorAccent">#000000</color>
 
     <color name="black">#000000</color>

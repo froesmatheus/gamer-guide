@@ -3,6 +3,7 @@ package com.matheusfroes.gamerguide.ui.feed
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.data.db.FonteNoticiasDAO
 import com.matheusfroes.gamerguide.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_configuracoes_feed.*
 import kotlinx.android.synthetic.main.toolbar.*

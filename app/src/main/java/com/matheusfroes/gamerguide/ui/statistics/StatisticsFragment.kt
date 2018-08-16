@@ -1,43 +1,43 @@
 package com.matheusfroes.gamerguide.ui.statistics
 
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.MainActivity
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.ViewModelFactory
-import com.matheusfroes.gamerguide.activity
-import dagger.android.support.DaggerFragment
+import com.matheusfroes.gamerguide.appInjector
 import kotlinx.android.synthetic.main.activity_estatisticas.*
+import kotlinx.android.synthetic.main.toolbar.*
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
 import javax.inject.Inject
 
-class StatisticsFragment : DaggerFragment() {
+class StatisticsFragment : Fragment() {
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: StatisticsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.activity_estatisticas, container, false)
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        appInjector.inject(this)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(StatisticsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[StatisticsViewModel::class.java]
 
+        activity?.tabLayout?.visibility = View.GONE
 
-        val beatenGames = viewModel.getGameCountByProgressStatus(beaten = true)
-        val notBeatenGames = viewModel.getGameCountByProgressStatus(beaten = false)
-        val totalHoursPlayed = viewModel.getTotalHoursPlayed()
+        tvQtdJogosNaoTerminados.text = "${viewModel.getGameCount(beaten = false)}"
+        tvQtdJogosZerados.text = "${viewModel.getGameCount(beaten = true)}"
+        tvQtdHorasJogadas.text = "${viewModel.getTotalHoursPlayed()}"
 
-        tvQtdJogosNaoTerminados.text = "$notBeatenGames"
-        tvQtdJogosZerados.text = "$beatenGames"
-        tvQtdHorasJogadas.text = "$totalHoursPlayed"
-
+//        val generosMaisJogados = jogosDAO.obterGenerosMaisJogados()
         val generosMaisJogados = viewModel.getMostPlayedGenres()
 
         val itens = mutableListOf<SliceValue>()
@@ -63,11 +63,5 @@ class StatisticsFragment : DaggerFragment() {
         chart.pieChartData = pieData
         chart.isChartRotationEnabled = false
         chart.animation = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        (activity() as MainActivity).currentScreen(R.id.menu_estatisticas)
     }
 }

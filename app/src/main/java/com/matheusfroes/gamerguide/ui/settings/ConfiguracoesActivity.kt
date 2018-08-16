@@ -10,6 +10,7 @@ import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.data.db.FonteNoticiasDAO
 import com.matheusfroes.gamerguide.ui.AppCompatPreferenceActivity
 import org.jetbrains.anko.toast
 
@@ -50,9 +51,9 @@ class ConfiguracoesActivity : AppCompatPreferenceActivity() {
         val fonteNoticias = fonteNoticiasDAO.obterFonteNoticias()
         fonteNoticias.forEach { fonteNoticia ->
             val switchPreference = SwitchPreference(this)
-            switchPreference.title = fonteNoticia.name
+            switchPreference.title = fonteNoticia.nome
             switchPreference.summary = fonteNoticia.website
-            switchPreference.isChecked = fonteNoticia.enabled
+            switchPreference.isChecked = fonteNoticia.ativado
             switchPreference.key = fonteNoticia.id.toString()
 
             switchPreference.setOnPreferenceChangeListener { preference, any ->

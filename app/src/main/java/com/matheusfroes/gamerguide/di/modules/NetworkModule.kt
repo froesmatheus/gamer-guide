@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import com.matheusfroes.gamerguide.di.annotation.AppContext
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
@@ -18,7 +17,7 @@ import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-@Module(includes = [(GameModule::class)])
+@Module()
 class NetworkModule {
 
     @Provides
@@ -63,7 +62,7 @@ class NetworkModule {
 
     @Provides
     fun providePicasso(
-            @AppContext context: Context
+            context: Context
     ): Picasso = Picasso.Builder(context)
             .indicatorsEnabled(true)
             .build()

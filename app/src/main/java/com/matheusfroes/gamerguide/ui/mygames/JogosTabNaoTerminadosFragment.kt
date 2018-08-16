@@ -1,6 +1,6 @@
 package com.matheusfroes.gamerguide.ui.mygames
 
-import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,66 +10,66 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.*
-import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
+import com.matheusfroes.gamerguide.ExcluirJogoEvent
+import com.matheusfroes.gamerguide.GerenciarListasEvent
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.data.model.Game
+import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.*
+import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
+import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
+import javax.inject.Inject
 
 class JogosTabNaoTerminadosFragment : Fragment() {
-    val adapter: MeusJogosAdapter by lazy {
-        MeusJogosAdapter(context())
-    }
-    private val viewModel: TelaPrincipalViewModel by lazy {
-        ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
-    }
-    private val jogosDAO: JogosDAO by lazy { JogosDAO(context()) }
+    val adapter: MyGamesAdapter by lazy { MyGamesAdapter() }
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: MyGamesViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_jogos_nao_terminados, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_jogos_nao_terminados, container, false)
 
-        view.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        view.rvJogosNaoTerminados.emptyView = view.layoutEmpty
-        view.rvJogosNaoTerminados.adapter = adapter
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        appInjector.inject(this)
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[MyGamesViewModel::class.java]
 
-        //val floatingActionButton = activity.fab
+        rvJogosNaoTerminados.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity)
+        rvJogosNaoTerminados.adapter = adapter
+        rvJogosNaoTerminados.emptyView = view.layoutEmpty
 
-        //view.rvJogosNaoTerminados.addOnScrollListener(HideFloatingActionButtonListener(floatingActionButton))
+        viewModel.getUnfinishedGames().subscribe { games ->
+            adapter.jogos = games
+        }
 
-        viewModel.jogos.observe(this, Observer { jogos ->
-            adapter.preencherLista(jogos?.filter { !it.progress.beaten } ?: listOf())
-        })
-
-        viewModel.atualizarListaJogos()
-
-
-        adapter.setOnMenuItemClickListener(object : MeusJogosAdapter.OnMenuOverflowClickListener {
-            override fun onMenuItemClick(menu: MenuItem, jogoId: Long) {
+        adapter.setOnMenuItemClickListener(object : MyGamesAdapter.OnMenuOverflowClickListener {
+            override fun onMenuItemClick(menu: MenuItem, game: Game) {
                 when (menu.itemId) {
                     R.id.navRemover -> {
-                        EventBus.getDefault().post(ExcluirJogoEvent(jogoId))
+                        EventBus.getDefault().post(ExcluirJogoEvent(game.id))
                     }
                     R.id.navGerenciarListas -> {
-                        EventBus.getDefault().post(GerenciarListasEvent(jogoId))
+                        EventBus.getDefault().post(GerenciarListasEvent(game.id))
                     }
                     R.id.navAtualizarProgresso -> {
-                        dialogAtualizarProgresso(jogoId)
+                        dialogAtualizarProgresso(game)
                     }
                     R.id.navMarcarComoZerado -> {
-                        viewModel.alterarStatusJogo(jogoId, zerado = true)
-                        context().toast(getString(R.string.msg_jogo_movido_zerados))
+                        game.progress.beaten = true
+                        viewModel.updateGameProgress(game)
+                        requireContext().toast(getString(R.string.msg_jogo_movido_zerados))
                     }
                 }
             }
         })
-        return view
     }
 
-    private fun dialogAtualizarProgresso(jogoId: Long) {
-        val progressoJogo = viewModel.obterProgressoJogo(jogoId)!!
+
+    private fun dialogAtualizarProgresso(game: Game) {
 
         val view = LayoutInflater.from(context).inflate(R.layout.fragment_meu_progresso, null, false)
 
@@ -85,24 +85,24 @@ class JogosTabNaoTerminadosFragment : Fragment() {
 
         })
 
-        view.etHorasJogadas.setText("${progressoJogo.hoursPlayed}")
-        view.sbProgresso.progress = progressoJogo.percentage
-        view.chkJogoZerado.isChecked = progressoJogo.beaten
+        view.etHorasJogadas.setText("${game.progress.hoursPlayed}")
+        view.sbProgresso.progress = game.progress.percentage
+        view.chkJogoZerado.isChecked = game.progress.beaten
 
 
-        val dialog = AlertDialog.Builder(context())
+        val dialog = AlertDialog.Builder(requireContext())
                 .setView(view)
                 .setPositiveButton(getString(R.string.atualizar)) { _, _ ->
                     var horasJogadasStr = view.etHorasJogadas.text.toString().trim()
                     horasJogadasStr = if (horasJogadasStr.isEmpty()) "0" else horasJogadasStr
 
-                    progressoJogo.hoursPlayed = Integer.parseInt(horasJogadasStr)
-                    progressoJogo.percentage = view.sbProgresso.progress
-                    progressoJogo.beaten = view.chkJogoZerado.isChecked
+                    game.progress.hoursPlayed = Integer.parseInt(horasJogadasStr)
+                    game.progress.percentage = view.sbProgresso.progress
+                    game.progress.beaten = view.chkJogoZerado.isChecked
 
-                    viewModel.atualizarProgressoJogo(jogoId, progressoJogo)
+                    viewModel.updateGameProgress(game)
 
-                    context().toast(getString(R.string.progresso_atualizado))
+                    requireContext().toast(getString(R.string.progresso_atualizado))
                 }
                 .setNegativeButton(getString(R.string.cancelar), null)
                 .create()
@@ -110,27 +110,4 @@ class JogosTabNaoTerminadosFragment : Fragment() {
         dialog.show()
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun atualizarListaJogos(event: AtualizarListaJogosEvent) {
-        viewModel.atualizarListaJogos()
-    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun jogoAdicionadoRemovido(event: JogoAdicionadoRemovidoEvent) {
-        viewModel.atualizarListaJogos()
-
-        EventBus.getDefault().removeStickyEvent(event)
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().unregister(this)
-    }
 }
