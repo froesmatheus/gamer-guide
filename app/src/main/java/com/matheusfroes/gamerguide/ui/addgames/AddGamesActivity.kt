@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
@@ -216,6 +217,17 @@ class AddGamesActivity : BaseActivity() {
         } else if (jogosAdicionarNaLista.size > 1) {
             toast(getString(R.string.msg_jogo_adicionado_listas))
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun dialogDetalhesJogo(game: Game) {

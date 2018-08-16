@@ -32,9 +32,9 @@ class GameListDetailsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_lista)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         appInjector.inject(this)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         intent ?: return
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[GameListDetailsViewModel::class.java]
@@ -61,7 +61,7 @@ class GameListDetailsActivity : BaseActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         if (gameList.isDefault) {
-            return false
+            return super.onCreateOptionsMenu(menu)
         }
 
         menuInflater.inflate(R.menu.menu_lista, menu)
@@ -77,6 +77,10 @@ class GameListDetailsActivity : BaseActivity() {
             }
             R.id.navEditarLista -> {
                 dialogEditarLista()
+            }
+            android.R.id.home -> {
+                onBackPressed()
+                return true
             }
         }
 
