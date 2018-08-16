@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
@@ -117,6 +118,11 @@ class AddGamesActivity : BaseActivity() {
     private fun dialogRemoverJogo(jogoId: Long) {
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_remover_jogo, null, false)
 
+        val gameIsInGameLists = viewModel.gameIsInGameLists(jogoId)
+
+        if (!gameIsInGameLists) {
+            view.chkRemoverDasListas.visibility = View.GONE
+        }
         val dialog = AlertDialog.Builder(this)
                 .setView(view)
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
@@ -124,7 +130,7 @@ class AddGamesActivity : BaseActivity() {
 
                     val jogo = viewModel.getGameByInsertType(jogoId)
 
-                    if (removerDasListas) {
+                    if (removerDasListas || !gameIsInGameLists) {
                         viewModel.removeGameFromLists(jogoId)
                         viewModel.removeGame(jogoId)
                     } else {

@@ -15,6 +15,7 @@ import com.matheusfroes.gamerguide.GerenciarListasEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.data.model.Game
+import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.*
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
@@ -29,14 +30,17 @@ class JogosTabNaoTerminadosFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: MyGamesViewModel
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+            inflater.inflate(R.layout.fragment_jogos_nao_terminados, container, false)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
         viewModel = ViewModelProviders.of(activity, viewModelFactory)[MyGamesViewModel::class.java]
 
-        view.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity)
-        view.rvJogosNaoTerminados.emptyView = view.layoutEmpty
-        view.rvJogosNaoTerminados.adapter = adapter
+        rvJogosNaoTerminados.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity)
+        rvJogosNaoTerminados.adapter = adapter
+        rvJogosNaoTerminados.emptyView = view.layoutEmpty
 
         viewModel.getUnfinishedGames().subscribe { games ->
             adapter.jogos = games
@@ -64,8 +68,6 @@ class JogosTabNaoTerminadosFragment : Fragment() {
         })
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-            inflater.inflate(R.layout.fragment_jogos_nao_terminados, container, false)
 
     private fun dialogAtualizarProgresso(game: Game) {
 

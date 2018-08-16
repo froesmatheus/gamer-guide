@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
-import com.matheusfroes.gamerguide.data.db.JogosDAO
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.model.InsertType
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
@@ -85,6 +84,11 @@ class MyGamesFragment : Fragment() {
     private fun dialogRemoverJogo(jogoId: Long) {
         val view = LayoutInflater.from(activity).inflate(R.layout.dialog_remover_jogo, null, false)
 
+        val gameIsInGameLists = viewModel.gameIsInGameLists(jogoId)
+
+        if (!gameIsInGameLists) {
+            view.chkRemoverDasListas.visibility = View.GONE
+        }
         val dialog = AlertDialog.Builder(activity)
                 .setView(view)
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
@@ -92,7 +96,7 @@ class MyGamesFragment : Fragment() {
 
                     val jogo = viewModel.getGameByInsertType(jogoId)
 
-                    if (removerDasListas) {
+                    if (removerDasListas || !gameIsInGameLists) {
                         viewModel.removeGameFromLists(jogoId)
                         viewModel.removeGame(jogoId)
                     } else {

@@ -44,10 +44,10 @@ class GameListDetailsActivity : BaseActivity() {
         gameList = viewModel.getList(listaId)
 
         rvJogosLista.layoutManager = LinearLayoutManager(this)
-        rvJogosLista.emptyView = layoutEmpty
         rvJogosLista.adapter = adapter
 
         viewModel.getGamesByList(listaId).subscribe { games ->
+            rvJogosLista.emptyView = layoutEmpty
             adapter.games = games
         }
 
@@ -60,6 +60,10 @@ class GameListDetailsActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (gameList.isDefault) {
+            return false
+        }
+
         menuInflater.inflate(R.menu.menu_lista, menu)
         return true
     }

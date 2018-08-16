@@ -36,12 +36,10 @@ class JogosTabZeradosFragment : Fragment() {
         viewModel = ViewModelProviders.of(activity, viewModelFactory)[MyGamesViewModel::class.java]
 
         view.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        view.rvJogosNaoTerminados.emptyView = view.layoutEmpty
         view.rvJogosNaoTerminados.adapter = adapter
 
-
-
         viewModel.getBeatenGames().subscribe { games ->
+            view.rvJogosNaoTerminados.emptyView = view.layoutEmpty
             adapter.jogos = games
         }
 

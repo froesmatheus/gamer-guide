@@ -13,10 +13,10 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
 import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.appInjector
-import com.matheusfroes.gamerguide.data.db.ListasDAO
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.InsertType
 import com.matheusfroes.gamerguide.obterImagemJogoCapa
@@ -37,7 +37,7 @@ class GameDetailsActivity : AppCompatActivity() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: GameDetailsViewModel
 
-    private val gameId by lazy { intent.getLongExtra("id_jogo", 0L) }
+    private var gameId = 0L
     private val game by lazy { intent.getSerializableExtra("jogo") as Game }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,10 +51,12 @@ class GameDetailsActivity : AppCompatActivity() {
 
         intent ?: return
 
+        gameId = intent.getLongExtra("id_jogo", 0L)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[GameDetailsViewModel::class.java]
 
         if (gameId == 0L) {
             viewModel.game.postValue(game)
+            gameId = game.id
         } else {
             viewModel.gameId = gameId
         }
@@ -98,7 +100,7 @@ class GameDetailsActivity : AppCompatActivity() {
         fabAdicinarJogo.setOnClickListener {
 
             if (jogoSalvo) {
-                dialogRemoverJogo(gameId)
+                dialogRemoverJogo(viewModel.gameId)
             } else {
                 val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
                 viewModel.addGame(game)
@@ -122,7 +124,11 @@ class GameDetailsActivity : AppCompatActivity() {
     private fun dialogRemoverJogo(jogoId: Long) {
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_remover_jogo, null, false)
 
-        val listasDAO = ListasDAO(this)
+        val gameIsInGameLists = viewModel.gameIsInGameLists(jogoId)
+
+        if (!gameIsInGameLists) {
+            view.chkRemoverDasListas.visibility = View.GONE
+        }
         val dialog = AlertDialog.Builder(this)
                 .setView(view)
                 .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
@@ -130,8 +136,8 @@ class GameDetailsActivity : AppCompatActivity() {
 
                     val jogo = viewModel.getGameByInsertType(jogoId)
 
-                    if (removerDasListas) {
-                        listasDAO.removerJogoTodasListas(jogoId)
+                    if (removerDasListas || !gameIsInGameLists) {
+                        viewModel.removeGameFromLists(jogoId)
                         viewModel.removeGame(jogoId)
                     } else {
                         jogo?.insertType = InsertType.INSERT_TO_LIST

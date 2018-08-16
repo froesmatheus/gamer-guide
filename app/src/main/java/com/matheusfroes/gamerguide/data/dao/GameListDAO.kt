@@ -23,6 +23,9 @@ interface GameListDAO {
     @Query("SELECT COUNT(*) FROM lists WHERE name = :listName")
     fun listAlreadyAdded(listName: String): Int
 
+    @Query("SELECT COUNT(*) FROM games_lists WHERE gameId = :gameId")
+    fun gameIsInGameLists(gameId: Long): Int
+
     @Query("DELETE FROM games_lists WHERE gameId = :gameId")
     fun deleteGameFromLists(gameId: Long)
 

@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.estatisticas
+package com.matheusfroes.gamerguide.ui.statistics
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
@@ -16,10 +16,10 @@ import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
 import javax.inject.Inject
 
-class EstatisticasActivity : Fragment() {
+class StatisticsFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var viewModel: EstatisticasViewModel
+    private lateinit var viewModel: StatisticsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
             inflater.inflate(R.layout.activity_estatisticas, container, false)
@@ -29,7 +29,7 @@ class EstatisticasActivity : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[EstatisticasViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[StatisticsViewModel::class.java]
 
         activity?.tabLayout?.visibility = View.GONE
 

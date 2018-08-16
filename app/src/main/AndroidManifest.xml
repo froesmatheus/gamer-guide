@@ -46,10 +46,9 @@
             android:name=".ui.addgames.CapaJogoTelaCheiaActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.AppCompat.Dialog" />
-        <activity android:name=".ui.BaseActivityDrawer" />
 
         <activity
-            android:name=".ui.configuracoes.ConfiguracoesActivity"
+            android:name=".ui.settings.ConfiguracoesActivity"
             android:label="@string/title_activity_configuracoes"
             android:theme="@style/ConfiguracoesTheme" />
         <activity

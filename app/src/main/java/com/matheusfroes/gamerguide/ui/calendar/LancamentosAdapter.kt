@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.calendario
+package com.matheusfroes.gamerguide.ui.calendar
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

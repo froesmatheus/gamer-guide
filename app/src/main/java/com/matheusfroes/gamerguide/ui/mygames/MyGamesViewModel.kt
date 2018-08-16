@@ -60,6 +60,10 @@ class MyGamesViewModel @Inject constructor(
         return gameLocalSource.getGamesByInsertType(gameId, insertType)
     }
 
+    fun gameIsInGameLists(gameId: Long): Boolean {
+        return gameListLocalSource.gameIsInGameLists(gameId)
+    }
+
     fun updateGame(game: Game) {
         gameLocalSource.updateGame(game)
     }

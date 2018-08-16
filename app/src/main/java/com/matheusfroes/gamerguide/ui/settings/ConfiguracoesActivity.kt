@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.configuracoes
+package com.matheusfroes.gamerguide.ui.settings
 
 import android.content.Context
 import android.content.SharedPreferences

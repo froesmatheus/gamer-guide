@@ -1,17 +1,19 @@
 package com.matheusfroes.gamerguide
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.matheusfroes.gamerguide.ui.calendario.CalendarFragment
-import com.matheusfroes.gamerguide.ui.configuracoes.ConfiguracoesActivity
-import com.matheusfroes.gamerguide.ui.estatisticas.EstatisticasActivity
+import com.matheusfroes.gamerguide.ui.calendar.CalendarFragment
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
+import com.matheusfroes.gamerguide.ui.settings.ConfiguracoesActivity
+import com.matheusfroes.gamerguide.ui.statistics.StatisticsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -21,19 +23,25 @@ class MainActivity : AppCompatActivity() {
     lateinit var calendario: CalendarFragment
     lateinit var feed: FeedActivity
     lateinit var listas: GameListsFragment
-    lateinit var estatisticas: EstatisticasActivity
+    lateinit var estatisticas: StatisticsFragment
+
+    private val preferences: SharedPreferences by lazy {
+        getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val appTheme = preferences.getString("APP_THEME", "DEFAULT")
+        val theme = if (appTheme == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
+        setTheme(theme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         calendario = CalendarFragment()
         feed = FeedActivity()
         listas = GameListsFragment()
-        estatisticas = EstatisticasActivity()
+        estatisticas = StatisticsFragment()
 
         setSupportActionBar(toolbar)
-//        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bottom_navigation.disableShiftMode()
 

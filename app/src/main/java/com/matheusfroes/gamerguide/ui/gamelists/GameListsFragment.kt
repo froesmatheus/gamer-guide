@@ -43,6 +43,7 @@ class GameListsFragment : Fragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[GameListsViewModel::class.java]
 
         viewModel.lists.observe(this, Observer { gameLists ->
+            rvListas.emptyView = layoutEmpty
             adapter.gameLists = gameLists.orEmpty()
         })
 
@@ -50,7 +51,6 @@ class GameListsFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(activity)
         rvListas.layoutManager = layoutManager
-        rvListas.emptyView = layoutEmpty
 
         val mDividerItemDecoration = DividerItemDecoration(
                 rvListas.context,

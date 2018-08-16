@@ -1,10 +1,10 @@
-package com.matheusfroes.gamerguide.ui.estatisticas
+package com.matheusfroes.gamerguide.ui.statistics
 
 import android.arch.lifecycle.ViewModel
 import com.matheusfroes.gamerguide.data.source.local.GameLocalSource
 import javax.inject.Inject
 
-class EstatisticasViewModel @Inject constructor(
+class StatisticsViewModel @Inject constructor(
         private val gameLocalSource: GameLocalSource
 ) : ViewModel() {
 

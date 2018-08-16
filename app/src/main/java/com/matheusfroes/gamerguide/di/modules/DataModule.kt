@@ -56,6 +56,7 @@ class DataModule {
         val cv = ContentValues()
 
         cv.put("name", "Lista de compras")
+        cv.put("isDefault", true)
 
         db.insert("lists", SQLiteDatabase.CONFLICT_REPLACE, cv)
     }

@@ -1,5 +1,6 @@
 package com.matheusfroes.gamerguide
 
+import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.text.Editable
@@ -7,7 +8,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import kotlinx.android.synthetic.main.dialog_adicionar_lista.*
+
 
 class AddGameListDialog : DialogFragment() {
 
@@ -31,6 +34,13 @@ class AddGameListDialog : DialogFragment() {
 
     fun listAlreadyAdded(listener: ((String) -> Boolean)) {
         this.listAlreadyAdded = listener
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val dialog = super.onCreateDialog(savedInstanceState)
+
+        dialog.window.requestFeature(Window.FEATURE_NO_TITLE)
+        return dialog
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =

@@ -68,4 +68,8 @@ class AddGamesViewModel @Inject constructor(
     fun getGameByInsertType(gameId: Long, insertType: InsertType = InsertType.INSERT_BY_SEARCH): Game? {
         return gameLocalSource.getGamesByInsertType(gameId, insertType)
     }
+
+    fun gameIsInGameLists(gameId: Long): Boolean {
+        return gameListLocalSource.gameIsInGameLists(gameId)
+    }
 }

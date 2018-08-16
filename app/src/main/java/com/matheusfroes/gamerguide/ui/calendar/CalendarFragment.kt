@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.calendario
+package com.matheusfroes.gamerguide.ui.calendar
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders

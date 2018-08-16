@@ -59,6 +59,10 @@ class GameListLocalSource @Inject constructor(private val database: GamerGuideDa
         return database.listsDao().listContainsGame(gameId, listId) > 0
     }
 
+    fun gameIsInGameLists(gameId: Long): Boolean {
+        return database.listsDao().gameIsInGameLists(gameId) > 0
+    }
+
     fun listAlreadyAdded(listName: String): Boolean {
         return database.listsDao().listAlreadyAdded(listName) > 0
     }
