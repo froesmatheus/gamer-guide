@@ -13,30 +13,6 @@ fun adicionarSchemaUrl(url: String?): String {
     } else url ?: ""
 }
 
-fun normalizarDadosJogo(game: GameResponse, plataformasDAO: PlataformasDAO): Jogo =
-        Jogo(
-                game.id,
-                game.name ?: "",
-                game.summary ?: "",
-                game.developers?.joinToString() ?: "",
-                game.publishers?.joinToString() ?: "",
-                game.genres?.joinToString() ?: "",
-                Date(game.firstReleaseDate),
-                extrairPlataformas(game.releaseDates ?: mutableListOf(), plataformasDAO),
-                game.videos ?: mutableListOf(),
-                game.gameEngines?.joinToString() ?: "",
-                game.timeToBeat,
-                adicionarSchemaUrl(game.cover?.url))
-
-fun normalizarDadosLancamentos(lancamentosResponse: ObterLancamentosResponse, plataformasDAO: PlataformasDAO): Lancamento {
-    return Lancamento(
-            game = extrairJogoLancamento(lancamentosResponse.game),
-            platform = plataformasDAO.obterPlataforma(lancamentosResponse.platform),
-            date = Date(lancamentosResponse.date),
-            region = extrairRegiao(lancamentosResponse.region)
-    )
-}
-
 fun extrairRegiao(region: Int) = when (region) {
     1 -> REGIAO_EUROPA
     2 -> REGIAO_AMERICA_NORTE
@@ -49,22 +25,12 @@ fun extrairRegiao(region: Int) = when (region) {
     else -> REGIAO_MUNDIAL
 }
 
-fun extrairJogoLancamento(game: GameResponse): JogoLancamento = JogoLancamento(game.id, game.name!!, adicionarSchemaUrl(game.cover?.url))
-
-fun extrairPlataformas(releaseDates: List<ReleaseDate>, plataformasDAO: PlataformasDAO): List<Plataforma> {
-    return releaseDates
-            .map { plataformasDAO.obterPlataforma(it.platform) }
-            .distinct()
-            .sortedBy { it.nome.toLowerCase() }
-}
-
 fun obterImagemJogoCapa(urlImagem: String): String {
     val inicio = urlImagem.indexOf("t_")
     val fim = urlImagem.indexOf("/", inicio)
 
     val tamanhoImagem = urlImagem.substring(inicio, fim)
 
-//    return urlImagem.replace(tamanhoImagem, "t_screenshot_big")
     return urlImagem.replace(tamanhoImagem, "t_720p")
 }
 

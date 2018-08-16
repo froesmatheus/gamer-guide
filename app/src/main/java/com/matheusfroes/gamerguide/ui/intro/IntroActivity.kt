@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.matheusfroes.gamerguide.R
 
 
-class IntroducaoActivity : MaterialIntroActivity() {
+class IntroActivity : MaterialIntroActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -12,7 +12,7 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.ui.BaseActivity
-import com.matheusfroes.gamerguide.ui.addgames.AdicionarJogosActivity
+import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
 import kotlinx.android.synthetic.main.activity_detalhes_lista.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.toast
@@ -55,7 +55,7 @@ class GameListDetailsActivity : BaseActivity() {
 
 
         btnAdicionarJogos.setOnClickListener {
-            startActivity(Intent(this, AdicionarJogosActivity::class.java))
+            startActivity(Intent(this, AddGamesActivity::class.java))
         }
     }
 

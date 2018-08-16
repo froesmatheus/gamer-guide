@@ -12,7 +12,7 @@ import com.matheusfroes.gamerguide.ui.calendar.CalendarFragment
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
-import com.matheusfroes.gamerguide.ui.settings.ConfiguracoesActivity
+import com.matheusfroes.gamerguide.ui.settings.SettingsActivity
 import com.matheusfroes.gamerguide.ui.statistics.StatisticsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navConfiguracoes -> {
-                startActivity(Intent(this, ConfiguracoesActivity::class.java))
+                startActivity(Intent(this, SettingsActivity::class.java))
                 return true
             }
         }

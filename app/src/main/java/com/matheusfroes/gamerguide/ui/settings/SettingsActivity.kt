@@ -26,7 +26,7 @@ import org.jetbrains.anko.toast
  * for design guidelines and the [Settings API Guide](http://developer.android.com/guide/topics/ui/settings.html)
  * for more information on developing a Settings UI.
  */
-class ConfiguracoesActivity : AppCompatPreferenceActivity() {
+class SettingsActivity : AppCompatPreferenceActivity() {
     private val preferences: SharedPreferences by lazy {
         getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
     }
