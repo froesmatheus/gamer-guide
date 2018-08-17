@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.UserPreferences
 import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsViewModel
 import kotlinx.android.synthetic.main.fragment_videos.view.*
@@ -23,13 +24,16 @@ class VideosFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var userPreferences: UserPreferences
     private lateinit var viewModel: GameDetailsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         appInjector.inject(this)
         viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[GameDetailsViewModel::class.java]
 
-        val theme = if (viewModel.currentAppTheme.value == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
+        val theme = userPreferences.getCurrentAppTheme()
 
         val context = ContextThemeWrapper(activity, theme)
         val localInflater = inflater.cloneInContext(context)

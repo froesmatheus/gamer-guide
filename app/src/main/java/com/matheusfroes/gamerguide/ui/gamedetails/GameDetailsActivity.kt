@@ -14,12 +14,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import com.matheusfroes.gamerguide.JogoAdicionadoRemovidoEvent
-import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.InsertType
-import com.matheusfroes.gamerguide.obterImagemJogoCapa
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
 import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
@@ -28,25 +25,22 @@ import javax.inject.Inject
 
 
 class GameDetailsActivity : AppCompatActivity() {
-    private val preferences: SharedPreferences by lazy {
-        getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
-    }
     private var jogoSalvo = false
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var userPreferences: UserPreferences
     private lateinit var viewModel: GameDetailsViewModel
 
     private var gameId = 0L
     private val game by lazy { intent.getSerializableExtra("jogo") as Game }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val appTheme = preferences.getString("APP_THEME", "DEFAULT")
-        val theme = if (appTheme == "DEFAULT") R.style.AppTheme_DetalhesJogo else R.style.AppTheme_DetalhesJogo_OLED
-        setTheme(theme)
+        appInjector.inject(this)
+        setTheme(userPreferences.getGameDetailsScreenTheme())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_jogo)
-        appInjector.inject(this)
         setSupportActionBar(toolbar)
 
         intent ?: return
@@ -60,8 +54,6 @@ class GameDetailsActivity : AppCompatActivity() {
         } else {
             viewModel.gameId = gameId
         }
-
-        viewModel.currentAppTheme.value = preferences.getString("APP_THEME", "DEFAULT")
 
         appBar.post {
             val heightPx = ivCapaJogo.height

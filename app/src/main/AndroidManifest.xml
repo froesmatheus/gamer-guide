@@ -17,6 +17,8 @@
             android:label="@string/configuracoes_feed"
             android:parentActivityName=".MainActivity" />
 
+        <activity android:name=".ui.BaseActivity"/>
+
         <activity
             android:name=".ui.addgames.AddGamesActivity"
             android:label="@string/adicionar_jogos"

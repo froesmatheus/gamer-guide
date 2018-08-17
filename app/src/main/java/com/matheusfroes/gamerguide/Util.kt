@@ -13,18 +13,6 @@ fun adicionarSchemaUrl(url: String?): String {
     } else url ?: ""
 }
 
-fun extrairRegiao(region: Int) = when (region) {
-    1 -> REGIAO_EUROPA
-    2 -> REGIAO_AMERICA_NORTE
-    3 -> REGIAO_AUSTRALIA
-    4 -> REGIAO_NOVA_ZELANDIA
-    5 -> REGIAO_JAPAO
-    6 -> REGIAO_CHINA
-    7 -> REGIAO_ASIA
-    8 -> REGIAO_MUNDIAL
-    else -> REGIAO_MUNDIAL
-}
-
 fun obterImagemJogoCapa(urlImagem: String): String {
     val inicio = urlImagem.indexOf("t_")
     val fim = urlImagem.indexOf("/", inicio)

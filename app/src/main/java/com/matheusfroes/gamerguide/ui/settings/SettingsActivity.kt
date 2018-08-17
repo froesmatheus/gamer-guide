@@ -10,9 +10,13 @@ import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.UserPreferences
+import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.data.db.FonteNoticiasDAO
+import com.matheusfroes.gamerguide.data.model.AppTheme
 import com.matheusfroes.gamerguide.ui.AppCompatPreferenceActivity
 import org.jetbrains.anko.toast
+import javax.inject.Inject
 
 
 @Suppress("DEPRECATION")
@@ -27,17 +31,16 @@ import org.jetbrains.anko.toast
  * for more information on developing a Settings UI.
  */
 class SettingsActivity : AppCompatPreferenceActivity() {
-    private val preferences: SharedPreferences by lazy {
-        getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
-    }
     private val fonteNoticiasDAO: FonteNoticiasDAO by lazy {
         FonteNoticiasDAO(this)
     }
 
+    @Inject
+    lateinit var userPreferences: UserPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        val appTheme = preferences.getString("APP_THEME", "DEFAULT")
-        val theme = if (appTheme == "DEFAULT") R.style.ConfiguracoesTheme else R.style.ConfiguracoesTheme_OLED
-        setTheme(theme)
+        appInjector.inject(this)
+        setTheme(userPreferences.getSettingsScreenTheme())
         super.onCreate(savedInstanceState)
         setupActionBar()
         addPreferencesFromResource(R.xml.pref_general)
@@ -71,9 +74,9 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             val modoNoturnoHabilitado = any as Boolean
 
             if (modoNoturnoHabilitado) {
-                preferences.edit().putString("APP_THEME", "MODO_NOTURNO").apply()
+                userPreferences.currentAppTheme = AppTheme.PURE_BLACK
             } else {
-                preferences.edit().putString("APP_THEME", "DEFAULT").apply()
+                userPreferences.currentAppTheme = AppTheme.DEFAULT
             }
 
             toast(getString(R.string.reinicie_app_msg))
