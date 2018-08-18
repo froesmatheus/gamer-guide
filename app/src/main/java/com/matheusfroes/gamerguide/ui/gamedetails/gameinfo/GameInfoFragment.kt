@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_informacoes_gerais.*
 import javax.inject.Inject
 
 
-class InformacoesGeraisJogoFragment : Fragment() {
+class GameInfoFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: GameDetailsViewModel
@@ -49,10 +49,16 @@ class InformacoesGeraisJogoFragment : Fragment() {
         tvNomeDesenvolvedores.text = game.developers
         tvNomePublicadora.text = game.publishers
         tvGenero.text = game.genres
-        textview.text = game.releaseDate.formatarData("dd 'de' MMMM 'de' yyyy")
+        tvDataLancamento.text = game.releaseDate?.formatarData("dd 'de' MMMM 'de' yyyy")
         tvDescricao.text = game.description
         tvPlataformas.text = game.platforms.joinToString()
         tvGameEngine.text = game.gameEngine
+
+
+        if (game.releaseDate == null) {
+            tvDataLancamento.visibility = View.GONE
+            tituloDataLancamento.visibility = View.GONE
+        }
 
         if (game.description.isEmpty()) {
             cvDescricaoJogo.visibility = View.GONE
@@ -86,7 +92,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
         cvDescricaoJogo.setOnClickListener { dialogDescricao(game) }
 
         btnZoom.setOnClickListener {
-            val urlZoom = getString(R.string.url_zoom, game.name)
+            val urlZoom = getString(R.string.url_zoom, "${game.publishers} ${game.name}")
 
             val customTabsIntent = CustomTabsIntent.Builder()
                     .setToolbarColor(ContextCompat.getColor(requireActivity(), R.color.cor_zoom))
@@ -108,7 +114,7 @@ class InformacoesGeraisJogoFragment : Fragment() {
         if (jogoParaPC) {
             btnSteam.visibility = View.VISIBLE
             btnSteam.setOnClickListener {
-                val urlZoom = getString(R.string.url_steam, game.name)
+                val urlZoom = getString(R.string.url_steam, "${game.publishers} ${game.name}")
 
                 val customTabsIntent = CustomTabsIntent.Builder()
                         .setToolbarColor(ContextCompat.getColor(requireActivity(), R.color.cor_steam))

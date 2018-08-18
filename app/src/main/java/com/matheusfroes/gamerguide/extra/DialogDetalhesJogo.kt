@@ -24,9 +24,14 @@ class DialogDetalhesJogo(context: Context, private val jogo: Game) : AlertDialog
         view.tvPublicadora.text = jogo.publishers
         view.tvGenero.text = jogo.genres
 
-        val dataLancamento = jogo.releaseDate.formatarData("dd 'de' MMMM 'de' yyyy")
+        val dataLancamento = jogo.releaseDate?.formatarData("dd 'de' MMMM 'de' yyyy")
 
-        view.textview.text = dataLancamento
+        view.tvDataLancamento.text = dataLancamento
+
+        if (jogo.releaseDate == null) {
+            view.tvDataLancamento.visibility = View.GONE
+            view.tituloDataLancamento.visibility = View.GONE
+        }
 
         if (jogo.developers.isEmpty()) {
             view.tvDesenvolvedores.visibility = View.GONE

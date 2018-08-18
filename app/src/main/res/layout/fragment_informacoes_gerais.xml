@@ -170,12 +170,13 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tituloDataLancamento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/data_lancamento" />
 
                 <TextView
-                    android:id="@+id/textview"
+                    android:id="@+id/tvDataLancamento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"

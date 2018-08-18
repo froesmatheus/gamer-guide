@@ -16,7 +16,7 @@ data class Game(
         val developers: String,
         val publishers: String,
         val genres: String,
-        val releaseDate: Date,
+        val releaseDate: Date?,
         val gameEngine: String,
         @Embedded(prefix = "time_to_beat")
         val timeToBeat: TimeToBeat? = null,
