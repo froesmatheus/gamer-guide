@@ -18,7 +18,6 @@ class GameDetailsViewModel @Inject constructor(
         private val gameListLocalSource: GameListLocalSource,
         private val gameRemoteSource: GameRemoteSource) : ViewModel() {
     val game = MutableLiveData<Game>()
-    val currentAppTheme = MutableLiveData<String>()
 
     var gameId: Long = 0
         set(value) {

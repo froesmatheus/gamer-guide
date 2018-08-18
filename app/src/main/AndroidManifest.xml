@@ -16,22 +16,14 @@
             android:name=".ui.feed.ConfiguracoesFeedActivity"
             android:label="@string/configuracoes_feed"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.addgames.AdicionarJogosActivity"
-            android:label="@string/adicionar_jogos"
-            android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateHidden" />
+
+        <activity android:name=".ui.BaseActivity"/>
 
         <activity
             android:name=".ui.addgames.AddGamesActivity"
             android:label="@string/adicionar_jogos"
             android:parentActivityName=".MainActivity"
             android:windowSoftInputMode="stateHidden" />
-
-        <activity
-            android:name=".ui.gamedetails.DetalhesJogoActivity"
-            android:label="@string/title_activity_detalhes_jogo"
-            android:theme="@style/AppTheme.DetalhesJogo" />
 
         <activity
             android:name=".ui.gamedetails.GameDetailsActivity"
@@ -48,11 +40,11 @@
             android:theme="@style/Theme.AppCompat.Dialog" />
 
         <activity
-            android:name=".ui.settings.ConfiguracoesActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_activity_configuracoes"
             android:theme="@style/ConfiguracoesTheme" />
         <activity
-            android:name=".ui.intro.IntroducaoActivity"
+            android:name=".ui.intro.IntroActivity"
             android:theme="@style/Theme.Intro" />
 
         <activity android:name=".MainActivity">

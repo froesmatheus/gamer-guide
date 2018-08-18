@@ -48,7 +48,9 @@ class GameListLocalSource @Inject constructor(private val database: GamerGuideDa
     }
 
     fun addGameToList(gameId: Long, listId: Long) {
-        database.listsDao().addGameToList(GameWithGameList(gameId, listId))
+        if (!listContainsGame(gameId, listId)) {
+            database.listsDao().addGameToList(GameWithGameList(gameId, listId))
+        }
     }
 
     fun update(gameList: GameList) {

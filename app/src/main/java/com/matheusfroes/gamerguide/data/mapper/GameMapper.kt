@@ -16,7 +16,7 @@ class GameMapper @Inject constructor(private val platformMapper: PlatformMapper)
                 developers = gameResponse.developers?.joinToString() ?: "",
                 publishers = gameResponse.publishers?.joinToString() ?: "",
                 genres = GenreMapper.map(gameResponse.genres),
-                releaseDate = Date(gameResponse.firstReleaseDate),
+                releaseDate = if (gameResponse.firstReleaseDate == 0L) null else Date(gameResponse.firstReleaseDate),
                 gameEngine = GameEngineMapper.map(gameResponse.gameEngines),
                 timeToBeat = TimeToBeatMapper.map(gameResponse.timeToBeat),
                 coverImage = adicionarSchemaUrl(gameResponse.cover?.url))

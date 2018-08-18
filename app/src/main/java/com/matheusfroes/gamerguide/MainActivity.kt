@@ -1,38 +1,29 @@
 package com.matheusfroes.gamerguide
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.matheusfroes.gamerguide.ui.BaseActivity
 import com.matheusfroes.gamerguide.ui.calendar.CalendarFragment
 import com.matheusfroes.gamerguide.ui.feed.FeedActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
-import com.matheusfroes.gamerguide.ui.settings.ConfiguracoesActivity
+import com.matheusfroes.gamerguide.ui.settings.SettingsActivity
 import com.matheusfroes.gamerguide.ui.statistics.StatisticsFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     lateinit var meusJogos: MyGamesFragment
     lateinit var calendario: CalendarFragment
     lateinit var feed: FeedActivity
     lateinit var listas: GameListsFragment
     lateinit var estatisticas: StatisticsFragment
 
-    private val preferences: SharedPreferences by lazy {
-        getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        val appTheme = preferences.getString("APP_THEME", "DEFAULT")
-        val theme = if (appTheme == "DEFAULT") R.style.AppTheme_NoActionBar else R.style.AppTheme_OLED
-        setTheme(theme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -146,7 +137,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navConfiguracoes -> {
-                startActivity(Intent(this, ConfiguracoesActivity::class.java))
+                startActivity(Intent(this, SettingsActivity::class.java))
                 return true
             }
         }

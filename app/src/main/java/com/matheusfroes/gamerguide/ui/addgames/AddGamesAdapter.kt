@@ -64,7 +64,7 @@ class AddGamesAdapter : RecyclerView.Adapter<AddGamesAdapter.ViewHolder>() {
 
         fun bind(jogo: Game) {
             itemView.tvNomeJogo.text = jogo.name
-            itemView.textview.text = jogo.releaseDate.formatarData("dd/MM/yyyy")
+            itemView.textview.text = jogo.releaseDate?.formatarData("dd/MM/yyyy")
             itemView.tvPlataformas.text = jogo.platforms.joinToString()
             itemView.ivCapaJogo.contentDescription = itemView.context.getString(R.string.content_description_capa_jogo, jogo.name)
 
