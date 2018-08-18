@@ -1,6 +1,7 @@
 package com.matheusfroes.gamerguide.di
 
 import com.matheusfroes.gamerguide.di.modules.*
+import com.matheusfroes.gamerguide.ui.BaseActivity
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
 import com.matheusfroes.gamerguide.ui.calendar.CalendarFragment
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity
@@ -13,6 +14,7 @@ import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
 import com.matheusfroes.gamerguide.ui.mygames.JogosTabNaoTerminadosFragment
 import com.matheusfroes.gamerguide.ui.mygames.JogosTabZeradosFragment
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
+import com.matheusfroes.gamerguide.ui.settings.SettingsActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -32,4 +34,6 @@ interface Injector {
     fun inject(videosFragment: VideosFragment)
     fun inject(streamsFragment: StreamsFragment)
     fun inject(calendarFragment: CalendarFragment)
+    fun inject(settingsActivity: SettingsActivity)
+    fun inject(baseActivity: BaseActivity)
 }
