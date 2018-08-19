@@ -9,4 +9,13 @@ data class NewsSource(
         val id: Int = 0,
         val name: String,
         val website: String,
-        var enabled: Boolean = true)
+        var enabled: Boolean = true) {
+
+
+    companion object {
+        fun getNewsSources(): List<NewsSource> = listOf(
+                NewsSource(name = "Eurogamer", website = "http://www.eurogamer.pt/?format=rss", enabled = true),
+                NewsSource(name = "CriticalHits", website = "https://criticalhits.com.br/feed/", enabled = true)
+        )
+    }
+}

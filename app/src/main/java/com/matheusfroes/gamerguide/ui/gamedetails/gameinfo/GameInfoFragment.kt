@@ -2,7 +2,6 @@ package com.matheusfroes.gamerguide.ui.gamedetails.gameinfo
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
@@ -13,11 +12,8 @@ import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.UserPreferences
-import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.formatarData
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsViewModel
 import kotlinx.android.synthetic.main.fragment_informacoes_gerais.*
 import javax.inject.Inject
@@ -32,7 +28,7 @@ class GameInfoFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         appInjector.inject(this)
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[GameDetailsViewModel::class.java]
+        viewModel = activityViewModelProvider(viewModelFactory)
 
         val theme = userPreferences.getCurrentAppTheme()
 

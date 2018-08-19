@@ -13,4 +13,11 @@
 
     <dimen name="btn_adicionar_padding">0dp</dimen>
     <dimen name="fab_scroll_threshold">4dp</dimen>
+    <dimen name="news_item_cover_height">200dp</dimen>
+
+    <item name="match_parent" type="dimen">-1</item>
+    <item name="wrap_content" type="dimen">-2</item>
+
+    <dimen name="dialog_vertical_margin">32dp</dimen>
+    <dimen name="dialog_horizontal_margin">32dp</dimen>
 </resources>

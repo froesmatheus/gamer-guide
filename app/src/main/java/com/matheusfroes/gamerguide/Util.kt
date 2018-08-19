@@ -3,9 +3,6 @@ package com.matheusfroes.gamerguide
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
-import com.matheusfroes.gamerguide.data.db.PlataformasDAO
-import com.matheusfroes.gamerguide.data.models.*
-import java.util.*
 
 fun adicionarSchemaUrl(url: String?): String {
     return if (url != null && url != "" && !url.startsWith("http", ignoreCase = true)) {

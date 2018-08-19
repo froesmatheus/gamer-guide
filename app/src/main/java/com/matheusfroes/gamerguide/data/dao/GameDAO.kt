@@ -21,7 +21,7 @@ interface GameDAO {
     fun delete(gameId: Long)
 
     @Query("SELECT * FROM games WHERE id = :gameId")
-    fun get(gameId: Long): Game
+    fun get(gameId: Long): Game?
 
     @Query("SELECT * FROM games WHERE game_progress_beaten = :beaten")
     fun getGameByProgressStatus(beaten: Boolean): List<Game>
@@ -32,7 +32,7 @@ interface GameDAO {
     @Query("SELECT COUNT(*) FROM games WHERE game_progress_beaten = :beaten")
     fun getGameCountByProgressStatus(beaten: Boolean): Int
 
-    @Query("SELECT genres FROM games")
+    @Query("SELECT genres FROM games WHERE insertType <> 'INSERT_TO_LIST'")
     fun getGenres(): List<String>
 
     @Query("SELECT SUM(game_progress_hoursPlayed) FROM games")
@@ -50,7 +50,7 @@ interface GameDAO {
         WHERE gl.gameListId = :listId""")
     fun gamesByList(listId: Long): List<Game>
 
-    @Query("SELECT COUNT(*) FROM games WHERE game_progress_beaten = :beaten")
+    @Query("SELECT COUNT(*) FROM games WHERE game_progress_beaten = :beaten AND insertType <> 'INSERT_TO_LIST'")
     fun getGameCount(beaten: Boolean): Int
 
     @Query("SELECT * FROM games WHERE id = :gameId AND insertType = :insertType")
@@ -62,4 +62,6 @@ interface GameDAO {
     @Query("SELECT * FROM games WHERE game_progress_beaten = 1")
     fun getBeatenGames(): Flowable<List<Game>>
 
+    @Query("SELECT COUNT(*) from games WHERE id = :gameId")
+    fun isGameAdded(gameId: Long): Boolean
 }

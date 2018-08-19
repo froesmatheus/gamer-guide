@@ -35,7 +35,7 @@ class MyGamesAdapter : RecyclerView.Adapter<MyGamesAdapter.ViewHolder>() {
     private fun showPopup(v: View, jogo: Game) {
         val popup = PopupMenu(v.context, v)
         val inflater = popup.menuInflater
-        if (jogo.progress?.beaten == true) {
+        if (jogo.progress.beaten) {
             inflater.inflate(R.menu.popup_jogos_zerados, popup.menu)
         } else {
             inflater.inflate(R.menu.popup_jogos_nao_terminados, popup.menu)

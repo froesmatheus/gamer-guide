@@ -10,7 +10,7 @@ import com.matheusfroes.gamerguide.data.model.*
 
 
 @Database(entities = [Game::class, GameList::class, GameWithGameList::class, GameWithPlatform::class, NewsSource::class,
-    Platform::class, Video::class], version = 1)
+    Platform::class, Video::class, News::class], version = 1)
 @TypeConverters(DateConverter::class, InsertTypeEnumConverter::class)
 abstract class GamerGuideDatabase : RoomDatabase() {
     abstract fun platformsDao(): PlatformDAO
@@ -18,4 +18,5 @@ abstract class GamerGuideDatabase : RoomDatabase() {
     abstract fun videosDao(): VideoDAO
     abstract fun gamesDao(): GameDAO
     abstract fun newsSourcesDao(): NewsSourceDAO
+    abstract fun newsDao(): NewsDAO
 }

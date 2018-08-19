@@ -65,6 +65,10 @@ class AddGamesViewModel @Inject constructor(
         gameLocalSource.deleteGame(gameId)
     }
 
+    fun isGameAdded(gameId: Long): Boolean {
+        return gameLocalSource.isGameAdded(gameId)
+    }
+
     fun getGameByInsertType(gameId: Long, insertType: InsertType = InsertType.INSERT_BY_SEARCH): Game? {
         return gameLocalSource.getGamesByInsertType(gameId, insertType)
     }

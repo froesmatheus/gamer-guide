@@ -3,6 +3,8 @@ package com.matheusfroes.gamerguide.data.mapper
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
 import com.matheusfroes.gamerguide.data.model.News
 import com.pkmmte.pkrss.Article
+import me.toptas.rssconverter.RssItem
+import java.text.SimpleDateFormat
 
 class NewsMapper {
 
@@ -23,8 +25,30 @@ class NewsMapper {
                     else -> "IGN"
                 }
 
-                News(article.title, adicionarSchemaUrl(imagemNoticia!!), article.source.toString(), article.date, website)
+                News(title = article.title, image = adicionarSchemaUrl(imagemNoticia!!), url = article.source.toString(), publishDate = article.date, website = website)
             }
+        }
+
+        fun map2(rssItems: List<RssItem>): List<News> {
+            return rssItems.map { rssItem ->
+                News(
+                        title = rssItem.title,
+                        image = rssItem.image,
+                        url = rssItem.link,
+                        publishDate = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss").parse(rssItem.publishDate).time,
+                        website = extractNewsWebsite(rssItem.link))
+            }
+        }
+
+        private fun extractNewsWebsite(link: String): String {
+            return when {
+                link.contains("comboinfinito", ignoreCase = true) -> "Combo Infinito"
+                link.contains("tecmundo", ignoreCase = true) -> "Tecmundo"
+                link.contains("eurogamer", ignoreCase = true) -> "EuroGamer"
+                link.contains("criticalhits", ignoreCase = true) -> "Criticalhits"
+                else -> "IGN"
+            }
+
         }
     }
 }

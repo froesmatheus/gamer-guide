@@ -22,12 +22,12 @@ class GameDetailsViewModel @Inject constructor(
     var gameId: Long = 0
         set(value) {
             field = value
-            getGame(field)
+            val game = getGame(field)
+            this.game.postValue(game)
         }
 
-    private fun getGame(gameId: Long) {
-        val game = gameLocalSource.getGame(gameId)
-        this.game.postValue(game)
+    fun getGame(gameId: Long): Game? {
+        return gameLocalSource.getGame(gameId)
     }
 
     fun getGameByInsertType(gameId: Long, insertType: InsertType = InsertType.INSERT_BY_SEARCH): Game? {
@@ -42,9 +42,6 @@ class GameDetailsViewModel @Inject constructor(
         gameLocalSource.updateGame(game)
     }
 
-    fun addGame(game: Game) {
-        gameLocalSource.addGame(game)
-    }
 
     fun getLivestreamsByGame(offset: Int): Single<List<Stream>> {
         return gameRemoteSource.getLivestreamsByGame(game.value?.name ?: "", offset)

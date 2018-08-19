@@ -4,47 +4,12 @@ import android.content.Context
 import android.util.Log
 import com.matheusfroes.gamerguide.adicionarSchemaUrl
 import com.matheusfroes.gamerguide.data.db.FonteNoticiasDAO
-import com.matheusfroes.gamerguide.data.models.GameResponse
 import com.matheusfroes.gamerguide.data.models.Noticia
-import com.matheusfroes.gamerguide.network.ApiService
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
 import com.pkmmte.pkrss.PkRSS
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class AppRepository {
-    private val retrofit: Retrofit = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(ApiService.URL_BASE)
-            .build()
-
-    private val service: ApiService by lazy {
-        retrofit.create(ApiService::class.java)
-    }
-
-    fun pesquisarJogos(query: String = "", nextPage: String = ""): Pair<MutableList<GameResponse>, String> {
-        val listaJogos = mutableListOf<GameResponse>()
-
-        val call = if (nextPage.isEmpty()) {
-            service.pesquisarJogos(query)
-        } else {
-            service.proximaPaginaJogos(nextPage)
-        }
-
-        val response = call.execute()
-
-        var nextPageId: String? = null
-        if (response.isSuccessful) {
-            nextPageId = response.headers()["X-Next-Page"]
-
-            val listaResponse = response.body()
-
-            listaResponse?.let { listaJogos.addAll(it) }
-        }
-
-        return Pair(listaJogos, nextPageId!!)
-    }
 
     fun atualizarFeed(context: Context): MutableList<Noticia> {
         val fontesDAO = FonteNoticiasDAO(context)

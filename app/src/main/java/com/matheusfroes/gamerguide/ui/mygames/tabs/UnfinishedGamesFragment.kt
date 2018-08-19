@@ -1,7 +1,6 @@
-package com.matheusfroes.gamerguide.ui.mygames
+package com.matheusfroes.gamerguide.ui.mygames.tabs
 
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
@@ -10,11 +9,10 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.ExcluirJogoEvent
-import com.matheusfroes.gamerguide.GerenciarListasEvent
-import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
+import com.matheusfroes.gamerguide.ui.mygames.MyGamesAdapter
+import com.matheusfroes.gamerguide.ui.mygames.MyGamesViewModel
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.*
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 import kotlinx.android.synthetic.main.fragment_meu_progresso.view.*
@@ -23,7 +21,7 @@ import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-class JogosTabNaoTerminadosFragment : Fragment() {
+class UnfinishedGamesFragment : Fragment() {
     val adapter: MyGamesAdapter by lazy { MyGamesAdapter() }
 
     @Inject
@@ -36,7 +34,8 @@ class JogosTabNaoTerminadosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)[MyGamesViewModel::class.java]
+
+        viewModel = activityViewModelProvider(viewModelFactory)
 
         rvJogosNaoTerminados.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity)
         rvJogosNaoTerminados.adapter = adapter

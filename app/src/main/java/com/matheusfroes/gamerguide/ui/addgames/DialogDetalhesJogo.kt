@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.extra
+package com.matheusfroes.gamerguide.ui.addgames
 
 import android.content.Context
 import android.support.v7.app.AlertDialog

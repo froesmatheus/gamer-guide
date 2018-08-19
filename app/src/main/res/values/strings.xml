@@ -123,4 +123,9 @@
     <string name="comprar">Comprar</string>
     <string name="ofertas">Ofertas</string>
     <string name="ajuda">Ajuda</string>
+    <string name="salvar">Salvar</string>
+    <string name="msg_save_game">Onde você deseja salvar o jogo?</string>
+    <string name="unfinished_games">Não terminados</string>
+    <string name="beaten_games">Zerados</string>
+    <string name="list">Lista</string>
 </resources>

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment">
 
+    <include layout="@layout/toolbar_mygames" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

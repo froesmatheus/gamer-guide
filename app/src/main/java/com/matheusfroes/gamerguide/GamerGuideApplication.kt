@@ -16,7 +16,11 @@ class GamerGuideApplication : Application() {
 
         Stetho.initializeWithDefaults(this)
 
-        Timber.plant(Timber.DebugTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        } else {
+            Timber.plant(CrashlyticsTree())
+        }
 
         setupDagger()
         Kotpref.init(this)

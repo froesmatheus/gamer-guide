@@ -1,11 +1,11 @@
 package com.matheusfroes.gamerguide.ui.mygames
 
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
@@ -14,16 +14,18 @@ import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.model.InsertType
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
+import com.matheusfroes.gamerguide.ui.mygames.tabs.BeatenGamesFragment
+import com.matheusfroes.gamerguide.ui.mygames.tabs.UnfinishedGamesFragment
 import kotlinx.android.synthetic.main.activity_meus_jogos.*
 import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar_mygames.*
+import kotlinx.android.synthetic.main.toolbar_mygames.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
-@Suppress("IMPLICIT_CAST_TO_ANY")
 class MyGamesFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -35,29 +37,18 @@ class MyGamesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
-        activity?.tabLayout?.visibility = View.VISIBLE
+        setupToolbar()
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[MyGamesViewModel::class.java]
+        viewModel = viewModelProvider(viewModelFactory)
 
-        val adapter = JogosFragmentAdapter(requireActivity(), requireActivity().supportFragmentManager)
+        val adapter = GamesAdapter(childFragmentManager)
         viewPager.adapter = adapter
 
-        activity?.tabLayout?.visibility = View.VISIBLE
-        activity?.tabLayout?.setupWithViewPager(viewPager)
+        tabLayout.visibility = View.VISIBLE
+        tabLayout.setupWithViewPager(viewPager)
         fab.setOnClickListener {
             startActivity(Intent(activity, AddGamesActivity::class.java))
         }
-
-        requireActivity().tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                activity?.appBar?.setExpanded(true, true)
-            }
-
-        })
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -104,8 +95,6 @@ class MyGamesFragment : Fragment() {
                         viewModel.updateGame(jogo!!)
                     }
 
-
-                    EventBus.getDefault().post(AtualizarListaJogosEvent())
                     requireActivity().toast(getString(R.string.jogo_removido))
                 }
                 .setNegativeButton(getString(R.string.cancelar), null)
@@ -177,5 +166,30 @@ class MyGamesFragment : Fragment() {
         } else if (jogosAdicionarNaLista.size > 1) {
             requireActivity().toast(getString(R.string.msg_jogo_adicionado_listas))
         }
+    }
+
+    private fun setupToolbar() {
+        appCompatActivity.setSupportActionBar(toolbar)
+        appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.toolbarTitle.text = "Jogos"
+    }
+
+    inner class GamesAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+        override fun getItem(position: Int) = GAMES_PAGES[position]()
+
+        override fun getCount() = GAMES_TITLES.size
+
+        override fun getPageTitle(position: Int): String = resources.getString(GAMES_TITLES[position])
+    }
+
+    companion object {
+        private val GAMES_TITLES = arrayOf(
+                R.string.nao_terminados,
+                R.string.zerados
+        )
+        private val GAMES_PAGES = arrayOf(
+                { UnfinishedGamesFragment() },
+                { BeatenGamesFragment() }
+        )
     }
 }

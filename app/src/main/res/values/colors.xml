@@ -13,4 +13,6 @@
     <color name="cor_zoom">#53207c</color>
     <color name="cor_buscape">#ffcd00</color>
     <color name="cor_steam">#171a21</color>
+
+    <color name="scrim">#33000000</color> <!-- 20% black -->
 </resources>

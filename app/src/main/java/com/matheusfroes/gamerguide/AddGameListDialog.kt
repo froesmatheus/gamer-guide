@@ -2,7 +2,7 @@ package com.matheusfroes.gamerguide
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import android.support.v7.app.AppCompatDialogFragment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import android.view.Window
 import kotlinx.android.synthetic.main.dialog_adicionar_lista.*
 
 
-class AddGameListDialog : DialogFragment() {
+class AddGameListDialog : AppCompatDialogFragment() {
 
     companion object {
         val ADD_LIST = "add_list"

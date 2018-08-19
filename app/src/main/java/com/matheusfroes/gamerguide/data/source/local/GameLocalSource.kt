@@ -28,11 +28,11 @@ class GameLocalSource @Inject constructor(private val database: GamerGuideDataba
                 .take(5)
     }
 
-    fun getGame(gameId: Long): Game {
+    fun getGame(gameId: Long): Game? {
         val game = database.gamesDao().get(gameId)
 
-        game.videos = database.videosDao().getVideosByGame(gameId)
-        game.platforms = database.platformsDao().getPlatformsByGame(gameId)
+        game?.videos = database.videosDao().getVideosByGame(gameId)
+        game?.platforms = database.platformsDao().getPlatformsByGame(gameId)
 
         return game
     }
@@ -59,5 +59,9 @@ class GameLocalSource @Inject constructor(private val database: GamerGuideDataba
 
     fun getBeatenGames(): Flowable<List<Game>> {
         return database.gamesDao().getBeatenGames()
+    }
+
+    fun isGameAdded(gameId: Long): Boolean {
+        return database.gamesDao().isGameAdded(gameId)
     }
 }

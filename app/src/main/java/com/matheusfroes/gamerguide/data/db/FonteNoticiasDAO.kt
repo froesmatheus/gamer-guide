@@ -7,10 +7,7 @@ import com.matheusfroes.gamerguide.data.models.FonteNoticia
 
 class FonteNoticiasDAO(private val context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
-    private val jogosDAO: JogosDAO by lazy {
-        JogosDAO(context)
-    }
-
+    
     fun obterFonteNoticias(): List<FonteNoticia> {
         val cursor = db.rawQuery(
                 """SELECT *

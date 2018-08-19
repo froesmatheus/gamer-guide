@@ -1,5 +1,6 @@
 package com.matheusfroes.gamerguide.di.modules
 
+import com.matheusfroes.gamerguide.di.GamerGuide
 import com.matheusfroes.gamerguide.network.GameService
 import dagger.Module
 import dagger.Provides
@@ -12,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class GameModule {
 
     @Provides
+    @GamerGuide
     fun retrofit(
             okHttpClient: OkHttpClient,
             rxJava2CallAdapterFactory: RxJava2CallAdapterFactory,
@@ -24,7 +26,7 @@ class GameModule {
             .build()
 
     @Provides
-    fun gameService(retrofit: Retrofit): GameService {
+    fun gameService(@GamerGuide retrofit: Retrofit): GameService {
         return retrofit.create(GameService::class.java)
     }
 }

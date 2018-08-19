@@ -1,9 +1,9 @@
 package com.matheusfroes.gamerguide.ui.addgames
 
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,15 +14,14 @@ import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.model.InsertType
-import com.matheusfroes.gamerguide.extra.DialogDetalhesJogo
 import com.matheusfroes.gamerguide.ui.BaseActivity
+import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameDialog
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.activity_adicionar_jogos.*
 import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.greenrobot.eventbus.EventBus
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -42,8 +41,7 @@ class AddGamesActivity : BaseActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         appInjector.inject(this)
 
-
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[AddGamesViewModel::class.java]
+        viewModel = viewModelProvider(viewModelFactory)
 
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvJogos.layoutManager = layoutManager
@@ -82,20 +80,24 @@ class AddGamesActivity : BaseActivity() {
     private fun popupMenuClick(action: String, game: Game) {
         when (action) {
             "adicionar_jogo" -> {
-                toast(getString(R.string.jogo_adicionado))
-                val jogoInserido = viewModel.getGameByInsertType(game.id, InsertType.INSERT_TO_LIST)
-                if (jogoInserido == null) {
-                    viewModel.addGame(game)
-                } else {
-                    jogoInserido.insertType = InsertType.INSERT_BY_SEARCH
-                    viewModel.updateGame(jogoInserido)
-                }
-                EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
+                openAddGameDialog(game)
             }
             "remover_jogo" -> {
                 dialogRemoverJogo(game.id)
             }
             else -> dialogGerenciarListas(game)
+        }
+    }
+
+    private fun openAddGameDialog(game: Game) {
+        val addGameDialog = AddGameDialog.newInstance(game)
+        addGameDialog.show(supportFragmentManager, "ADD_GAME_DIALOG")
+
+        addGameDialog.gameAddedEvent = { gameAdded ->
+            if (gameAdded) {
+                val snackbar = Snackbar.make(window.decorView.rootView, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
+                snackbar.show()
+            }
         }
     }
 
@@ -138,8 +140,6 @@ class AddGamesActivity : BaseActivity() {
                         jogo?.insertType = InsertType.INSERT_TO_LIST
                         viewModel.updateGame(jogo!!)
                     }
-
-                    EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
                     toast(getString(R.string.jogo_removido))
                 }
                 .setNegativeButton(getString(R.string.cancelar), null)
@@ -231,7 +231,7 @@ class AddGamesActivity : BaseActivity() {
     }
 
     private fun dialogDetalhesJogo(game: Game) {
-        val jogoSalvo = viewModel.getGameByInsertType(game.id) != null
+        val jogoSalvo = viewModel.isGameAdded(game.id)
 
         val textoBotao = if (jogoSalvo) getString(R.string.btn_remover) else getString(R.string.btn_adicionar)
 

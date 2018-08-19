@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonWriter
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
+import me.toptas.rssconverter.RssConverterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -38,6 +39,9 @@ class NetworkModule {
 
     @Provides
     fun rxJavaAdapter(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
+
+    @Provides
+    fun rssConverterFactory(): RssConverterFactory = RssConverterFactory.create()
 
     @Provides
     fun loggingInterceptor(): HttpLoggingInterceptor {

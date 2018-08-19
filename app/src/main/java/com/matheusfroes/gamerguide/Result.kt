@@ -2,7 +2,7 @@ package com.matheusfroes.gamerguide
 
 sealed class Result<D> {
 
-    class InProgress<D> : Result<D>()
+    class InProgress<D>(val cachedData: D? = null) : Result<D>()
 
     data class Complete<D>(val data: D) : Result<D>()
 
