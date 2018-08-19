@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui
+package com.matheusfroes.gamerguide.ui.gamelists
 
 import android.app.Dialog
 import android.os.Bundle
@@ -10,10 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.widget.CustomDialogFragment
 import kotlinx.android.synthetic.main.dialog_adicionar_lista.*
 
 
-class AddGameListDialog : AppCompatDialogFragment() {
+class AddGameListDialog : CustomDialogFragment() {
 
     companion object {
         val ADD_LIST = "add_list"

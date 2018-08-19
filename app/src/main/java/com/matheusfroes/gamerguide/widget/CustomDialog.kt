@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatDialog
 import android.view.ViewGroup
 import android.view.Window
-import android.view.WindowManager
 
 /**
  * Dialog with custom background dim.
@@ -35,9 +34,6 @@ class CustomDialog(context: Context?) : AppCompatDialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window?.run {
-            // Spread the dialog as large as the screen.
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
     }

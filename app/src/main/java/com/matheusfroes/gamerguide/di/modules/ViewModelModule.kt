@@ -9,6 +9,7 @@ import com.matheusfroes.gamerguide.ui.feed.FeedViewModel
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsViewModel
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsViewModel
 import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsViewModel
+import com.matheusfroes.gamerguide.ui.gameprogressdialog.GameProgressViewModel
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesViewModel
 import com.matheusfroes.gamerguide.ui.removegamedialog.RemoveGameViewModel
 import com.matheusfroes.gamerguide.ui.statistics.StatisticsViewModel
@@ -87,4 +88,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RemoveGameViewModel::class)
     internal abstract fun removeGameViewModel(viewModel: RemoveGameViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(GameProgressViewModel::class)
+    internal abstract fun gameProgressViewModel(viewModel: GameProgressViewModel): ViewModel
 }

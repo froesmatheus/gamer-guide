@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/horas_jogadas" />
+
+    <EditText
+        android:id="@+id/etHorasJogadas"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:inputType="number" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/quantos_perc_jogou" />
+
+    <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+        android:id="@+id/sbProgresso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:dsb_indicatorColor="@color/colorPrimary"
+        app:dsb_max="100"
+        app:dsb_min="0"
+        app:dsb_progressColor="@color/colorPrimary"
+        app:dsb_thumbSize="20dp"
+        app:dsb_trackColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/tvPorcentagemProgresso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:text="0%"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:id="@+id/chkJogoZerado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/zerei_este_jogo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="10dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancelar" />
+
+        <Button
+            android:id="@+id/btnUpdateProgress"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/atualizar" />
+    </LinearLayout>
+</LinearLayout>

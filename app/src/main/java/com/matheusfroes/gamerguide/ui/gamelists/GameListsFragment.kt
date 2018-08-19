@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.appCompatActivity
 import com.matheusfroes.gamerguide.appInjector
-import com.matheusfroes.gamerguide.ui.AddGameListDialog
 import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity
 import com.matheusfroes.gamerguide.viewModelProvider
 import io.reactivex.disposables.CompositeDisposable

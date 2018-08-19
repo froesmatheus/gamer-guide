@@ -13,6 +13,7 @@ import com.matheusfroes.gamerguide.ui.gamedetails.livestream.StreamsFragment
 import com.matheusfroes.gamerguide.ui.gamedetails.video.VideosFragment
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
 import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity
+import com.matheusfroes.gamerguide.ui.gameprogressdialog.GameProgressDialog
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
 import com.matheusfroes.gamerguide.ui.mygames.tabs.BeatenGamesFragment
 import com.matheusfroes.gamerguide.ui.mygames.tabs.UnfinishedGamesFragment
@@ -44,4 +45,5 @@ interface Injector {
     fun inject(feedFragment2: FeedFragment2)
     fun inject(addGameDialog: AddGameDialog)
     fun inject(removeGameDialog: RemoveGameDialog)
+    fun inject(gameProgressDialog: GameProgressDialog)
 }
