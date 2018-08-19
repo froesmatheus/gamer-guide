@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide.ui.gamelists
+package com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails
 
 import android.arch.lifecycle.ViewModel
 import com.matheusfroes.gamerguide.data.model.Game

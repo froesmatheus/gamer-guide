@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme.DetalhesJogo" />
 
         <activity
-            android:name=".ui.gamelists.GameListDetailsActivity"
+            android:name=".ui.gamelists.gamelistdetails.GameListDetailsActivity"
             android:parentActivityName=".ui.MainActivity"/>
 
         <activity

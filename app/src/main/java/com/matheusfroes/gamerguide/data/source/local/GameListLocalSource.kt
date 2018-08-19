@@ -13,8 +13,7 @@ class GameListLocalSource @Inject constructor(private val database: GamerGuideDa
 
 
     fun getLists(): Flowable<List<GameList>> {
-        return database.listsDao()
-                .getAll()
+        return database.listsDao().getAll()
     }
 
     fun getList(gameListId: Long): GameList {

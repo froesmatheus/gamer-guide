@@ -11,8 +11,8 @@ import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity
 import com.matheusfroes.gamerguide.ui.gamedetails.gameinfo.GameInfoFragment
 import com.matheusfroes.gamerguide.ui.gamedetails.livestream.StreamsFragment
 import com.matheusfroes.gamerguide.ui.gamedetails.video.VideosFragment
-import com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
+import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
 import com.matheusfroes.gamerguide.ui.mygames.tabs.BeatenGamesFragment
 import com.matheusfroes.gamerguide.ui.mygames.tabs.UnfinishedGamesFragment

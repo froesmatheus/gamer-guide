@@ -39,9 +39,11 @@ class UnfinishedGamesFragment : Fragment() {
 
         rvJogosNaoTerminados.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity)
         rvJogosNaoTerminados.adapter = adapter
-        rvJogosNaoTerminados.emptyView = view.layoutEmpty
 
         viewModel.getUnfinishedGames().subscribe { games ->
+            if (games.isEmpty()) {
+                rvJogosNaoTerminados?.emptyView = view.layoutEmpty
+            }
             adapter.jogos = games
         }
 

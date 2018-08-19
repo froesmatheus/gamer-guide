@@ -15,24 +15,24 @@ class UserPreferences @Inject constructor() : KotprefModel() {
     var currentAppTheme by enumValuePref(AppTheme.DEFAULT, key = CURRENT_APP_THEME)
 
     @StyleRes
-    fun getCurrentAppTheme() :  Int {
-        return when(currentAppTheme) {
+    fun getCurrentAppTheme(): Int {
+        return when (currentAppTheme) {
             AppTheme.DEFAULT -> R.style.AppTheme_NoActionBar
             AppTheme.PURE_BLACK -> R.style.AppTheme_OLED
         }
     }
 
     @StyleRes
-    fun getGameDetailsScreenTheme() :  Int {
-        return when(currentAppTheme) {
+    fun getGameDetailsScreenTheme(): Int {
+        return when (currentAppTheme) {
             AppTheme.DEFAULT -> R.style.AppTheme_DetalhesJogo
             AppTheme.PURE_BLACK -> R.style.AppTheme_DetalhesJogo_OLED
         }
     }
 
     @StyleRes
-    fun getSettingsScreenTheme() :  Int {
-        return when(currentAppTheme) {
+    fun getSettingsScreenTheme(): Int {
+        return when (currentAppTheme) {
             AppTheme.DEFAULT -> R.style.ConfiguracoesTheme
             AppTheme.PURE_BLACK -> R.style.ConfiguracoesTheme_OLED
         }

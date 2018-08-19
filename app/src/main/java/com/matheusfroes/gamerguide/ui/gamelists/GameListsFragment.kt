@@ -11,8 +11,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.*
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.appCompatActivity
+import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.ui.AddGameListDialog
+import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity
+import com.matheusfroes.gamerguide.viewModelProvider
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.fab.*

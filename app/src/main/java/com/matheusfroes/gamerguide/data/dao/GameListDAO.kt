@@ -35,7 +35,7 @@ interface GameListDAO {
     @Query("SELECT * FROM lists WHERE id = :listId")
     fun get(listId: Long): GameList
 
-    @Query("SELECT * FROM lists")
+    @Query("SELECT DISTINCT l.id, l.isDefault, l.name FROM lists l LEFT JOIN games_lists gl")
     fun getAll(): Flowable<List<GameList>>
 
     @Insert

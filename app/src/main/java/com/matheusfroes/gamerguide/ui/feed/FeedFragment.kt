@@ -13,8 +13,8 @@ import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.appCompatActivity
 import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.data.models.Noticia
-import com.matheusfroes.gamerguide.widget.VerticalSpaceItemDecoration
 import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
+import com.matheusfroes.gamerguide.widget.VerticalSpaceItemDecoration
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
