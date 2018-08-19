@@ -12,12 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.GameList
-import com.matheusfroes.gamerguide.data.model.InsertType
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
 import com.matheusfroes.gamerguide.ui.mygames.tabs.BeatenGamesFragment
 import com.matheusfroes.gamerguide.ui.mygames.tabs.UnfinishedGamesFragment
+import com.matheusfroes.gamerguide.ui.removegamedialog.RemoveGameDialog
 import kotlinx.android.synthetic.main.activity_meus_jogos.*
-import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import kotlinx.android.synthetic.main.toolbar_mygames.*
 import kotlinx.android.synthetic.main.toolbar_mygames.view.*
 import org.greenrobot.eventbus.EventBus
@@ -53,7 +52,7 @@ class MyGamesFragment : Fragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun removerJogoEvent(event: ExcluirJogoEvent) {
-        dialogRemoverJogo(event.jogoId)
+        openRemoveGameDialog(event.jogoId)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -72,37 +71,18 @@ class MyGamesFragment : Fragment() {
         EventBus.getDefault().unregister(this)
     }
 
-    private fun dialogRemoverJogo(jogoId: Long) {
-        val view = LayoutInflater.from(activity).inflate(R.layout.dialog_remover_jogo, null, false)
+    private fun openRemoveGameDialog(gameId: Long) {
+        val removeGameDialog = RemoveGameDialog.newInstance(gameId)
+        removeGameDialog.show(childFragmentManager, "REMOVE_GAME_DIALOG")
 
-        val gameIsInGameLists = viewModel.gameIsInGameLists(jogoId)
-
-        if (!gameIsInGameLists) {
-            view.chkRemoverDasListas.visibility = View.GONE
+        removeGameDialog.gameRemovedEvent = { gameRemoved ->
+            if (gameRemoved) {
+                toast(R.string.jogo_removido)
+            } else {
+                toast(R.string.game_removed_error)
+            }
         }
-        val dialog = AlertDialog.Builder(requireActivity())
-                .setView(view)
-                .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
-                    val removerDasListas = view.chkRemoverDasListas.isChecked
-
-                    val jogo = viewModel.getGameByInsertType(jogoId)
-
-                    if (removerDasListas || !gameIsInGameLists) {
-                        viewModel.removeGameFromLists(jogoId)
-                        viewModel.removeGame(jogoId)
-                    } else {
-                        jogo?.insertType = InsertType.INSERT_TO_LIST
-                        viewModel.updateGame(jogo!!)
-                    }
-
-                    requireActivity().toast(getString(R.string.jogo_removido))
-                }
-                .setNegativeButton(getString(R.string.cancelar), null)
-                .create()
-
-        dialog.show()
     }
-
 
     private fun dialogGerenciarListas(jogoId: Long) {
         val listas = viewModel.getLists()

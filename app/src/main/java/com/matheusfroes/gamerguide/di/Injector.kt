@@ -1,8 +1,8 @@
 package com.matheusfroes.gamerguide.di
 
-import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameDialog
 import com.matheusfroes.gamerguide.di.modules.*
 import com.matheusfroes.gamerguide.ui.BaseActivity
+import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameDialog
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
 import com.matheusfroes.gamerguide.ui.calendar.CalendarFragment
 import com.matheusfroes.gamerguide.ui.feed.FeedFragment
@@ -13,9 +13,10 @@ import com.matheusfroes.gamerguide.ui.gamedetails.livestream.StreamsFragment
 import com.matheusfroes.gamerguide.ui.gamedetails.video.VideosFragment
 import com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsActivity
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
-import com.matheusfroes.gamerguide.ui.mygames.tabs.UnfinishedGamesFragment
-import com.matheusfroes.gamerguide.ui.mygames.tabs.BeatenGamesFragment
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
+import com.matheusfroes.gamerguide.ui.mygames.tabs.BeatenGamesFragment
+import com.matheusfroes.gamerguide.ui.mygames.tabs.UnfinishedGamesFragment
+import com.matheusfroes.gamerguide.ui.removegamedialog.RemoveGameDialog
 import com.matheusfroes.gamerguide.ui.settings.SettingsActivity
 import com.matheusfroes.gamerguide.ui.statistics.StatisticsFragment
 import dagger.Component
@@ -42,4 +43,5 @@ interface Injector {
     fun inject(feedFragment: FeedFragment)
     fun inject(feedFragment2: FeedFragment2)
     fun inject(addGameDialog: AddGameDialog)
+    fun inject(removeGameDialog: RemoveGameDialog)
 }

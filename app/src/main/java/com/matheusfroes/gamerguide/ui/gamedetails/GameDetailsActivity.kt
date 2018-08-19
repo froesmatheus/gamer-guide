@@ -5,24 +5,19 @@ import android.arch.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.data.model.InsertType
 import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameDialog
 import com.matheusfroes.gamerguide.ui.gamedetails.gameinfo.GameInfoFragment
 import com.matheusfroes.gamerguide.ui.gamedetails.livestream.StreamsFragment
 import com.matheusfroes.gamerguide.ui.gamedetails.video.VideosFragment
+import com.matheusfroes.gamerguide.ui.removegamedialog.RemoveGameDialog
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
-import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import javax.inject.Inject
 
 
@@ -81,7 +76,7 @@ class GameDetailsActivity : AppCompatActivity() {
 
         fabAdicinarJogo.setOnClickListener {
             if (jogoSalvo) {
-                dialogRemoverJogo(viewModel.gameId)
+                openRemoveGameDialog(gameId)
             } else {
                 openAddGameDialog(game)
             }
@@ -112,46 +107,26 @@ class GameDetailsActivity : AppCompatActivity() {
 
         addGameDialog.gameAddedEvent = { gameAdded ->
             if (gameAdded) {
-                val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
                 jogoSalvo = true
                 fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
-                snackbar.show()
+                snack(R.string.jogo_adicionado)
             }
         }
     }
 
-    private fun dialogRemoverJogo(jogoId: Long) {
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_remover_jogo, null, false)
+    private fun openRemoveGameDialog(gameId: Long) {
+        val removeGameDialog = RemoveGameDialog.newInstance(gameId)
+        removeGameDialog.show(supportFragmentManager, "REMOVE_GAME_DIALOG")
 
-        val gameIsInGameLists = viewModel.gameIsInGameLists(jogoId)
-
-        if (!gameIsInGameLists) {
-            view.chkRemoverDasListas.visibility = View.GONE
+        removeGameDialog.gameRemovedEvent = { gameRemoved ->
+            if (gameRemoved) {
+                jogoSalvo = false
+                fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
+                snack(R.string.jogo_removido)
+            } else {
+                snack(R.string.game_removed_error)
+            }
         }
-        val dialog = AlertDialog.Builder(this)
-                .setView(view)
-                .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
-                    val removerDasListas = view.chkRemoverDasListas.isChecked
-
-                    val jogo = viewModel.getGameByInsertType(jogoId)
-
-                    if (removerDasListas || !gameIsInGameLists) {
-                        viewModel.removeGameFromLists(jogoId)
-                        viewModel.removeGame(jogoId)
-                    } else {
-                        jogo?.insertType = InsertType.INSERT_TO_LIST
-                        viewModel.updateGame(jogo!!)
-                    }
-
-                    jogoSalvo = false
-                    fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
-                    val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_removido), Snackbar.LENGTH_LONG)
-                    snackbar.show()
-                }
-                .setNegativeButton(getString(R.string.cancelar), null)
-                .create()
-
-        dialog.show()
     }
 
     private fun setAppBarOffset(offsetPx: Int) {

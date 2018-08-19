@@ -122,8 +122,6 @@ class GameInfoFragment : Fragment() {
             }
         }
 
-
-
         if (game.timeToBeat != null) {
             if (game.timeToBeat.hastly == 0L) {
                 tituloTTBSpeedrun.visibility = View.GONE
@@ -145,10 +143,10 @@ class GameInfoFragment : Fragment() {
         }
     }
 
-    private fun dialogDescricao(jogo: Game?) {
+    private fun dialogDescricao(jogo: Game) {
         val dialog = AlertDialog.Builder(requireActivity())
                 .setTitle(getString(R.string.descricao))
-                .setMessage(jogo?.description)
+                .setMessage(jogo.description)
                 .create()
 
         dialog.show()

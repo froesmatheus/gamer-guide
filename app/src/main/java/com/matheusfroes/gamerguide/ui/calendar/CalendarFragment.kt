@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.toolbar.view.*
 import javax.inject.Inject
 
 class CalendarFragment : Fragment() {
-    private val lancamentosAdapter: LancamentosAdapter by lazy { LancamentosAdapter() }
+    private val gameReleaseAdapter: GameReleaseAdapter by lazy { GameReleaseAdapter() }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -39,7 +39,7 @@ class CalendarFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(activity)
         rvLancamentos.layoutManager = layoutManager
-        rvLancamentos.adapter = lancamentosAdapter
+        rvLancamentos.adapter = gameReleaseAdapter
         rvLancamentos.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
                 obterLancamentos()
@@ -57,7 +57,7 @@ class CalendarFragment : Fragment() {
 
     private fun obterLancamentos() {
         subscriptions += viewModel.getGameReleases().subscribe { releases ->
-            lancamentosAdapter.preencherLista(releases.distinctBy { it.game.name }.toMutableList())
+            gameReleaseAdapter.preencherLista(releases.distinctBy { it.game.name }.toMutableList())
         }
     }
 }

@@ -8,7 +8,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_capa_jogo_tela_cheia.*
 
 
-class CapaJogoTelaCheiaActivity : AppCompatActivity() {
+class GameCoverActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

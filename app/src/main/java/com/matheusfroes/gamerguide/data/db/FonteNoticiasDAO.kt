@@ -5,9 +5,9 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.data.models.FonteNoticia
 
-class FonteNoticiasDAO(private val context: Context) {
+class FonteNoticiasDAO(context: Context) {
     private val db: SQLiteDatabase = Helper(context).writableDatabase
-    
+
     fun obterFonteNoticias(): List<FonteNoticia> {
         val cursor = db.rawQuery(
                 """SELECT *

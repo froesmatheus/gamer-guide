@@ -5,14 +5,17 @@ import android.app.Activity
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.support.annotation.StringRes
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.matheusfroes.gamerguide.di.Injector
 import java.text.SimpleDateFormat
 import java.util.*
@@ -91,3 +94,19 @@ inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
         ViewModelProviders.of(this, provider).get(VM::class.java)
+
+fun Fragment.toast(@StringRes text: Int) {
+    Toast.makeText(view?.context, text, Toast.LENGTH_LONG).show()
+}
+
+fun Fragment.snack(@StringRes text: Int) {
+    view?.let { Snackbar.make(it, getString(text), Snackbar.LENGTH_LONG).show() }
+}
+
+fun FragmentActivity.snack(text: String) {
+    Snackbar.make(window.decorView.rootView, text, Snackbar.LENGTH_LONG).show()
+}
+
+fun FragmentActivity.snack(@StringRes text: Int) {
+    Snackbar.make(window.decorView.rootView, getString(text), Snackbar.LENGTH_LONG).show()
+}

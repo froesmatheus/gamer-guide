@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.ui
 
 import android.app.Dialog
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import com.matheusfroes.gamerguide.R
 import kotlinx.android.synthetic.main.dialog_adicionar_lista.*
 
 

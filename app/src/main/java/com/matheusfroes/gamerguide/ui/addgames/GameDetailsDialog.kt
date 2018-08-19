@@ -9,7 +9,7 @@ import com.matheusfroes.gamerguide.formatarData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.dialog_detalhes_jogo.view.*
 
-class DialogDetalhesJogo(context: Context, private val jogo: Game) : AlertDialog.Builder(context) {
+class GameDetailsDialog(context: Context, private val jogo: Game) : AlertDialog.Builder(context) {
 
     init {
         val view = View.inflate(context, R.layout.dialog_detalhes_jogo, null)

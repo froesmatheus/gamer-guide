@@ -11,7 +11,7 @@ import com.matheusfroes.gamerguide.formatarData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_lancamento2.view.*
 
-class LancamentosAdapter() : RecyclerView.Adapter<LancamentosAdapter.ViewHolder>() {
+class GameReleaseAdapter : RecyclerView.Adapter<GameReleaseAdapter.ViewHolder>() {
     var lancamentos = mutableListOf<Release>()
 
     fun preencherLista(lancamentos: MutableList<Release>) {
@@ -34,7 +34,7 @@ class LancamentosAdapter() : RecyclerView.Adapter<LancamentosAdapter.ViewHolder>
     override fun getItemCount() = lancamentos.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var capaVisivel = true
+        private var capaVisivel = true
 
         fun bind(lancamento: Release) {
             itemView.tvNomeJogo.text = lancamento.game.name
@@ -54,8 +54,6 @@ class LancamentosAdapter() : RecyclerView.Adapter<LancamentosAdapter.ViewHolder>
             }
 
             itemView.ivRegiao.setImageResource(imagemRegiao)
-
-
 
             capaVisivel = !lancamento.game.cover.isEmpty()
 

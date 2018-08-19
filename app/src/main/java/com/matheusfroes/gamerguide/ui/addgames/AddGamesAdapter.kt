@@ -96,7 +96,7 @@ class AddGamesAdapter : RecyclerView.Adapter<AddGamesAdapter.ViewHolder>() {
 
             itemView.ivCapaJogo.setOnClickListener {
                 val jogo = jogos[adapterPosition]
-                val intent = Intent(itemView.context, CapaJogoTelaCheiaActivity::class.java)
+                val intent = Intent(itemView.context, GameCoverActivity::class.java)
                 intent.putExtra("url_imagem", jogo.coverImage)
                 itemView.context.startActivity(intent)
             }

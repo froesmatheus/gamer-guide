@@ -3,13 +3,10 @@ package com.matheusfroes.gamerguide.ui.addgames
 import android.arch.lifecycle.ViewModelProvider
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
@@ -17,10 +14,10 @@ import com.matheusfroes.gamerguide.data.model.InsertType
 import com.matheusfroes.gamerguide.ui.BaseActivity
 import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameDialog
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity
+import com.matheusfroes.gamerguide.ui.removegamedialog.RemoveGameDialog
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.activity_adicionar_jogos.*
-import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -83,7 +80,7 @@ class AddGamesActivity : BaseActivity() {
                 openAddGameDialog(game)
             }
             "remover_jogo" -> {
-                dialogRemoverJogo(game.id)
+                openRemoveGameDialog(game.id)
             }
             else -> dialogGerenciarListas(game)
         }
@@ -95,8 +92,7 @@ class AddGamesActivity : BaseActivity() {
 
         addGameDialog.gameAddedEvent = { gameAdded ->
             if (gameAdded) {
-                val snackbar = Snackbar.make(window.decorView.rootView, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
-                snackbar.show()
+                snack(R.string.jogo_adicionado)
             }
         }
     }
@@ -118,34 +114,17 @@ class AddGamesActivity : BaseActivity() {
         }
     }
 
-    private fun dialogRemoverJogo(jogoId: Long) {
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_remover_jogo, null, false)
+    private fun openRemoveGameDialog(gameId: Long) {
+        val removeGameDialog = RemoveGameDialog.newInstance(gameId)
+        removeGameDialog.show(supportFragmentManager, "REMOVE_GAME_DIALOG")
 
-        val gameIsInGameLists = viewModel.gameIsInGameLists(jogoId)
-
-        if (!gameIsInGameLists) {
-            view.chkRemoverDasListas.visibility = View.GONE
+        removeGameDialog.gameRemovedEvent = { gameRemoved ->
+            if (gameRemoved) {
+                snack(R.string.jogo_removido)
+            } else {
+                snack(R.string.game_removed_error)
+            }
         }
-        val dialog = AlertDialog.Builder(this)
-                .setView(view)
-                .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
-                    val removerDasListas = view.chkRemoverDasListas.isChecked
-
-                    val jogo = viewModel.getGameByInsertType(jogoId)
-
-                    if (removerDasListas || !gameIsInGameLists) {
-                        viewModel.removeGameFromLists(jogoId)
-                        viewModel.removeGame(jogoId)
-                    } else {
-                        jogo?.insertType = InsertType.INSERT_TO_LIST
-                        viewModel.updateGame(jogo!!)
-                    }
-                    toast(getString(R.string.jogo_removido))
-                }
-                .setNegativeButton(getString(R.string.cancelar), null)
-                .create()
-
-        dialog.show()
     }
 
     private fun dialogGerenciarListas(jogo: Game) {
@@ -235,7 +214,7 @@ class AddGamesActivity : BaseActivity() {
 
         val textoBotao = if (jogoSalvo) getString(R.string.btn_remover) else getString(R.string.btn_adicionar)
 
-        val dialog = DialogDetalhesJogo(this, game)
+        val dialog = GameDetailsDialog(this, game)
                 .setPositiveButton(textoBotao) { _, _ ->
                     if (jogoSalvo) {
                         popupMenuClick("remover_jogo", game)

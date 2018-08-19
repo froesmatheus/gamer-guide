@@ -10,6 +10,7 @@ import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsViewModel
 import com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsViewModel
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsViewModel
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesViewModel
+import com.matheusfroes.gamerguide.ui.removegamedialog.RemoveGameViewModel
 import com.matheusfroes.gamerguide.ui.statistics.StatisticsViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -81,4 +82,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AddGameViewModel::class)
     internal abstract fun addGameViewModel(viewModel: AddGameViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RemoveGameViewModel::class)
+    internal abstract fun removeGameViewModel(viewModel: RemoveGameViewModel): ViewModel
 }

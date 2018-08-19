@@ -1,11 +1,14 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
-import com.matheusfroes.gamerguide.ui.BaseActivity
+import com.matheusfroes.gamerguide.R
+import com.matheusfroes.gamerguide.consume
+import com.matheusfroes.gamerguide.disableShiftMode
+import com.matheusfroes.gamerguide.inTransaction
 import com.matheusfroes.gamerguide.ui.calendar.CalendarFragment
 import com.matheusfroes.gamerguide.ui.feed.FeedFragment2
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment

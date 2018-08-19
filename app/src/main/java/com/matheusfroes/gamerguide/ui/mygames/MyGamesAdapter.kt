@@ -78,11 +78,16 @@ class MyGamesAdapter : RecyclerView.Adapter<MyGamesAdapter.ViewHolder>() {
             itemView.tvHorasJogadas.text = "${jogo.progress?.hoursPlayed} horas"
             itemView.ivCapaJogo.contentDescription = itemView.context.getString(R.string.content_description_capa_jogo, jogo.name)
 
-            Picasso
-                    .with(itemView.context)
-                    .load(jogo.coverImage.replace("t_thumb", "t_cover_big"))
-                    .fit()
-                    .into(itemView.ivCapaJogo)
+            if (jogo.coverImage.isNotEmpty()) {
+                itemView.ivCapaJogo.visibility = View.VISIBLE
+                Picasso
+                        .with(itemView.context)
+                        .load(jogo.coverImage.replace("t_thumb", "t_cover_big"))
+                        .fit()
+                        .into(itemView.ivCapaJogo)
+            } else {
+                itemView.ivCapaJogo.visibility = View.GONE
+            }
         }
     }
 

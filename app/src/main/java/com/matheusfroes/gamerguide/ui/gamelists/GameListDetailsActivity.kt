@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
-import com.matheusfroes.gamerguide.AddGameListDialog
+import com.matheusfroes.gamerguide.ui.AddGameListDialog
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.appInjector
 import com.matheusfroes.gamerguide.data.model.GameList
