@@ -18,10 +18,13 @@ class GameLocalSource @Inject constructor(private val database: GamerGuideDataba
 
     fun getMostPlayedGenres(): List<Pair<String, Int>> {
         val genres = database.gamesDao().getGenres()
-        return genres
+
+        val genresFlattened = genres
                 .map { genre -> genre.split(", ") }
                 .flatten()
-                .map { genre -> Pair(genre, genres.count { it == genre }) }
+
+        return genresFlattened
+                .map { genre -> Pair(genre, genresFlattened.count { it == genre }) }
                 .filter { it.second > 0 }
                 .distinctBy { pair -> pair.first }
                 .sortedByDescending { pair -> pair.second }
