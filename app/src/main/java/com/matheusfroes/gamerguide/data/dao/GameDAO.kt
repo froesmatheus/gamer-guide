@@ -56,12 +56,27 @@ interface GameDAO {
     @Query("SELECT * FROM games WHERE id = :gameId AND insertType = :insertType")
     fun getGamesByInsertType(gameId: Long, insertType: InsertType): Game?
 
-    @Query("SELECT * FROM games WHERE game_progress_beaten = 0 AND insertType = 'INSERT_BY_SEARCH'")
+    @Query("""
+        SELECT *
+        FROM games
+        WHERE
+            game_progress_beaten = 0
+            AND
+            insertType = 'INSERT_BY_SEARCH'
+        ORDER BY game_progress_percentage DESC""")
     fun getUnfinishedGames(): Flowable<List<Game>>
 
-    @Query("SELECT * FROM games WHERE game_progress_beaten = 1")
+    @Query("""
+        SELECT *
+        FROM games
+        WHERE
+            game_progress_beaten = 1
+            AND
+            insertType = 'INSERT_BY_SEARCH'
+        ORDER BY game_progress_percentage DESC
+        """)
     fun getBeatenGames(): Flowable<List<Game>>
 
     @Query("SELECT COUNT(*) from games WHERE id = :gameId")
-    fun isGameAdded(gameId: Long): Boolean
+    fun isGameAdded(gameId: Long): Int
 }

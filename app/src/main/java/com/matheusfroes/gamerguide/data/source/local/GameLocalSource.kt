@@ -65,6 +65,6 @@ class GameLocalSource @Inject constructor(private val database: GamerGuideDataba
     }
 
     fun isGameAdded(gameId: Long): Boolean {
-        return database.gamesDao().isGameAdded(gameId)
+        return database.gamesDao().isGameAdded(gameId) > 0
     }
 }
