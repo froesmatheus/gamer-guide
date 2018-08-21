@@ -3,6 +3,8 @@ package com.matheusfroes.gamerguide.data.source.local
 import com.matheusfroes.gamerguide.data.GamerGuideDatabase
 import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.data.model.NewsSource
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
 class NewsLocalSource @Inject constructor(private val database: GamerGuideDatabase) {
@@ -25,5 +27,13 @@ class NewsLocalSource @Inject constructor(private val database: GamerGuideDataba
 
     fun getNews(): List<News> {
         return database.newsDao().getNews()
+    }
+
+    fun getNewsSourcesByStatusCO(enabled: Boolean): Deferred<List<String>> = async {
+        database.newsSourcesDao().getNewsSourcesByStatus(enabled)
+    }
+
+    fun getNewsCO(): Deferred<List<News>> = async {
+        database.newsDao().getNews()
     }
 }

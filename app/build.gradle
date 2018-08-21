@@ -34,6 +34,9 @@ dependencies {
     implementation "com.android.support:support-vector-drawable:$support_lib_version"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.24.0"
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
 
     implementation 'com.pkmmte.pkrss:pkrss:1.2'
@@ -80,9 +83,16 @@ dependencies {
     implementation 'com.github.faruktoptas:RetrofitRssConverterFactory:0.0.2'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
+
+
 }
 repositories {
     mavenCentral()
 }
 
 apply plugin: 'com.google.gms.google-services'
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

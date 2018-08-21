@@ -5,6 +5,7 @@ import com.matheusfroes.gamerguide.data.model.News
 import com.pkmmte.pkrss.Article
 import me.toptas.rssconverter.RssItem
 import java.text.SimpleDateFormat
+import java.util.*
 
 class NewsMapper {
 
@@ -35,7 +36,7 @@ class NewsMapper {
                         title = rssItem.title,
                         image = rssItem.image,
                         url = rssItem.link,
-                        publishDate = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss").parse(rssItem.publishDate).time,
+                        publishDate = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale("pt", "BR")).parse(rssItem.publishDate).time,
                         website = extractNewsWebsite(rssItem.link))
             }
         }

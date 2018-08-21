@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
@@ -39,6 +40,9 @@ class NetworkModule {
 
     @Provides
     fun rxJavaAdapter(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
+
+    @Provides
+    fun coroutinesAdapter(): CoroutineCallAdapterFactory = CoroutineCallAdapterFactory()
 
     @Provides
     fun rssConverterFactory(): RssConverterFactory = RssConverterFactory.create()

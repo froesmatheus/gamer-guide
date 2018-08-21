@@ -10,16 +10,14 @@ import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
-import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.Result
-import com.matheusfroes.gamerguide.appCompatActivity
-import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.models.Noticia
 import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
 import com.matheusfroes.gamerguide.widget.VerticalSpaceItemDecoration
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
+import kotlinx.coroutines.experimental.async
 import javax.inject.Inject
 
 
@@ -47,11 +45,10 @@ class FeedFragment2 : Fragment() {
         appInjector.inject(this)
         setupToolbar()
 
-        feedViewModel = ViewModelProviders.of(this, viewModelFactory)[FeedViewModel::class.java]
+        feedViewModel = viewModelProvider(viewModelFactory)
 
-
-        feedViewModel.getNews().subscribe { result ->
-            when (result) {
+        feedViewModel.feedState.observe(this, Observer { result ->
+            when(result) {
                 is Result.Complete -> {
                     print(result.data)
                 }
@@ -62,7 +59,20 @@ class FeedFragment2 : Fragment() {
                     print(result.error)
                 }
             }
-        }
+        })
+//        feedViewModel.getNews().subscribe { result ->
+//            when (result) {
+//                is Result.Complete -> {
+//                    print(result.data)
+//                }
+//                is Result.InProgress -> {
+//                    print(result.cachedData)
+//                }
+//                is Result.Error -> {
+//                    print(result.error)
+//                }
+//            }
+//        }
 
         viewModel.noticias.observe(this, Observer { noticias ->
             adapter.preencherNoticias(noticias!!)

@@ -7,12 +7,12 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 
-interface RssService {
+interface RssServiceCoroutines {
     /**
      * No baseUrl defined. Each RSS Feed will be consumed by it's Url
      * @param url RSS Feed Url
      * @return Retrofit Call
      */
     @GET
-    fun getRssFeed(@Url url: String): Observable<RssFeed>
+    fun fetchRSSFeed(@Url url: String): Deferred<RssFeed>
 }

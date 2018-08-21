@@ -25,7 +25,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AppModule::class, ViewModelModule::class, DataModule::class, NetworkModule::class,
-    GameModule::class, RssModule::class])
+    GameModule::class, RssModule::class, FeedModule::class])
 interface Injector {
     fun inject(gameListsFragment: GameListsFragment)
     fun inject(gameListDetails: GameListDetailsActivity)
