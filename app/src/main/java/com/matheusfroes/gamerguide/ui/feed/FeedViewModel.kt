@@ -40,14 +40,14 @@ class FeedViewModel @Inject constructor(
 
 
     private fun fetchNews() = launch(UI) {
-        val newsSources = newsLocalSource.getNewsSourcesByStatusCO(enabled = true).await()
+        val newsSources = newsLocalSource.getNewsSourcesByStatusCO(enabled = true)
 
-        val cachedNews = newsLocalSource.getNewsCO().await()
+        val cachedNews = newsLocalSource.getNewsCO()
         feedState.postValue(Result.InProgress(cachedNews))
 
         try {
             newsSources.map { newsSourceWebsite ->
-                val rssFeed = newsRemoteSource.fetchRssFeed(newsSourceWebsite).await()
+                val rssFeed = newsRemoteSource.fetchRssFeed(newsSourceWebsite)
 
                 newsLocalSource.saveNews(rssFeed)
             }
@@ -55,7 +55,7 @@ class FeedViewModel @Inject constructor(
             feedState.postValue(Result.Error(e))
         }
 
-        val news = newsLocalSource.getNewsCO().await()
+        val news = newsLocalSource.getNewsCO()
         feedState.postValue(Result.Complete(news))
     }
 }
