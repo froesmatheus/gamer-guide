@@ -1,6 +1,5 @@
 package com.matheusfroes.gamerguide.network
 
-import io.reactivex.Observable
 import kotlinx.coroutines.experimental.Deferred
 import me.toptas.rssconverter.RssFeed
 import retrofit2.http.GET

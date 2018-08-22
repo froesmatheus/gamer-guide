@@ -7,6 +7,8 @@ import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import com.pkmmte.pkrss.BuildConfig
+import com.pkmmte.pkrss.PkRSS
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
@@ -75,4 +77,13 @@ class NetworkModule {
             .indicatorsEnabled(true)
             .build()
 
+
+    @Provides
+    fun pkRSS(context: Context): PkRSS {
+        return PkRSS.Builder(context)
+                .loggingEnabled(BuildConfig.DEBUG)
+                .safe(true)
+                .handler(null)
+                .build()
+    }
 }

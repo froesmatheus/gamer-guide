@@ -6,10 +6,7 @@ import com.matheusfroes.gamerguide.Result
 import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.data.source.local.NewsLocalSource
 import com.matheusfroes.gamerguide.data.source.remote.NewsRemoteSource
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.experimental.android.UI
+import com.matheusfroes.gamerguide.network.uiContext
 import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
@@ -18,44 +15,32 @@ class FeedViewModel @Inject constructor(
         private val newsLocalSource: NewsLocalSource
 ) : ViewModel() {
 
-    init {
-        fetchNews()
-    }
+//    init {
+//        fetchNews()
+//    }
 
     val feedState = MutableLiveData<Result<List<News>>>()
 
-    fun getNews(): Observable<Result<List<News>>> {
-        val enabledNewsSources = newsLocalSource.getNewsSourcesByStatus(enabled = true)
-        return Observable.fromArray(enabledNewsSources)
-                .startWith { Result.InProgress(newsLocalSource.getNews()) }
-                .flatMapIterable { it }
-                .flatMap { newsSource -> newsRemoteSource.getRssFeed(newsSource) }
-                .map { newsLocalSource.saveNews(it) }
-                .map<Result<List<News>>> { Result.Complete(newsLocalSource.getNews()) }
-                .onErrorReturn { Result.Error(it) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-
-    }
-
-
-    private fun fetchNews() = launch(UI) {
+    fun fetchNews() = launch(uiContext) {
         val newsSources = newsLocalSource.getNewsSourcesByStatusCO(enabled = true)
 
         val cachedNews = newsLocalSource.getNewsCO()
         feedState.postValue(Result.InProgress(cachedNews))
 
         try {
-            newsSources.map { newsSourceWebsite ->
-                val rssFeed = newsRemoteSource.fetchRssFeed(newsSourceWebsite)
+            val news = newsSources
+                    .map { newsSourceWebsite ->
+                        newsRemoteSource.fetchFeed(newsSourceWebsite)
+                    }
+                    .flatten()
+                    .filter { news ->
+                        news.publishDate > newsLocalSource.getMostRecentNewsPublishDate()
+                    }
+            newsLocalSource.saveNews(news)
 
-                newsLocalSource.saveNews(rssFeed)
-            }
+            feedState.postValue(Result.Complete(newsLocalSource.getNewsCO()))
         } catch (e: Exception) {
             feedState.postValue(Result.Error(e))
         }
-
-        val news = newsLocalSource.getNewsCO()
-        feedState.postValue(Result.Complete(news))
     }
 }

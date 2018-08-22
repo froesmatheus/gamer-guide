@@ -3,8 +3,8 @@ package com.matheusfroes.gamerguide.data.source.local
 import com.matheusfroes.gamerguide.data.GamerGuideDatabase
 import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.data.model.NewsSource
+import com.matheusfroes.gamerguide.network.ioContext
 import kotlinx.coroutines.experimental.DefaultDispatcher
-import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.withContext
 import javax.inject.Inject
 
@@ -30,15 +30,15 @@ class NewsLocalSource @Inject constructor(private val database: GamerGuideDataba
         return database.newsDao().getNews()
     }
 
-    suspend fun getNewsSourcesByStatusCO(enabled: Boolean): List<String> {
-        return withContext(DefaultDispatcher) {
-            database.newsSourcesDao().getNewsSourcesByStatus(enabled)
-        }
+    suspend fun getNewsSourcesByStatusCO(enabled: Boolean): List<String> = withContext(ioContext) {
+        database.newsSourcesDao().getNewsSourcesByStatus(enabled)
     }
 
-    suspend fun getNewsCO(): List<News> {
-        return withContext(DefaultDispatcher) {
-            database.newsDao().getNews()
-        }
+    suspend fun getNewsCO(): List<News> = withContext(ioContext) {
+        database.newsDao().getNews()
+    }
+
+    suspend fun getMostRecentNewsPublishDate(): Long = withContext(ioContext) {
+        database.newsDao().getMostRecentNewsPublishDate() ?: 0
     }
 }

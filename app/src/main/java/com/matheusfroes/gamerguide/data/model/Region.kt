@@ -11,7 +11,7 @@ enum class Region(region: Int) {
     WORLD(8);
 
     companion object {
-        fun fromValue(region: Int): Region {
+        fun fromValue(region: Int?): Region {
             return when (region) {
                 1 -> EUROPE
                 2 -> NORTH_AMERICA

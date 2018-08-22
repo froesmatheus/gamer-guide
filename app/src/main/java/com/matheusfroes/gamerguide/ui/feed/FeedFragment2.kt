@@ -2,34 +2,30 @@ package com.matheusfroes.gamerguide.ui.feed
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.net.Uri
 import android.os.Bundle
 import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.*
 import com.matheusfroes.gamerguide.*
-import com.matheusfroes.gamerguide.data.models.Noticia
-import com.matheusfroes.gamerguide.ui.TelaPrincipalViewModel
+import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.widget.VerticalSpaceItemDecoration
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
-import kotlinx.coroutines.experimental.async
+import timber.log.Timber
 import javax.inject.Inject
 
 
 class FeedFragment2 : Fragment() {
-    val adapter: FeedAdapter by lazy { FeedAdapter() }
-    private val viewModel: TelaPrincipalViewModel by lazy {
-        ViewModelProviders.of(this).get(TelaPrincipalViewModel::class.java)
-    }
+    val adapter: FeedAdapter2 by lazy { FeedAdapter2() }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private lateinit var feedViewModel: FeedViewModel
+    private lateinit var viewModel: FeedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,65 +33,59 @@ class FeedFragment2 : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-            inflater.inflate(R.layout.activity_feed, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+        return inflater.inflate(R.layout.activity_feed, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
         setupToolbar()
 
-        feedViewModel = viewModelProvider(viewModelFactory)
+        viewModel = viewModelProvider(viewModelFactory)
 
-        feedViewModel.feedState.observe(this, Observer { result ->
-            when(result) {
+        viewModel.feedState.observe(this, Observer { result ->
+            when (result) {
                 is Result.Complete -> {
-                    print(result.data)
+                    Log.d("COROUTINES", "Complete(${result.data})")
+                    adapter.news = result.data
+                    hideLoadingIndicator()
                 }
                 is Result.InProgress -> {
-                    print(result.cachedData)
+                    Log.d("COROUTINES", "InProgress(${result.cachedData})")
+                    if (result.cachedData != null && result.cachedData.isNotEmpty()) {
+                        adapter.news = result.cachedData
+                    } else {
+                        showLoadingIndicator()
+                    }
                 }
                 is Result.Error -> {
-                    print(result.error)
+                    Log.d("COROUTINES", "Error(${result.error})")
+                    hideLoadingIndicator()
+                    Timber.e(result.error)
                 }
             }
         })
-//        feedViewModel.getNews().subscribe { result ->
-//            when (result) {
-//                is Result.Complete -> {
-//                    print(result.data)
-//                }
-//                is Result.InProgress -> {
-//                    print(result.cachedData)
-//                }
-//                is Result.Error -> {
-//                    print(result.error)
-//                }
-//            }
-//        }
 
-        viewModel.noticias.observe(this, Observer { noticias ->
-            adapter.preencherNoticias(noticias!!)
-        })
-
-        viewModel.atualizarFeed()
+        viewModel.fetchNews()
 
         rvNoticias.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         rvNoticias.addItemDecoration(VerticalSpaceItemDecoration(50))
 
         rvNoticias.adapter = adapter
 
-        adapter.setOnClickListener(object : FeedAdapter.OnNewsClickListener {
-            override fun onClick(noticia: Noticia) {
+        adapter.setOnClickListener(object : FeedAdapter2.OnNewsClickListener {
+            override fun onClick(news: News) {
                 val customTabsIntent = CustomTabsIntent.Builder()
                         .setToolbarColor(ContextCompat.getColor(requireActivity(), R.color.colorPrimary))
                         .build()
-                customTabsIntent.launchUrl(activity, Uri.parse(noticia.url))
+                customTabsIntent.launchUrl(activity, Uri.parse(news.url))
             }
         })
 
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.atualizarFeed()
+            viewModel.fetchNews()
             swipeRefreshLayout.isRefreshing = false
         }
     }
@@ -106,6 +96,14 @@ class FeedFragment2 : Fragment() {
         toolbar.toolbarTitle.text = "Feed de notícias"
     }
 
+    private fun showLoadingIndicator() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideLoadingIndicator() {
+        progressBar.visibility = View.GONE
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_feed, menu)
     }
@@ -113,7 +111,7 @@ class FeedFragment2 : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navAtualizarFeed -> {
-                viewModel.atualizarFeed()
+                viewModel.fetchNews()
                 return true
             }
         }

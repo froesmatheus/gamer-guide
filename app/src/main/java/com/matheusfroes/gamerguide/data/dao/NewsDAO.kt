@@ -12,7 +12,9 @@ interface NewsDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(news: List<News>)
 
-    @Query("SELECT * FROM news")
+    @Query("SELECT * FROM news ORDER BY publishDate DESC")
     fun getNews(): List<News>
 
+    @Query("SELECT publishDate FROM news ORDER BY publishDate DESC LIMIT 1")
+    fun getMostRecentNewsPublishDate(): Long?
 }

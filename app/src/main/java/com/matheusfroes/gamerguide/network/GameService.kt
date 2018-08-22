@@ -13,7 +13,7 @@ import retrofit2.http.Url
 
 interface GameService {
     companion object {
-        const val BASE_URL = "https://api-2445582011268.apicast.io/"
+        const val BASE_URL = "https://api-endpoint.igdb.com/"
     }
 
     @Headers("user-key:81b44dc6a3b4284e6093dcea834aa49c", "Accept:application/json")
