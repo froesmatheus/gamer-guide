@@ -8,7 +8,6 @@ import android.support.customtabs.CustomTabsIntent
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.*
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.News
@@ -48,12 +47,12 @@ class FeedFragment2 : Fragment() {
         viewModel.feedState.observe(this, Observer { result ->
             when (result) {
                 is Result.Complete -> {
-                    Log.d("COROUTINES", "Complete(${result.data})")
+                    Timber.d("FEED - Complete ${result.data}")
                     adapter.news = result.data
                     hideLoadingIndicator()
                 }
                 is Result.InProgress -> {
-                    Log.d("COROUTINES", "InProgress(${result.cachedData})")
+                    Timber.d("FEED - InProgress ${result.cachedData}")
                     if (result.cachedData != null && result.cachedData.isNotEmpty()) {
                         adapter.news = result.cachedData
                     } else {
@@ -61,7 +60,7 @@ class FeedFragment2 : Fragment() {
                     }
                 }
                 is Result.Error -> {
-                    Log.d("COROUTINES", "Error(${result.error})")
+                    Timber.d("FEED - Error ${result.error}")
                     hideLoadingIndicator()
                     Timber.e(result.error)
                 }
@@ -86,7 +85,6 @@ class FeedFragment2 : Fragment() {
 
         swipeRefreshLayout.setOnRefreshListener {
             viewModel.fetchNews()
-            swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -97,11 +95,11 @@ class FeedFragment2 : Fragment() {
     }
 
     private fun showLoadingIndicator() {
-        progressBar.visibility = View.VISIBLE
+        swipeRefreshLayout.isRefreshing = true
     }
 
     private fun hideLoadingIndicator() {
-        progressBar.visibility = View.GONE
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
