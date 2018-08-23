@@ -8,6 +8,8 @@ import com.matheusfroes.gamerguide.network.networkContext
 import com.pkmmte.pkrss.PkRSS
 import io.reactivex.Observable
 import kotlinx.coroutines.experimental.DefaultDispatcher
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.withContext
 import me.toptas.rssconverter.RssFeed
 import javax.inject.Inject

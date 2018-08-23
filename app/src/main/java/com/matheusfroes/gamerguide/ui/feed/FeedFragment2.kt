@@ -47,12 +47,10 @@ class FeedFragment2 : Fragment() {
         viewModel.feedState.observe(this, Observer { result ->
             when (result) {
                 is Result.Complete -> {
-                    Timber.d("FEED - Complete ${result.data}")
                     adapter.news = result.data
                     hideLoadingIndicator()
                 }
                 is Result.InProgress -> {
-                    Timber.d("FEED - InProgress ${result.cachedData}")
                     if (result.cachedData != null && result.cachedData.isNotEmpty()) {
                         adapter.news = result.cachedData
                     } else {
@@ -60,7 +58,6 @@ class FeedFragment2 : Fragment() {
                     }
                 }
                 is Result.Error -> {
-                    Timber.d("FEED - Error ${result.error}")
                     hideLoadingIndicator()
                     Timber.e(result.error)
                 }

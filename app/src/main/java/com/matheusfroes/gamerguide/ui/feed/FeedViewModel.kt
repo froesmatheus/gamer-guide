@@ -9,6 +9,7 @@ import com.matheusfroes.gamerguide.data.source.local.NewsLocalSource
 import com.matheusfroes.gamerguide.data.source.remote.NewsRemoteSource
 import com.matheusfroes.gamerguide.network.uiContext
 import kotlinx.coroutines.experimental.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
@@ -18,17 +19,14 @@ class FeedViewModel @Inject constructor(
     private val _feedState = MutableLiveData<Result<List<News>>>()
 
     val feedState: LiveData<Result<List<News>>>
-    get() = _feedState
-
-
+        get() = _feedState
 
 
     fun fetchNews() = launch(uiContext) {
-        val newsSources = newsLocalSource.getNewsSourcesByStatusCO(enabled = true)
-
         val cachedNews = newsLocalSource.getNewsCO()
-        _feedState.postValue(Result.InProgress(cachedNews))
+        _feedState.value = Result.InProgress(cachedNews)
 
+        val newsSources = newsLocalSource.getNewsSourcesByStatusCO(enabled = true)
         try {
             val news = newsSources
                     .map { newsSourceWebsite ->
@@ -40,9 +38,9 @@ class FeedViewModel @Inject constructor(
                     }
             newsLocalSource.saveNews(news)
 
-            _feedState.postValue(Result.Complete(newsLocalSource.getNewsCO()))
+            _feedState.value = Result.Complete(newsLocalSource.getNewsCO())
         } catch (e: Exception) {
-            _feedState.postValue(Result.Error(e))
+            _feedState.value = Result.Error(e)
         }
     }
 }

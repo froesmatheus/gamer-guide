@@ -34,7 +34,7 @@ class MainActivity : BaseActivity() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_jogos -> consume { replaceFragment(MyGamesFragment()) }
-                R.id.menu_calendario -> consume { replaceFragment(CalendarFragment()) }
+//                R.id.menu_calendario -> consume { replaceFragment(CalendarFragment()) }
                 R.id.menu_feed -> consume { replaceFragment(FeedFragment2()) }
                 R.id.menu_listas -> consume { replaceFragment(GameListsFragment()) }
                 R.id.menu_estatisticas -> consume { replaceFragment(StatisticsFragment()) }
@@ -60,6 +60,7 @@ class MainActivity : BaseActivity() {
     private fun <F> replaceFragment(fragment: F) where F : Fragment {
         supportFragmentManager.inTransaction {
             currentFragment = fragment
+
             replace(FRAGMENT_ID, fragment)
         }
     }

@@ -7,12 +7,12 @@
         android:icon="@drawable/ic_gamepad"
         android:title="@string/jogos"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_calendario"
-        android:enabled="true"
-        android:icon="@drawable/ic_calendario"
-        android:title="@string/calendario"
-        app:showAsAction="ifRoom" />
+    <!--<item-->
+        <!--android:id="@+id/menu_calendario"-->
+        <!--android:enabled="true"-->
+        <!--android:icon="@drawable/ic_calendario"-->
+        <!--android:title="@string/calendario"-->
+        <!--app:showAsAction="ifRoom" />-->
     <item
         android:id="@+id/menu_feed"
         android:enabled="true"

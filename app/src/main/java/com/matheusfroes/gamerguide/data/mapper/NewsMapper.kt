@@ -23,6 +23,9 @@ class NewsMapper {
                     article.source.host.contains("tecmundo", ignoreCase = true) -> "Tecmundo"
                     article.source.host.contains("eurogamer", ignoreCase = true) -> "EuroGamer"
                     article.source.host.contains("criticalhits", ignoreCase = true) -> "Criticalhits"
+                    article.source.host.contains("xboxpower", ignoreCase = true) -> "Xbox Power"
+                    article.source.host.contains("playstation", ignoreCase = true) -> "Playstation Blog"
+                    article.source.host.contains("uol", ignoreCase = true) -> "UOL Jogos"
                     else -> "IGN"
                 }
 

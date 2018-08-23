@@ -4,7 +4,6 @@ import com.matheusfroes.gamerguide.data.GamerGuideDatabase
 import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.data.model.NewsSource
 import com.matheusfroes.gamerguide.network.ioContext
-import kotlinx.coroutines.experimental.DefaultDispatcher
 import kotlinx.coroutines.experimental.withContext
 import javax.inject.Inject
 
