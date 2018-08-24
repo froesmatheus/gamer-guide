@@ -18,21 +18,24 @@ class GameLocalSource @Inject constructor(private val database: GamerGuideDataba
 
     fun getMostPlayedGenres(): List<Pair<String, Int>> {
         val genres = database.gamesDao().getGenres()
-        return genres
+
+        val genresFlattened = genres
                 .map { genre -> genre.split(", ") }
                 .flatten()
-                .map { genre -> Pair(genre, genres.count { it == genre }) }
+
+        return genresFlattened
+                .map { genre -> Pair(genre, genresFlattened.count { it == genre }) }
                 .filter { it.second > 0 }
                 .distinctBy { pair -> pair.first }
                 .sortedByDescending { pair -> pair.second }
                 .take(5)
     }
 
-    fun getGame(gameId: Long): Game {
+    fun getGame(gameId: Long): Game? {
         val game = database.gamesDao().get(gameId)
 
-        game.videos = database.videosDao().getVideosByGame(gameId)
-        game.platforms = database.platformsDao().getPlatformsByGame(gameId)
+        game?.videos = database.videosDao().getVideosByGame(gameId)
+        game?.platforms = database.platformsDao().getPlatformsByGame(gameId)
 
         return game
     }
@@ -59,5 +62,9 @@ class GameLocalSource @Inject constructor(private val database: GamerGuideDataba
 
     fun getBeatenGames(): Flowable<List<Game>> {
         return database.gamesDao().getBeatenGames()
+    }
+
+    fun isGameAdded(gameId: Long): Boolean {
+        return database.gamesDao().isGameAdded(gameId) > 0
     }
 }

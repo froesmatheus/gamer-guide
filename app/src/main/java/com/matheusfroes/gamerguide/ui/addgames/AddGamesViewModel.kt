@@ -1,7 +1,7 @@
 package com.matheusfroes.gamerguide.ui.addgames
 
 import android.arch.lifecycle.ViewModel
-import com.matheusfroes.gamerguide.Result
+import com.matheusfroes.gamerguide.extra.Result
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.model.InsertType
@@ -53,23 +53,11 @@ class AddGamesViewModel @Inject constructor(
         gameLocalSource.addGame(game)
     }
 
-    fun updateGame(game: Game) {
-        gameLocalSource.updateGame(game)
-    }
-
-    fun removeGameFromLists(gameId: Long) {
-        gameListLocalSource.deleteGameFromLists(gameId)
-    }
-
-    fun removeGame(gameId: Long) {
-        gameLocalSource.deleteGame(gameId)
+    fun isGameAdded(gameId: Long): Boolean {
+        return gameLocalSource.isGameAdded(gameId)
     }
 
     fun getGameByInsertType(gameId: Long, insertType: InsertType = InsertType.INSERT_BY_SEARCH): Game? {
         return gameLocalSource.getGamesByInsertType(gameId, insertType)
-    }
-
-    fun gameIsInGameLists(gameId: Long): Boolean {
-        return gameListLocalSource.gameIsInGameLists(gameId)
     }
 }

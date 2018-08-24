@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.formatarData
+import com.matheusfroes.gamerguide.extra.formatarData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_pesquisa.view.*
 
@@ -96,7 +96,7 @@ class AddGamesAdapter : RecyclerView.Adapter<AddGamesAdapter.ViewHolder>() {
 
             itemView.ivCapaJogo.setOnClickListener {
                 val jogo = jogos[adapterPosition]
-                val intent = Intent(itemView.context, CapaJogoTelaCheiaActivity::class.java)
+                val intent = Intent(itemView.context, GameCoverActivity::class.java)
                 intent.putExtra("url_imagem", jogo.coverImage)
                 itemView.context.startActivity(intent)
             }

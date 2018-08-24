@@ -12,17 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity
-            android:name=".ui.feed.ConfiguracoesFeedActivity"
-            android:label="@string/configuracoes_feed"
-            android:parentActivityName=".MainActivity" />
 
         <activity android:name=".ui.BaseActivity"/>
 
         <activity
             android:name=".ui.addgames.AddGamesActivity"
             android:label="@string/adicionar_jogos"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
@@ -31,11 +27,11 @@
             android:theme="@style/AppTheme.DetalhesJogo" />
 
         <activity
-            android:name=".ui.gamelists.GameListDetailsActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name=".ui.gamelists.gamelistdetails.GameListDetailsActivity"
+            android:parentActivityName=".ui.MainActivity"/>
 
         <activity
-            android:name=".ui.addgames.CapaJogoTelaCheiaActivity"
+            android:name=".ui.addgames.GameCoverActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.AppCompat.Dialog" />
 
@@ -47,7 +43,11 @@
             android:name=".ui.intro.IntroActivity"
             android:theme="@style/Theme.Intro" />
 
-        <activity android:name=".MainActivity">
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

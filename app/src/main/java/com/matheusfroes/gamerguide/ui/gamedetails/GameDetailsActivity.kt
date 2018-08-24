@@ -2,25 +2,27 @@ package com.matheusfroes.gamerguide.ui.gamedetails
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AlertDialog
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
 import android.view.MenuItem
-import android.view.View
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.data.model.InsertType
+import com.matheusfroes.gamerguide.data.source.UserPreferences
+import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.extra.obterImagemJogoCapa
+import com.matheusfroes.gamerguide.extra.snack
+import com.matheusfroes.gamerguide.extra.viewModelProvider
+import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameDialog
+import com.matheusfroes.gamerguide.ui.gamedetails.gameinfo.GameInfoFragment
+import com.matheusfroes.gamerguide.ui.gamedetails.livestream.StreamsFragment
+import com.matheusfroes.gamerguide.ui.gamedetails.video.VideosFragment
+import com.matheusfroes.gamerguide.ui.removegamedialog.RemoveGameDialog
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detalhes_jogo.*
-import kotlinx.android.synthetic.main.dialog_remover_jogo.view.*
-import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 
@@ -42,12 +44,17 @@ class GameDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_jogo)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
 
         intent ?: return
 
         gameId = intent.getLongExtra("id_jogo", 0L)
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[GameDetailsViewModel::class.java]
+        viewModel = viewModelProvider(viewModelFactory)
 
+        /* Parent activity may send a gameId if the game is already added or a Game object if
+        the game comes from the AddGamesActivity
+        */
         if (gameId == 0L) {
             viewModel.game.postValue(game)
             gameId = game.id
@@ -60,20 +67,24 @@ class GameDetailsActivity : AppCompatActivity() {
             setAppBarOffset(heightPx / 2)
         }
 
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ""
-
         viewModel.game.observe(this, Observer { game ->
             if (game != null) updateUI(game)
         })
     }
 
     private fun updateUI(game: Game) {
-        jogoSalvo = viewModel.getGameByInsertType(game.id) != null
-        if (jogoSalvo) {
-            fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
-        } else {
-            fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
+        jogoSalvo = viewModel.getGame(game.id) != null
+        fabAdicinarJogo
+                .setImageResource(
+                        if (jogoSalvo) R.drawable.ic_adicionado else R.drawable.ic_adicionar
+                )
+
+        fabAdicinarJogo.setOnClickListener {
+            if (jogoSalvo) {
+                openRemoveGameDialog(gameId)
+            } else {
+                openAddGameDialog(game)
+            }
         }
 
         if (game.coverImage.isNotEmpty()) {
@@ -85,25 +96,7 @@ class GameDetailsActivity : AppCompatActivity() {
             appBar.setExpanded(false, false)
         }
 
-        if (jogoSalvo) {
-            fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
-        }
-
-        fabAdicinarJogo.setOnClickListener {
-
-            if (jogoSalvo) {
-                dialogRemoverJogo(viewModel.gameId)
-            } else {
-                val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_adicionado), Snackbar.LENGTH_LONG)
-                viewModel.addGame(game)
-                jogoSalvo = true
-                EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
-                fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
-                snackbar.show()
-            }
-        }
-
-        val tabAdapter = GameDetailsTabAdapter(this, supportFragmentManager)
+        val tabAdapter = GameDetailsTabAdapter(supportFragmentManager)
         viewPager.adapter = tabAdapter
         tabLayout.setupWithViewPager(viewPager)
         viewPager.setCurrentItem(0, false)
@@ -113,39 +106,32 @@ class GameDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun dialogRemoverJogo(jogoId: Long) {
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_remover_jogo, null, false)
+    private fun openAddGameDialog(game: Game) {
+        val addGameDialog = AddGameDialog.newInstance(game)
+        addGameDialog.show(supportFragmentManager, "ADD_GAME_DIALOG")
 
-        val gameIsInGameLists = viewModel.gameIsInGameLists(jogoId)
-
-        if (!gameIsInGameLists) {
-            view.chkRemoverDasListas.visibility = View.GONE
+        addGameDialog.gameAddedEvent = { gameAdded ->
+            if (gameAdded) {
+                jogoSalvo = true
+                fabAdicinarJogo.setImageResource(R.drawable.ic_adicionado)
+                snack(R.string.jogo_adicionado)
+            }
         }
-        val dialog = AlertDialog.Builder(this)
-                .setView(view)
-                .setPositiveButton(getString(R.string.confirmar)) { _, _ ->
-                    val removerDasListas = view.chkRemoverDasListas.isChecked
+    }
 
-                    val jogo = viewModel.getGameByInsertType(jogoId)
+    private fun openRemoveGameDialog(gameId: Long) {
+        val removeGameDialog = RemoveGameDialog.newInstance(gameId)
+        removeGameDialog.show(supportFragmentManager, "REMOVE_GAME_DIALOG")
 
-                    if (removerDasListas || !gameIsInGameLists) {
-                        viewModel.removeGameFromLists(jogoId)
-                        viewModel.removeGame(jogoId)
-                    } else {
-                        jogo?.insertType = InsertType.INSERT_TO_LIST
-                        viewModel.updateGame(jogo!!)
-                    }
-
-                    jogoSalvo = false
-                    EventBus.getDefault().postSticky(JogoAdicionadoRemovidoEvent())
-                    fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
-                    val snackbar = Snackbar.make(coordinatorLayout, getString(R.string.jogo_removido), Snackbar.LENGTH_LONG)
-                    snackbar.show()
-                }
-                .setNegativeButton(getString(R.string.cancelar), null)
-                .create()
-
-        dialog.show()
+        removeGameDialog.gameRemovedEvent = { gameRemoved ->
+            if (gameRemoved) {
+                jogoSalvo = false
+                fabAdicinarJogo.setImageResource(R.drawable.ic_adicionar)
+                snack(R.string.jogo_removido)
+            } else {
+                snack(R.string.game_removed_error)
+            }
+        }
     }
 
     private fun setAppBarOffset(offsetPx: Int) {
@@ -162,5 +148,32 @@ class GameDetailsActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    inner class GameDetailsTabAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+        override fun getItem(position: Int) = GAMES_DETAILS_PAGES[position]()
+
+        override fun getCount() = GAMES_DETAILS_TITLES.size
+
+        override fun getPageTitle(position: Int): String = resources.getString(GAMES_DETAILS_TITLES[position])
+
+        fun removeTabPage(position: Int) {
+            if (!GAMES_DETAILS_PAGES.isEmpty() && position < GAMES_DETAILS_PAGES.size) {
+                GAMES_DETAILS_PAGES.removeAt(position)
+                GAMES_DETAILS_TITLES.removeAt(position)
+                notifyDataSetChanged()
+            }
+        }
+
+        private val GAMES_DETAILS_TITLES = mutableListOf(
+                R.string.tab_informacoes,
+                R.string.tab_videos,
+                R.string.streams
+        )
+        private val GAMES_DETAILS_PAGES = mutableListOf(
+                { GameInfoFragment() },
+                { VideosFragment() },
+                { StreamsFragment() }
+        )
     }
 }

@@ -2,13 +2,17 @@ package com.matheusfroes.gamerguide.di.modules
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameViewModel
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesViewModel
 import com.matheusfroes.gamerguide.ui.calendar.CalendarViewModel
+import com.matheusfroes.gamerguide.ui.feed.FeedViewModel
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsViewModel
-import com.matheusfroes.gamerguide.ui.statistics.StatisticsViewModel
-import com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsViewModel
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsViewModel
+import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsViewModel
+import com.matheusfroes.gamerguide.ui.gameprogressdialog.GameProgressViewModel
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesViewModel
+import com.matheusfroes.gamerguide.ui.removegamedialog.RemoveGameViewModel
+import com.matheusfroes.gamerguide.ui.statistics.StatisticsViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -69,4 +73,24 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(CalendarViewModel::class)
     internal abstract fun calendarViewModel(viewModel: CalendarViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FeedViewModel::class)
+    internal abstract fun feedViewModel(viewModel: FeedViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddGameViewModel::class)
+    internal abstract fun addGameViewModel(viewModel: AddGameViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RemoveGameViewModel::class)
+    internal abstract fun removeGameViewModel(viewModel: RemoveGameViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(GameProgressViewModel::class)
+    internal abstract fun gameProgressViewModel(viewModel: GameProgressViewModel): ViewModel
 }

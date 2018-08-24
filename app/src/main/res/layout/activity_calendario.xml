@@ -7,7 +7,9 @@
     android:orientation="vertical"
     tools:context="com.matheusfroes.gamerguide.ui.calendar.CalendarFragment">
 
-    <com.matheusfroes.gamerguide.extra.CustomRecyclerView
+    <include layout="@layout/toolbar" />
+
+    <com.matheusfroes.gamerguide.widget.CustomRecyclerView
         android:id="@+id/rvLancamentos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

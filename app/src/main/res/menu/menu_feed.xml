@@ -8,9 +8,5 @@
         android:icon="@drawable/ic_atualizar"
         android:title="@string/atualizar_feed"
         app:showAsAction="ifRoom" />
-    <!--<item-->
-    <!--android:id="@+id/navConfiguracaoFeed"-->
-    <!--android:icon="@drawable/ic_configuracoes_feed"-->
-    <!--android:title="@string/configuracoes_feed"-->
-    <!--app:showAsAction="ifRoom" />-->
+
 </menu>

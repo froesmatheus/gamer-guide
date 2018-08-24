@@ -7,6 +7,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.matheusfroes.gamerguide.data.GamerGuideDatabase
+import com.matheusfroes.gamerguide.data.model.NewsSource
 import com.matheusfroes.gamerguide.data.model.Platform
 import dagger.Module
 import dagger.Provides
@@ -28,10 +29,30 @@ class DataModule {
                         Executors.newSingleThreadScheduledExecutor().execute {
                             insertPlataforms(db)
                             insertGameLists(db)
+                            insertNewsSources(db)
                         }
                     }
                 })
                 .build()
+    }
+
+    private fun insertNewsSources(db: SupportSQLiteDatabase) {
+        db.beginTransaction()
+        val newsSources = NewsSource.getNewsSources()
+        try {
+            val cv = ContentValues()
+
+            newsSources.forEach { newsSource ->
+                cv.put("name", newsSource.name)
+                cv.put("website", newsSource.website)
+                cv.put("enabled", newsSource.enabled)
+
+                db.insert("news_sources", SQLiteDatabase.CONFLICT_REPLACE, cv)
+            }
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+        }
     }
 
     private fun insertPlataforms(db: SupportSQLiteDatabase) {

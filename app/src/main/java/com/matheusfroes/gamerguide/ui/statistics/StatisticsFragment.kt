@@ -1,7 +1,6 @@
 package com.matheusfroes.gamerguide.ui.statistics
 
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,9 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.extra.appCompatActivity
+import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.extra.viewModelProvider
 import kotlinx.android.synthetic.main.activity_estatisticas.*
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar.view.*
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
 import javax.inject.Inject
@@ -28,16 +30,14 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
+        setupToolbar()
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[StatisticsViewModel::class.java]
-
-        activity?.tabLayout?.visibility = View.GONE
+        viewModel = viewModelProvider(viewModelFactory)
 
         tvQtdJogosNaoTerminados.text = "${viewModel.getGameCount(beaten = false)}"
         tvQtdJogosZerados.text = "${viewModel.getGameCount(beaten = true)}"
         tvQtdHorasJogadas.text = "${viewModel.getTotalHoursPlayed()}"
 
-//        val generosMaisJogados = jogosDAO.obterGenerosMaisJogados()
         val generosMaisJogados = viewModel.getMostPlayedGenres()
 
         val itens = mutableListOf<SliceValue>()
@@ -63,5 +63,15 @@ class StatisticsFragment : Fragment() {
         chart.pieChartData = pieData
         chart.isChartRotationEnabled = false
         chart.animation = null
+
+        if (generosMaisJogados.isEmpty()) {
+            emptyViewStatistics.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setupToolbar() {
+        appCompatActivity.setSupportActionBar(toolbar)
+        appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.toolbarTitle.text = "Estatísticas"
     }
 }

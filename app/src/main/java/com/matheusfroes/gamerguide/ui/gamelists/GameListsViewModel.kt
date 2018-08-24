@@ -1,7 +1,7 @@
 package com.matheusfroes.gamerguide.ui.gamelists
 
 import android.arch.lifecycle.ViewModel
-import com.matheusfroes.gamerguide.SingleLiveEvent
+import com.matheusfroes.gamerguide.extra.SingleLiveEvent
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.source.local.GameListLocalSource
 import io.reactivex.android.schedulers.AndroidSchedulers

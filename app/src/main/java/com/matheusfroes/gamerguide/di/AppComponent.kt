@@ -4,5 +4,5 @@ import com.matheusfroes.gamerguide.di.modules.*
 import dagger.Component
 
 @Component(modules = [(AppModule::class), (DataModule::class), (ViewModelModule::class),
-    (NetworkModule::class), (GameModule::class)])
+    (NetworkModule::class), (GameModule::class), (RssModule::class), (FeedModule::class)])
 interface AppComponent

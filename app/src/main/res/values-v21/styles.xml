@@ -11,7 +11,7 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-    <style name="AppTheme.DetalhesJogo.OLED" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.DetalhesJogo.OLED" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@android:color/white</item>

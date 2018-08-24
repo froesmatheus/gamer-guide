@@ -1,6 +1,6 @@
 package com.matheusfroes.gamerguide.data.source.local
 
-import com.matheusfroes.gamerguide.SingleLiveEvent
+import com.matheusfroes.gamerguide.extra.SingleLiveEvent
 import com.matheusfroes.gamerguide.data.GamerGuideDatabase
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
@@ -13,8 +13,7 @@ class GameListLocalSource @Inject constructor(private val database: GamerGuideDa
 
 
     fun getLists(): Flowable<List<GameList>> {
-        return database.listsDao()
-                .getAll()
+        return database.listsDao().getAll()
     }
 
     fun getList(gameListId: Long): GameList {

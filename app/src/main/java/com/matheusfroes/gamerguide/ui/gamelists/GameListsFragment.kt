@@ -2,7 +2,6 @@ package com.matheusfroes.gamerguide.ui.gamelists
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
@@ -12,13 +11,16 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.AddGameListDialog
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.extra.appCompatActivity
+import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity
+import com.matheusfroes.gamerguide.extra.viewModelProvider
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.fab.*
 import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.toolbar.view.*
 import org.jetbrains.anko.toast
 import javax.inject.Inject
 
@@ -38,12 +40,11 @@ class GameListsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
-        activity?.tabLayout?.visibility = View.GONE
+        setupToolbar()
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)[GameListsViewModel::class.java]
+        viewModel = viewModelProvider(viewModelFactory)
 
         viewModel.lists.observe(this, Observer { gameLists ->
-            rvListas.emptyView = layoutEmpty
             adapter.gameLists = gameLists.orEmpty()
         })
 
@@ -79,6 +80,12 @@ class GameListsFragment : Fragment() {
         addGameDialog.listAlreadyAdded { gameListName ->
             viewModel.listAlreadyAdded(gameListName)
         }
+    }
+
+    private fun setupToolbar() {
+        appCompatActivity.setSupportActionBar(toolbar)
+        appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.toolbarTitle.text = "Listas"
     }
 
     override fun onDestroy() {

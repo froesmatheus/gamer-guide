@@ -1,65 +1,85 @@
 package com.matheusfroes.gamerguide.ui.feed
 
-import android.content.Context
+import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.models.Noticia
+import com.matheusfroes.gamerguide.data.model.News
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_noticia.view.*
 
-class FeedAdapter(private val context: Context) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
+class FeedAdapter : ListAdapter<News, FeedAdapter.ViewHolder>(NewsDiff()) {
     private var listener: OnNewsClickListener? = null
-    private var noticias: MutableList<Noticia> = mutableListOf()
+    var news = emptyList<News>()
+        set(value) {
+            field = value
+            submitList(field)
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.view_noticia, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.view_noticia, parent, false)
         return ViewHolder(view)
     }
 
-    fun preencherNoticias(noticias: MutableList<Noticia>) {
-        this.noticias = noticias
-        this.notifyDataSetChanged()
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val noticia = noticias[position]
+        val news = news[position]
 
-        holder.itemView.tvTitulo.text = noticia.titulo
-        holder.itemView.tvHorarioNoticia.setReferenceTime(noticia.dataPublicacao)
-
-        holder.itemView.tvWebsite.text = "${noticia.website} • "
-
-        holder.capaVisivel = !noticia.imagem.isEmpty()
-
-        if (holder.capaVisivel) {
-            holder.itemView.ivImage.visibility = View.VISIBLE
-            Picasso.with(context).load(noticia.imagem).fit().centerCrop().into(holder.itemView.ivImage)
-        } else {
-            holder.itemView.ivImage.visibility = View.GONE
-        }
+        holder.bind(news)
     }
 
     fun setOnClickListener(listener: OnNewsClickListener) {
         this.listener = listener
     }
 
-    override fun getItemCount(): Int = noticias.size
+    override fun getItemCount(): Int = news.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var capaVisivel = true
+        private var capaVisivel = true
 
         init {
             itemView.setOnClickListener {
-                val noticia = noticias[adapterPosition]
+                val noticia = news[adapterPosition]
                 listener?.onClick(noticia)
             }
+        }
+
+        fun bind(noticia: News) {
+            itemView.tvTitulo.text = noticia.title
+            itemView.tvHorarioNoticia.setReferenceTime(noticia.publishDate)
+
+            itemView.tvWebsite.text = "${noticia.website} • "
+
+            capaVisivel = !noticia.image.isEmpty()
+
+            if (capaVisivel) {
+                itemView.ivImage.visibility = View.VISIBLE
+                Picasso
+                        .with(itemView.context)
+                        .load(noticia.image)
+                        .fit()
+                        .centerCrop()
+                        .into(itemView.ivImage, object : Callback {
+                            override fun onSuccess() {
+                                itemView.ivImage.visibility = View.VISIBLE
+                            }
+
+                            override fun onError() {
+                                itemView.ivImage.visibility = View.GONE
+                            }
+
+                        })
+            } else {
+                itemView.ivImage.visibility = View.GONE
+            }
+
+
         }
     }
 
     interface OnNewsClickListener {
-        fun onClick(noticia: Noticia)
+        fun onClick(news: News)
     }
 }

@@ -1,7 +1,6 @@
 package com.matheusfroes.gamerguide.ui.settings
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.preference.PreferenceActivity
@@ -10,10 +9,10 @@ import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.UserPreferences
-import com.matheusfroes.gamerguide.appInjector
-import com.matheusfroes.gamerguide.data.db.FonteNoticiasDAO
+import com.matheusfroes.gamerguide.data.source.UserPreferences
+import com.matheusfroes.gamerguide.extra.appInjector
 import com.matheusfroes.gamerguide.data.model.AppTheme
+import com.matheusfroes.gamerguide.data.source.local.NewsLocalSource
 import com.matheusfroes.gamerguide.ui.AppCompatPreferenceActivity
 import org.jetbrains.anko.toast
 import javax.inject.Inject
@@ -31,12 +30,11 @@ import javax.inject.Inject
  * for more information on developing a Settings UI.
  */
 class SettingsActivity : AppCompatPreferenceActivity() {
-    private val fonteNoticiasDAO: FonteNoticiasDAO by lazy {
-        FonteNoticiasDAO(this)
-    }
-
     @Inject
     lateinit var userPreferences: UserPreferences
+
+    @Inject
+    lateinit var newsLocalSource: NewsLocalSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appInjector.inject(this)
@@ -51,18 +49,19 @@ class SettingsActivity : AppCompatPreferenceActivity() {
 
         val preferenceCategory = preferenceScreen.getPreference(1) as PreferenceCategory
 
-        val fonteNoticias = fonteNoticiasDAO.obterFonteNoticias()
-        fonteNoticias.forEach { fonteNoticia ->
+        val newsSources = newsLocalSource.getNewsSources()
+        newsSources.forEach { newsSource ->
             val switchPreference = SwitchPreference(this)
-            switchPreference.title = fonteNoticia.nome
-            switchPreference.summary = fonteNoticia.website
-            switchPreference.isChecked = fonteNoticia.ativado
-            switchPreference.key = fonteNoticia.id.toString()
+            switchPreference.title = newsSource.name
+            switchPreference.summary = newsSource.website
+            switchPreference.isChecked = newsSource.enabled
+            switchPreference.key = newsSource.id.toString()
 
             switchPreference.setOnPreferenceChangeListener { preference, any ->
                 val fonteAtivada = any as Boolean
                 val fonteId = preference.key.toInt()
-                fonteNoticiasDAO.alterarStatusFonteNoticia(fonteId, fonteAtivada)
+                newsLocalSource.updateNewsSourceStatus(fonteAtivada, fonteId)
+//                fonteNoticiasDAO.alterarStatusFonteNoticia(fonteId, fonteAtivada)
                 true
             }
 

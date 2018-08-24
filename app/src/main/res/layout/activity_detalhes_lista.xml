@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.matheusfroes.gamerguide.extra.CustomRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.matheusfroes.gamerguide.widget.CustomRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/rvJogosLista"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:padding="16dp"
-            tools:context="com.matheusfroes.gamerguide.ui.gamelists.GameListDetailsActivity"
+            tools:context="com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity"
             tools:listitem="@layout/view_jogo_lista" />
 
         <LinearLayout

@@ -1,6 +1,12 @@
 package com.matheusfroes.gamerguide.data.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+
+@Entity(tableName = "news")
 data class News(
+        @PrimaryKey(autoGenerate = true)
+        val id: Long = 0,
         val title: String,
         val image: String,
         val url: String,
