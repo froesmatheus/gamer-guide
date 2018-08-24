@@ -14,6 +14,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
+import com.matheusfroes.gamerguide.data.source.UserPreferences
+import com.matheusfroes.gamerguide.extra.activityViewModelProvider
+import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.extra.formatarData
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsViewModel
 import kotlinx.android.synthetic.main.fragment_informacoes_gerais.*
 import javax.inject.Inject

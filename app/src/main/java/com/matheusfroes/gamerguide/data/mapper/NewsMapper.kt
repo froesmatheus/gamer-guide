@@ -1,6 +1,6 @@
 package com.matheusfroes.gamerguide.data.mapper
 
-import com.matheusfroes.gamerguide.adicionarSchemaUrl
+import com.matheusfroes.gamerguide.extra.adicionarSchemaUrl
 import com.matheusfroes.gamerguide.data.model.News
 import com.pkmmte.pkrss.Article
 import me.toptas.rssconverter.RssItem

@@ -11,6 +11,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
+import com.matheusfroes.gamerguide.data.source.UserPreferences
+import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.extra.obterImagemJogoCapa
+import com.matheusfroes.gamerguide.extra.snack
+import com.matheusfroes.gamerguide.extra.viewModelProvider
 import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameDialog
 import com.matheusfroes.gamerguide.ui.gamedetails.gameinfo.GameInfoFragment
 import com.matheusfroes.gamerguide.ui.gamedetails.livestream.StreamsFragment

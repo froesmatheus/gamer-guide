@@ -1,8 +1,9 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.data.source
 
 import android.support.annotation.StyleRes
 import com.chibatching.kotpref.KotprefModel
 import com.chibatching.kotpref.enumpref.enumValuePref
+import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.AppTheme
 import javax.inject.Inject
 

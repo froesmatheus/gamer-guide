@@ -11,6 +11,7 @@ import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.model.InsertType
+import com.matheusfroes.gamerguide.extra.*
 import com.matheusfroes.gamerguide.ui.BaseActivity
 import com.matheusfroes.gamerguide.ui.addgamedialog.AddGameDialog
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity

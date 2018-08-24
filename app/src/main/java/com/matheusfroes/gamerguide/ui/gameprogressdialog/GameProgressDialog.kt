@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.extra.appInjector
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.toast
-import com.matheusfroes.gamerguide.viewModelProvider
+import com.matheusfroes.gamerguide.extra.toast
+import com.matheusfroes.gamerguide.extra.viewModelProvider
 import com.matheusfroes.gamerguide.widget.CustomDialogFragment
 import kotlinx.android.synthetic.main.gameprogress_dialog_view.*
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar

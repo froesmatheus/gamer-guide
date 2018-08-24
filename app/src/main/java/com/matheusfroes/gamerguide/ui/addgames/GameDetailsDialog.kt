@@ -5,7 +5,7 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.formatarData
+import com.matheusfroes.gamerguide.extra.formatarData
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.dialog_detalhes_jogo.view.*
 

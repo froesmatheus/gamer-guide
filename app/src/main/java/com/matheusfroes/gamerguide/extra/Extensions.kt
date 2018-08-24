@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.extra
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -16,7 +16,12 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.matheusfroes.gamerguide.GamerGuideApplication
 import com.matheusfroes.gamerguide.di.Injector
+import com.matheusfroes.gamerguide.network.uiContext
+import kotlinx.coroutines.experimental.CoroutineScope
+import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -109,4 +114,8 @@ fun FragmentActivity.snack(text: String) {
 
 fun FragmentActivity.snack(@StringRes text: Int) {
     Snackbar.make(window.decorView.rootView, getString(text), Snackbar.LENGTH_LONG).show()
+}
+
+fun uiThread(block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(uiContext) { block() }
 }

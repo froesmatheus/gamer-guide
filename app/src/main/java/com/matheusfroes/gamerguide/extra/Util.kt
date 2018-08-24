@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.extra
 
 import android.app.Activity
 import android.content.Context

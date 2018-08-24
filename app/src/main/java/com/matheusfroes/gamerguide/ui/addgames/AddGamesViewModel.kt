@@ -1,7 +1,7 @@
 package com.matheusfroes.gamerguide.ui.addgames
 
 import android.arch.lifecycle.ViewModel
-import com.matheusfroes.gamerguide.Result
+import com.matheusfroes.gamerguide.extra.Result
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.model.InsertType

@@ -1,4 +1,4 @@
-package com.matheusfroes.gamerguide
+package com.matheusfroes.gamerguide.extra
 
 class ExcluirJogoEvent(val jogoId: Long)
 

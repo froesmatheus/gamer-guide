@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho
 import com.matheusfroes.gamerguide.di.DaggerInjector
 import com.matheusfroes.gamerguide.di.Injector
 import com.matheusfroes.gamerguide.di.modules.AppModule
+import com.matheusfroes.gamerguide.extra.CrashlyticsTree
 import timber.log.Timber
 
 class GamerGuideApplication : Application() {
@@ -14,16 +15,25 @@ class GamerGuideApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Stetho.initializeWithDefaults(this)
+        setupDagger()
+        setupTimber()
+        setupStetho()
 
+        Kotpref.init(this)
+    }
+
+    private fun setupStetho() {
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
+    }
+
+    private fun setupTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         } else {
             Timber.plant(CrashlyticsTree())
         }
-
-        setupDagger()
-        Kotpref.init(this)
     }
 
     private fun setupDagger() {

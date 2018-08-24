@@ -3,13 +3,12 @@ package com.matheusfroes.gamerguide.ui.feed
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.matheusfroes.gamerguide.Result
+import com.matheusfroes.gamerguide.extra.Result
 import com.matheusfroes.gamerguide.data.model.News
 import com.matheusfroes.gamerguide.data.source.local.NewsLocalSource
 import com.matheusfroes.gamerguide.data.source.remote.NewsRemoteSource
 import com.matheusfroes.gamerguide.network.uiContext
 import kotlinx.coroutines.experimental.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(

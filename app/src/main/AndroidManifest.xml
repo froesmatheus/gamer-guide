@@ -12,10 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity
-            android:name=".ui.feed.ConfiguracoesFeedActivity"
-            android:label="@string/configuracoes_feed"
-            android:parentActivityName=".ui.MainActivity" />
 
         <activity android:name=".ui.BaseActivity"/>
 

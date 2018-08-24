@@ -12,6 +12,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
+import com.matheusfroes.gamerguide.data.source.UserPreferences
+import com.matheusfroes.gamerguide.extra.EndlessScrollListener
+import com.matheusfroes.gamerguide.extra.activityViewModelProvider
+import com.matheusfroes.gamerguide.extra.appInjector
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsViewModel
 import kotlinx.android.synthetic.main.fragment_streams.*
 import timber.log.Timber

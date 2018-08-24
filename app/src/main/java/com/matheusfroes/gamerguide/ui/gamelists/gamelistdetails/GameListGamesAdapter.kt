@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.formatarData
+import com.matheusfroes.gamerguide.extra.formatarData
 import com.matheusfroes.gamerguide.ui.gamedetails.GameDetailsActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_jogo_lista.view.*

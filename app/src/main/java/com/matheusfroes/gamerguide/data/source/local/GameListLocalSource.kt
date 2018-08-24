@@ -1,6 +1,6 @@
 package com.matheusfroes.gamerguide.data.source.local
 
-import com.matheusfroes.gamerguide.SingleLiveEvent
+import com.matheusfroes.gamerguide.extra.SingleLiveEvent
 import com.matheusfroes.gamerguide.data.GamerGuideDatabase
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList

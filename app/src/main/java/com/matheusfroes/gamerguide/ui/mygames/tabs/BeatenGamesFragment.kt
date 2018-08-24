@@ -10,6 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.Game
+import com.matheusfroes.gamerguide.extra.ExcluirJogoEvent
+import com.matheusfroes.gamerguide.extra.GerenciarListasEvent
+import com.matheusfroes.gamerguide.extra.activityViewModelProvider
+import com.matheusfroes.gamerguide.extra.appInjector
 import com.matheusfroes.gamerguide.ui.gameprogressdialog.GameProgressDialog
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesAdapter
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesViewModel

@@ -6,11 +6,10 @@ import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.consume
-import com.matheusfroes.gamerguide.disableShiftMode
-import com.matheusfroes.gamerguide.inTransaction
-import com.matheusfroes.gamerguide.ui.calendar.CalendarFragment
-import com.matheusfroes.gamerguide.ui.feed.FeedFragment2
+import com.matheusfroes.gamerguide.extra.consume
+import com.matheusfroes.gamerguide.extra.disableShiftMode
+import com.matheusfroes.gamerguide.extra.inTransaction
+import com.matheusfroes.gamerguide.ui.feed.FeedFragment
 import com.matheusfroes.gamerguide.ui.gamelists.GameListsFragment
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesFragment
 import com.matheusfroes.gamerguide.ui.settings.SettingsActivity
@@ -35,7 +34,7 @@ class MainActivity : BaseActivity() {
             when (item.itemId) {
                 R.id.menu_jogos -> consume { replaceFragment(MyGamesFragment()) }
 //                R.id.menu_calendario -> consume { replaceFragment(CalendarFragment()) }
-                R.id.menu_feed -> consume { replaceFragment(FeedFragment2()) }
+                R.id.menu_feed -> consume { replaceFragment(FeedFragment()) }
                 R.id.menu_listas -> consume { replaceFragment(GameListsFragment()) }
                 R.id.menu_estatisticas -> consume { replaceFragment(StatisticsFragment()) }
                 else -> false

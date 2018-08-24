@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.*
 import com.matheusfroes.gamerguide.data.model.GameList
+import com.matheusfroes.gamerguide.extra.*
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
 import com.matheusfroes.gamerguide.ui.mygames.tabs.BeatenGamesFragment
 import com.matheusfroes.gamerguide.ui.mygames.tabs.UnfinishedGamesFragment

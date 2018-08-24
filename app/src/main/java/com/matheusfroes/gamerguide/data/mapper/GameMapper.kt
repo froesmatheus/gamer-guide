@@ -1,6 +1,6 @@
 package com.matheusfroes.gamerguide.data.mapper
 
-import com.matheusfroes.gamerguide.adicionarSchemaUrl
+import com.matheusfroes.gamerguide.extra.adicionarSchemaUrl
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.network.data.GameResponse
 import java.util.*

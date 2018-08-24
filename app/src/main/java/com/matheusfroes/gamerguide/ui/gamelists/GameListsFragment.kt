@@ -12,10 +12,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.appCompatActivity
-import com.matheusfroes.gamerguide.appInjector
+import com.matheusfroes.gamerguide.extra.appCompatActivity
+import com.matheusfroes.gamerguide.extra.appInjector
 import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity
-import com.matheusfroes.gamerguide.viewModelProvider
+import com.matheusfroes.gamerguide.extra.viewModelProvider
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.fab.*

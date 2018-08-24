@@ -8,9 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.appCompatActivity
-import com.matheusfroes.gamerguide.appInjector
-import com.matheusfroes.gamerguide.viewModelProvider
+import com.matheusfroes.gamerguide.extra.appCompatActivity
+import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.extra.viewModelProvider
 import kotlinx.android.synthetic.main.activity_estatisticas.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
@@ -63,6 +63,10 @@ class StatisticsFragment : Fragment() {
         chart.pieChartData = pieData
         chart.isChartRotationEnabled = false
         chart.animation = null
+
+        if (generosMaisJogados.isEmpty()) {
+            emptyViewStatistics.visibility = View.VISIBLE
+        }
     }
 
     private fun setupToolbar() {
