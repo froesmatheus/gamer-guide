@@ -14,14 +14,14 @@ import android.view.ViewGroup
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.extra.appCompatActivity
 import com.matheusfroes.gamerguide.extra.appInjector
-import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity
+import com.matheusfroes.gamerguide.extra.toast
 import com.matheusfroes.gamerguide.extra.viewModelProvider
+import com.matheusfroes.gamerguide.ui.gamelists.gamelistdetails.GameListDetailsActivity
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_listas.*
 import kotlinx.android.synthetic.main.fab.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.toolbar.view.*
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 

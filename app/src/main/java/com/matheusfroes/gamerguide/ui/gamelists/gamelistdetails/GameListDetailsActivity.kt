@@ -8,14 +8,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.extra.appInjector
 import com.matheusfroes.gamerguide.data.model.GameList
-import com.matheusfroes.gamerguide.ui.gamelists.AddGameListDialog
+import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.extra.toast
 import com.matheusfroes.gamerguide.ui.BaseActivity
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
+import com.matheusfroes.gamerguide.ui.gamelists.AddGameListDialog
 import kotlinx.android.synthetic.main.activity_detalhes_lista.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 

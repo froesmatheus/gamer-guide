@@ -135,7 +135,13 @@
 
 
 # ALSO REMEMBER KEEPING YOUR MODEL CLASSES
--keep class com.your.package.model.** { *; }
+-keep class com.matheusfroes.gamerguide.network.data.** { *; }
+
+# Necessário para desabilitar o shift mode do BottomNavigationView
+-keepclassmembers class android.support.design.internal.BottomNavigationMenuView {
+    boolean mShiftingMode;
+}
+
 
 -dontwarn com.google.errorprone.annotations.**
 

@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.*
+import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.extra.*
 import com.matheusfroes.gamerguide.ui.addgames.AddGamesActivity
@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.toolbar_mygames.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 class MyGamesFragment : Fragment() {

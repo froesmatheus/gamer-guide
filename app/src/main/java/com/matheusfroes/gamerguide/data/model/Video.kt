@@ -2,6 +2,7 @@ package com.matheusfroes.gamerguide.data.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.ForeignKey
+import android.arch.persistence.room.Index
 import android.arch.persistence.room.PrimaryKey
 import java.io.Serializable
 
@@ -10,7 +11,8 @@ import java.io.Serializable
             entity = Game::class,
             parentColumns = ["id"],
             childColumns = ["gameId"],
-            onDelete = ForeignKey.CASCADE)])
+            onDelete = ForeignKey.CASCADE)],
+        indices = [Index(value = ["gameId"], name = "gameid_index")])
 data class Video(
         @PrimaryKey(autoGenerate = true)
         val id: Long = 0,

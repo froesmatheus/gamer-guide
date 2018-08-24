@@ -1,0 +1,133 @@
+<resources>
+    <string name="titulo_jogos">Jogos</string>
+    <string name="titulo_feed">Feed de notícias</string>
+    <string name="titulo_listas">Listas</string>
+    <string name="titulo_calendario">Calendário</string>
+    <string name="titulo_estatiticas">Estatísticas</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="titulo_noticia">Título da notícia</string>
+    <string name="nome_da_lista">Nome da lista</string>
+    <string name="quantidade_de_jogos">Quantidade de jogos</string>
+    <string name="nome_do_jogo">Nome do Jogo</string>
+    <string name="produtora">Produtora</string>
+    <string name="continuar">Continuar</string>
+    <string name="mensagem_config_feed">Você pode selecionar de quais sites você quer receber as notícias</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="plataformas">Plataformas</string>
+    <string name="title_activity_detalhes_jogo">DetalhesJogoActivity</string>
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
+    <string name="adicionar_jogos">Adicionar Jogos</string>
+    <string name="configuracoes_feed">Configurações do Feed</string>
+
+    <plurals name="qtd_jogos">
+        <item quantity="one">%d jogo</item>
+        <item quantity="other">%d jogos</item>
+    </plurals>
+
+    <string name="qtd_jogos_0">0 jogos</string>
+    <string name="empty_lista">Nenhuma lista adicionada\nClique no botão adicionar para criar novas listas</string>
+    <string name="empty_stream">Nenhuma stream foi encontrada para este jogo</string>
+    <string name="empty_jogos">Nenhum jogo adicionado\nClique no botão adicionar para inserir novos jogos</string>
+    <string name="empty_jogos_lista">Nenhum jogo adicionado nesta lista</string>
+
+    <string name="horas_jogadas">Horas Jogadas</string>
+
+    <string name="youtube_url">https://www.youtube.com/watch?v=%s</string>
+    <string name="youtube_thumbnail_url">https://img.youtube.com/vi/%s/mqdefault.jpg</string>
+    <string name="jogo_adicionado">O jogo foi adicionado</string>
+    <string name="jogo_removido">O jogo foi removido</string>
+    <string name="lista_excluida">Lista excluída</string>
+    <string name="btn_adicionar">Adicionar</string>
+    <string name="btn_remover">Remover</string>
+    <string name="Detalhes">Detalhes</string>
+    <string name="tab_progresso">Progresso</string>
+    <string name="tab_informacoes">Info</string>
+    <string name="tab_videos">Vídeos</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="gerenciar_listas">Gerenciar listas</string>
+    <string name="lista_adicionada">Lista adicionada</string>
+    <string name="data_lancamento">Data de Lançamento</string>
+    <string name="escolher_plataformas">Escolha suas plataformas preferidas</string>
+    <string name="desenvolvedores">Desenvolvedores</string>
+    <string name="publicadoras">Publicadoras</string>
+    <string name="generos">Gêneros</string>
+    <string name="descricao">Descrição</string>
+    <string name="tempo_para_zerar">Tempo para zerar</string>
+    <string name="speedrun">Speedrun</string>
+    <string name="modo_historia">Modo História</string>
+    <string name="ttb_100perc">100%</string>
+    <string name="quantos_perc_jogou">Quantos % você jogou?</string>
+    <string name="zerei_este_jogo">Zerei este jogo</string>
+    <string name="atualizar_progresso">Atualizar progresso</string>
+    <string name="nome_da_plataforma">Nome da plataforma</string>
+    <string name="msg_jogo_adicionado_lista">Jogo adicionado na lista</string>
+    <string name="msg_jogo_adicionado_listas">Jogo adicionado nas listas</string>
+
+    <string name="msg_jogo_removido_lista">Jogo removido da lista</string>
+    <string name="msg_jogo_removido_listas">Jogo removido das listas</string>
+    <string name="msg_lista_existente">Já existe uma lista com este nome</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="progresso_atualizado">Progresso atualizado</string>
+
+    <string name="content_description_capa_jogo">Capa do Jogo: %1$s</string>
+    <string name="adicionar_lista">Adicionar à lista</string>
+    <string name="atualizar_feed">Atualizar Feed</string>
+    <string name="excluir_lista">Excluir</string>
+    <string name="marcar_como_zerado">Marcar como zerado</string>
+    <string name="remover">Remover</string>
+    <string name="marcar_como_nao_terminado">Marcar como não terminado</string>
+    <string name="nao_terminados">Não Terminados</string>
+    <string name="zerados">Zerados</string>
+    <string name="editar_lista">Editar</string>
+    <string name="lista_atualizada">Lista atualizada</string>
+    <string name="msg_jogo_movido_zerados">Jogo movido para Zerados</string>
+    <string name="msg_jogo_movido_nao_terminados">Jogo movido para Não terminados</string>
+    <string name="game_engine">Game Engine</string>
+    <string name="generos_mais_jogados">Gêneros mais jogados</string>
+
+
+    <string name="horas_ttb">%1$d horas</string>
+    <string name="configuracoes">Configurações</string>
+    <string name="meu_progresso">Meu Progresso</string>
+    <string name="zoom">Zoom</string>
+    <string name="url_zoom">https://www.zoom.com.br/search?q=%1$s</string>
+    <string name="url_buscape">http://www.buscape.com.br/search/%1$s</string>
+    <string name="url_steam">http://store.steampowered.com/search/?term=%1$s</string>
+    <string name="buscap">Buscapé</string>
+    <string name="steam">Steam</string>
+    <string name="title_activity_configuracoes">Configurações</string>
+
+
+    <string name="pref_habilitar_modo_noturno">Habilitar modo noturno</string>
+    <string name="streams">Streams</string>
+    <string name="espectadores_stream">%1$d espectadores</string>
+    <string name="reinicie_app_msg">Reinicie a aplicação para aplicar o tema</string>
+    <string name="progresso">Progresso</string>
+    <string name="feed_noticias">Feed de notícias</string>
+    <string name="calendario">Calendário</string>
+    <string name="listas">Listas</string>
+    <string name="lancamentos">Lançamentos</string>
+    <string name="jogos">Jogos</string>
+    <string name="estatisticas">Estatísticas</string>
+    <string name="plataforma">Plataforma</string>
+    <string name="progresso_usuario">%1$s%</string>
+    <string name="melhor_preco">Melhor preço</string>
+    <string name="comprar">Comprar</string>
+    <string name="ofertas">Ofertas</string>
+    <string name="ajuda">Ajuda</string>
+    <string name="salvar">Salvar</string>
+    <string name="msg_save_game">Onde você deseja salvar o jogo?</string>
+    <string name="unfinished_games">Não terminados</string>
+    <string name="beaten_games">Zerados</string>
+    <string name="list">Lista</string>
+    <string name="remove_game_message">Tem certeza que deseja remover este jogo?</string>
+    <string name="remove_game_from_lists">Remover jogo das listas</string>
+    <string name="game_removed_error">Erro ao remover jogo</string>
+</resources>

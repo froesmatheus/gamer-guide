@@ -7,7 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
-import com.matheusfroes.gamerguide.*
+import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
 import com.matheusfroes.gamerguide.data.model.InsertType
@@ -20,7 +20,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.activity_adicionar_jogos.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 

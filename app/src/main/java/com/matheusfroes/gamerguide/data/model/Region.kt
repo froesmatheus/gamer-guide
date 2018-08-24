@@ -1,14 +1,14 @@
 package com.matheusfroes.gamerguide.data.model
 
-enum class Region(region: Int) {
-    EUROPE(1),
-    NORTH_AMERICA(2),
-    AUSTRALIA(3),
-    NEW_ZEALAND(4),
-    JAPAN(5),
-    CHINA(6),
-    ASIA(7),
-    WORLD(8);
+enum class Region {
+    EUROPE,
+    NORTH_AMERICA,
+    AUSTRALIA,
+    NEW_ZEALAND,
+    JAPAN,
+    CHINA,
+    ASIA,
+    WORLD;
 
     companion object {
         fun fromValue(region: Int?): Region {

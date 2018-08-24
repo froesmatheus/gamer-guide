@@ -8,18 +8,14 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import com.matheusfroes.gamerguide.*
+import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.Game
-import com.matheusfroes.gamerguide.extra.ExcluirJogoEvent
-import com.matheusfroes.gamerguide.extra.GerenciarListasEvent
-import com.matheusfroes.gamerguide.extra.activityViewModelProvider
-import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.extra.*
 import com.matheusfroes.gamerguide.ui.gameprogressdialog.GameProgressDialog
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesAdapter
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesViewModel
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 import org.greenrobot.eventbus.EventBus
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 

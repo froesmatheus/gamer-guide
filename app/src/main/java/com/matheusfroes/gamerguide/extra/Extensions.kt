@@ -5,6 +5,7 @@ import android.app.Activity
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.support.annotation.StringRes
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
@@ -119,3 +120,9 @@ fun FragmentActivity.snack(@StringRes text: Int) {
 fun uiThread(block: suspend CoroutineScope.() -> Unit): Job {
     return launch(uiContext) { block() }
 }
+
+fun Context.toast(message: CharSequence): Toast = Toast
+        .makeText(this, message, Toast.LENGTH_SHORT)
+        .apply {
+            show()
+        }

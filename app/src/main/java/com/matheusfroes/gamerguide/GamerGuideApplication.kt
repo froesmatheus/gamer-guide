@@ -2,7 +2,6 @@ package com.matheusfroes.gamerguide
 
 import android.app.Application
 import com.chibatching.kotpref.Kotpref
-import com.facebook.stetho.Stetho
 import com.matheusfroes.gamerguide.di.DaggerInjector
 import com.matheusfroes.gamerguide.di.Injector
 import com.matheusfroes.gamerguide.di.modules.AppModule
@@ -17,15 +16,8 @@ class GamerGuideApplication : Application() {
 
         setupDagger()
         setupTimber()
-        setupStetho()
 
         Kotpref.init(this)
-    }
-
-    private fun setupStetho() {
-        if (BuildConfig.DEBUG) {
-            Stetho.initializeWithDefaults(this)
-        }
     }
 
     private fun setupTimber() {

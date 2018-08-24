@@ -74,8 +74,8 @@ class MyGamesAdapter : RecyclerView.Adapter<MyGamesAdapter.ViewHolder>() {
 
         fun bind(jogo: Game) {
             itemView.tvNomeJogo.text = jogo.name
-            itemView.tvPorcentagemProgresso.text = "${jogo.progress?.percentage}%"
-            itemView.tvHorasJogadas.text = "${jogo.progress?.hoursPlayed} horas"
+            itemView.tvPorcentagemProgresso.text = "${jogo.progress.percentage}%"
+            itemView.tvHorasJogadas.text = "${jogo.progress.hoursPlayed} horas"
             itemView.ivCapaJogo.contentDescription = itemView.context.getString(R.string.content_description_capa_jogo, jogo.name)
 
             if (jogo.coverImage.isNotEmpty()) {

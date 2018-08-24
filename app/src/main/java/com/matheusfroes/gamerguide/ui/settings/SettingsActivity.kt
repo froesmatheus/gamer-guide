@@ -9,12 +9,12 @@ import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
 import android.view.MenuItem
 import com.matheusfroes.gamerguide.R
-import com.matheusfroes.gamerguide.data.source.UserPreferences
-import com.matheusfroes.gamerguide.extra.appInjector
 import com.matheusfroes.gamerguide.data.model.AppTheme
+import com.matheusfroes.gamerguide.data.source.UserPreferences
 import com.matheusfroes.gamerguide.data.source.local.NewsLocalSource
+import com.matheusfroes.gamerguide.extra.appInjector
+import com.matheusfroes.gamerguide.extra.toast
 import com.matheusfroes.gamerguide.ui.AppCompatPreferenceActivity
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 
