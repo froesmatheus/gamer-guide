@@ -2,6 +2,7 @@ package com.matheusfroes.gamerguide.data.source.local
 
 import com.matheusfroes.gamerguide.data.GamerGuideDatabase
 import com.matheusfroes.gamerguide.data.model.Game
+import com.matheusfroes.gamerguide.data.model.GameWithPlatform
 import com.matheusfroes.gamerguide.data.model.InsertType
 import io.reactivex.Flowable
 import javax.inject.Inject
@@ -41,7 +42,11 @@ class GameLocalSource @Inject constructor(private val database: GamerGuideDataba
     }
 
     fun addGame(game: Game) {
-        database.gamesDao().insert(game)
+        database.runInTransaction {
+            database.gamesDao().insert(game)
+            database.videosDao().insert(game.videos)
+            database.platformsDao().insertGamePlatforms(game.platforms.map { platform -> GameWithPlatform(gameId = game.id, platformId = platform.id) })
+        }
     }
 
     fun updateGame(game: Game) {

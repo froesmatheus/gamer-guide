@@ -17,6 +17,5 @@ abstract class GamerGuideDatabase : RoomDatabase() {
     abstract fun listsDao(): GameListDAO
     abstract fun videosDao(): VideoDAO
     abstract fun gamesDao(): GameDAO
-    abstract fun newsSourcesDao(): NewsSourceDAO
     abstract fun newsDao(): NewsDAO
 }

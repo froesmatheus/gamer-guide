@@ -23,15 +23,6 @@ interface GameDAO {
     @Query("SELECT * FROM games WHERE id = :gameId")
     fun get(gameId: Long): Game?
 
-    @Query("SELECT * FROM games WHERE game_progress_beaten = :beaten")
-    fun getGameByProgressStatus(beaten: Boolean): List<Game>
-
-    @Query("SELECT * FROM games")
-    fun getAll(): List<Game>
-
-    @Query("SELECT COUNT(*) FROM games WHERE game_progress_beaten = :beaten")
-    fun getGameCountByProgressStatus(beaten: Boolean): Int
-
     @Query("SELECT genres FROM games WHERE insertType <> 'INSERT_TO_LIST'")
     fun getGenres(): List<String>
 

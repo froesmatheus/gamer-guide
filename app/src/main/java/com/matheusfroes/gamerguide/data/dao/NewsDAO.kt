@@ -5,6 +5,7 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.matheusfroes.gamerguide.data.model.News
+import com.matheusfroes.gamerguide.data.model.NewsSource
 
 @Dao
 interface NewsDAO {
@@ -17,4 +18,13 @@ interface NewsDAO {
 
     @Query("SELECT publishDate FROM news ORDER BY publishDate DESC LIMIT 1")
     fun getMostRecentNewsPublishDate(): Long?
+
+    @Query("SELECT * FROM news_sources")
+    fun getNewsSources(): List<NewsSource>
+
+    @Query("SELECT website FROM news_sources WHERE enabled = :enabled")
+    fun getNewsSourcesByStatus(enabled: Boolean): List<String>
+
+    @Query("UPDATE news_sources SET enabled = :enabled WHERE id = :sourceId")
+    fun updateNewsSourceStatus(enabled: Boolean, sourceId: Int)
 }

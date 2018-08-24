@@ -38,9 +38,6 @@ interface GameListDAO {
     @Query("SELECT DISTINCT l.id, l.isDefault, l.name FROM lists l LEFT JOIN games_lists gl")
     fun getAll(): Flowable<List<GameList>>
 
-    @Insert
-    fun insertGameIntoList(gameWithGameList: GameWithGameList)
-
     @Query("DELETE FROM games_lists WHERE gameId = :gameId AND gameListId = :gameListId")
     fun deleteGameFromList(gameId: Long, gameListId: Long)
 

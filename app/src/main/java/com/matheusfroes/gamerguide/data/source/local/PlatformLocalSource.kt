@@ -6,10 +6,6 @@ import javax.inject.Inject
 
 class PlatformLocalSource @Inject constructor(private val database: GamerGuideDatabase) {
 
-    fun getPlatforms(): List<Platform> {
-        return database.platformsDao().getAll()
-    }
-
     fun getPlatform(platformId: Long): Platform {
         return database.platformsDao().get(platformId)
     }
