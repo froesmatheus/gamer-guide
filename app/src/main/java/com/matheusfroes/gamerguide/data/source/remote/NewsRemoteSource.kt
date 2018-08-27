@@ -8,7 +8,8 @@ import kotlinx.coroutines.experimental.withContext
 import javax.inject.Inject
 
 class NewsRemoteSource @Inject constructor(
-        private val pkRSS: PkRSS) {
+        private val pkRSS: PkRSS,
+        private val newsMapper: NewsMapper) {
 
     suspend fun fetchFeed(url: String): List<News> = withContext(networkContext) {
         val feed = pkRSS
@@ -17,6 +18,6 @@ class NewsRemoteSource @Inject constructor(
                 .callback(null)
                 .get()
 
-        NewsMapper.map(feed)
+        newsMapper.map(feed)
     }
 }

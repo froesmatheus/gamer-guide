@@ -50,7 +50,7 @@ class FeedAdapter : ListAdapter<News, FeedAdapter.ViewHolder>(NewsDiff()) {
             itemView.tvTitulo.text = noticia.title
             itemView.tvHorarioNoticia.setReferenceTime(noticia.publishDate)
 
-            itemView.tvWebsite.text = "${noticia.website} • "
+            itemView.tvWebsite.text = "${noticia.source?.name} • "
 
             capaVisivel = !noticia.image.isEmpty()
 

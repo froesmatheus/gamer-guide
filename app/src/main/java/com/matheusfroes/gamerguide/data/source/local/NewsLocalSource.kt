@@ -32,4 +32,12 @@ class NewsLocalSource @Inject constructor(private val database: GamerGuideDataba
     suspend fun getMostRecentNewsPublishDate(): Long = withContext(ioContext) {
         database.newsDao().getMostRecentNewsPublishDate() ?: 0
     }
+
+    fun getNewsSource(website: String): NewsSource? {
+        return database.newsDao().getNewsSource(website)
+    }
+
+    fun deleteNewsFromSource(sourceId: Int) {
+        database.newsDao().deleteNewsFromSource(sourceId)
+    }
 }
