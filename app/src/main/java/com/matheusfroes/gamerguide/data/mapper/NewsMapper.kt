@@ -18,7 +18,11 @@ class NewsMapper @Inject constructor(
                 article.enclosure.url
             }
 
-            val source = newsLocalSource.getNewsSource(article.source.toString())
+            val sourceName = extractSourceName(article.source.host)
+            if (sourceName == "Xbox Power") {
+                print(sourceName)
+            }
+            val source = newsLocalSource.getNewsSource(sourceName)
 
             val news = News(
                     title = article.title,
@@ -31,5 +35,14 @@ class NewsMapper @Inject constructor(
 
             news
         }
+    }
+
+
+    private fun extractSourceName(host: String) = when {
+        host.contains("eurogamer", ignoreCase = true) -> "eurogamer"
+        host.contains("xboxpower", ignoreCase = true) -> "xboxpower"
+        host.contains("playstation", ignoreCase = true) -> "playstation"
+        host.contains("criticalhits", ignoreCase = true) -> "criticalhits"
+        else -> "eurogamer"
     }
 }

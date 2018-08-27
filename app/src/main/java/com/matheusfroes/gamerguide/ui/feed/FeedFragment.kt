@@ -92,7 +92,7 @@ class FeedFragment : Fragment() {
     private fun setupToolbar() {
         appCompatActivity.setSupportActionBar(toolbar)
         appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.toolbarTitle.text = "Feed de notícias"
+        toolbar.toolbarTitle.text = getString(R.string.feed_noticias)
     }
 
     private fun showLoadingIndicator() {

@@ -28,8 +28,11 @@ interface NewsDAO {
     @Query("UPDATE news_sources SET enabled = :enabled WHERE id = :sourceId")
     fun updateNewsSourceStatus(enabled: Boolean, sourceId: Int)
 
-    @Query("SELECT * FROM news_sources WHERE website LIKE '%' || :website || '%'")
+    @Query("SELECT * FROM news_sources WHERE lower(website) LIKE '%' || :website || '%'")
     fun getNewsSource(website: String): NewsSource?
+
+    @Query("SELECT * FROM news_sources WHERE id = :sourceId")
+    fun getNewsSource(sourceId: Int): NewsSource?
 
     @Query("DELETE FROM news WHERE sourceId = :sourceId")
     fun deleteNewsFromSource(sourceId: Int)

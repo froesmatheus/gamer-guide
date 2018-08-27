@@ -1,6 +1,5 @@
 package com.matheusfroes.gamerguide.ui.feed
 
-import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,12 +10,12 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_noticia.view.*
 
-class FeedAdapter : ListAdapter<News, FeedAdapter.ViewHolder>(NewsDiff()) {
+class FeedAdapter : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
     private var listener: OnNewsClickListener? = null
     var news = emptyList<News>()
         set(value) {
             field = value
-            submitList(field)
+            notifyDataSetChanged()
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

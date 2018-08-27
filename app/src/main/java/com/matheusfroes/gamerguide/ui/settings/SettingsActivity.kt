@@ -61,7 +61,7 @@ class SettingsActivity : AppCompatPreferenceActivity() {
                 val fonteAtivada = any as Boolean
                 val fonteId = preference.key.toInt()
                 newsLocalSource.updateNewsSourceStatus(fonteAtivada, fonteId)
-//                fonteNoticiasDAO.alterarStatusFonteNoticia(fonteId, fonteAtivada)
+                toast("Atualize o feed para aplicar as alterações")
                 true
             }
 

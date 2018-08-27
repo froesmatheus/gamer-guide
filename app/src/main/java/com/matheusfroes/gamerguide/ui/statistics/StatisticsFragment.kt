@@ -72,6 +72,6 @@ class StatisticsFragment : Fragment() {
     private fun setupToolbar() {
         appCompatActivity.setSupportActionBar(toolbar)
         appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.toolbarTitle.text = "Estatísticas"
+        toolbar.toolbarTitle.text = getString(R.string.estatisticas)
     }
 }

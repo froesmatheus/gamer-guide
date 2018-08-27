@@ -85,7 +85,7 @@ class GameListsFragment : Fragment() {
     private fun setupToolbar() {
         appCompatActivity.setSupportActionBar(toolbar)
         appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.toolbarTitle.text = "Listas"
+        toolbar.toolbarTitle.text = getString(R.string.listas)
     }
 
     override fun onDestroy() {

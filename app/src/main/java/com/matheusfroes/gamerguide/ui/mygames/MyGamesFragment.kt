@@ -151,7 +151,7 @@ class MyGamesFragment : Fragment() {
     private fun setupToolbar() {
         appCompatActivity.setSupportActionBar(toolbar)
         appCompatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.toolbarTitle.text = "Jogos"
+        toolbar.toolbarTitle.text = getString(R.string.jogos)
     }
 
     inner class GamesAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

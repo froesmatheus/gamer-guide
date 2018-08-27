@@ -32,9 +32,9 @@ class FeedViewModel @Inject constructor(
                         newsRemoteSource.fetchFeed(newsSourceWebsite)
                     }
                     .flatten()
-                    .filter { news ->
-                        news.publishDate > newsLocalSource.getMostRecentNewsPublishDate()
-                    }
+//                    .filter { news ->
+//                        news.publishDate > newsLocalSource.getMostRecentNewsPublishDate()
+//                    }
             newsLocalSource.saveNews(news)
 
             _feedState.value = Result.Complete(newsLocalSource.getNewsCO())

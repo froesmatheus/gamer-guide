@@ -15,6 +15,9 @@ class NewsLocalSource @Inject constructor(private val database: GamerGuideDataba
 
     fun updateNewsSourceStatus(enabled: Boolean, sourceId: Int) {
         database.newsDao().updateNewsSourceStatus(enabled, sourceId)
+        if (!enabled) {
+            database.newsDao().deleteNewsFromSource(sourceId)
+        }
     }
 
     fun saveNews(news: List<News>) {
@@ -26,7 +29,11 @@ class NewsLocalSource @Inject constructor(private val database: GamerGuideDataba
     }
 
     suspend fun getNewsCO(): List<News> = withContext(ioContext) {
-        database.newsDao().getNews()
+        val news = database.newsDao().getNews()
+        news.forEach {
+            it.source = getNewsSource(it.sourceId ?: 0)
+        }
+        news
     }
 
     suspend fun getMostRecentNewsPublishDate(): Long = withContext(ioContext) {
@@ -35,6 +42,10 @@ class NewsLocalSource @Inject constructor(private val database: GamerGuideDataba
 
     fun getNewsSource(website: String): NewsSource? {
         return database.newsDao().getNewsSource(website)
+    }
+
+    fun getNewsSource(sourceId: Int): NewsSource? {
+        return database.newsDao().getNewsSource(sourceId)
     }
 
     fun deleteNewsFromSource(sourceId: Int) {
