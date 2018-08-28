@@ -20,11 +20,10 @@ import android.widget.Toast
 import com.matheusfroes.gamerguide.GamerGuideApplication
 import com.matheusfroes.gamerguide.di.Injector
 import com.matheusfroes.gamerguide.network.uiContext
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.experimental.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.coroutines.experimental.CoroutineContext
 
 fun Date.formatarData(formato: String): String =
         SimpleDateFormat(formato, Locale("pt", "BR")).format(this)
@@ -126,3 +125,18 @@ fun Context.toast(message: CharSequence): Toast = Toast
         .apply {
             show()
         }
+
+suspend fun <A, B> Collection<A>.parallelMap(
+        context: CoroutineContext = DefaultDispatcher,
+        block: suspend (A) -> B
+): Collection<B> {
+    return map {
+        // Use async to start a coroutine for each item
+        async(context) {
+            block(it)
+        }
+    }.map {
+        // We now have a map of Deferred<T> so we await() each
+        it.await()
+    }
+}

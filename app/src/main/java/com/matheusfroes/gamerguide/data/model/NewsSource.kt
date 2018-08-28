@@ -17,7 +17,10 @@ data class NewsSource(
                 NewsSource(name = "Eurogamer", website = "http://www.eurogamer.pt/?format=rss"),
                 NewsSource(name = "CriticalHits", website = "https://criticalhits.com.br/feed/"),
                 NewsSource(name = "Xbox Power", website = "https://www.xboxpower.com.br/feed/"),
-                NewsSource(name = "Playstation Blog", website = "https://blog.br.playstation.com/feed/")
+                NewsSource(name = "Playstation Blog", website = "https://blog.br.playstation.com/feed/"),
+                NewsSource(name = "IGN Brasil", website = "https://br.ign.com/feed.xml"),
+//                NewsSource(name = "Switch Brasil", website = "https://switch-brasil.com/feed/")
+                NewsSource(name = "Mundo Nintendo", website = "https://mundonintendo.com.br/feed/")
         )
     }
 }
