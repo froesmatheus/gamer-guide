@@ -36,7 +36,6 @@ class StatisticsFragment : Fragment() {
 
         tvQtdJogosNaoTerminados.text = "${viewModel.getGameCount(beaten = false)}"
         tvQtdJogosZerados.text = "${viewModel.getGameCount(beaten = true)}"
-        tvQtdHorasJogadas.text = "${viewModel.getTotalHoursPlayed()}"
 
         val generosMaisJogados = viewModel.getMostPlayedGenres()
 
@@ -67,6 +66,17 @@ class StatisticsFragment : Fragment() {
         if (generosMaisJogados.isEmpty()) {
             emptyViewStatistics.visibility = View.VISIBLE
         }
+
+        val totalHoursPlayed = viewModel.getTotalHoursPlayed()
+
+        val months = totalHoursPlayed / (24 * 30)
+        val days = (totalHoursPlayed / (24 * 30.0) % 1 * 30).toInt()
+        val hours = (totalHoursPlayed / (24 * 30.0) % 1 * 30 % 1 * 24).toInt()
+
+        tvHoursPlayedInMonths.text = String.format("%02d", months)
+        tvHoursPlayedInDays.text = String.format("%02d", days)
+        tvHoursPlayedInHours.text = String.format("%02d", hours)
+
     }
 
     private fun setupToolbar() {
