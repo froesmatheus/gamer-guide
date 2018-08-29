@@ -113,7 +113,7 @@ fun FragmentActivity.snack(text: String) {
 }
 
 fun FragmentActivity.snack(@StringRes text: Int) {
-    Snackbar.make(window.decorView.rootView, getString(text), Snackbar.LENGTH_LONG).show()
+    Snackbar.make(window.decorView, getString(text), Snackbar.LENGTH_LONG).show()
 }
 
 fun uiThread(block: suspend CoroutineScope.() -> Unit): Job {

@@ -54,7 +54,7 @@ interface GameDAO {
             game_progress_beaten = 0
             AND
             insertType = 'INSERT_BY_SEARCH'
-        ORDER BY game_progress_percentage DESC""")
+        ORDER BY game_progress_percentage DESC, game_progress_hoursPlayed DESC""")
     fun getUnfinishedGames(): Flowable<List<Game>>
 
     @Query("""
@@ -64,8 +64,7 @@ interface GameDAO {
             game_progress_beaten = 1
             AND
             insertType = 'INSERT_BY_SEARCH'
-        ORDER BY game_progress_percentage DESC
-        """)
+        ORDER BY game_progress_percentage DESC, game_progress_hoursPlayed DESC""")
     fun getBeatenGames(): Flowable<List<Game>>
 
     @Query("SELECT COUNT(*) from games WHERE id = :gameId")

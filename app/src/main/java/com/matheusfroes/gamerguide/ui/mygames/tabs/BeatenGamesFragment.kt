@@ -14,6 +14,8 @@ import com.matheusfroes.gamerguide.extra.*
 import com.matheusfroes.gamerguide.ui.gameprogressdialog.GameProgressDialog
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesAdapter
 import com.matheusfroes.gamerguide.ui.mygames.MyGamesViewModel
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_jogos_nao_terminados.view.*
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
@@ -25,6 +27,8 @@ class BeatenGamesFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: MyGamesViewModel
 
+    private val subscriptions = CompositeDisposable()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appInjector.inject(this)
@@ -34,7 +38,7 @@ class BeatenGamesFragment : Fragment() {
         view.rvJogosNaoTerminados.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         view.rvJogosNaoTerminados.adapter = adapter
 
-        viewModel.getBeatenGames().subscribe { games ->
+        subscriptions += viewModel.getBeatenGames().subscribe { games ->
             view.rvJogosNaoTerminados.emptyView = view.layoutEmpty
             adapter.jogos = games
         }
@@ -68,5 +72,11 @@ class BeatenGamesFragment : Fragment() {
     private fun openGameProgressDialog(game: Game) {
         val gameProgressDialog = GameProgressDialog.newInstance(game)
         gameProgressDialog.show(childFragmentManager, "GAME_PROGRESS_DIALOG")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        subscriptions.dispose()
     }
 }

@@ -35,7 +35,7 @@
     <string name="qtd_jogos_0">0 games</string>
     <string name="empty_lista">Nenhuma lista adicionada\nClique no botão adicionar para criar novas listas</string>
     <string name="empty_stream">Nenhuma stream foi encontrada para este jogo</string>
-    <string name="empty_jogos">Nenhum jogo adicionado Clique no botão adicionar para inserir novos jogos</string>
+    <string name="empty_jogos">Nenhum jogo adicionado\nClique no botão adicionar para inserir novos jogos</string>
     <string name="empty_jogos_lista">Nenhum jogo adicionado nesta lista</string>
 
     <string name="horas_jogadas">Hours played</string>

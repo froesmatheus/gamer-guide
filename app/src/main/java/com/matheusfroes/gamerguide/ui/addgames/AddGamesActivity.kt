@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
+import android.view.View
 import com.matheusfroes.gamerguide.R
 import com.matheusfroes.gamerguide.data.model.Game
 import com.matheusfroes.gamerguide.data.model.GameList
@@ -103,12 +104,14 @@ class AddGamesActivity : BaseActivity() {
             when (result) {
                 is Result.Complete -> {
                     adapter.preencherLista(result.data)
-                }
-                is Result.Error -> {
 
+                    if (result.data.isEmpty()) {
+                        layoutEmpty.visibility = View.VISIBLE
+                    }
                 }
+                is Result.Error -> {}
                 is Result.InProgress -> {
-
+                    layoutEmpty.visibility = View.GONE
                 }
             }
         }

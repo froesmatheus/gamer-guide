@@ -7,7 +7,8 @@
     android:clickable="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/tvNomeLista"
