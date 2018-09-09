@@ -2,14 +2,12 @@ package com.matheusfroes.gamerguide.di.modules
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.matheusfroes.gamerguide.di.RssParserCoroutines
-import com.matheusfroes.gamerguide.network.GameService
-import com.matheusfroes.gamerguide.network.RssServiceCoroutines
+import com.matheusfroes.gamerguide.network.FeedService
 import dagger.Module
 import dagger.Provides
 import me.toptas.rssconverter.RssConverterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 class FeedModule {
@@ -28,7 +26,7 @@ class FeedModule {
             .build()
 
     @Provides
-    fun feedService(@RssParserCoroutines retrofit: Retrofit): RssServiceCoroutines {
-        return retrofit.create(RssServiceCoroutines::class.java)
+    fun feedService(@RssParserCoroutines retrofit: Retrofit): FeedService {
+        return retrofit.create(FeedService::class.java)
     }
 }

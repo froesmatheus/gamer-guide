@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Url
 
 
-interface RssServiceCoroutines {
+interface FeedService {
     /**
      * No baseUrl defined. Each RSS Feed will be consumed by it's Url
      * @param url RSS Feed Url

@@ -1,5 +1,6 @@
 package com.matheusfroes.gamerguide.data.source.remote
 
+import com.matheusfroes.gamerguide.BuildConfig
 import com.matheusfroes.gamerguide.data.mapper.GameMapper
 import com.matheusfroes.gamerguide.data.mapper.ReleaseMapper
 import com.matheusfroes.gamerguide.data.model.Game
@@ -19,9 +20,9 @@ class GameRemoteSource @Inject constructor(
 
     fun searchGames(query: String = "", nextPage: String = ""): Observable<Pair<List<Game>, String>> {
         val call = if (nextPage.isEmpty()) {
-            gameService.searchGames(query)
+            gameService.searchGames(query, apiKey = BuildConfig.IGDB_API_KEY)
         } else {
-            gameService.searchGamesNextPage(nextPage)
+            gameService.searchGamesNextPage(nextPage, apiKey = BuildConfig.IGDB_API_KEY)
         }
 
         return call.map { response ->
@@ -34,15 +35,15 @@ class GameRemoteSource @Inject constructor(
 
     fun getLivestreamsByGame(gameName: String, offset: Int): Single<List<Stream>> {
         return gameService
-                .getLivestreamsByGame(gameName, offset = offset)
+                .getLivestreamsByGame(gameName, offset = offset, apiKey = BuildConfig.TWITCH_API_KEY)
                 .map(ObterStreamsResponse::streams)
     }
 
     fun getGameReleases(nextPage: String): Observable<Pair<List<Release>, String>> {
         val request = if (nextPage.isEmpty()) {
-            gameService.getGameReleases(Calendar.getInstance().timeInMillis)
+            gameService.getGameReleases(Calendar.getInstance().timeInMillis, apiKey = BuildConfig.IGDB_API_KEY)
         } else {
-            gameService.getGamesReleasesNextPage(nextPage)
+            gameService.getGamesReleasesNextPage(nextPage, apiKey = BuildConfig.IGDB_API_KEY)
         }
 
         return request.map { response ->
